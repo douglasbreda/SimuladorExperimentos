@@ -23,7 +23,7 @@ public final class SimuladorExperimentos extends Plugin{
     @Override
     protected void inicializar(UtilizadorPlugins utilizador) {
         this.utilizadorPlugins = utilizador;
-        this.utilizadorPlugins.instalarAcaoPlugin(this, new AcaoEstatica());
+        this.utilizadorPlugins.instalarAcaoPlugin(this, new AcaoEstatica(this));
         super.inicializar(utilizador);
     }
     
