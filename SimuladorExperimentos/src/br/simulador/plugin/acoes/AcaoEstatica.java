@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.simulador.plugin.acoes;
 
 import br.simulador.ui.PainelSimulacao;
@@ -23,18 +18,19 @@ import javax.swing.SwingUtilities;
  *
  * @author Douglas
  */
-public class AcaoEstatica extends AbstractAction{
-    
+public class AcaoEstatica extends AbstractAction {
+
     private JFrame frame;
-    public AcaoEstatica(Plugin plugin)
-    {
-        super("Ação personalizada estática", carregarIcone());
-        carregar_painel_simulacao(plugin);
+
+    public AcaoEstatica(Plugin plugin) {
+//        super("Ação personalizada estática", carregarIcone());
+        super("Teste novo caminho", carregarIcone());
+//        carregar_painel_simulacao(plugin);
     }
-    
-    private void carregar_painel_simulacao(Plugin plugin){
-        
-        SwingUtilities.invokeLater(() ->{
+
+    private void carregar_painel_simulacao(Plugin plugin) {
+
+        SwingUtilities.invokeLater(() -> {
 
             frame = new JFrame();
             frame.setSize(800, 600);
@@ -42,31 +38,26 @@ public class AcaoEstatica extends AbstractAction{
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new GridLayout(1, 1));
             frame.getContentPane().add(new PainelSimulacao(plugin));
-                   
+
             frame.setVisible(true);
-                    
+
         });
     }
 
-    private static Icon carregarIcone()
-    {
-        try
-        {
+    private static Icon carregarIcone() {
+        try {
             String caminho = "icone_32x32.png";
             Image imagem = ImageIO.read(AcaoEstatica.class.getClassLoader().getResourceAsStream(caminho));
 
             return new ImageIcon(imagem);
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             return null;
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        JOptionPane.showMessageDialog(null, "Funciona ow merda!!", "Nem me viu", JOptionPane.INFORMATION_MESSAGE);
+    public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(null, "Teste caminho!!", "Nem me viu", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
 }
