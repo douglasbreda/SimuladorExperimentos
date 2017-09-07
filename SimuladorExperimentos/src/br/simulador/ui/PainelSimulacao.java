@@ -4,6 +4,7 @@ package br.simulador.ui;
 import br.simulador.plugin.SimuladorExperimentos;
 import br.simulador.plugin.biblioteca.Experimentos;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
+import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.ps.plugins.base.Plugin;
@@ -26,8 +27,9 @@ public class PainelSimulacao extends VisaoPlugin {
     }
     
     private void adicionarComponentes(){
-        pnlSaidas.add(new Slider());
-        pnlSaidas.add(new Interruptor());
+        pnlComponentes.add(new Slider());
+        pnlComponentes.add(new Interruptor());
+        pnlComponentes.add(new Monitor());
     }
     
     private void testarFuncao() throws ErroExecucaoBiblioteca, InterruptedException{
@@ -46,6 +48,7 @@ public class PainelSimulacao extends VisaoPlugin {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         pnlSaidas = new javax.swing.JPanel();
+        pnlComponentes = new javax.swing.JPanel();
         pnlExecucao = new javax.swing.JPanel();
         pnlStatus = new javax.swing.JPanel();
         txtTotalAgentes = new javax.swing.JLabel();
@@ -96,7 +99,22 @@ public class PainelSimulacao extends VisaoPlugin {
         );
 
         pnlSaidas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Saídas"));
-        pnlSaidas.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 2, 2));
+
+        javax.swing.GroupLayout pnlSaidasLayout = new javax.swing.GroupLayout(pnlSaidas);
+        pnlSaidas.setLayout(pnlSaidasLayout);
+        pnlSaidasLayout.setHorizontalGroup(
+            pnlSaidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSaidasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlSaidasLayout.setVerticalGroup(
+            pnlSaidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSaidasLayout.createSequentialGroup()
+                .addComponent(pnlComponentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         pnlExecucao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Execução"));
 
@@ -165,7 +183,7 @@ public class PainelSimulacao extends VisaoPlugin {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(pnlSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlExecucao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(pnlStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -217,6 +235,7 @@ public class PainelSimulacao extends VisaoPlugin {
     private javax.swing.JLabel lblStatusAtual;
     private javax.swing.JLabel lblTicks;
     private javax.swing.JPanel pnlBotoes;
+    private javax.swing.JPanel pnlComponentes;
     private javax.swing.JPanel pnlExecucao;
     private javax.swing.JPanel pnlSaidas;
     private javax.swing.JPanel pnlStatus;
