@@ -3,6 +3,7 @@ package br.simulador.ui;
 
 import br.simulador.plugin.SimuladorExperimentos;
 import br.simulador.plugin.biblioteca.Experimentos;
+import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.ps.plugins.base.Plugin;
@@ -26,6 +27,7 @@ public class PainelSimulacao extends VisaoPlugin {
     
     private void adicionarComponentes(){
         pnlSaidas.add(new Slider());
+        pnlSaidas.add(new Interruptor());
     }
     
     private void testarFuncao() throws ErroExecucaoBiblioteca, InterruptedException{
