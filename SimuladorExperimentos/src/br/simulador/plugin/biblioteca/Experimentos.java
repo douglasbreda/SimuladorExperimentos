@@ -82,7 +82,7 @@ public final class Experimentos extends Biblioteca
     )
     public void criar_atributo(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
     {
-//        ambiente.adicionarAtributoAgentes(nome_atributo);
+        ambiente.adicionarAtributoAgentes(nome_atributo);
     }
 
     @DocumentacaoFuncao(
@@ -120,7 +120,7 @@ public final class Experimentos extends Biblioteca
     )
     public void definir_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, InterruptedException
     {
-//        ambiente.getAgenteAtual().definir_valor_atributo(nome_atributo, valor);
+        ambiente.getAgenteAtual().definir_valor_atributo(nome_atributo, valor);
     }
 
     @DocumentacaoFuncao(
@@ -133,7 +133,7 @@ public final class Experimentos extends Biblioteca
     )
     public void morrer() throws ErroExecucaoBiblioteca, InterruptedException
     {
-//        ambiente.matarAgente();
+        ambiente.matarAgente();
     }
 
     @DocumentacaoFuncao(
@@ -146,8 +146,7 @@ public final class Experimentos extends Biblioteca
     )
     public double retornar_coordenadaX() throws ErroExecucaoBiblioteca, InterruptedException
     {
-            return 0;
-//        return ambiente.getAgenteAtual().retornar_coordenada_X();
+        return ambiente.getAgenteAtual().retornar_coordenada_X();
     }
 
     @DocumentacaoFuncao(

@@ -1,7 +1,10 @@
 package br.simulador.inicializador;
 
 import br.simulador.ui.PainelSimulacao;
+import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.awt.GridLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -26,7 +29,13 @@ public class Inicializador {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new GridLayout(1, 1));
 
-            frame.getContentPane().add(new PainelSimulacao(null));
+            try {
+                frame.getContentPane().add(new PainelSimulacao(null));
+            } catch (ErroExecucaoBiblioteca ex) {
+                Logger.getLogger(Inicializador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Inicializador.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             frame.setVisible(true);
 

@@ -2,6 +2,9 @@
 package br.simulador.ui;
 
 import br.simulador.plugin.SimuladorExperimentos;
+import br.simulador.plugin.biblioteca.Experimentos;
+import br.simulador.plugin.biblioteca.componentes.Slider;
+import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.ps.plugins.base.Plugin;
 import br.univali.ps.plugins.base.VisaoPlugin;
 
@@ -13,10 +16,22 @@ public class PainelSimulacao extends VisaoPlugin {
 
     private SimuladorExperimentos simuladorPlugin;
     
-    public PainelSimulacao(Plugin plugin){
+    public PainelSimulacao(Plugin plugin) throws ErroExecucaoBiblioteca, InterruptedException{
         super(plugin);
         simuladorPlugin = ((SimuladorExperimentos) plugin);
         initComponents();
+        adicionarComponentes();
+        testarFuncao();
+    }
+    
+    private void adicionarComponentes(){
+        pnlSaidas.add(new Slider());
+    }
+    
+    private void testarFuncao() throws ErroExecucaoBiblioteca, InterruptedException{
+        Experimentos oExperimentos = new Experimentos();
+        oExperimentos.criar_agentes(10, true);
+        oExperimentos.criar_atributo("velocidade");
     }
 
     @SuppressWarnings("unchecked")
@@ -79,17 +94,7 @@ public class PainelSimulacao extends VisaoPlugin {
         );
 
         pnlSaidas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Saídas"));
-
-        javax.swing.GroupLayout pnlSaidasLayout = new javax.swing.GroupLayout(pnlSaidas);
-        pnlSaidas.setLayout(pnlSaidasLayout);
-        pnlSaidasLayout.setHorizontalGroup(
-            pnlSaidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 173, Short.MAX_VALUE)
-        );
-        pnlSaidasLayout.setVerticalGroup(
-            pnlSaidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
-        );
+        pnlSaidas.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 2, 2));
 
         pnlExecucao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Execução"));
 
@@ -158,7 +163,7 @@ public class PainelSimulacao extends VisaoPlugin {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(pnlSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlExecucao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(pnlStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

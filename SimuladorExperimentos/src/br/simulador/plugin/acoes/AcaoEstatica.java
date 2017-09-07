@@ -1,11 +1,14 @@
 package br.simulador.plugin.acoes;
 
 import br.simulador.ui.PainelSimulacao;
+import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.ps.plugins.base.Plugin;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
@@ -37,7 +40,13 @@ public class AcaoEstatica extends AbstractAction {
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new GridLayout(1, 1));
-            frame.getContentPane().add(new PainelSimulacao(plugin));
+            try {
+                frame.getContentPane().add(new PainelSimulacao(plugin));
+            } catch (ErroExecucaoBiblioteca ex) {
+                Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             frame.setVisible(true);
 
