@@ -1,14 +1,18 @@
-
 package br.simulador.ui;
 
 import br.simulador.plugin.SimuladorExperimentos;
 import br.simulador.plugin.biblioteca.Experimentos;
+import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.ps.plugins.base.Plugin;
 import br.univali.ps.plugins.base.VisaoPlugin;
+import java.awt.GridLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,25 +21,88 @@ import br.univali.ps.plugins.base.VisaoPlugin;
 public class PainelSimulacao extends VisaoPlugin {
 
     private SimuladorExperimentos simuladorPlugin;
-    
-    public PainelSimulacao(Plugin plugin) throws ErroExecucaoBiblioteca, InterruptedException{
+    private Slider slider = null;
+    private Interruptor interruptor = null;
+    private Monitor monitor = null;
+    private Thread threadTeste = null;
+    private boolean isExecutando = false;
+    private static JPanel[][] retalhos = new JPanel[20][10];
+
+    public PainelSimulacao(Plugin plugin) throws ErroExecucaoBiblioteca, InterruptedException {
         super(plugin);
         simuladorPlugin = ((SimuladorExperimentos) plugin);
         initComponents();
         adicionarComponentes();
-        testarFuncao();
+        criarPaineis();
+        //testarFuncao();
+        
     }
-    
-    private void adicionarComponentes(){
-        pnlComponentes.add(new Slider());
-        pnlComponentes.add(new Interruptor());
-        pnlComponentes.add(new Monitor());
+
+    private void adicionarComponentes() {
+
+        this.slider = new Slider();
+        this.interruptor = new Interruptor();
+        this.monitor = new Monitor();
+
+        pnlComponentes.add(slider);
+        pnlComponentes.add(interruptor);
+        pnlComponentes.add(monitor);
     }
-    
-    private void testarFuncao() throws ErroExecucaoBiblioteca, InterruptedException{
+
+    private void criarPaineis() {
+
+        ((GridLayout) pnlMatriz.getLayout()).setRows(20);
+        ((GridLayout) pnlMatriz.getLayout()).setColumns(10);
+
+        pnlMatriz.removeAll();
+
+        retalhos = new JPanel[20][10];
+
+        int id = 0;
+
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 10; j++) {
+                retalhos[i][j] = new Retalho(++id);
+
+                pnlMatriz.add(retalhos[i][j]);
+
+                pnlMatriz.validate();
+            }
+        }
+    }
+
+    private void testarFuncao() throws ErroExecucaoBiblioteca, InterruptedException {
         Experimentos oExperimentos = new Experimentos();
         oExperimentos.criar_agentes(10, true);
         oExperimentos.criar_atributo("velocidade");
+    }
+
+    private void testarComponentes() throws InterruptedException {
+
+        int i = 0;
+        for (int j = 0; j < 10; j++) {
+
+            if (isExecutando) {
+                i++;
+                if (!interruptor.esta_ligado()) {
+                    interruptor.ativar();
+                } else {
+                    interruptor.desativar();
+                }
+                slider.definir_titulo("Slider " + i);
+                slider.definir_valor_padrao(i);
+                interruptor.definir_titulo("Interruptor " + i);
+                monitor.definir_titulo("Monitor " + i);
+                String sEstado = interruptor.esta_ligado() ? " Ligado" : " Desligado";
+                monitor.definir_valor(String.valueOf(i) + " - " + sEstado);
+
+                slider.revalidate();
+                interruptor.revalidate();
+                monitor.revalidate();
+                pnlSaidas.revalidate();
+                Thread.sleep(3000);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -45,11 +112,12 @@ public class PainelSimulacao extends VisaoPlugin {
         jPanel1 = new javax.swing.JPanel();
         pnlTitulo = new javax.swing.JPanel();
         pnlBotoes = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnIniciar = new javax.swing.JButton();
+        btnParar = new javax.swing.JButton();
         pnlSaidas = new javax.swing.JPanel();
         pnlComponentes = new javax.swing.JPanel();
         pnlExecucao = new javax.swing.JPanel();
+        pnlMatriz = new javax.swing.JPanel();
         pnlStatus = new javax.swing.JPanel();
         txtTotalAgentes = new javax.swing.JLabel();
         txtNumeroAgentes = new javax.swing.JLabel();
@@ -75,18 +143,28 @@ public class PainelSimulacao extends VisaoPlugin {
 
         pnlBotoes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton1.setText("Iniciar");
+        btnIniciar.setText("Iniciar");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Parar");
+        btnParar.setText("Parar");
+        btnParar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPararActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBotoesLayout = new javax.swing.GroupLayout(pnlBotoes);
         pnlBotoes.setLayout(pnlBotoesLayout);
         pnlBotoesLayout.setHorizontalGroup(
             pnlBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotoesLayout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(btnIniciar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnParar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlBotoesLayout.setVerticalGroup(
@@ -94,8 +172,8 @@ public class PainelSimulacao extends VisaoPlugin {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBotoesLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(pnlBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(btnIniciar)
+                    .addComponent(btnParar)))
         );
 
         pnlSaidas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Saídas"));
@@ -112,21 +190,29 @@ public class PainelSimulacao extends VisaoPlugin {
         pnlSaidasLayout.setVerticalGroup(
             pnlSaidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSaidasLayout.createSequentialGroup()
-                .addComponent(pnlComponentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlComponentes, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pnlExecucao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Execução"));
 
+        pnlMatriz.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 153)));
+        pnlMatriz.setLayout(new java.awt.GridLayout());
+
         javax.swing.GroupLayout pnlExecucaoLayout = new javax.swing.GroupLayout(pnlExecucao);
         pnlExecucao.setLayout(pnlExecucaoLayout);
         pnlExecucaoLayout.setHorizontalGroup(
             pnlExecucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlExecucaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlMatriz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnlExecucaoLayout.setVerticalGroup(
             pnlExecucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnlExecucaoLayout.createSequentialGroup()
+                .addComponent(pnlMatriz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pnlStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -225,10 +311,38 @@ public class PainelSimulacao extends VisaoPlugin {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        System.out.println("Execução iniciada");
+        threadTeste = new Thread(() -> {
+            try {
+                isExecutando = true;
+                testarComponentes();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PainelSimulacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        threadTeste.start();
+    }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void btnPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararActionPerformed
+
+        try {
+            notifyAll();
+            if (!threadTeste.isInterrupted()) {
+                isExecutando = false;
+                threadTeste.interrupt();
+            }
+            System.out.println("Thread parou" + "  " + threadTeste.getState().name());
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_btnPararActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnIniciar;
+    private javax.swing.JButton btnParar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblNumeroTicks;
     private javax.swing.JLabel lblStatus;
@@ -237,6 +351,7 @@ public class PainelSimulacao extends VisaoPlugin {
     private javax.swing.JPanel pnlBotoes;
     private javax.swing.JPanel pnlComponentes;
     private javax.swing.JPanel pnlExecucao;
+    private javax.swing.JPanel pnlMatriz;
     private javax.swing.JPanel pnlSaidas;
     private javax.swing.JPanel pnlStatus;
     private javax.swing.JPanel pnlTitulo;
