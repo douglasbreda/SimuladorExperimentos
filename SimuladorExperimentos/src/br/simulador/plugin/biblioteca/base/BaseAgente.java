@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  *
  * @author Douglas
  */
-public class BaseAgente implements IAgente
+public abstract class BaseAgente implements IAgente
 {
     //Lista com os parâmetros do agente
     private final Map<String, Object> listaParametros = new ConcurrentHashMap<>();

@@ -1,6 +1,7 @@
 package br.simulador.plugin.biblioteca.base;
 
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import javax.swing.JPanel;
 
 /**
  *
@@ -48,5 +49,7 @@ public interface IAgente
     
     public boolean ir_ate(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
     
-    public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException;;
+    public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException;
+
+    public JPanel getPainel();
 }
