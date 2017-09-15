@@ -10,9 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
@@ -20,7 +18,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Douglas
  */
-public class Retalho extends JPanel {
+public class Retalho extends JLabel {
     
     private int cor;
     private final int id;
