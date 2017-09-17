@@ -53,7 +53,7 @@ public class Retalho {
     }
     
     public int retornar_cor_retalho() {
-        return 0;
+        return layout.getColor(this.linha, this.coluna).getRGB();
     }
     
     public double retornar_max_borda_x() {

@@ -78,6 +78,8 @@ public class PainelBase extends javax.swing.JPanel {
         layout.showColors();
         layout.objectsHere(points);
         layout.objectsInRowColumn(1, 1, "agents");
+        layout.setColor(1, 1, Color.BLUE);
+        repaint();
     }
 
     @SuppressWarnings("unchecked")
