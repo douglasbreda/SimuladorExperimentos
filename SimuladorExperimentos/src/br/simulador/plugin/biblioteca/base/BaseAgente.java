@@ -176,13 +176,13 @@ public abstract class BaseAgente implements IAgente
     }
 
     @Override
-    public int retornar_coordenada_X()
+    public double retornar_coordenada_X()
     {
         return this.coordenadaX;
     }
 
     @Override
-    public int retornar_coordenada_Y()
+    public double retornar_coordenada_Y()
     {
         return this.coordenadaY;
     }

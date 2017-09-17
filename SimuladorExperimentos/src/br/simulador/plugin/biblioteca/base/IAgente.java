@@ -9,9 +9,9 @@ import javax.swing.JPanel;
  */
 public interface IAgente
 {
-    public int retornar_coordenada_X() throws ErroExecucaoBiblioteca, InterruptedException;
+    public double retornar_coordenada_X() throws ErroExecucaoBiblioteca, InterruptedException;
     
-    public int retornar_coordenada_Y() throws ErroExecucaoBiblioteca, InterruptedException;;
+    public double retornar_coordenada_Y() throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException;;
     

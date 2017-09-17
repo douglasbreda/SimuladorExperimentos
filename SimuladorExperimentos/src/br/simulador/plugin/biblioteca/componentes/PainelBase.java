@@ -10,6 +10,8 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import layout.TableLayout;
 
@@ -19,7 +21,7 @@ import layout.TableLayout;
  */
 public class PainelBase extends javax.swing.JPanel {
 
-    private ArrayList<Point> points;
+    private ArrayList<Point2D> points;
     private TableLayout layout = null;
     private ArrayList<Retalho> listaRetalhos = null;
     private ArrayList<IAgente> listaAgentes = null;
@@ -36,7 +38,7 @@ public class PainelBase extends javax.swing.JPanel {
      * Inicializa as propriedades necessárias para a execução
      */
     private void inicializar() {
-        points = new ArrayList<Point>();
+        points = new ArrayList<Point2D>();
         setBackground(Color.WHITE);
 //        addMouseListener(new MouseAdapter() {
 //            @Override
@@ -54,11 +56,11 @@ public class PainelBase extends javax.swing.JPanel {
         this.setLayout(layout);
         this.inicializar_lista_retalhos();
     }
-    
+
     /**
      * Inicializa a lista de retalhos da simulação
      */
-    private void inicializar_lista_retalhos(){
+    private void inicializar_lista_retalhos() {
         listaRetalhos = new ArrayList<>();
         int id = 0;
         for (int i = 0; i < layout.getRow().length; i++) {
@@ -69,28 +71,31 @@ public class PainelBase extends javax.swing.JPanel {
     }
 
     /**
-     * Sobrecarga do método de paint para desenhar os agentes na tela 
-     * @param g 
+     * Sobrecarga do método de paint para desenhar os agentes na tela
+     *
+     * @param g
      */
     @Override
     public void paint(Graphics g) {
-        super.paint(g); 
+        super.paint(g);
         layout.drawGrid(this, g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.red);
-        for (Point point : points) {
-            g2.fillOval(point.x, point.y, 20, 20);
+        for (Point2D point : points) {
+            Ellipse2D.Double shape = new Ellipse2D.Double(point.getX(), point.getY(), 20, 30);
+            g2.draw(shape);
+//            g2.fillOval(point.x, point.y, 20, 20);
         }
-        
+
         layout.updatePoints(points);
     }
-    
+
     /**
-     * Chama os métodos que retornam quais as cores e os agentes em uma determinada posição na tabela
-     * (Apenas para testes) ----- Remover
+     * Chama os métodos que retornam quais as cores e os agentes em uma
+     * determinada posição na tabela (Apenas para testes) ----- Remover
      */
-    public void get_cores(){
+    public void get_cores() {
         layout.showColors();
         layout.objectsHere(points);
         layout.objectsInRowColumn(1, 1, "agents");
@@ -102,9 +107,8 @@ public class PainelBase extends javax.swing.JPanel {
         this.mostrarRetalhos();
         repaint();
     }
-    
-    
-    private void mostrarRetalhos(){
+
+    private void mostrarRetalhos() {
         StringBuilder sbRetalho = new StringBuilder();
         listaRetalhos.forEach((retalho) -> {
             sbRetalho.append("Id: ").append(retalho.getId())
@@ -115,10 +119,9 @@ public class PainelBase extends javax.swing.JPanel {
                     .append("Coluna: ")
                     .append(retalho.getColuna())
                     .append("\n");
-                    
-                    
+
         });
-        
+
         System.out.println("-------------------------------");
         System.out.println(sbRetalho.toString());
         System.out.println("-------------------------------");
@@ -126,25 +129,28 @@ public class PainelBase extends javax.swing.JPanel {
 
     /**
      * Adiciona um agente a lista de agentes
+     *
      * @param agente agente a ser adicionado
      */
-    public void adicionar_agente_lista(IAgente agente){
-        if(listaAgentes == null)
+    public void adicionar_agente_lista(IAgente agente) {
+        if (listaAgentes == null) {
             listaAgentes = new ArrayList<>();
-        
+        }
+
         listaAgentes.add(agente);
     }
-    
+
     /**
      * Cria a lista de Points a partir das posições dos agentes
      */
-    public void criar_posicoes_agentes() throws ErroExecucaoBiblioteca, InterruptedException{
-        
-        if(points == null)
+    public void criar_posicoes_agentes() throws ErroExecucaoBiblioteca, InterruptedException {
+
+        if (points == null) {
             points = new ArrayList<>();
-        
+        }
+
         for (IAgente agente : listaAgentes) {
-            points.add(new Point(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y()));
+            points.add(new Point2D.Double(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y()));
         }
         repaint();
     }
@@ -171,4 +177,3 @@ public class PainelBase extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
-
