@@ -1,110 +1,35 @@
 package br.simulador.plugin.biblioteca.base;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.LineBorder;
 
 /**
  *
  * @author Douglas
  */
-public class Retalho extends JLabel {
+public class Retalho {
     
     private int cor;
     private final int id;
-    private JLabel label = null;
-    private static final long serialVersionUID = 1L;
-    private ArrayList<Point> points;
-    private ArrayList<Formas> lstFormas;
+    private final int linha;
+    private final int coluna;
     
-    public Retalho(int id) {
+    public Retalho(int id, int linha, int coluna) {
         super();
-        
         this.id = id;
-        
-        inicializar();
+        this.linha = linha;
+        this.coluna = coluna;
     }
-    
-    private void inicializar() {
-        
-//        this.setSize(4, 2);
-//        
-        Random random = new Random();
-        
-        float r = random.nextFloat();
-        float g = random.nextFloat();
-        float b = random.nextFloat();
 
-        Color randomColor = new Color(r, g, b);
-
-        LineBorder border = new LineBorder(randomColor);
-
-        this.setBorder(border);
-        
-        points = new ArrayList<Point>();
-        lstFormas = new ArrayList<>();
-        setBackground(Color.WHITE);
-//        setBackground(Color.WHITE);
-//        setOpaque(false);
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (SwingUtilities.isLeftMouseButton(e)) {
-//                    points.add(new Point(e.getX(), e.getY()));
-                    lstFormas.add(new Formas(new Point(e.getX(), e.getY())));
-                    repaint();
-                } else {
-                    mostrarId();
-                }
-            }
-            
-        });
-    }
-    
-    private void mostrarId() {
-        
-        label = new JLabel("");
-        
-        label.setFont(new Font(label.getFont().getName(), 0, 8));
-
-//            this.label.setText(String.valueOf(this.id));
-        this.label.setText("X: " + this.getX());
-        
-        this.add(label);
-        
-        this.validate();
-    }
-    
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(Color.red);
-        for (Formas forma : lstFormas) {
-            g2.fillOval(forma.getPoint().x, forma.getPoint().y, 20, 20);
-        }
-    }
     
     public void testarMovimentacaoComponentes() {
         
-        Random random = new Random(10);
-        
-        for (Formas forma : lstFormas) {
-            forma.setPoint(new Point(forma.getPoint().x + random.nextInt(10), forma.getPoint().y + random.nextInt(10)));
-        }
-        
-        repaint();
+//        Random random = new Random(10);
+//        
+//        for (Formas forma : lstFormas) {
+//            forma.setPoint(new Point(forma.getPoint().x + random.nextInt(10), forma.getPoint().y + random.nextInt(10)));
+//        }
+//        
+//        repaint();
     }
 
     //Verificar o tipo de retorno deste método

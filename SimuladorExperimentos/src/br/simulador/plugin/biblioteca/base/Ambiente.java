@@ -33,7 +33,7 @@ public class Ambiente
     private void inicializarAmbiente()
     {
         listaAgentes = new ArrayList<>();
-        retalho = new Retalho(1);
+//        retalho = new Retalho(1);
     }
 
     public int contar_agentes()

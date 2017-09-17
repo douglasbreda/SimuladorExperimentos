@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.componentes;
 
+import br.simulador.plugin.biblioteca.base.Retalho;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,6 +19,7 @@ public class PainelBase extends javax.swing.JPanel {
 
     private ArrayList<Point> points;
     private TableLayout layout = null;
+    private ArrayList<Retalho> listaRetalhos = null;
 
     public PainelBase() {
         initComponents();
@@ -26,6 +28,7 @@ public class PainelBase extends javax.swing.JPanel {
 
     private void inicializar() {
         points = new ArrayList<Point>();
+        listaRetalhos = new ArrayList<>();
         setBackground(Color.WHITE);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -47,13 +50,17 @@ public class PainelBase extends javax.swing.JPanel {
     public void paint(Graphics g) {
         super.paint(g); 
         layout.drawGrid(this, g);
-        layout.agentsHere(points);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.red);
         for (Point point : points) {
             g2.fillOval(point.x, point.y, 20, 20);
         }
+    }
+    
+    public void getColors(){
+        layout.showColors();
+        layout.agentsHere(points);
     }
 
     @SuppressWarnings("unchecked")

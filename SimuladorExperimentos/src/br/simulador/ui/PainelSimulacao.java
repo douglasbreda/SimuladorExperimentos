@@ -77,21 +77,21 @@ public class PainelSimulacao extends VisaoPlugin {
     }
 
     public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException {
-        Retalho retalho = new Retalho(0);
-        int id = 0;
-        RetalhoCoordenadas coordenadas = retalho.definirCoordenadasIniciais();
-
-        for (int i = 0; i < numero_agentes; i++) {
-            if (aleatorio) {
-                coordenadas = retalho.definirCoordenadasIniciais();
-            }
-
-            double coordenadaX = coordenadas.getCoordenadaX();
-            double coordenadaY = coordenadas.getCoordenadaY();
-
-            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
-            //encontrar_adiconar_no_retalho(agente);
-        }
+//        Retalho retalho = new Retalho(0);
+//        int id = 0;
+//        RetalhoCoordenadas coordenadas = retalho.definirCoordenadasIniciais();
+//
+//        for (int i = 0; i < numero_agentes; i++) {
+//            if (aleatorio) {
+//                coordenadas = retalho.definirCoordenadasIniciais();
+//            }
+//
+//            double coordenadaX = coordenadas.getCoordenadaX();
+//            double coordenadaY = coordenadas.getCoordenadaY();
+//
+//            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
+//            //encontrar_adiconar_no_retalho(agente);
+//        }
     }
 
     private void testarFuncao() throws ErroExecucaoBiblioteca, InterruptedException {
@@ -366,7 +366,7 @@ public class PainelSimulacao extends VisaoPlugin {
     }//GEN-LAST:event_btnPararActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        painelBase.getColors();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
