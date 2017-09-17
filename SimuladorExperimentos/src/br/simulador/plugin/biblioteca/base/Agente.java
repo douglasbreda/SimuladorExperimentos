@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 public class Agente extends BaseAgente
 {
     private JPanel painelAgente = null;
+
+    public Agente() {
+        super(0, 0, 0);
+    }
     
     public Agente(int coordenadaX, int coordenadaY, int id)
     {

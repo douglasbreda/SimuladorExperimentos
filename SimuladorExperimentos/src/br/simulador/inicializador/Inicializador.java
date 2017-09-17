@@ -14,7 +14,8 @@ import javax.swing.SwingUtilities;
  */
 public class Inicializador {
 
-    JFrame frame;
+    private JFrame frame;
+    private PainelSimulacao painel = null;
 
     public static void main(String[] args) {
         new Inicializador().run();
@@ -26,13 +27,12 @@ public class Inicializador {
     public void run() {
         SwingUtilities.invokeLater(() -> {
 
-            PainelSimulacao painel = null;
+            
             frame = new JFrame();
             frame.setSize(800, 600);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new GridLayout(1, 1));
-            
             
             try {
                 painel = new PainelSimulacao(null);
@@ -44,7 +44,13 @@ public class Inicializador {
             }
 
             frame.setVisible(true);
-            painel.criarPaineis();
+            try {
+                painel.criarPaineis();
+            } catch (ErroExecucaoBiblioteca ex) {
+                Logger.getLogger(Inicializador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Inicializador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 }

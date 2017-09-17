@@ -63,22 +63,7 @@ public class Ambiente
 
     public void criar_agentes(int numero_agentes, boolean aleatorio)
     {
-        RetalhoCoordenadas coordenadas = retalho.definirCoordenadasIniciais();
 
-        for (int i = 0; i < numero_agentes; i++)
-        {
-            if (aleatorio)
-            {
-                coordenadas = retalho.definirCoordenadasIniciais();
-            }
-
-            double coordenadaX = coordenadas.getCoordenadaX();
-            double coordenadaY = coordenadas.getCoordenadaY();
-            
-//            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
-            
-//            listaAgentes.add((Agente) agente);
-        }
     }
 
     public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao)
