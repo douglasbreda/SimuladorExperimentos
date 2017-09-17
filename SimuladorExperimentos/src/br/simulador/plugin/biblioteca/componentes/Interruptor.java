@@ -19,18 +19,28 @@ public class Interruptor extends javax.swing.JPanel implements IComponenteSimula
         initComponents();
     }
 
+    /**
+     * Define o botão como ativo/ligado
+     */
     public void ativar() {
         setLog("Interruptor ligado");
         this.btnInterruptor.setSelected(true);
         this.btnInterruptor.setText("ON");
     }
 
+    /**
+     * Define o botão como desativado/desligado
+     */
     public void desativar() {
         setLog("Interruptor desligado");
         this.btnInterruptor.setSelected(false);
         this.btnInterruptor.setText("OFF");
     }
 
+    /**
+     * Retorna o status atual do botão (ligado/desligado)
+     * @return 
+     */
     public boolean esta_ligado() {
         return btnInterruptor.isSelected();
     }
@@ -45,6 +55,10 @@ public class Interruptor extends javax.swing.JPanel implements IComponenteSimula
         this.revalidate();
     }
 
+    /**
+     * Permite a alteração do estado do botão
+     * @param estado Estado a ser atualizado
+     */
     private void definir_estado_botao(boolean estado) {
         if (estado) {
             ativar();

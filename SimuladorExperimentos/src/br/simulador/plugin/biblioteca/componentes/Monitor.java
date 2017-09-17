@@ -21,16 +21,29 @@ public class Monitor extends javax.swing.JPanel implements IComponenteSimulacao{
         lblTitulo.setText(titulo);
         setLog("Título definido para: " + titulo);
     }
-    
+
+    /**
+     * Retorna o valor atual sendo exibido no monitor
+     * @return 
+     */
     public String retornar_valor(){
         return this.txtInformacao.getText();
     }
     
+    /**
+     * Atualiza o valor do monitor
+     * @param titulo Qual o novo título do componente
+     * @param valor  Qual o novo valor do componente
+     */
     public void atualizar_valor(String titulo, String valor){
         this.definir_titulo(titulo);
         this.definir_valor(valor);
     }
     
+    /**
+     * Define um valor para o monitor
+     * @param valor Valor a ser atribuído
+     */
     public void definir_valor(String valor){
         this.txtInformacao.setText(valor);
         setLog("Valor definido para: " + valor);

@@ -21,11 +21,17 @@ public class PainelBase extends javax.swing.JPanel {
     private TableLayout layout = null;
     private ArrayList<Retalho> listaRetalhos = null;
 
+    /**
+     * Construtor padrão
+     */
     public PainelBase() {
         initComponents();
         inicializar();
     }
 
+    /**
+     * Inicializa as propriedades necessárias para a execução
+     */
     private void inicializar() {
         points = new ArrayList<Point>();
         listaRetalhos = new ArrayList<>();
@@ -46,6 +52,10 @@ public class PainelBase extends javax.swing.JPanel {
         this.setLayout(layout);
     }
 
+    /**
+     * Sobrecarga do método de paint para desenhar os agentes na tela 
+     * @param g 
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g); 
@@ -56,11 +66,18 @@ public class PainelBase extends javax.swing.JPanel {
         for (Point point : points) {
             g2.fillOval(point.x, point.y, 20, 20);
         }
+        
+        layout.updatePoints(points);
     }
     
-    public void getColors(){
+    /**
+     * Chama os métodos que retornam quais as cores e os agentes em uma determinada posição na tabela
+     * (Apenas para testes) ----- Remover
+     */
+    public void get_cores(){
         layout.showColors();
-        layout.agentsHere(points);
+        layout.objectsHere(points);
+        layout.objectsInRowColumn(1, 1, "agents");
     }
 
     @SuppressWarnings("unchecked")

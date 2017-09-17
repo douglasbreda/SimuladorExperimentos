@@ -3,9 +3,6 @@ package br.simulador.inicializador;
 import br.simulador.ui.PainelSimulacao;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.awt.GridLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -23,6 +20,9 @@ public class Inicializador {
         new Inicializador().run();
     }
 
+    /**
+     * Inicializa um novo frame e adiciona o painel do plugin
+     */
     public void run() {
         SwingUtilities.invokeLater(() -> {
 

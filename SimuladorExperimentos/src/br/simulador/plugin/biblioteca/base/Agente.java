@@ -1,8 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
 import java.awt.Graphics;
-import static java.awt.image.ImageObserver.HEIGHT;
-import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JPanel;
 
 /**

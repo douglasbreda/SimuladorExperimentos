@@ -1,9 +1,5 @@
 package br.simulador.ui;
 
-import br.simulador.plugin.biblioteca.base.Agente;
-import br.simulador.plugin.biblioteca.base.IAgente;
-import br.simulador.plugin.biblioteca.base.Retalho;
-import br.simulador.plugin.biblioteca.base.RetalhoCoordenadas;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.PainelBase;
@@ -366,7 +362,7 @@ public class PainelSimulacao extends VisaoPlugin {
     }//GEN-LAST:event_btnPararActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        painelBase.getColors();
+        painelBase.get_cores();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

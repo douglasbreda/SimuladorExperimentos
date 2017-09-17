@@ -1,6 +1,7 @@
 package br.simulador.plugin.biblioteca.base;
 
 import java.util.Random;
+import layout.TableLayout;
 
 /**
  *
@@ -12,12 +13,17 @@ public class Retalho {
     private final int id;
     private final int linha;
     private final int coluna;
+    private final TableLayout layout;
     
-    public Retalho(int id, int linha, int coluna) {
+    /*
+        Construtor padrão
+    */
+    public Retalho(int id, int linha, int coluna, TableLayout layout) {
         super();
         this.id = id;
         this.linha = linha;
         this.coluna = coluna;
+        this.layout = layout;
     }
 
     
