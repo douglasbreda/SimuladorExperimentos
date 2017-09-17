@@ -34,7 +34,6 @@ public class PainelBase extends javax.swing.JPanel {
      */
     private void inicializar() {
         points = new ArrayList<Point>();
-        listaRetalhos = new ArrayList<>();
         setBackground(Color.WHITE);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -50,6 +49,20 @@ public class PainelBase extends javax.swing.JPanel {
 
         layout = new TableLayout(size);
         this.setLayout(layout);
+        this.inicializar_lista_retalhos();
+    }
+    
+    /**
+     * Inicializa a lista de retalhos da simulação
+     */
+    private void inicializar_lista_retalhos(){
+        listaRetalhos = new ArrayList<>();
+        int id = 0;
+        for (int i = 0; i < layout.getRow().length; i++) {
+            for (int j = 0; j < layout.getColumn().length; j++) {
+                listaRetalhos.add(new Retalho(++id, i, j, layout));
+            }
+        }
     }
 
     /**
@@ -79,7 +92,33 @@ public class PainelBase extends javax.swing.JPanel {
         layout.objectsHere(points);
         layout.objectsInRowColumn(1, 1, "agents");
         layout.setColor(1, 1, Color.BLUE);
+        layout.getMaxBorderX(1, 0);
+        layout.getMaxBorderX(1, 1);
+        layout.getMaxBorderY(0, 0);
+        layout.getMaxBorderY(1, 1);
+        this.mostrarRetalhos();
         repaint();
+    }
+    
+    
+    private void mostrarRetalhos(){
+        StringBuilder sbRetalho = new StringBuilder();
+        listaRetalhos.forEach((retalho) -> {
+            sbRetalho.append("Id: ").append(retalho.getId())
+                    .append("\n")
+                    .append("Linha: ")
+                    .append(retalho.getLinha())
+                    .append("\n")
+                    .append("Coluna: ")
+                    .append(retalho.getColuna())
+                    .append("\n");
+                    
+                    
+        });
+        
+        System.out.println("-------------------------------");
+        System.out.println(sbRetalho.toString());
+        System.out.println("-------------------------------");
     }
 
     @SuppressWarnings("unchecked")
@@ -104,3 +143,4 @@ public class PainelBase extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
+

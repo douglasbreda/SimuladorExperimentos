@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
+import java.awt.Color;
 import java.util.Random;
 import layout.TableLayout;
 
@@ -14,7 +15,7 @@ public class Retalho {
     private final int linha;
     private final int coluna;
     private final TableLayout layout;
-    
+
     /*
         Construtor padrão
     */
@@ -49,7 +50,7 @@ public class Retalho {
     }
     
     public void definir_cor_retalho(int cor) {
-        
+        layout.setColor(cor, coluna, Color.yellow);//Verificar coloração 
     }
     
     public int retornar_cor_retalho() {
@@ -71,4 +72,19 @@ public class Retalho {
         
         return new RetalhoCoordenadas(randomX.nextDouble() + 1, randomY.nextDouble() + 1);
     }
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public int getLinha() {
+        return linha;
+    }
+
+    public int getColuna() {
+        return coluna;
+    }
+    
+    
 }
