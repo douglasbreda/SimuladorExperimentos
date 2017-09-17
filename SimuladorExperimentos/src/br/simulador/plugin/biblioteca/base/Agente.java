@@ -11,7 +11,7 @@ public class Agente extends BaseAgente
 {
     private JPanel painelAgente = null;
     
-    public Agente(double coordenadaX, double coordenadaY, int id)
+    public Agente(int coordenadaX, int coordenadaY, int id)
     {
         super(coordenadaX, coordenadaY, id);
         criarFormaAgente();
@@ -23,7 +23,6 @@ public class Agente extends BaseAgente
             public void paint(Graphics g) {
                 desenharCirculo(g);
             }
-            
         };
     }
     

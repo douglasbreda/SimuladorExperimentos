@@ -75,9 +75,9 @@ public class Ambiente
             double coordenadaX = coordenadas.getCoordenadaX();
             double coordenadaY = coordenadas.getCoordenadaY();
             
-            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
+//            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
             
-            listaAgentes.add((Agente) agente);
+//            listaAgentes.add((Agente) agente);
         }
     }
 

@@ -1,6 +1,8 @@
 package br.simulador.plugin.biblioteca.componentes;
 
+import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -20,6 +22,7 @@ public class PainelBase extends javax.swing.JPanel {
     private ArrayList<Point> points;
     private TableLayout layout = null;
     private ArrayList<Retalho> listaRetalhos = null;
+    private ArrayList<IAgente> listaAgentes = null;
 
     /**
      * Construtor padrão
@@ -35,13 +38,13 @@ public class PainelBase extends javax.swing.JPanel {
     private void inicializar() {
         points = new ArrayList<Point>();
         setBackground(Color.WHITE);
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                points.add(new Point(e.getX(), e.getY()));
-                repaint();
-            }
-        });
+//        addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                points.add(new Point(e.getX(), e.getY()));
+//                repaint();
+//            }
+//        });
 
         double size[][] = {
             {0.25, 0.25, 0.25, 0.25},
@@ -119,6 +122,31 @@ public class PainelBase extends javax.swing.JPanel {
         System.out.println("-------------------------------");
         System.out.println(sbRetalho.toString());
         System.out.println("-------------------------------");
+    }
+
+    /**
+     * Adiciona um agente a lista de agentes
+     * @param agente agente a ser adicionado
+     */
+    public void adicionar_agente_lista(IAgente agente){
+        if(listaAgentes == null)
+            listaAgentes = new ArrayList<>();
+        
+        listaAgentes.add(agente);
+    }
+    
+    /**
+     * Cria a lista de Points a partir das posições dos agentes
+     */
+    public void criar_posicoes_agentes() throws ErroExecucaoBiblioteca, InterruptedException{
+        
+        if(points == null)
+            points = new ArrayList<>();
+        
+        for (IAgente agente : listaAgentes) {
+            points.add(new Point(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y()));
+        }
+        repaint();
     }
 
     @SuppressWarnings("unchecked")

@@ -13,13 +13,13 @@ public abstract class BaseAgente implements IAgente
 {
     //Lista com os parâmetros do agente
     private final Map<String, Object> listaParametros = new ConcurrentHashMap<>();
-    private double coordenadaX = 0;
-    private double coordenadaY = 0;
+    private int coordenadaX = 0;
+    private int coordenadaY = 0;
     private int id = 0;
     private static final Logger LOGGER = Logger.getLogger(BaseAgente.class.getName());
 
     //Construtor padrão
-    public BaseAgente(double coordenadaX, double coordenadaY, int id)
+    public BaseAgente(int coordenadaX, int coordenadaY, int id)
     {
         inicializar();
         this.coordenadaX = coordenadaX;
@@ -176,13 +176,13 @@ public abstract class BaseAgente implements IAgente
     }
 
     @Override
-    public double retornar_coordenada_X()
+    public int retornar_coordenada_X()
     {
         return this.coordenadaX;
     }
 
     @Override
-    public double retornar_coordenada_Y()
+    public int retornar_coordenada_Y()
     {
         return this.coordenadaY;
     }

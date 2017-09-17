@@ -84,7 +84,5 @@ public class Retalho {
 
     public int getColuna() {
         return coluna;
-    }
-    
-    
+    }   
 }
