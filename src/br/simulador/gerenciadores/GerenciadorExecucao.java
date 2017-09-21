@@ -14,29 +14,31 @@ import java.util.ArrayList;
  * @author Douglas
  */
 public class GerenciadorExecucao {
-    
+
     private static ArrayList<IAgente> listaAgentes = null;
-    
+
     /**
      * Executa os métodos para todos os agentes da lista através de reflection
+     *
      * @param nome_metodo
+     * @param parametros
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
      * @throws NoSuchMethodException
      * @throws IllegalArgumentException
-     * @throws InvocationTargetException 
+     * @throws InvocationTargetException
      */
-    public static void executarMetodo(String nome_metodo) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException{
-        
-        if(listaAgentes != null){
-            
+    public static void executarMetodo(String nome_metodo, Object... parametros) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+
+        if (listaAgentes != null) {
+
             Object classe = Class.forName(Agente.class.getName()).newInstance();
-            
+
             for (IAgente agente : listaAgentes) {
-                
+
                 Method m = classe.getClass().getMethod(nome_metodo);
-                System.out.println(m.invoke(agente, new Object[0]));
+                System.out.println(m.invoke(agente, parametros));
             }
         }
     }

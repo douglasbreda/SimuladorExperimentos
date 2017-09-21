@@ -32,7 +32,7 @@ public class TesteExecucao {
     
     public void executarTeste() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException{
         iniciarLista();
-        GerenciadorExecucao.executarMetodo("retornar_id");
+        GerenciadorExecucao.executarMetodo("retornar_id", new Object[0]);
     }
     
     private void iniciarLista(){
