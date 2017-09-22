@@ -11,15 +11,5 @@ import br.simulador.inicializador.Inicializador;
  */
 public class GerenciadorExperimentos {
     
-    private static Inicializador inicializador = null;
     
-    /**
-     * Cria uma instância da simulação e abre a tela 
-     */
-    public static void criarInstanciaSimulacao(){
-        if(inicializador == null){
-            inicializador = new Inicializador();
-            inicializador.run();
-        }
-    }
 }
