@@ -63,8 +63,6 @@ public class PainelSimulacao extends VisaoPlugin {
                 redefinirTamanhoPainel();
             }
         });
-
-        testarFuncao();
     }
 
     //Redefine o tamanho do painel conforme a tela tem seu tamanho alterado
@@ -103,42 +101,6 @@ public class PainelSimulacao extends VisaoPlugin {
         }
 
         painelBase.criar_posicoes_agentes();
-        //encontrar_adiconar_no_retalho(agente);
-    }
-
-    private void testarFuncao() throws ErroExecucaoBiblioteca, InterruptedException {
-//        Experimentos oExperimentos = new Experimentos();
-//        oExperimentos.criar_agentes(10, true);
-//        oExperimentos.criar_atributo("velocidade");
-        this.criar_agentes(10, true);
-    }
-
-    private void testarComponentes() throws InterruptedException {
-
-        int i = 0;
-        for (int j = 0; j < 10; j++) {
-
-            if (isExecutando) {
-                i++;
-                if (!interruptor.esta_ligado()) {
-                    interruptor.ativar();
-                } else {
-                    interruptor.desativar();
-                }
-                slider.definir_titulo("Slider " + i);
-                slider.definir_valor_padrao(i);
-                interruptor.definir_titulo("Interruptor " + i);
-                monitor.definir_titulo("Monitor " + i);
-                String sEstado = interruptor.esta_ligado() ? " Ligado" : " Desligado";
-                monitor.definir_valor(String.valueOf(i) + " - " + sEstado);
-
-                slider.revalidate();
-                interruptor.revalidate();
-                monitor.revalidate();
-                pnlSaidas.revalidate();
-                Thread.sleep(3000);
-            }
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -180,25 +142,10 @@ public class PainelSimulacao extends VisaoPlugin {
         pnlBotoes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnIniciar.setText("Iniciar");
-        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIniciarActionPerformed(evt);
-            }
-        });
 
         btnParar.setText("Parar");
-        btnParar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPararActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Testar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlBotoesLayout = new javax.swing.GroupLayout(pnlBotoes);
         pnlBotoes.setLayout(pnlBotoesLayout);
@@ -348,38 +295,6 @@ public class PainelSimulacao extends VisaoPlugin {
                     .addGap(0, 0, 0)))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        System.out.println("Execução iniciada");
-        threadTeste = new Thread(() -> {
-            try {
-                isExecutando = true;
-                testarComponentes();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(PainelSimulacao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
-        threadTeste.start();
-    }//GEN-LAST:event_btnIniciarActionPerformed
-
-    private void btnPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararActionPerformed
-
-        try {
-            notifyAll();
-            if (!threadTeste.isInterrupted()) {
-                isExecutando = false;
-                threadTeste.interrupt();
-            }
-            System.out.println("Thread parou" + "  " + threadTeste.getState().name());
-        } catch (Exception ex) {
-
-        }
-    }//GEN-LAST:event_btnPararActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        painelBase.get_cores();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
