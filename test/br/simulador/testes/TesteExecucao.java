@@ -32,7 +32,7 @@ public class TesteExecucao {
     
     public void executarTeste() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException{
         iniciarLista();
-        GerenciadorExecucao.executarMetodo("retornar_id", new Object[0]);
+        GerenciadorExecucao.getInstance().executarMetodo("retornar_id", new Object[0]);
     }
     
     private void iniciarLista(){
@@ -42,6 +42,6 @@ public class TesteExecucao {
             listaAgentes.add(new Agente(10, 10, i));
         }
         
-        GerenciadorExecucao.setListaAgentes(listaAgentes);
+        GerenciadorExecucao.getInstance().setListaAgentes(listaAgentes);
     }
 }

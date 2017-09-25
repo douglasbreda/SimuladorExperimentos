@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
+import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,21 +84,9 @@ public class Ambiente
 
     }
 
-    public double media(String nome_parametro) throws ErroExecucaoBiblioteca
+    public double media(String nome_parametro) throws ErroExecucaoBiblioteca, InterruptedException
     {
-        double media = 0;
-        
-        if (listaAgentes.size() > 0)
-        {
-            for (Agente agente : listaAgentes)
-            {
-                media += agente.retornar_atributo_real(nome_parametro);
-            }
-            
-            media = media / listaAgentes.size();
-        }
-        
-        return media;
+        return GerenciadorExecucao.getInstance().media(nome_parametro);
     }
 
     public int agentes_com_cor(int cor)
@@ -114,12 +103,9 @@ public class Ambiente
      * Adiciona um parâmetro a todos os agentes
      * @param nome 
      */
-    public void adicionar_atributo_agentes(String nome)
+    public void adicionar_atributo_agentes(String nome) throws ErroExecucaoBiblioteca, InterruptedException
     {
-        for (Agente agente : listaAgentes)
-        {
-            agente.criar_parametro(nome);
-        }
+        GerenciadorExecucao.getInstance().adicionar_atributo_agentes(nome);
     }
     
     /**

@@ -115,6 +115,10 @@ public class PainelBase extends javax.swing.JPanel {
     public TableLayout getLayout() {
         return layout;
     }
+
+    public ArrayList<IAgente> getListaAgentes() {
+        return listaAgentes;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
