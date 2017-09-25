@@ -41,7 +41,7 @@ public class TesteRetalho {
 
             frame.setVisible(true);
             try {
-                painel.criarPaineis();
+                painel.criar_paineis();
             } catch (ErroExecucaoBiblioteca ex) {
                 Logger.getLogger(TesteRetalho.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {

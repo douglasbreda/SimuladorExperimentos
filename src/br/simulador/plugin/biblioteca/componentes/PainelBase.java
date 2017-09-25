@@ -112,6 +112,10 @@ public class PainelBase extends javax.swing.JPanel {
         repaint();
     }
 
+    public TableLayout getLayout() {
+        return layout;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

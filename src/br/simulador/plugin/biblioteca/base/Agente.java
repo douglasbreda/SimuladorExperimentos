@@ -40,6 +40,4 @@ public class Agente extends BaseAgente
     public JPanel getPainel() {
         return painelAgente;
     }
-    
-    
 }

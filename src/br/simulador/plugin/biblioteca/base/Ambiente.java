@@ -14,7 +14,9 @@ public class Ambiente
     private Retalho retalho = null;
     private static int id = 0;
 
-    //Controla qual é agente atual da simulação
+    /**
+     * Controla qual é agente atual da simulação
+     */
     private Agente agenteAtual = null;
     
     public Agente getAgenteAtual()
@@ -108,8 +110,11 @@ public class Ambiente
 
     }
 
-    //Adiciona um parâmetro a todos os agentes
-    public void adicionarAtributoAgentes(String nome)
+    /**
+     * Adiciona um parâmetro a todos os agentes
+     * @param nome 
+     */
+    public void adicionar_atributo_agentes(String nome)
     {
         for (Agente agente : listaAgentes)
         {
@@ -117,8 +122,10 @@ public class Ambiente
         }
     }
     
-    //Aplica o processo de exclusão do agente do ambiente de simulação
-    public void matarAgente(){
+    /**
+     * Aplica o processo de exclusão do agente do ambiente de simulação
+     */
+    public void matar_agente(){
         agenteAtual.morrer();
         listaAgentes.remove(agenteAtual);
         agenteAtual = null;

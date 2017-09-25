@@ -82,7 +82,7 @@ public final class Experimentos extends Biblioteca
     )
     public void criar_atributo(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
     {
-        ambiente.adicionarAtributoAgentes(nome_atributo);
+        ambiente.adicionar_atributo_agentes(nome_atributo);
     }
 
     @DocumentacaoFuncao(
@@ -133,7 +133,7 @@ public final class Experimentos extends Biblioteca
     )
     public void morrer() throws ErroExecucaoBiblioteca, InterruptedException
     {
-        ambiente.matarAgente();
+        ambiente.matar_agente();
     }
 
     @DocumentacaoFuncao(

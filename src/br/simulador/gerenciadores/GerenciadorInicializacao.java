@@ -4,6 +4,7 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.inicializador.Inicializador;
+import br.simulador.plugin.biblioteca.componentes.PainelBase;
 import br.simulador.ui.PainelSimulacao;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.awt.GridLayout;
@@ -24,8 +25,12 @@ public final class GerenciadorInicializacao {
 
     private static JFrame frame = null;
 
-    private PainelSimulacao painel = null;
+    private PainelSimulacao ambienteSimulacao = null;
 
+    /**
+     * Instância da classe estática que controla a inicialização da simulação
+     * @return 
+     */
     public static GerenciadorInicializacao getInstance() {
 
         if (instance == null) {
@@ -49,8 +54,8 @@ public final class GerenciadorInicializacao {
             frame.setLayout(new GridLayout(1, 1));
 
             try {
-                painel = new PainelSimulacao(null);
-                frame.getContentPane().add(painel);
+                ambienteSimulacao = new PainelSimulacao(null);
+                frame.getContentPane().add(ambienteSimulacao);
             } catch (ErroExecucaoBiblioteca ex) {
                 Logger.getLogger(Inicializador.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
@@ -60,12 +65,20 @@ public final class GerenciadorInicializacao {
             frame.setVisible(true);
             
             try {
-                painel.criarPaineis();
+                ambienteSimulacao.criar_paineis();
             } catch (ErroExecucaoBiblioteca ex) {
                 Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+    }
+
+    /**
+     * Retorna a instância do ambiente onde está ocorrendo a simulação
+     * @return 
+     */
+    public PainelBase getAmbienteSimulacao() {
+        return ambienteSimulacao.getPainelSimulacao();
     }
 }

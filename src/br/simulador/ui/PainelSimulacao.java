@@ -1,7 +1,5 @@
 package br.simulador.ui;
 
-import br.simulador.plugin.biblioteca.base.Agente;
-import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.PainelBase;
@@ -11,9 +9,6 @@ import br.univali.ps.plugins.base.Plugin;
 import br.univali.ps.plugins.base.VisaoPlugin;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,35 +20,32 @@ public class PainelSimulacao extends VisaoPlugin {
     private Slider slider = null;
     private Interruptor interruptor = null;
     private Monitor monitor = null;
-    private Thread threadTeste = null;
-    private boolean isExecutando = false;
-    private PainelBase painelBase = null;
+    private PainelBase painelSimulacao = null;
 
+    /**
+     * Construtor padrão do plugin
+     * @param plugin
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
     public PainelSimulacao(Plugin plugin) throws ErroExecucaoBiblioteca, InterruptedException {
         super(plugin);
 //        simuladorPlugin = ((SimuladorExperimentos) plugin);
         initComponents();
-        adicionarComponentes();
     }
 
-    private void adicionarComponentes() {
-
-        this.slider = new Slider();
-        this.interruptor = new Interruptor();
-        this.monitor = new Monitor();
-
-        pnlComponentes.add(slider);
-        pnlComponentes.add(interruptor);
-        pnlComponentes.add(monitor);
-    }
-
-    public void criarPaineis() throws ErroExecucaoBiblioteca, InterruptedException {
+    /**
+     * Cria o painel onde será executada a simulação
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public void criar_paineis() throws ErroExecucaoBiblioteca, InterruptedException {
 
         pnlExecucao.setLayout(null);
 
-        painelBase = new PainelBase();
+        painelSimulacao = new PainelBase();
 
-        pnlExecucao.add(painelBase);
+        pnlExecucao.add(painelSimulacao);
 
         redefinirTamanhoPainel();
 
@@ -65,44 +57,23 @@ public class PainelSimulacao extends VisaoPlugin {
         });
     }
 
-    //Redefine o tamanho do painel conforme a tela tem seu tamanho alterado
+    /**
+     * Redefine o tamanho do painel conforme a tela tem seu tamanho alterado
+     */
     public void redefinirTamanhoPainel() {
-        painelBase.setBounds(10, 20,
+        painelSimulacao.setBounds(10, 20,
                 pnlExecucao.getWidth() - 20,
                 pnlExecucao.getHeight() - 30);
     }
-
-    public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException {
-        
-        int coordenadaX = 0;
-        int coordenadaY = 0;
-        
-
-        for (int i = 0; i < numero_agentes; i++) {
-        
-            Random randomX = new Random();
-            Random randomY = new Random();
-//            Random inteiro = new Random();
-            
-            coordenadaX = randomX.nextInt(800);// + inteiro.nextInt(800);
-            coordenadaY = randomY.nextInt(600);// + inteiro.nextInt(600);
-
-            int id = 0;
-            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
-            System.out.println("------------------------------------------");
-            
-            System.out.println("Agente: " + agente.retornar_id());
-            System.out.println("X: " + agente.retornar_coordenada_X());
-            System.out.println("Y: " + agente.retornar_coordenada_Y());
-            
-            System.out.println("------------------------------------------");
-            
-            painelBase.adicionar_agente_lista(agente);
-        }
-
-        painelBase.criar_posicoes_agentes();
+    
+    /**
+     * Retorna a instância do painel onde está ocorrendo a simulação
+     * @return 
+     */
+    public PainelBase getPainelSimulacao() {
+        return painelSimulacao;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

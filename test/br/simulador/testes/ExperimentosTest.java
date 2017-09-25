@@ -3,20 +3,26 @@
  */
 package br.simulador.testes;
 
-import java.awt.Color;
-import org.junit.Test;
+import br.simulador.gerenciadores.GerenciadorInicializacao;
+import layout.TableLayout;
+
 
 /**
  *
  * @author Douglas
  */
 public class ExperimentosTest {
-    
-    @Test
-    public void testarFuncionalidades(){
-        
+
+
+    public static void main(String[] args) throws Exception {
+        new ExperimentosTest().testarFuncionalidades();
     }
     
+    public void testarFuncionalidades() throws Exception {
+        GerenciadorInicializacao.getInstance().inicializarTela();
+        TableLayout layout = GerenciadorInicializacao.getInstance().getAmbienteSimulacao().getLayout();
+    }
+
     /**
      * Chama os métodos que retornam quais as cores e os agentes em uma
      * determinada posição na tabela (Apenas para testes) ----- Remover
@@ -52,7 +58,6 @@ public class ExperimentosTest {
 //        System.out.println(sbRetalho.toString());
 //        System.out.println("-------------------------------");
 //    }
-    
 //    private void testarComponentes() throws InterruptedException {
 //
 //        int i = 0;
@@ -79,5 +84,16 @@ public class ExperimentosTest {
 //                Thread.sleep(3000);
 //            }
 //        }
+//    }
+    
+//    private void adicionarComponentes() {
+//
+//        this.slider = new Slider();
+//        this.interruptor = new Interruptor();
+//        this.monitor = new Monitor();
+//
+//        pnlComponentes.add(slider);
+//        pnlComponentes.add(interruptor);
+//        pnlComponentes.add(monitor);
 //    }
 }
