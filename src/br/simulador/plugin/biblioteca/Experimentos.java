@@ -465,24 +465,6 @@ public final class Experimentos extends Biblioteca
     }
 
     @DocumentacaoFuncao(
-            descricao = "Permite a personalização do tamanho da tela de simulação.",
-            parametros =
-            {
-                @DocumentacaoParametro(nome = "x", descricao = "Tamanho de X da tela")
-                ,
-                @DocumentacaoParametro(nome = "y", descricao = "Tamanho de Y da tela")
-            },
-            autores =
-            {
-                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-            }
-    )
-    public void definir_tamanho(int x, int y) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.definir_tamanho_tela(x, y);
-    }
-
-    @DocumentacaoFuncao(
             descricao = "Permite a criação de um componente de slider para alteração de configurações durante a simulação",
             parametros =
             {

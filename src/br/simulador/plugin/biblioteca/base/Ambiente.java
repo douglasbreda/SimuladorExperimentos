@@ -58,12 +58,7 @@ public class Ambiente
     {
 
     }
-
-    public void definir_tamanho_tela(int x, int y)
-    {
-
-    }
-
+  
     public void criar_agentes(int numero_agentes, boolean aleatorio)
     {
 
