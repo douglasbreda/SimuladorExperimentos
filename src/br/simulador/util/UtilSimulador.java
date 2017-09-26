@@ -21,4 +21,12 @@ public final class UtilSimulador {
         
         return random.nextInt(limite);
     }
+    
+    /**
+     * Centralização do método para exibir mensagens no console
+     * @param mensagem 
+     */
+    public static void setLog(String mensagem){
+        System.out.println(mensagem);
+    }
 }

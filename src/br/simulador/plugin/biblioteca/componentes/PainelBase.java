@@ -120,6 +120,14 @@ public class PainelBase extends javax.swing.JPanel {
         return listaAgentes;
     }
     
+    /**
+     * Limpa os agentes da simulação
+     */
+    public void limpar_tudo(){
+        listaAgentes.clear();
+        points = new ArrayList<>();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

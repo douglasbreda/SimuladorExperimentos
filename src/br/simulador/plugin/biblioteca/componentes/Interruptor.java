@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.componentes;
 
+import br.simulador.util.UtilSimulador;
 import javax.swing.AbstractButton;
 import javax.swing.border.TitledBorder;
 
@@ -23,18 +24,24 @@ public class Interruptor extends javax.swing.JPanel implements IComponenteSimula
      * Define o botão como ativo/ligado
      */
     public void ativar() {
-        setLog("Interruptor ligado");
+        UtilSimulador.setLog("Interruptor ligado");
+        
         this.btnInterruptor.setSelected(true);
         this.btnInterruptor.setText("ON");
+        
+        this.revalidate();
     }
 
     /**
      * Define o botão como desativado/desligado
      */
     public void desativar() {
-        setLog("Interruptor desligado");
+        UtilSimulador.setLog("Interruptor desligado");
+        
         this.btnInterruptor.setSelected(false);
         this.btnInterruptor.setText("OFF");
+        
+        this.revalidate();
     }
 
     /**
@@ -48,11 +55,6 @@ public class Interruptor extends javax.swing.JPanel implements IComponenteSimula
     @Override
     public void definir_titulo(String titulo) {
         ((TitledBorder) pnlInterruptor.getBorder()).setTitle(titulo);
-    }
-
-    private void setLog(String mensagem) {
-        System.out.println(mensagem);
-        this.revalidate();
     }
 
     /**

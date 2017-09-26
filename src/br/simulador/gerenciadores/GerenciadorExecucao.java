@@ -111,26 +111,19 @@ public final class GerenciadorExecucao {
 
             IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
 
-            setLog("------------------------------------------");
+            UtilSimulador.setLog("------------------------------------------");
 
-            setLog("Agente: " + agente.retornar_id());
-            setLog("X: " + agente.retornar_coordenada_X());
-            setLog("Y: " + agente.retornar_coordenada_Y());
+            UtilSimulador.setLog("Agente: " + agente.retornar_id());
+            UtilSimulador.setLog("X: " + agente.retornar_coordenada_X());
+            UtilSimulador.setLog("Y: " + agente.retornar_coordenada_Y());
 
-            setLog("------------------------------------------");
+            UtilSimulador.setLog("------------------------------------------");
 
             getPainelBase().adicionar_agente_lista(agente);
         }
 
         getPainelBase().criar_posicoes_agentes();
         setListaAgentes(getPainelBase().getListaAgentes());
-    }
-
-    /**
-     * Método interno apenas para centralização das mensagens de console
-     */
-    private static void setLog(String mensagem) {
-        System.out.println(mensagem);
     }
 
     /**
@@ -175,7 +168,7 @@ public final class GerenciadorExecucao {
             media = media / listaAgentes.size();
         }
 
-        System.out.println("A média é: " + media);
+        UtilSimulador.setLog("A média é: " + media);
         return media;
     }
 
@@ -193,7 +186,8 @@ public final class GerenciadorExecucao {
     }
 
     /**
-     * Define um valor a um atributo por agente 
+     * Define um valor a um atributo por agente
+     *
      * @param nome_atributo
      * @param valor
      * @param id ID do agente que terá o atributo alterado
@@ -212,4 +206,17 @@ public final class GerenciadorExecucao {
             Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Limpa a lista de agentes
+     */
+    public void limpar_tudo() {
+        UtilSimulador.setLog("Número de agentes atuais: " + listaAgentes.size());
+        
+        painelBase.limpar_tudo();
+        listaAgentes.clear();
+        
+        UtilSimulador.setLog("Após limpeza: " + listaAgentes.size());
+    }
+
 }

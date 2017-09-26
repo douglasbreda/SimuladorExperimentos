@@ -1,5 +1,6 @@
 package br.simulador.ui;
 
+import br.simulador.plugin.biblioteca.componentes.IComponenteSimulacao;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.PainelBase;
@@ -9,18 +10,20 @@ import br.univali.ps.plugins.base.Plugin;
 import br.univali.ps.plugins.base.VisaoPlugin;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Douglas
  */
-public class PainelSimulacao extends VisaoPlugin {
-
-//    private SimuladorExperimentos simuladorPlugin;
-    private Slider slider = null;
-    private Interruptor interruptor = null;
-    private Monitor monitor = null;
+public class PainelSimulacao extends VisaoPlugin {    
+    
     private PainelBase painelSimulacao = null;
+    
+    private ArrayList<Slider> listaSliders = null;
+    private ArrayList<Interruptor> listaInterruptores = null;
+    private ArrayList<Monitor> listaMonitores = null;
 
     /**
      * Construtor padrão do plugin
@@ -30,8 +33,18 @@ public class PainelSimulacao extends VisaoPlugin {
      */
     public PainelSimulacao(Plugin plugin) throws ErroExecucaoBiblioteca, InterruptedException {
         super(plugin);
-//        simuladorPlugin = ((SimuladorExperimentos) plugin);
         initComponents();
+        inicializar_atributos();
+    }
+    
+    /**
+     * Inicializa os atributos necessários para a simulação
+     */
+    private void inicializar_atributos(){
+        
+        listaInterruptores = new ArrayList<>();
+        listaMonitores = new ArrayList<>();
+        listaSliders = new ArrayList<>();
     }
 
     /**
@@ -72,6 +85,53 @@ public class PainelSimulacao extends VisaoPlugin {
      */
     public PainelBase getPainelSimulacao() {
         return painelSimulacao;
+    }
+    
+    /**
+     * Adiciona um componente de slide ao painel de componentes
+     * @param titulo
+     * @param valor_minimo
+     * @param valor_maximo
+     * @param valor_padrao 
+     */
+    public void criar_slider(String titulo, int valor_minimo, int valor_maximo, int valor_padrao){
+        Slider slider = new Slider(titulo, valor_minimo, valor_maximo, valor_padrao);
+        adicionar_componente_painel(slider);
+        slider.revalidate();
+        listaSliders.add(slider);
+        
+    }
+    
+    /**
+     * Adiciona um componente do tipo monitor ao painel de componentes
+     * @param titulo
+     * @param valor 
+     */
+    public void criar_monitor(String titulo, String valor){
+        Monitor monitor = new Monitor(titulo, valor);
+        adicionar_componente_painel(monitor);
+        monitor.revalidate();
+        listaMonitores.add(monitor);
+    }
+    
+    /**
+     * Adiciona um componente do tipo interruptor ao painel de componentes
+     * @param titulo
+     * @param valor_padrao 
+     */
+    public void criar_interruptor(String titulo, boolean valor_padrao){
+        Interruptor interruptor = new Interruptor(titulo, valor_padrao);
+        adicionar_componente_painel(interruptor);
+        interruptor.revalidate();
+        listaInterruptores.add(interruptor);
+    }
+    
+    /**
+     * Adiciona um painel (Monitor, Interruptor ou Slider) ao painel de componentes
+     * @param componente 
+     */
+    private void adicionar_componente_painel(JPanel componente){
+        pnlComponentes.add(componente);
     }
     
     @SuppressWarnings("unchecked")

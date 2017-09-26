@@ -1,5 +1,7 @@
 package br.simulador.plugin.biblioteca.componentes;
 
+import br.simulador.util.UtilSimulador;
+
 /**
  *
  * @author Douglas
@@ -50,7 +52,7 @@ public class Monitor extends javax.swing.JPanel implements IComponenteSimulacao{
     }
     
     private void setLog(String mensagem){
-        System.out.println(mensagem);
+        UtilSimulador.setLog(mensagem);
         txtInformacao.validate();
     }
     @SuppressWarnings("unchecked")

@@ -81,4 +81,13 @@ public final class GerenciadorInicializacao {
     public PainelBase getAmbienteSimulacao() {
         return ambienteSimulacao.getPainelSimulacao();
     }
+    
+    /**
+     * Retorna o ambiente todo da simulação, não somente o painel onde está executando a simulação
+     * @return 
+     */
+    public PainelSimulacao getJanelaSimulador(){
+        return ambienteSimulacao;
+    }
+    
 }

@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.componentes;
 
+import br.simulador.util.UtilSimulador;
 import javax.swing.JSlider;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -37,6 +38,9 @@ public class Slider extends javax.swing.JPanel implements IComponenteSimulacao{
         this.definir_valor_padrao(valor_padrao);
     }
 
+    /**
+     * Adiciona o evento para quando o slider é movimentado
+     */
     private void adicionarEvento() {
         this.slider.addChangeListener(new ChangeListener() {
             @Override
@@ -110,7 +114,7 @@ public class Slider extends javax.swing.JPanel implements IComponenteSimulacao{
     }
 
     private void setLog(String mensagem){
-        System.out.println(mensagem);
+        UtilSimulador.setLog(mensagem);
         slider.validate();
     }
     
