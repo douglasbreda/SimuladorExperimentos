@@ -61,6 +61,9 @@ public class ExperimentosTest {
         GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_monitor("Monitor 1", "100");
         
         GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_interruptor("Switch 1", true);
+        
+        GerenciadorInicializacao.getInstance().atualizar_tela();
+        
     }
 
     /**

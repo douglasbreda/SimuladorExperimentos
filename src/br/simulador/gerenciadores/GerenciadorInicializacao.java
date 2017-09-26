@@ -90,4 +90,11 @@ public final class GerenciadorInicializacao {
         return ambienteSimulacao;
     }
     
+    /**
+     * Método para atualização de todos os componentes exibidos na tela de simulação
+     */
+    public void atualizar_tela(){
+        ambienteSimulacao.atualizar_tela(frame);
+    }
+    
 }
