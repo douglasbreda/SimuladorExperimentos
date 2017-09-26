@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
+import br.simulador.util.UtilSimulador;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
@@ -31,8 +32,8 @@ public class Agente extends BaseAgente
     }
     
     private void desenharCirculo(Graphics g){
-        g.fillOval(Integer.parseInt(String.valueOf(this.retornar_coordenada_X())),
-                   Integer.parseInt(String.valueOf(this.retornar_coordenada_Y())),
+        g.fillOval(UtilSimulador.toInt(this.retornar_coordenada_X()),
+                   UtilSimulador.toInt(this.retornar_coordenada_Y()),
                    100, 50);
     }
 

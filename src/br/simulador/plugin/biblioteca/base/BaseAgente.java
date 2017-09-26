@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
+import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -115,7 +116,7 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public int retornar_atributo_inteiro(String nome_atributo) {
         if (verificarAtributoExiste(nome_atributo)) {
-            return (Integer.parseInt(listaParametros.get(nome_atributo).toString()));
+            return (UtilSimulador.toInt(listaParametros.get(nome_atributo).toString()));
         } else {
             return 0;
         }
@@ -124,7 +125,7 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public boolean retornar_atributo_logico(String nome_atributo) throws ErroExecucaoBiblioteca {
         if (verificarAtributoExiste(nome_atributo)) {
-            return (Boolean.parseBoolean(listaParametros.get(nome_atributo).toString()));
+            return (UtilSimulador.toBoolean(listaParametros.get(nome_atributo).toString()));
         } else {
             throw new ErroExecucaoBiblioteca("O parâmetro " + nome_atributo + " não existe");
         }
@@ -134,12 +135,7 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public double retornar_atributo_real(String nome_atributo) throws ErroExecucaoBiblioteca {
         if (verificarAtributoExiste(nome_atributo)) {
-            try {
-
-                return (Double.parseDouble(listaParametros.get(nome_atributo).toString()));
-            } catch (Exception ex) {
-                return 0;
-            }
+            return (UtilSimulador.toDouble(listaParametros.get(nome_atributo).toString()));
         } else {
             throw new ErroExecucaoBiblioteca("O parâmetro " + nome_atributo + " não existe");
         }
