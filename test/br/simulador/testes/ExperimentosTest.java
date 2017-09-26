@@ -53,6 +53,14 @@ public class ExperimentosTest {
         GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente("velocidade", "17", 5);
 
         GerenciadorExecucao.getInstance().media("velocidade");
+        
+        GerenciadorExecucao.getInstance().limpar_tudo();
+        
+        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_slider("Slider 1", 0, 100, 12);
+        
+        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_monitor("Monitor 1", "100");
+        
+        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_interruptor("Switch 1", true);
     }
 
     /**
