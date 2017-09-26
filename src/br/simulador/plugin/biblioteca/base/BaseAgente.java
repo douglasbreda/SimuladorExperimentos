@@ -41,7 +41,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void criar_parametro(String nome_atributo) {
+    public void criar_atributo(String nome_atributo) {
         adicionarParametroLista(nome_atributo);
     }
 
@@ -97,7 +97,9 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public String retornar_atributo_cadeia(String nome_atributo) throws ErroExecucaoBiblioteca {
         if (verificarAtributoExiste(nome_atributo)) {
-            return ((String) listaParametros.get(nome_atributo));
+            String retorno = ((String) listaParametros.get(nome_atributo));
+            UtilSimulador.setLog("Valor Cadeia retornado: " + retorno);
+            return retorno;
         } else {
             throw new ErroExecucaoBiblioteca("O parâmetro " + nome_atributo + " não existe.");
         }

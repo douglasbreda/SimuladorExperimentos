@@ -82,6 +82,32 @@ public final class GerenciadorExecucao {
             }
         }
     }
+    
+    /**
+     * Chamada do método de execução dos métodos do agente que não possuem parâmetros
+     *
+     * @param nome_metodo
+     * @param parametros
+     * @param tipo_parametros
+     * @throws IllegalArgumentException
+     */
+    public void executarMetodo(String nome_metodo) {
+
+        if (listaAgentes != null) {
+
+            try {
+                Object classe = Class.forName(Agente.class.getName()).newInstance();
+
+                for (IAgente agente : listaAgentes) {
+
+                    Method m = classe.getClass().getMethod(nome_metodo);
+                    System.out.println(m.invoke(agente, new Object[0]));
+                }
+            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException ex) {
+                Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     /**
      * Atualiza a lista de agentes para as execuções dos métodos
@@ -181,7 +207,7 @@ public final class GerenciadorExecucao {
      */
     public void adicionar_atributo_agentes(String nome) throws ErroExecucaoBiblioteca, InterruptedException {
         for (IAgente agente : listaAgentes) {
-            agente.criar_parametro(nome);
+            agente.criar_atributo(nome);
         }
     }
 

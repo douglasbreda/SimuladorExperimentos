@@ -27,7 +27,7 @@ public interface IAgente
     
     public void morrer() throws ErroExecucaoBiblioteca, InterruptedException;;
     
-    public void criar_parametro(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException;;
+    public void criar_atributo(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public void definir_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, InterruptedException;;
     
