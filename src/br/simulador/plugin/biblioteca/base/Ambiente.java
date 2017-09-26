@@ -105,7 +105,7 @@ public class Ambiente
      */
     public void adicionar_atributo_agentes(String nome) throws ErroExecucaoBiblioteca, InterruptedException
     {
-        GerenciadorExecucao.getInstance().adicionar_atributo_agentes(nome);
+//        GerenciadorExecucao.getInstance().executarMetodo("criar_parametro", null);
     }
     
     /**

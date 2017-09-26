@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  * @author Douglas
  */
 public final class GerenciadorExecucao {
-    
+
     private static ArrayList<IAgente> listaAgentes = null;
-    
+
     private static PainelBase painelBase = null;
-    
+
     private static GerenciadorExecucao instance = null;
 
     /**
@@ -35,8 +35,26 @@ public final class GerenciadorExecucao {
         if (instance == null) {
             instance = new GerenciadorExecucao();
         }
-        
+
         return instance;
+    }
+
+    /**
+     * Sobrecarga para os métodos que possuem strings como tipos de parâmetros
+     * pois eles são maioria na biblioteca
+     *
+     * @param nome_metodo
+     * @param parametros
+     * @param numero_parametros
+     */
+    public void executarMetodo(String nome_metodo, int numero_parametros, Object... parametros) {
+        Class[] tipo_parametros = new Class[numero_parametros];
+
+        for (int i = 0; i < numero_parametros; i++) {
+            tipo_parametros[i] = String.class;
+        }
+
+        executarMetodo(nome_metodo, tipo_parametros, parametros);
     }
 
     /**
@@ -44,23 +62,23 @@ public final class GerenciadorExecucao {
      *
      * @param nome_metodo
      * @param parametros
-     * @throws ClassNotFoundException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @throws NoSuchMethodException
+     * @param tipo_parametros
      * @throws IllegalArgumentException
-     * @throws InvocationTargetException
      */
-    public void executarMetodo(String nome_metodo, Object... parametros) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
-        
+    public void executarMetodo(String nome_metodo, Class[] tipo_parametros, Object... parametros) {
+
         if (listaAgentes != null) {
-            
-            Object classe = Class.forName(Agente.class.getName()).newInstance();
-            
-            for (IAgente agente : listaAgentes) {
-                
-                Method m = classe.getClass().getMethod(nome_metodo);
-                System.out.println(m.invoke(agente, parametros));
+
+            try {
+                Object classe = Class.forName(Agente.class.getName()).newInstance();
+
+                for (IAgente agente : listaAgentes) {
+
+                    Method m = classe.getClass().getMethod(nome_metodo, tipo_parametros);
+                    System.out.println(m.invoke(agente, parametros));
+                }
+            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException ex) {
+                Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -81,29 +99,29 @@ public final class GerenciadorExecucao {
      * @param aleatorio
      */
     public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException {
-        
+
         int coordenadaX = 0;
         int coordenadaY = 0;
         int id = 0;
-        
+
         for (int i = 0; i < numero_agentes; i++) {
-            
+
             coordenadaX = UtilSimulador.getNumeroRandomico(800);
             coordenadaY = UtilSimulador.getNumeroRandomico(600);
-            
+
             IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
-            
+
             setLog("------------------------------------------");
-            
+
             setLog("Agente: " + agente.retornar_id());
             setLog("X: " + agente.retornar_coordenada_X());
             setLog("Y: " + agente.retornar_coordenada_Y());
-            
+
             setLog("------------------------------------------");
-            
+
             getPainelBase().adicionar_agente_lista(agente);
         }
-        
+
         getPainelBase().criar_posicoes_agentes();
         setListaAgentes(getPainelBase().getListaAgentes());
     }
@@ -124,7 +142,7 @@ public final class GerenciadorExecucao {
         if (painelBase == null) {
             painelBase = GerenciadorInicializacao.getInstance().getAmbienteSimulacao();
         }
-        
+
         return painelBase;
     }
 
@@ -146,17 +164,18 @@ public final class GerenciadorExecucao {
      * @throws InterruptedException
      */
     public double media(String nome_parametro) throws ErroExecucaoBiblioteca, InterruptedException {
-        
+
         double media = 0;
-        
+
         if (listaAgentes.size() > 0) {
             for (IAgente agente : listaAgentes) {
                 media += agente.retornar_atributo_real(nome_parametro);
             }
-            
+
             media = media / listaAgentes.size();
         }
-        
+
+        System.out.println("A média é: " + media);
         return media;
     }
 
@@ -174,18 +193,23 @@ public final class GerenciadorExecucao {
     }
 
     /**
-     * Atribui um valor específico a um agente da lista
-     *
+     * Define um valor a um atributo por agente 
      * @param nome_atributo
      * @param valor
-     * @param id_agente
+     * @param id ID do agente que terá o atributo alterado
      */
-    public void definir_valor_atributo(String nome_atributo, String valor, int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
-        
-        for (IAgente agente : listaAgentes) {
-            if (agente.retornar_id() == id_agente) {
-                agente.definir_valor_atributo(nome_atributo, valor);
+    public void definir_valor_atributo_por_agente(String nome_atributo, String valor, int id) {
+        try {
+            for (IAgente agente : listaAgentes) {
+
+                if (agente.retornar_id() == id) {
+                    agente.definir_valor_atributo(nome_atributo, valor);
+                }
             }
+        } catch (ErroExecucaoBiblioteca ex) {
+            Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -5,9 +5,7 @@ package br.simulador.testes;
 
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInicializacao;
-import br.simulador.plugin.biblioteca.base.IAgente;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
-
 
 /**
  *
@@ -15,52 +13,47 @@ import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
  */
 public class ExperimentosTest {
 
-
     public static void main(String[] args) throws Exception {
         ExperimentosTest experimentoTest = new ExperimentosTest();
         experimentoTest.testarCriarAgentes();
         experimentoTest.testarContarAgentes();
         experimentoTest.testarMedia();
     }
-    
-    
+
     /**
      * Testa a função de criação de agentes
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void testarCriarAgentes() throws ErroExecucaoBiblioteca, InterruptedException{
+    public void testarCriarAgentes() throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInicializacao.getInstance().inicializarTela();
-        
+
         Thread.sleep(1000);//Para esperar a tela ser criada, pois ocorreu null pointer ao buscar componentes que ainda não foram criados
-        
+
         GerenciadorExecucao.getInstance().criar_agentes(10, true);
     }
-    
+
     /**
      * Testa a função de contar agentes
      */
-    public void testarContarAgentes(){
+    public void testarContarAgentes() {
         System.out.println("A simulação contém " + GerenciadorExecucao.getInstance().contar_agentes() + " agentes.");
     }
-    
-    public void testarMedia() throws ErroExecucaoBiblioteca, InterruptedException{
-        
+
+    public void testarMedia() throws ErroExecucaoBiblioteca, InterruptedException {
+
         //Verificar se isso é necessário mesmo
-        
-        GerenciadorExecucao.getInstance().adicionar_atributo_agentes("velocidade");
-        
-        GerenciadorExecucao.getInstance().definir_valor_atributo("velocidade", "10", 1);
-        
-        GerenciadorExecucao.getInstance().definir_valor_atributo("velocidade", "20", 1);
-        
-        GerenciadorExecucao.getInstance().definir_valor_atributo("velocidade", "15", 3);
-        
-        GerenciadorExecucao.getInstance().definir_valor_atributo("velocidade", "17", 5);
-        
-        //Adicionar chamadas para os métodos de retornar um valor por agente
+        GerenciadorExecucao.getInstance().executarMetodo("criar_parametro", 1, "velocidade");
+
+        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente("velocidade", "20", 1);
+
+        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente("velocidade", "15", 3);
+
+        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente("velocidade", "17", 5);
+
+        GerenciadorExecucao.getInstance().media("velocidade");
     }
-    
 
     /**
      * Chama os métodos que retornam quais as cores e os agentes em uma
@@ -124,7 +117,6 @@ public class ExperimentosTest {
 //            }
 //        }
 //    }
-    
 //    private void adicionarComponentes() {
 //
 //        this.slider = new Slider();
