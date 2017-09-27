@@ -56,7 +56,8 @@ public class PainelBase extends javax.swing.JPanel {
         int id = 0;
         for (int i = 0; i < layout.getRow().length; i++) {
             for (int j = 0; j < layout.getColumn().length; j++) {
-                listaRetalhos.add(new Retalho(++id, i, j, layout));
+//                listaRetalhos.add(new Retalho(++id, i, j, layout));
+                  listaRetalhos.add(new Retalho());
             }
         }
     }

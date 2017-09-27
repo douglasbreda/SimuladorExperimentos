@@ -11,20 +11,21 @@ import layout.TableLayout;
 public class Retalho {
     
     private int cor;
-    private final int id;
-    private final int linha;
-    private final int coluna;
-    private final TableLayout layout;
+//    private final int id;
+//    private final int linha;
+//    private final int coluna;
+//    private final TableLayout layout;
 
     /*
         Construtor padrão
     */
-    public Retalho(int id, int linha, int coluna, TableLayout layout) {
+    public Retalho() {
         super();
-        this.id = id;
-        this.linha = linha;
-        this.coluna = coluna;
-        this.layout = layout;
+        
+//        this.id = id;
+//        this.linha = linha;
+//        this.coluna = coluna;
+//        this.layout = layout;
     }
 
     
@@ -38,6 +39,10 @@ public class Retalho {
 //        
 //        repaint();
     }
+    
+    public void set_cor(int cor){
+        this.cor = cor;
+    }
 
     //Verificar o tipo de retorno deste método
     public void agentes_aqui() {
@@ -50,11 +55,12 @@ public class Retalho {
     }
     
     public void definir_cor_retalho(int cor) {
-        layout.setColor(cor, coluna, Color.yellow);//Verificar coloração 
+//        layout.setColor(cor, coluna, Color.yellow);//Verificar coloração 
     }
     
     public int retornar_cor_retalho() {
-        return layout.getColor(this.linha, this.coluna).getRGB();
+        return cor;
+//        return layout.getColor(this.linha, this.coluna).getRGB();
     }
     
     public double retornar_max_borda_x() {
@@ -75,14 +81,17 @@ public class Retalho {
     
     
     public int getId() {
-        return id;
+//        return id;
+        return 0;
     }
 
     public int getLinha() {
-        return linha;
+        return 0;
+//        return linha;
     }
 
     public int getColuna() {
-        return coluna;
+        return 0;
+//        return coluna;
     }   
 }
