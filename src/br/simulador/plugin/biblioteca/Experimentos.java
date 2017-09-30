@@ -282,7 +282,7 @@ public final class Experimentos extends Biblioteca
     )
     public void definir_cor_agente(int cor) throws ErroExecucaoBiblioteca, InterruptedException
     {
-        ambiente.getAgenteAtual().definir_cor_agente(cor);
+        
     }
 
     @DocumentacaoFuncao(

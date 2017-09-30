@@ -37,7 +37,7 @@ public class TesteExecucao {
 
     private void iniciarLista() {
         for (int i = 0; i < 5; i++) {
-            GerenciadorExecucao.getInstance().addAgente(new Agente(10, 10, i));
+            GerenciadorExecucao.getInstance().addAgente(new Agente(10, 10, i, 2));
         }
     }
 }

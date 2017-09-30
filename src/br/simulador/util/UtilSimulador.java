@@ -11,6 +11,16 @@ import java.util.Random;
  */
 public final class UtilSimulador {
 
+    private static int [] paletaCores = {0xFFFFFF, 0xE4E4E4, 
+                                         0x888888, 0x222222, 
+                                         0xFFA7D1, 0xE50000, 
+                                         0xE59500, 0xA06A42, 
+                                         0xE5D900, 0x94E044, 
+                                         0x02BE01, 0x00D3DD, 
+                                         0x0083C7, 0x0000EA, 
+                                         0xCF6EE4, 0x820080,
+                                         0x00FA11, 0xFA00A6};
+    
     /**
      * Retorna um número randômico
      *
@@ -22,6 +32,17 @@ public final class UtilSimulador {
 
         return random.nextInt(limite);
     }
+    
+    /**
+     * Retorna um número randômico no formato Double
+     * @param limite
+     * @return 
+     */
+//    public static double getNumeroRandomico(double limite){
+//        Random random = new Random((long) limite);
+//        
+//        return random.nextDouble();
+//    }
 
     /**
      * Centralização do método para exibir mensagens no console
@@ -74,5 +95,13 @@ public final class UtilSimulador {
             setLog("Ocorreu um erro ao converter para boolean" + ex.getMessage());
             return false;
         }
+    }
+    
+    /**
+     * Retorna uma cor aleatória a partir de uma paleta de cores padrão
+     * @return 
+     */
+    public static int corRandomica(){
+        return paletaCores[getNumeroRandomico(paletaCores.length - 1)];
     }
 }

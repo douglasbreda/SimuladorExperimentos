@@ -133,13 +133,15 @@ public final class GerenciadorExecucao {
         int id = 0;
         int maxX = GerenciadorInicializacao.getInstance().getLarguraSimulacao();
         int maxY = GerenciadorInicializacao.getInstance().getAlturaSimulacao();
+        int velocidade = 0;
 
         for (int i = 0; i < numero_agentes; i++) {
 
             coordenadaX = UtilSimulador.getNumeroRandomico(maxX);
             coordenadaY = UtilSimulador.getNumeroRandomico(maxY);
+            velocidade = UtilSimulador.getNumeroRandomico(5);
 
-            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
+            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id, velocidade);
 
             UtilSimulador.setLog("------------------------------------------");
 
@@ -155,19 +157,6 @@ public final class GerenciadorExecucao {
 
 //        getPainelBase().criar_posicoes_agentes();
         
-    }
-
-    /**
-     * Controle interno para buscar o painel onde está ocorrendo a simulação
-     *
-     * @return
-     */
-    private PainelBase getPainelBase() {
-        if (painelBase == null) {
-            painelBase = GerenciadorInicializacao.getInstance().getAmbienteSimulacao();
-        }
-
-        return painelBase;
     }
 
     /**

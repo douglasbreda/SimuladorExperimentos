@@ -4,7 +4,6 @@ import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 /**
  *
@@ -12,20 +11,21 @@ import java.util.logging.Logger;
  */
 public abstract class BaseAgente implements IAgente {
 
-    //Lista com os parâmetros do agente
+    
     private final Map<String, Object> listaParametros = new ConcurrentHashMap<>();
     private int coordenadaX = 0;
     private int coordenadaY = 0;
     private int id = 0;
-    private static final Logger LOGGER = Logger.getLogger(BaseAgente.class.getName());
+    private int cor;
+    private int velocidade = 0;
 
     //Construtor padrão
-    public BaseAgente(int coordenadaX, int coordenadaY, int id) {
+    public BaseAgente(int coordenadaX, int coordenadaY, int id, int velocidade) {
         inicializar();
         this.coordenadaX = coordenadaX;
         this.coordenadaY = coordenadaY;
         this.id = id;
-
+        this.cor = UtilSimulador.corRandomica();
         definirLog("Agente " + id + " inicializado com sucesso.");
     }
 
@@ -47,7 +47,7 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void definir_cor_agente(int cor) {
-
+        this.cor = cor;
     }
 
     @Override
@@ -158,7 +158,7 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public int retornar_cor_agente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.cor;
     }
 
     @Override
@@ -191,4 +191,8 @@ public abstract class BaseAgente implements IAgente {
         System.out.println(mensagem);
     }
 
+    @Override
+    public int getVelocidade(){
+        return this.velocidade;
+    }
 }

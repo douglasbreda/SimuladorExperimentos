@@ -1,8 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
-import java.awt.Color;
 import java.util.Random;
-import layout.TableLayout;
 
 /**
  *
@@ -13,7 +11,7 @@ public class Retalho {
     private int cor;
     private int coordenadaX;
     private int coordenadaY;
-
+    private boolean parede;
 
     /*
         Construtor padrão
@@ -83,4 +81,14 @@ public class Retalho {
     public int getCoordenadaY() {
         return coordenadaY;
     }
+
+    public boolean is_parede() {
+        return parede;
+    }
+
+    public void set_parede(boolean parede) {
+        this.parede = parede;
+    }
+    
+    
 }

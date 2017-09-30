@@ -56,13 +56,13 @@ public class ExperimentosTest {
         
         GerenciadorExecucao.getInstance().limpar_tudo();
         
-        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_slider("Slider 1", 0, 100, 12);
+//        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_slider("Slider 1", 0, 100, 12);
+//        
+//        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_monitor("Monitor 1", "100");
+//        
+//        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_interruptor("Switch 1", true);
         
-        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_monitor("Monitor 1", "100");
-        
-        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_interruptor("Switch 1", true);
-        
-        GerenciadorInicializacao.getInstance().atualizar_tela();
+//        GerenciadorInicializacao.getInstance().atualizar_tela();
         
     }
 
