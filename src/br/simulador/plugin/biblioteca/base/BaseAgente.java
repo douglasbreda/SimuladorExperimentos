@@ -80,8 +80,11 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public boolean ir_ate(double coordenadaX, double coordenadaY) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean ir_ate(int coordenadaX, int coordenadaY) {
+        this.coordenadaX = coordenadaX;
+        this.coordenadaY = coordenadaY;
+        
+        return true;//VERIFICAR ESTE RETORNO
     }
 
     @Override
@@ -90,7 +93,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void pular_para_XY(double coordenadaX, double coordenadaY) {
+    public void pular_para_XY(int coordenadaX, int coordenadaY) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -144,12 +147,12 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public double retornar_coordenada_X() {
+    public int retornar_coordenada_X() {
         return this.coordenadaX;
     }
 
     @Override
-    public double retornar_coordenada_Y() {
+    public int retornar_coordenada_Y() {
         return this.coordenadaY;
     }
 

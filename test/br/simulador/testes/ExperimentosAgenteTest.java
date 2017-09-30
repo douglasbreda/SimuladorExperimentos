@@ -5,7 +5,9 @@ package br.simulador.testes;
 
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInicializacao;
+import br.simulador.plugin.biblioteca.base.IAgente;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import java.util.Random;
 
 /**
  *
@@ -30,5 +32,14 @@ public class ExperimentosAgenteTest {
         
         GerenciadorExecucao.getInstance().executarMetodo("criar_atributo", 1, "velocidade");
         GerenciadorExecucao.getInstance().executarMetodo("retornar_atributo_cadeia", 1, "velocidade");
+        
+        int limiteX = GerenciadorInicializacao.getInstance().getLarguraSimulacao();
+        int limiteY = GerenciadorInicializacao.getInstance().getAlturaSimulacao();
+        
+        while(true){
+            for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
+                agente.ir_ate(new Random().nextInt(limiteX), new Random().nextInt(limiteY));
+            }
+        }
     }
 }

@@ -4,23 +4,19 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.inicializador.Inicializador;
+import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.plugin.biblioteca.componentes.PainelBase;
 import br.simulador.ui.PainelSimulacao;
-import br.univali.portugol.nucleo.Portugol;
-import br.univali.portugol.nucleo.Programa;
 import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
 import br.univali.portugol.nucleo.bibliotecas.Mouse;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
-import java.awt.GridLayout;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -68,69 +64,60 @@ public final class GerenciadorInicializacao {
     public void inicializarTela() throws ErroExecucaoBiblioteca, InterruptedException {
 //        SwingUtilities.invokeLater(() -> {
 
-            try {
-                g.inicializar(new ProgramaVazio(), null);
-                ArrayList<Biblioteca> lista = new ArrayList<>();
-                lista.add(g);
-                m.inicializar(new ProgramaVazio(), lista);
-                for (int i = 0; i < ALTURA; i++) {
-                    for (int j = 0; j < LARGURA; j++) {
+        try {
+            g.inicializar(new ProgramaVazio(), null);
+            ArrayList<Biblioteca> lista = new ArrayList<>();
+            lista.add(g);
+            m.inicializar(new ProgramaVazio(), lista);
+            for (int i = 0; i < ALTURA; i++) {
+                for (int j = 0; j < LARGURA; j++) {
                     canvas[i][j] = new Retalho();
-//                        canvas[i][j] = 0;
-                    }
                 }
-
-                g.iniciar_modo_grafico(true);
-                g.definir_dimensoes_janela(LARGURA * tile, (ALTURA + 2) * tile);
-                rodar();
-            } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-                Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-//        });
-//        SwingUtilities.invokeLater(() -> {
-//
-//            frame = new JFrame();
-//            frame.setSize(800, 600);
-//            frame.setLocationRelativeTo(null);
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            frame.setLayout(new GridLayout(1, 1));
-//
-//            try {
-//                ambienteSimulacao = new PainelSimulacao(null);
-//                frame.getContentPane().add(ambienteSimulacao);
-//            } catch (ErroExecucaoBiblioteca ex) {
-//                Logger.getLogger(Inicializador.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(Inicializador.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            frame.setVisible(true);
-//            
-//            try {
-//                ambienteSimulacao.criar_paineis();
-//            } catch (ErroExecucaoBiblioteca ex) {
-//                Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
+            g.iniciar_modo_grafico(true);
+            g.definir_dimensoes_janela(LARGURA * tile, (ALTURA + 2) * tile);
+            rodar();
+        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
+            Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException {
-        while (true) {
-            desenhar();
-            controle();
-            g.renderizar();
-        }
+
+        new Thread(() -> {
+            while (g.get_janela().estaVisivel()) {
+                try {
+                    desenhar();
+                    controle();
+                    g.renderizar();
+                } catch (ErroExecucaoBiblioteca ex) {
+                    Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }).start();
+
     }
 
     private void desenhar() throws ErroExecucaoBiblioteca, InterruptedException {
+        g.definir_titulo_janela("Simulador de Experimentos");
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
                 g.definir_cor(cores[canvas[i][j].retornar_cor_retalho()]);
                 g.desenhar_retangulo(j * tile, i * tile, tile, tile, false, true);
-//                g.desenhar_elipse(j * tile, i * tile, tile, tile, true);
+
+            }
+        }
+
+        ArrayList<IAgente> listaAgente = GerenciadorExecucao.getInstance().getListaAgentes();
+
+        if (listaAgente != null && listaAgente.size() > 0) {
+            for (IAgente agente : listaAgente) {
+                g.definir_cor(0xE59500);
+                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), 10, 10, true);
             }
         }
 
@@ -139,13 +126,15 @@ public final class GerenciadorInicializacao {
         if (t < ALTURA) {
             g.definir_cor(cores[cor_atual]);
             g.definir_opacidade(128);
-            g.desenhar_retangulo(j * tile, t * tile, tile, tile, false, true);
+            g.desenhar_elipse(j * tile, t * tile, tile, tile, true);
             g.definir_opacidade(255);
         }
+
         for (int i = 0; i < 16; i++) {
             g.definir_cor(cores[i]);
             g.desenhar_retangulo(i * 2 * tile, ALTURA * tile, 2 * tile, 2 * tile, false, true);
         }
+
         g.definir_cor(0x222222);
         g.desenhar_retangulo(0, ALTURA * tile, LARGURA * tile, 3, false, true);
     }
@@ -189,4 +178,11 @@ public final class GerenciadorInicializacao {
         ambienteSimulacao.atualizar_tela(frame);
     }
 
+    public int getAlturaSimulacao() throws ErroExecucaoBiblioteca, InterruptedException {
+        return g.altura_janela();
+    }
+
+    public int getLarguraSimulacao() throws ErroExecucaoBiblioteca, InterruptedException {
+        return g.largura_janela();
+    }
 }

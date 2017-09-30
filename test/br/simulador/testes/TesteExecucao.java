@@ -18,30 +18,26 @@ import java.util.logging.Logger;
  * @author Douglas
  */
 public class TesteExecucao {
-   
+
     private ArrayList<IAgente> listaAgentes = null;
-    
+
     public static void main(String[] args) {
-        
+
         try {
             new TesteExecucao().executarTeste();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(TesteExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void executarTeste() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException{
+
+    public void executarTeste() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
         iniciarLista();
         GerenciadorExecucao.getInstance().executarMetodo("retornar_id", null, new Object[0]);
     }
-    
-    private void iniciarLista(){
-        listaAgentes = new ArrayList<>();
-        
+
+    private void iniciarLista() {
         for (int i = 0; i < 5; i++) {
-            listaAgentes.add(new Agente(10, 10, i));
+            GerenciadorExecucao.getInstance().addAgente(new Agente(10, 10, i));
         }
-        
-        GerenciadorExecucao.getInstance().setListaAgentes(listaAgentes);
     }
 }

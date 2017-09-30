@@ -6,21 +6,21 @@ package br.simulador.plugin.biblioteca.base;
  */
 public class RetalhoCoordenadas
 {
-    private double coordenadaX = 0;
-    private double coordenadaY = 0;
+    private int coordenadaX = 0;
+    private int coordenadaY = 0;
 
-    public RetalhoCoordenadas(double coordenadaX, double coordenadaY)
+    public RetalhoCoordenadas(int coordenadaX, int coordenadaY)
     {
         this.coordenadaX = coordenadaX;
         this.coordenadaY = coordenadaY;
     }
 
-    public double getCoordenadaX()
+    public int getCoordenadaX()
     {
         return coordenadaX;
     }
 
-    public double getCoordenadaY()
+    public int getCoordenadaY()
     {
         return coordenadaY;
     }

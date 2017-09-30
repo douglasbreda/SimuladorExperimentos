@@ -262,9 +262,9 @@ public final class Experimentos extends Biblioteca
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void pular_para_XY(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException
+    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException
     {
-        ambiente.getAgenteAtual().pular_para_XY(coordenadaX, coordenadaY);
+        
     }
 
     @DocumentacaoFuncao(
@@ -409,9 +409,9 @@ public final class Experimentos extends Biblioteca
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void ir_ate(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException
+    public void ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException
     {
-        ambiente.getAgenteAtual().ir_ate(coordenadaX, coordenadaY);
+        
     }
 
     @DocumentacaoFuncao(

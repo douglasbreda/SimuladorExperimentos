@@ -9,9 +9,9 @@ import javax.swing.JPanel;
  */
 public interface IAgente
 {
-    public double retornar_coordenada_X() throws ErroExecucaoBiblioteca, InterruptedException;
+    public int retornar_coordenada_X() throws ErroExecucaoBiblioteca, InterruptedException;
     
-    public double retornar_coordenada_Y() throws ErroExecucaoBiblioteca, InterruptedException;;
+    public int retornar_coordenada_Y() throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException;;
     
@@ -23,7 +23,7 @@ public interface IAgente
     
     public void definir_orientacao(int graus) throws ErroExecucaoBiblioteca, InterruptedException;;
     
-    public void pular_para_XY(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
+    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public void morrer() throws ErroExecucaoBiblioteca, InterruptedException;;
     
@@ -47,7 +47,7 @@ public interface IAgente
     
     public int retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException;;
     
-    public boolean ir_ate(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
+    public boolean ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException;
 

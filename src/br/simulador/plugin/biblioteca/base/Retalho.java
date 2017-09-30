@@ -11,21 +11,15 @@ import layout.TableLayout;
 public class Retalho {
     
     private int cor;
-//    private final int id;
-//    private final int linha;
-//    private final int coluna;
-//    private final TableLayout layout;
+    private int coordenadaX;
+    private int coordenadaY;
+
 
     /*
         Construtor padrão
     */
     public Retalho() {
-        super();
-        
-//        this.id = id;
-//        this.linha = linha;
-//        this.coluna = coluna;
-//        this.layout = layout;
+        definirCoordenadasIniciais();
     }
 
     
@@ -72,26 +66,21 @@ public class Retalho {
     }
 
     //Define uma coordenada inicial para instanciar o agente
-    public RetalhoCoordenadas definirCoordenadasIniciais() {
-        Random randomX = new Random(800);
-        Random randomY = new Random(600);
+    public void definirCoordenadasIniciais() {
+        Random randomX = new Random(32);
+        Random randomY = new Random(32);
         
-        return new RetalhoCoordenadas(randomX.nextDouble() + 1, randomY.nextDouble() + 1);
-    }
-    
-    
-    public int getId() {
-//        return id;
-        return 0;
+        RetalhoCoordenadas c = new RetalhoCoordenadas(randomX.nextInt()+ 1, randomY.nextInt()+ 1);
+        
+        this.coordenadaX = c.getCoordenadaX();
+        this.coordenadaY = c.getCoordenadaY();
     }
 
-    public int getLinha() {
-        return 0;
-//        return linha;
+    public int getCoordenadaX() {
+        return coordenadaX;
     }
 
-    public int getColuna() {
-        return 0;
-//        return coluna;
-    }   
+    public int getCoordenadaY() {
+        return coordenadaY;
+    }
 }

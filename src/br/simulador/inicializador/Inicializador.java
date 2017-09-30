@@ -11,5 +11,6 @@ public class Inicializador {
 
     public static void main(String[] args) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInicializacao.getInstance().inicializarTela();
+        //System.exit(0);
     }
 }

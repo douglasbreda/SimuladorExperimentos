@@ -110,12 +110,14 @@ public final class GerenciadorExecucao {
     }
 
     /**
-     * Atualiza a lista de agentes para as execuções dos métodos
-     *
-     * @param listaAgentes
+     * Adiciona um agente a lista de agentes
+     * @param agente 
      */
-    public void setListaAgentes(ArrayList<IAgente> listaAgentes) {
-        GerenciadorExecucao.listaAgentes = listaAgentes;
+    public void addAgente(IAgente agente) {
+        if(listaAgentes == null)
+            listaAgentes = new ArrayList<>();
+        
+        listaAgentes.add(agente);
     }
 
     /**
@@ -129,11 +131,13 @@ public final class GerenciadorExecucao {
         int coordenadaX = 0;
         int coordenadaY = 0;
         int id = 0;
+        int maxX = GerenciadorInicializacao.getInstance().getLarguraSimulacao();
+        int maxY = GerenciadorInicializacao.getInstance().getAlturaSimulacao();
 
         for (int i = 0; i < numero_agentes; i++) {
 
-            coordenadaX = UtilSimulador.getNumeroRandomico(800);
-            coordenadaY = UtilSimulador.getNumeroRandomico(600);
+            coordenadaX = UtilSimulador.getNumeroRandomico(maxX);
+            coordenadaY = UtilSimulador.getNumeroRandomico(maxY);
 
             IAgente agente = new Agente(coordenadaX, coordenadaY, ++id);
 
@@ -145,11 +149,12 @@ public final class GerenciadorExecucao {
 
             UtilSimulador.setLog("------------------------------------------");
 
-            getPainelBase().adicionar_agente_lista(agente);
+            addAgente(agente);
+//            getPainelBase().adicionar_agente_lista(agente);
         }
 
-        getPainelBase().criar_posicoes_agentes();
-        setListaAgentes(getPainelBase().getListaAgentes());
+//        getPainelBase().criar_posicoes_agentes();
+        
     }
 
     /**
@@ -244,5 +249,11 @@ public final class GerenciadorExecucao {
         
         UtilSimulador.setLog("Após limpeza: " + listaAgentes.size());
     }
+
+    public ArrayList<IAgente> getListaAgentes() {
+        return listaAgentes;
+    }
+    
+    
 
 }
