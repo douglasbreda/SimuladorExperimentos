@@ -20,7 +20,7 @@ public abstract class BaseAgente implements IAgente {
     private int velocidade = 0;
 
     //Construtor padrão
-    public BaseAgente(int coordenadaX, int coordenadaY, int id, int velocidade) {
+    public BaseAgente(int coordenadaX, int coordenadaY, int id) {
         inicializar();
         this.coordenadaX = coordenadaX;
         this.coordenadaY = coordenadaY;
@@ -189,10 +189,5 @@ public abstract class BaseAgente implements IAgente {
     public void definirLog(String mensagem) {
 //        LOGGER.log(Level.INFO, mensagem);
         System.out.println(mensagem);
-    }
-
-    @Override
-    public int getVelocidade(){
-        return this.velocidade;
     }
 }

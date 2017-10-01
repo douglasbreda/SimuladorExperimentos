@@ -103,5 +103,21 @@ public final class GerenciadorInterface {
      */
     public int retorna_limite_maximo_borda_Y(){
         return desenho.retorna_valor_maximo_borda_Y();
-    }       
+    }
+    
+    /**
+     * Reseta as informações da simulação e configura a tela com a posição inicial
+     */
+    public void limpar_tudo(){
+        desenho.limpar_tudo();
+    }
+    
+    /**
+     * Método que "força" uma renderização da tela
+     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
+     */
+    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
+        desenho.atualizar_tela();
+    }
 }

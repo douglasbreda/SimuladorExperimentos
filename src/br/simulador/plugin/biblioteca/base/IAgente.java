@@ -52,6 +52,4 @@ public interface IAgente
     public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException;
 
     public JPanel getPainel();
-    
-    public int getVelocidade();
 }

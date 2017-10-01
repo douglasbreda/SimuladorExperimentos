@@ -243,4 +243,21 @@ public class GerenciadorDesenho {
     public int retorna_valor_maximo_borda_Y() {
         return retalhos[ALTURA - 1][0].getCoordenadaY();
     }
+    
+    /**
+     * Reset do ambiente de simulação
+     */
+    public void limpar_tudo(){
+        retalhos = new Retalho[ALTURA][LARGURA];
+        inicializar_tela();
+    }
+    
+    /**
+     * Força a rendererização da tela
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
+        g.renderizar();
+    }
 }

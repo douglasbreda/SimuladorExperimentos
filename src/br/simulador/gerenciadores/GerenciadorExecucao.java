@@ -22,8 +22,6 @@ public final class GerenciadorExecucao {
 
     private static ArrayList<IAgente> listaAgentes = null;
 
-    private static PainelBase painelBase = null;
-
     private static GerenciadorExecucao instance = null;
 
     /**
@@ -82,13 +80,12 @@ public final class GerenciadorExecucao {
             }
         }
     }
-    
+
     /**
-     * Chamada do método de execução dos métodos do agente que não possuem parâmetros
+     * Chamada do método de execução dos métodos do agente que não possuem
+     * parâmetros
      *
      * @param nome_metodo
-     * @param parametros
-     * @param tipo_parametros
      * @throws IllegalArgumentException
      */
     public void executarMetodo(String nome_metodo) {
@@ -111,12 +108,14 @@ public final class GerenciadorExecucao {
 
     /**
      * Adiciona um agente a lista de agentes
-     * @param agente 
+     *
+     * @param agente
      */
     public void addAgente(IAgente agente) {
-        if(listaAgentes == null)
+        if (listaAgentes == null) {
             listaAgentes = new ArrayList<>();
-        
+        }
+
         listaAgentes.add(agente);
     }
 
@@ -125,6 +124,9 @@ public final class GerenciadorExecucao {
      *
      * @param numero_agentes
      * @param aleatorio
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
      */
     public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException {
 
@@ -156,7 +158,6 @@ public final class GerenciadorExecucao {
         }
 
 //        getPainelBase().criar_posicoes_agentes();
-        
     }
 
     /**
@@ -220,9 +221,7 @@ public final class GerenciadorExecucao {
                     agente.definir_valor_atributo(nome_atributo, valor);
                 }
             }
-        } catch (ErroExecucaoBiblioteca ex) {
-            Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
             Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -232,17 +231,56 @@ public final class GerenciadorExecucao {
      */
     public void limpar_tudo() {
         UtilSimulador.setLog("Número de agentes atuais: " + listaAgentes.size());
-        
-        painelBase.limpar_tudo();
+
         listaAgentes.clear();
-        
+
         UtilSimulador.setLog("Após limpeza: " + listaAgentes.size());
     }
 
+    /**
+     * Retorna a lista de agentes da aplicação
+     *
+     * @return
+     */
     public ArrayList<IAgente> getListaAgentes() {
         return listaAgentes;
     }
+
+    /**
+     * Retorna o número de agentes que contém uma determinada cor passada por
+     * parâmetro
+     *
+     * @param cor
+     * @return
+     */
+    public int agentes_com_cor(int cor) {
+        int numero_agentes = 0;
+        if (listaAgentes != null) {
+            numero_agentes = UtilSimulador.toInt(listaAgentes.stream()
+                                                             .filter(agente -> comparar_cor_agente(agente, cor))
+                                                             .count());
+
+        }
+
+        return numero_agentes;
+    }
     
-    
+    /**
+     * Método criado para disparar exceção dentro de um filter
+     * @param agente
+     * @param cor
+     * @return 
+     */
+    private boolean comparar_cor_agente(IAgente agente, int cor){
+        try {
+            return agente.retornar_cor_agente() == cor;
+        } catch (ErroExecucaoBiblioteca ex) {
+            Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
 
 }
