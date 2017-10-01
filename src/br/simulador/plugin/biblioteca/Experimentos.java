@@ -1,6 +1,7 @@
 package br.simulador.plugin.biblioteca;
 
-import br.simulador.plugin.biblioteca.base.Ambiente;
+import br.simulador.gerenciadores.GerenciadorExecucao;
+import br.simulador.gerenciadores.GerenciadorInterface;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import static br.univali.portugol.nucleo.bibliotecas.base.TipoBiblioteca.COMPARTILHADA;
@@ -10,42 +11,28 @@ import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoFuncao;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoParametro;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.PropriedadesBiblioteca;
 
-
 @PropriedadesBiblioteca(tipo = COMPARTILHADA)
 @DocumentacaoBiblioteca(
         descricao = "Esta biblioteca contém uma série de funcionalidades que permitem a criação de simulações de experimentos físicos ou naturais.",
         versao = "1.0")
-public final class Experimentos extends Biblioteca
-{
-    private final Ambiente ambiente = new Ambiente();
-
-//    public Experimentos()
-//    {
-////        inicializar();
-//    }
-
-//    private void inicializar()
-//    {
-//        ambiente = new Ambiente();
-//    }
+public final class Experimentos extends Biblioteca {
 
     @DocumentacaoFuncao(
             descricao = "Cria n agentes para simulação.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "numeroAgentes", descricao = "o número de agentes a ser criado")
                 ,
                 @DocumentacaoParametro(nome = "aleatorio", descricao = "Os agentes serão criados em lugares aleatórios ou todos na mesma posição")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_agentes(int numeroAgentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.criar_agentes(numeroAgentes, aleatorio);
+    public void criar_agentes(int numeroAgentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorExecucao.getInstance().criar_agentes(numeroAgentes, aleatorio);
     }
 
     @DocumentacaoFuncao(
@@ -56,418 +43,391 @@ public final class Experimentos extends Biblioteca
             //            },
             retorno = "Sem retorno",
             //            referencia = "Sem referência",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void executar_teste() throws ErroExecucaoBiblioteca, InterruptedException
-    {
+    public void executar_teste() throws ErroExecucaoBiblioteca, InterruptedException {
         //Verificar nome do método pois o nome "executar" conflita com algo dentro do núcleo   
+        GerenciadorInterface.getInstance().inicializarTela();
     }
 
     @DocumentacaoFuncao(
             descricao = "Permite a criação de variáveis para controle e uso durante a simulação.",
-            parametros =
-            {
+            parametros
+            = {
                 //Verificar se será criada a opção para passar um tipo ou valor default
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Define a identificação do atributo.")
             },
             retorno = "Sem retorno",
-            //            referencia = "Sem referência",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_atributo(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.adicionar_atributo_agentes(nome_atributo);
+    public void criar_atributo(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorExecucao.getInstance().executarMetodo("criar_parametro", 1, nome_atributo);
     }
 
     @DocumentacaoFuncao(
             descricao = "Permite controlar a média de uma característica de um agente. Por exemplo, "
             + "exibir em um monitor a média de energia ou velocidade dos agentes.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Define a identificação do atributo.")
             },
             retorno = "Retorna o valor da média de um determinado atributo",
-            //            referencia = "Sem referência",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double media(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.media(nome_atributo);
+    public double media(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
+        return GerenciadorExecucao.getInstance().media(nome_atributo);
     }
 
     @DocumentacaoFuncao(
             descricao = "Define um valor a um determinado atributo.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que terá o valor atribuído")
                 ,
-                @DocumentacaoParametro(nome = "valor", descricao = "Novo valor do atributo")
+                @DocumentacaoParametro(nome = "valor", descricao = "Novo valor do atributo"),
+                @DocumentacaoParametro(nome = "id_agente", descricao = "Id do agente que terá o valor atualizado")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.getAgenteAtual().definir_valor_atributo(nome_atributo, valor);
+    public void definir_valor_atributo(String nome_atributo, String valor, int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente(nome_atributo, valor, id_agente);
     }
 
     @DocumentacaoFuncao(
             descricao = "Mata o agente atual da simulação e o remove do ambiente de simulação.",
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void morrer() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.matar_agente();
+    public void morrer() throws ErroExecucaoBiblioteca, InterruptedException {
+        //Talvez precise do id do agente para saber qual deve morrer
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna a coordenada X do agente atual.",
             retorno = "Coordenada X do agente",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double retornar_coordenadaX() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_coordenada_X();
+    public double retornar_coordenadaX() throws ErroExecucaoBiblioteca, InterruptedException {
+        return (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_X");
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna a coordenada Y do agente atual.",
             retorno = "Coordeanda Y do agente",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double retornar_coordenadaY() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_coordenada_Y();
+    public double retornar_coordenadaY() throws ErroExecucaoBiblioteca, InterruptedException {
+        return (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_Y");
     }
 
     @DocumentacaoFuncao(
             descricao = "Move o agente n passos(verificar explicação para os passos) para a frente.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "quantidade", descricao = "Quantidade de passos para mover")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.getAgenteAtual().mover_frente(quantidade);
+    public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Faz com que o agente retorne n passos.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "quantidade", descricao = "Quantidade de passos para retornar")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void voltar(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.getAgenteAtual().voltar(quantidade);
+    public void voltar(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Gira o agente n graus para a esquerda.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "graus", descricao = "Quantidade de graus para o giro")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void girar_esquerda(int graus) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.getAgenteAtual().girar_esquerda(graus);
+    public void girar_esquerda(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Gira o agente n graus para a direita.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "graus", descricao = "Quantidade de graus para o giro")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void girar_direita(int graus) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.getAgenteAtual().girar_direita(graus);
+    public void girar_direita(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Move o agente de acordo com a quantidade de graus passada por parâmetro. "
             + "É considerado um posicionamento da tela, ou seja, é igual para todos os agentes.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "graus", descricao = "Quantidade de graus para o giro")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_orientacao(int graus) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.getAgenteAtual().definir_orientacao(graus);
+    public void definir_orientacao(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Move o agente para uma determinada coordenada X e Y.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "coordenadaX", descricao = "Qual a coordenada X para pular")
                 ,
-                @DocumentacaoParametro(nome = "coordenadaY", descricao = "Qual a coordenada Y para pular"),
-            },
+                @DocumentacaoParametro(nome = "coordenadaY", descricao = "Qual a coordenada Y para pular"),},
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        
+    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Define uma cor ao agente.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "cor", descricao = "Cor para o agente. Utilize a biblioteca Gráficos que já possui "
                         + "cores pré-definidas")
             },
             retorno = "Sem retorno",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_cor_agente(int cor) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        
+    public void definir_cor_agente(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna um parâmetro no formato de cadeia de caracteres.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
             retorno = "Retorna o parâmetro convertido para cadeia de caracteres",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public String retornar_atributo_cadeia(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_atributo_cadeia(nome_atributo);
+    public String retornar_atributo_cadeia(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
+        return "";
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna um parâmetro no formato de caracter.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
             retorno = "Retorna o parâmetro convertido para caractere",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public char retornar_atributo_caracter(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_atributo_caracter(nome_atributo);
+    public char retornar_atributo_caracter(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
+        return ' ';
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna um parâmetro no formato inteiro.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
             retorno = "Retorna o parâmetro convertido para número inteiro",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_atributo_inteiro(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_atributo_inteiro(nome_atributo);
+    public int retornar_atributo_inteiro(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
+        return 0;
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna um parâmetro no formato lógico.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
             retorno = "Retorna o parâmetro convertido para lógico",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public boolean retornar_atributo_logico(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_atributo_logico(nome_atributo);
+    public boolean retornar_atributo_logico(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
+        return false;
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna um parâmetro no formato real.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
             retorno = "Retorna o parâmetro convertido para número real",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double retornar_atributo_real(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_atributo_real(nome_atributo);
+    public double retornar_atributo_real(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
+        return 0;
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna a cor do agente atual.",
             retorno = "O código inteiro referente a cor",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_cor_agente() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_cor_agente();
+    public int retornar_cor_agente() throws ErroExecucaoBiblioteca, InterruptedException {
+        return 0;
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna a orientação do agente atual.",
             retorno = "A posição em graus referente a orientação",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_orientacao();
+    public int retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException {
+        return 0;
     }
 
     @DocumentacaoFuncao(
             descricao = "Move o agente até uma posição específica no retalho.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "coordenadaX", descricao = "Nova coordenada X")
                 ,
                 @DocumentacaoParametro(nome = "coordeandaY", descricao = "Nova coordenada Y")
             },
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException
-    {
+    public void ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
         
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna o ID único do agente atual.",
             retorno = "ID do agente",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.getAgenteAtual().retornar_id();
+    public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException {
+        return (int) GerenciadorExecucao.getInstance().executarMetodo("retornar_id");
     }
 
     @DocumentacaoFuncao(
             descricao = "Conta todos os agentes presentes na simulação.",
             retorno = "Número de agentes da simulação",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int contar_agentes() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.contar_agentes();
+    public int contar_agentes() throws ErroExecucaoBiblioteca, InterruptedException {
+        return GerenciadorExecucao.getInstance().contar_agentes();
     }
 
     @DocumentacaoFuncao(
             descricao = "Realiza a atualização dos componentes visuais caso necessário.",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.atualizar_tela();
+    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorInterface.getInstance().atualizar_tela();
     }
 
     @DocumentacaoFuncao(
             descricao = "Limpa o ambiente de simulação, voltando para a configuração inicial(Verificar).",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void limpar_tudo() throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.limpar_tudo();
+    public void limpar_tudo() throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorInterface.getInstance().limpar_tudo();
     }
 
     @DocumentacaoFuncao(
             descricao = "Permite a criação de um componente de slider para alteração de configurações durante a simulação",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente")
                 ,
                 @DocumentacaoParametro(nome = "minimo", descricao = "Valor mínimo permitido do componente")
@@ -476,97 +436,90 @@ public final class Experimentos extends Biblioteca
                 ,
                 @DocumentacaoParametro(nome = "valor_padrao", descricao = "Valor padrão para definir ao criar o componente")
             },
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.criar_slider(titulo, minimo, maximo, valor_padrao);
+    public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Cria um componente do tipo Monitor para exibição de alguma variável durante a execução.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente")
                 ,
-                @DocumentacaoParametro(nome = "minimo", descricao = "Valor padrão do componente"),
-            },
-            autores =
-            {
+                @DocumentacaoParametro(nome = "minimo", descricao = "Valor padrão do componente"),},
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_monitor(String titulo, double valor) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.criar_monitor(titulo, valor);
+    public void criar_monitor(String titulo, double valor) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Cria um componente do tipo Interruptor que permite ao usuário ligar ou desligar determinada funcionalidade ou característica de uma agente ou ambiente.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente")
                 ,
-                @DocumentacaoParametro(nome = "valor_padrao", descricao = "Se inicia com verdadeiro ou falso"),
-            },
-            autores =
-            {
+                @DocumentacaoParametro(nome = "valor_padrao", descricao = "Se inicia com verdadeiro ou falso"),},
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_interruptor(String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.criar_interruptor(titulo, valor_padrao);
+    public void criar_interruptor(String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna quantos agentes possuem uma determinada cor.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "cor", descricao = "Define o código inteiro da cor a ser atribuída ao agente")
             },
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int agentes_com_cor(int cor) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        return ambiente.agentes_com_cor(cor);
+    public int agentes_com_cor(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
+        return 0;
     }
 
     @DocumentacaoFuncao(
             descricao = "Define os limites das bordas e passa aceita um parâmetro com a cor. Neste caso a borda já é destacada com a cor passada por parâmetro.",
-            parametros =
-            {
+            parametros
+            = {
                 @DocumentacaoParametro(nome = "cor", descricao = "Define o código inteiro da cor a ser atribuída ao agente")
             },
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_bordas(int cor) throws ErroExecucaoBiblioteca, InterruptedException
-    {
-        ambiente.definir_bordas(cor);
+    public void definir_bordas(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorInterface.getInstance().definir_bordas(cor);
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna a quantidade de agentes em um determinado patch de acordo com as coordenadas passadas por parâmetro.",
             parametros = {
-                @DocumentacaoParametro(nome = "coordenadaX", descricao = "Qual a coordenada X desejada"),
+                @DocumentacaoParametro(nome = "coordenadaX", descricao = "Qual a coordenada X desejada")
+                ,
                 @DocumentacaoParametro(nome = "coordenadaY", descricao = "Qual a coordenada Y desejada")
             },
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void agentes_em_XY(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException
-    {
+    public void agentes_em_XY(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
 
     }
 
@@ -575,49 +528,45 @@ public final class Experimentos extends Biblioteca
             parametros = {
                 @DocumentacaoParametro(nome = "cor", descricao = "Código inteiro da cor")
             },
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_cor_retalho(int cor) throws ErroExecucaoBiblioteca, InterruptedException
-    {
+    public void definir_cor_retalho(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
 
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna a cor atual do retalho.",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_cor_retalho() throws ErroExecucaoBiblioteca, InterruptedException
-    {
+    public int retornar_cor_retalho() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna qual é o limite máximo da coordenada X do retalho.",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double retornar_valor_max_bordaX() throws ErroExecucaoBiblioteca, InterruptedException
-    {
+    public double retornar_valor_max_bordaX() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
 
     @DocumentacaoFuncao(
             descricao = "Retorna qual é o limite máximo da coordenada Y do retalho.",
-            autores =
-            {
+            autores
+            = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double retornar_valor_max_bordaY() throws ErroExecucaoBiblioteca, InterruptedException
-    {
+    public double retornar_valor_max_bordaY() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
 

@@ -5,6 +5,7 @@ package br.simulador.gerenciadores;
 
 import br.simulador.plugin.biblioteca.base.Agente;
 import br.simulador.plugin.biblioteca.base.IAgente;
+import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.plugin.biblioteca.componentes.PainelBase;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
@@ -63,7 +64,7 @@ public final class GerenciadorExecucao {
      * @param tipo_parametros
      * @throws IllegalArgumentException
      */
-    public void executarMetodo(String nome_metodo, Class[] tipo_parametros, Object... parametros) {
+    public Object executarMetodo(String nome_metodo, Class[] tipo_parametros, Object... parametros) {
 
         if (listaAgentes != null) {
 
@@ -73,12 +74,14 @@ public final class GerenciadorExecucao {
                 for (IAgente agente : listaAgentes) {
 
                     Method m = classe.getClass().getMethod(nome_metodo, tipo_parametros);
-                    System.out.println(m.invoke(agente, parametros));
+                    return m.invoke(agente, parametros);
                 }
             } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException ex) {
                 Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        return new Object();
     }
 
     /**
@@ -88,7 +91,7 @@ public final class GerenciadorExecucao {
      * @param nome_metodo
      * @throws IllegalArgumentException
      */
-    public void executarMetodo(String nome_metodo) {
+    public Object executarMetodo(String nome_metodo) {
 
         if (listaAgentes != null) {
 
@@ -98,12 +101,13 @@ public final class GerenciadorExecucao {
                 for (IAgente agente : listaAgentes) {
 
                     Method m = classe.getClass().getMethod(nome_metodo);
-                    System.out.println(m.invoke(agente, new Object[0]));
+                    return m.invoke(agente, new Object[0]);
                 }
             } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException ex) {
                 Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return new Object();
     }
 
     /**
@@ -218,7 +222,7 @@ public final class GerenciadorExecucao {
             for (IAgente agente : listaAgentes) {
 
                 if (agente.retornar_id() == id) {
-                    agente.definir_valor_atributo(nome_atributo, valor);
+                    agente.definir_valor_atributo(nome_atributo, valor, id);
                 }
             }
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
@@ -281,6 +285,18 @@ public final class GerenciadorExecucao {
         }
         
         return false;
+    }
+    
+    public int agentes_em(int coordenadaX, int coordenadaY){
+        int numero_agentes = 0;
+        
+        Retalho retalho = GerenciadorInterface.getInstance().get_retalho(coordenadaX, coordenadaY);
+        
+        if(retalho != null){
+            //TODO
+        }
+        
+        return numero_agentes;
     }
 
 }

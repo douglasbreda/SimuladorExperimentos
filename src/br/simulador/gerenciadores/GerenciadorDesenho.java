@@ -260,4 +260,26 @@ public class GerenciadorDesenho {
     public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
         g.renderizar();
     }
+    
+    /**
+     * Retorna o retalho de uma determinada posição
+     * @param x
+     * @param y
+     * @return 
+     */
+    public Retalho get_retalho(int x, int y){
+        Retalho retalho_retorno = null;
+        
+        for (int i = 0; i < ALTURA; i++) {
+            for (int j = 0; j < LARGURA; j++) {
+                if(retalhos[i][j].getCoordenadaX() == x &&
+                   retalhos[i][j].getCoordenadaY() == y){
+                    retalho_retorno = retalhos[i][j];
+                    break;
+                }
+            }
+        }
+        
+        return retalho_retorno;
+    }
 }

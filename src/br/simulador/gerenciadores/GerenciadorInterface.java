@@ -3,6 +3,7 @@
  */
 package br.simulador.gerenciadores;
 
+import br.simulador.plugin.biblioteca.base.Retalho;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 
 /**
@@ -119,5 +120,15 @@ public final class GerenciadorInterface {
      */
     public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
         desenho.atualizar_tela();
+    }
+    
+    /**
+     * Retorna o retalho de uma determinada posição X e Y
+     * @param coordenadaX
+     * @param coordenadaY
+     * @return 
+     */
+    public Retalho get_retalho(int coordenadaX, int coordenadaY){
+        return desenho.get_retalho(coordenadaX, coordenadaY);
     }
 }

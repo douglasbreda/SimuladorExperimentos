@@ -56,7 +56,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void definir_valor_atributo(String nome_atributo, String valor) {
+    public void definir_valor_atributo(String nome_atributo, String valor, int id_agente) {
         if (verificarAtributoExiste(nome_atributo)) {
             definirLog("Parâmetro " + nome_atributo + " valor atual: " + listaParametros.get(nome_atributo));
             listaParametros.replace(nome_atributo, valor);
