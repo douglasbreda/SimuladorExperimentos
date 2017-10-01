@@ -9,9 +9,9 @@ import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
  *
  * @author Douglas
  */
-public final class GerenciadorInicializacao {
+public final class GerenciadorInterface {
 
-    public static GerenciadorInicializacao instance = null;
+    private static GerenciadorInterface instance = null;
 
     private static GerenciadorDesenho desenho = null;
 
@@ -20,10 +20,10 @@ public final class GerenciadorInicializacao {
      *
      * @return
      */
-    public static GerenciadorInicializacao getInstance() {
+    public static GerenciadorInterface getInstance() {
 
         if (instance == null) {
-            instance = new GerenciadorInicializacao();
+            instance = new GerenciadorInterface();
             desenho = new GerenciadorDesenho();
         }
 
@@ -72,4 +72,36 @@ public final class GerenciadorInicializacao {
     public void definir_bordas(int cor){
         desenho.desenhar_bordas(cor);
     }
+    
+    /**
+     * Retorna o limite mínimo para X
+     * @return 
+     */
+    public int retorna_limite_minimo_borda_X(){
+        return desenho.retorna_valor_minimo_borda_X();
+    }
+    
+    /**
+     * Retorna o limite mínimo para Y
+     * @return 
+     */
+    public int retorna_limite_minimo_borda_Y(){
+        return desenho.retorna_valor_minimo_borda_Y();
+    }
+    
+    /**
+     * Retorna o limite máximo para X
+     * @return 
+     */
+    public int retorna_limite_maximo_borda_X(){
+        return desenho.retorna_valor_maximo_borda_X();
+    }
+    
+    /**
+     * Retorna o limite máximo para Y
+     * @return 
+     */
+    public int retorna_limite_maximo_borda_Y(){
+        return desenho.retorna_valor_maximo_borda_Y();
+    }       
 }

@@ -4,7 +4,7 @@
 package br.simulador.testes;
 
 import br.simulador.gerenciadores.GerenciadorExecucao;
-import br.simulador.gerenciadores.GerenciadorInicializacao;
+import br.simulador.gerenciadores.GerenciadorInterface;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 
 /**
@@ -27,7 +27,7 @@ public class ExperimentosTest {
      * @throws InterruptedException
      */
     public void testarCriarAgentes() throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorInicializacao.getInstance().inicializarTela();
+        GerenciadorInterface.getInstance().inicializarTela();
 
         Thread.sleep(1000);//Para esperar a tela ser criada, pois ocorreu null pointer ao buscar componentes que ainda não foram criados
 
@@ -56,13 +56,13 @@ public class ExperimentosTest {
         
         GerenciadorExecucao.getInstance().limpar_tudo();
         
-//        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_slider("Slider 1", 0, 100, 12);
+//        GerenciadorInterface.getInstance().getJanelaSimulador().criar_slider("Slider 1", 0, 100, 12);
 //        
-//        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_monitor("Monitor 1", "100");
+//        GerenciadorInterface.getInstance().getJanelaSimulador().criar_monitor("Monitor 1", "100");
 //        
-//        GerenciadorInicializacao.getInstance().getJanelaSimulador().criar_interruptor("Switch 1", true);
+//        GerenciadorInterface.getInstance().getJanelaSimulador().criar_interruptor("Switch 1", true);
         
-//        GerenciadorInicializacao.getInstance().atualizar_tela();
+//        GerenciadorInterface.getInstance().atualizar_tela();
         
     }
 

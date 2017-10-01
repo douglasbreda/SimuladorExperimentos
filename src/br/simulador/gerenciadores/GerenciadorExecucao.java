@@ -131,8 +131,8 @@ public final class GerenciadorExecucao {
         int coordenadaX = 0;
         int coordenadaY = 0;
         int id = 0;
-        int maxX = GerenciadorInicializacao.getInstance().getLarguraSimulacao();
-        int maxY = GerenciadorInicializacao.getInstance().getAlturaSimulacao();
+        int maxX = GerenciadorInterface.getInstance().getLarguraSimulacao();
+        int maxY = GerenciadorInterface.getInstance().getAlturaSimulacao();
         int velocidade = 0;
 
         for (int i = 0; i < numero_agentes; i++) {

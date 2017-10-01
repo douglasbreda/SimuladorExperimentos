@@ -17,21 +17,9 @@ public class Retalho {
         Construtor padrão
     */
     public Retalho() {
-        definirCoordenadasIniciais();
+        
     }
 
-    
-    public void testarMovimentacaoComponentes() {
-        
-//        Random random = new Random(10);
-//        
-//        for (Formas forma : lstFormas) {
-//            forma.setPoint(new Point(forma.getPoint().x + random.nextInt(10), forma.getPoint().y + random.nextInt(10)));
-//        }
-//        
-//        repaint();
-    }
-    
     public void set_cor(int cor){
         this.cor = cor;
     }
@@ -63,15 +51,14 @@ public class Retalho {
         return 0;
     }
 
-    //Define uma coordenada inicial para instanciar o agente
-    public void definirCoordenadasIniciais() {
-        Random randomX = new Random(32);
-        Random randomY = new Random(32);
-        
-        RetalhoCoordenadas c = new RetalhoCoordenadas(randomX.nextInt()+ 1, randomY.nextInt()+ 1);
-        
-        this.coordenadaX = c.getCoordenadaX();
-        this.coordenadaY = c.getCoordenadaY();
+    /**
+     * Atribui as coordenadas equivalentes da tela aos agentes
+     * @param x
+     * @param y 
+     */
+    public void definir_coordenadas(int x, int y) {
+        this.coordenadaX = x;
+        this.coordenadaY = y;
     }
 
     public int getCoordenadaX() {

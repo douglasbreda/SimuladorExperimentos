@@ -1,6 +1,6 @@
 /*
 Classe para desenhar os componentes visuais
-*/
+ */
 package br.simulador.gerenciadores;
 
 import br.simulador.plugin.biblioteca.base.IAgente;
@@ -19,22 +19,22 @@ import java.util.logging.Logger;
  * @author Douglas
  */
 public class GerenciadorDesenho {
-    
+
     final int LARGURA = 32;
     final int ALTURA = 32;
     final int tile = 20;
     int cor_atual = 3;
-    
+
     Retalho[][] retalhos = new Retalho[ALTURA][LARGURA];
     int[] cores = {0xFFFFFF, 0xE4E4E4, 0x888888, 0x222222, 0xFFA7D1, 0xE50000, 0xE59500, 0xA06A42, 0xE5D900, 0x94E044, 0x02BE01, 0x00D3DD, 0x0083C7, 0x0000EA, 0xCF6EE4, 0x820080};
 
     Graficos g = new Graficos();
     Mouse m = new Mouse();
-    
+
     /**
      * Inicia a tela onde será executada a simulação
      */
-    public void inicializar_tela(){
+    public void inicializar_tela() {
         try {
             g.inicializar(new ProgramaVazio(), null);
             ArrayList<Biblioteca> lista = new ArrayList<>();
@@ -50,14 +50,15 @@ public class GerenciadorDesenho {
             g.definir_dimensoes_janela(LARGURA * tile, (ALTURA + 2) * tile);
             rodar();
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-            Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Dispara a thread necessária por ficar renderizando a tela
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException {
 
@@ -68,26 +69,31 @@ public class GerenciadorDesenho {
                     controle();
                     g.renderizar();
                 } catch (ErroExecucaoBiblioteca ex) {
-                    Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(GerenciadorInicializacao.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }).start();
     }
-    
+
     /**
      * Responsável por desenhar e renderizar os componentes visuais
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     private void desenhar() throws ErroExecucaoBiblioteca, InterruptedException {
         g.definir_titulo_janela("Simulador de Experimentos");
+        int x = 0;
+        int y = 0;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
                 g.definir_cor(cores[retalhos[i][j].retornar_cor_retalho()]);
-                g.desenhar_retangulo(j * tile, i * tile, tile, tile, false, true);
-
+                x = j * tile;
+                y = i * tile;
+                g.desenhar_retangulo(x, y, tile, tile, false, true);
+                retalhos[i][j].definir_coordenadas(x, y);
             }
         }
 
@@ -117,11 +123,13 @@ public class GerenciadorDesenho {
         g.definir_cor(0x222222);
         g.desenhar_retangulo(0, ALTURA * tile, LARGURA * tile, 3, false, true);
     }
-    
+
     /**
-     * Método que aplica as cores conforme o usuário clica em uma posição da tela
+     * Método que aplica as cores conforme o usuário clica em uma posição da
+     * tela
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     private void controle() throws ErroExecucaoBiblioteca, InterruptedException {
         int i = m.posicao_y() / tile;
@@ -134,60 +142,105 @@ public class GerenciadorDesenho {
             }
         }
     }
-    
+
     /**
-     * Verifica se a simulação ainda está executando para que possa parar as threads caso ela seja finalizada
-     * @return 
+     * Verifica se a simulação ainda está executando para que possa parar as
+     * threads caso ela seja finalizada
+     *
+     * @return
      */
-    public boolean esta_executando(){
+    public boolean esta_executando() {
         return g.get_janela().estaVisivel();
     }
-    
+
     /**
      * Retorna a altura da janela de simulação
-     * @return 
+     *
+     * @return
      */
-    public int get_altura_janela() throws ErroExecucaoBiblioteca, InterruptedException{
+    public int get_altura_janela() throws ErroExecucaoBiblioteca, InterruptedException {
         return g.altura_janela();
     }
-    
+
     /**
      * Retorna a largura da janela
+     *
      * @return
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public int get_largura_janela() throws ErroExecucaoBiblioteca, InterruptedException{
+    public int get_largura_janela() throws ErroExecucaoBiblioteca, InterruptedException {
         return g.largura_janela();
     }
-    
+
     /**
      * Desenha os limites(bordas) da janela
-     * @param cor 
+     *
+     * @param cor
      */
-    public void desenhar_bordas(int cor){
-        //Borda esquerda
+    public void desenhar_bordas(int cor) {
+        //Borda superior
         for (int i = 0; i < ALTURA; i++) {
             retalhos[0][i].set_cor(cor);
             retalhos[0][i].set_parede(true);
         }
-        
-        //Borda direita
+
+        //Borda inferior
         for (int i = 0; i < ALTURA; i++) {
             retalhos[ALTURA - 1][i].set_cor(cor);
             retalhos[ALTURA - 1][i].set_parede(true);
         }
-        
-        //Borda inferior
+
+        //Borda esquerda
         for (int i = 0; i < LARGURA; i++) {
             retalhos[i][0].set_cor(cor);
             retalhos[i][0].set_parede(true);
         }
-        
-        //Borda superior
+
+        //Borda direita
         for (int i = 0; i < LARGURA; i++) {
             retalhos[i][LARGURA - 1].set_cor(cor);
             retalhos[i][LARGURA - 1].set_parede(true);
         }
+    }
+
+    /**
+     * Retorna a coordenada minima de X possível de acessar para controle de
+     * colisões
+     *
+     * @return
+     */
+    public int retorna_valor_minimo_borda_X() {
+        return retalhos[0][0].getCoordenadaX();
+    }
+
+    /**
+     * Retorna a coordenada mínima de Y possível de acessar para controle de
+     * colisões
+     *
+     * @return
+     */
+    public int retorna_valor_minimo_borda_Y() {
+        return retalhos[ALTURA - 1][0].getCoordenadaY();
+    }
+
+    /**
+     * Retorna a coordenada máxima de X possível de acessar para controle de
+     * colisões
+     *
+     * @return
+     */
+    public int retorna_valor_maximo_borda_X() {
+        return retalhos[0][LARGURA - 1].getCoordenadaX();
+    }
+
+    /**
+     * Retorna a coordenada mínima de Y possível de acessar para controle de
+     * colisões
+     *
+     * @return
+     */
+    public int retorna_valor_maximo_borda_Y() {
+        return retalhos[ALTURA - 1][0].getCoordenadaY();
     }
 }

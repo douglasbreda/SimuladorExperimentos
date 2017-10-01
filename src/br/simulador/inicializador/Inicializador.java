@@ -1,6 +1,6 @@
 package br.simulador.inicializador;
 
-import br.simulador.gerenciadores.GerenciadorInicializacao;
+import br.simulador.gerenciadores.GerenciadorInterface;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 
 /**
@@ -10,7 +10,7 @@ import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 public class Inicializador {
 
     public static void main(String[] args) throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorInicializacao.getInstance().inicializarTela();
+        GerenciadorInterface.getInstance().inicializarTela();
         //System.exit(0);
     }
 }
