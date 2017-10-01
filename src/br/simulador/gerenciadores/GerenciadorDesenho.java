@@ -36,10 +36,12 @@ public class GerenciadorDesenho {
      */
     public void inicializar_tela() {
         try {
-            g.inicializar(new ProgramaVazio(), null);
+            g = new Graficos();
+            m = new Mouse();
+            g.inicializar(ProgramaVazio.novaInstancia(), null);
             ArrayList<Biblioteca> lista = new ArrayList<>();
             lista.add(g);
-            m.inicializar(new ProgramaVazio(), lista);
+            m.inicializar(ProgramaVazio.novaInstancia(), lista);
             for (int i = 0; i < ALTURA; i++) {
                 for (int j = 0; j < LARGURA; j++) {
                     retalhos[i][j] = new Retalho();
@@ -63,7 +65,8 @@ public class GerenciadorDesenho {
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException {
 
         new Thread(() -> {
-            while (esta_executando()) {
+//        while (esta_executando()) {
+            while (true) {
                 try {
                     desenhar();
                     controle();
@@ -87,6 +90,8 @@ public class GerenciadorDesenho {
         g.definir_titulo_janela("Simulador de Experimentos");
         int x = 0;
         int y = 0;
+        
+        //Desenha os retalhos da tela
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
                 g.definir_cor(cores[retalhos[i][j].retornar_cor_retalho()]);
@@ -106,22 +111,33 @@ public class GerenciadorDesenho {
             }
         }
 
-        int t = m.posicao_y() / tile;
-        int j = m.posicao_x() / tile;
-        if (t < ALTURA) {
-            g.definir_cor(cores[cor_atual]);
-            g.definir_opacidade(128);
-            g.desenhar_elipse(j * tile, t * tile, tile, tile, true);
-            g.definir_opacidade(255);
-        }
+//        int t = m.posicao_y() / tile;
+//        int j = m.posicao_x() / tile;
+        
+        //Desenha o objeto em volta do mouse
+//        if (t < ALTURA) {
+//            g.definir_cor(cores[cor_atual]);
+//            g.definir_opacidade(128);
+//            g.desenhar_elipse(j * tile, t * tile, tile, tile, true);
+//            g.definir_opacidade(255);
+//        }
 
-        for (int i = 0; i < 16; i++) {
-            g.definir_cor(cores[i]);
-            g.desenhar_retangulo(i * 2 * tile, ALTURA * tile, 2 * tile, 2 * tile, false, true);
-        }
+        //Desenha a paleta de cores na parte inferior da janela
+//        for (int i = 0; i < 16; i++) {
+//            g.definir_cor(cores[i]);
+//            g.desenhar_retangulo(i * 2 * tile, 0 * tile, 2 * tile, 2 * tile, false, true);
+//        }
 
+        //Desenha a borda superior da janela
         g.definir_cor(0x222222);
-        g.desenhar_retangulo(0, ALTURA * tile, LARGURA * tile, 3, false, true);
+        g.desenhar_retangulo(0, 0, LARGURA * tile, ALTURA, false, false);
+
+        //Desenha a borda inferior da janela
+        g.definir_cor(0xFA3332);
+        g.desenhar_retangulo(0, ALTURA * tile, LARGURA * tile, ALTURA + 8, false, true);
+        
+        atualizar_total_agentes(0);
+        atualizar_status_simulacao(false);
     }
 
     /**
@@ -135,12 +151,14 @@ public class GerenciadorDesenho {
         int i = m.posicao_y() / tile;
         int j = m.posicao_x() / tile;
         if (m.botao_pressionado(m.BOTAO_ESQUERDO)) {
-            if (i < ALTURA && j < LARGURA) {
+            if (i > 1 && i < ALTURA && j < LARGURA) {
                 retalhos[i][j].set_cor(cor_atual);
-            } else {
-                cor_atual = j / 2;
             }
         }
+//            } else {
+//                cor_atual = j / 2;
+//            }
+//        }
     }
 
     /**
@@ -181,8 +199,8 @@ public class GerenciadorDesenho {
     public void desenhar_bordas(int cor) {
         //Borda superior
         for (int i = 0; i < ALTURA; i++) {
-            retalhos[0][i].set_cor(cor);
-            retalhos[0][i].set_parede(true);
+            retalhos[2][i].set_cor(cor);
+            retalhos[2][i].set_parede(true);
         }
 
         //Borda inferior
@@ -192,13 +210,13 @@ public class GerenciadorDesenho {
         }
 
         //Borda esquerda
-        for (int i = 0; i < LARGURA; i++) {
+        for (int i = 2; i < LARGURA; i++) {
             retalhos[i][0].set_cor(cor);
             retalhos[i][0].set_parede(true);
         }
 
         //Borda direita
-        for (int i = 0; i < LARGURA; i++) {
+        for (int i = 2; i < LARGURA; i++) {
             retalhos[i][LARGURA - 1].set_cor(cor);
             retalhos[i][LARGURA - 1].set_parede(true);
         }
@@ -243,43 +261,67 @@ public class GerenciadorDesenho {
     public int retorna_valor_maximo_borda_Y() {
         return retalhos[ALTURA - 1][0].getCoordenadaY();
     }
-    
+
     /**
      * Reset do ambiente de simulação
      */
-    public void limpar_tudo(){
+    public void limpar_tudo() {
         retalhos = new Retalho[ALTURA][LARGURA];
         inicializar_tela();
     }
-    
+
     /**
      * Força a rendererização da tela
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
+    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException {
         g.renderizar();
     }
-    
+
     /**
      * Retorna o retalho de uma determinada posição
+     *
      * @param x
      * @param y
-     * @return 
+     * @return
      */
-    public Retalho get_retalho(int x, int y){
+    public Retalho get_retalho(int x, int y) {
         Retalho retalho_retorno = null;
-        
+
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
-                if(retalhos[i][j].getCoordenadaX() == x &&
-                   retalhos[i][j].getCoordenadaY() == y){
+                if (retalhos[i][j].getCoordenadaX() == x
+                        && retalhos[i][j].getCoordenadaY() == y) {
                     retalho_retorno = retalhos[i][j];
                     break;
                 }
             }
         }
-        
+
         return retalho_retorno;
+    }
+    
+    /**
+     * Atualiza o label com o total de agentes da aplicação
+     * @param total_agentes
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException{
+        g.definir_cor(0xFFFFFF);
+        g.desenhar_texto(4, (ALTURA * tile) + (tile / 2) + 2, "Total de agentes: " + total_agentes);
+    }
+    
+    /**
+     * Atualiza o label de status da simulação
+     * @param executando 
+     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
+     * @throws java.lang.InterruptedException 
+     */
+    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException{
+        g.definir_cor(0xFFFFFF);
+        g.desenhar_texto(150, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
     }
 }

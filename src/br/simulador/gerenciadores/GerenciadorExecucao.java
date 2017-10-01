@@ -160,7 +160,7 @@ public final class GerenciadorExecucao {
             addAgente(agente);
 //            getPainelBase().adicionar_agente_lista(agente);
         }
-
+        GerenciadorInterface.getInstance().atualizar_total_agentes(numero_agentes);
 //        getPainelBase().criar_posicoes_agentes();
     }
 
