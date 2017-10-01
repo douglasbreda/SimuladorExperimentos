@@ -22,9 +22,7 @@ public interface IAgente
     public void girar_direita(int graus) throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public void definir_orientacao(int graus) throws ErroExecucaoBiblioteca, InterruptedException;;
-    
-    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
-    
+
     public void morrer() throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public void criar_atributo(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException;;

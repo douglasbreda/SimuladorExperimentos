@@ -93,11 +93,6 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void pular_para_XY(int coordenadaX, int coordenadaY) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String retornar_atributo_cadeia(String nome_atributo) throws ErroExecucaoBiblioteca {
         if (verificarAtributoExiste(nome_atributo)) {
             String retorno = ((String) listaParametros.get(nome_atributo));
