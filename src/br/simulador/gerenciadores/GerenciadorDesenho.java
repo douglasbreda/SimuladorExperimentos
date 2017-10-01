@@ -71,9 +71,7 @@ public class GerenciadorDesenho {
                     desenhar();
                     controle();
                     g.renderizar();
-                } catch (ErroExecucaoBiblioteca ex) {
-                    Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InterruptedException ex) {
+                } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
                     Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -90,7 +88,7 @@ public class GerenciadorDesenho {
         g.definir_titulo_janela("Simulador de Experimentos");
         int x = 0;
         int y = 0;
-        
+
         //Desenha os retalhos da tela
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
@@ -113,7 +111,6 @@ public class GerenciadorDesenho {
 
 //        int t = m.posicao_y() / tile;
 //        int j = m.posicao_x() / tile;
-        
         //Desenha o objeto em volta do mouse
 //        if (t < ALTURA) {
 //            g.definir_cor(cores[cor_atual]);
@@ -121,13 +118,11 @@ public class GerenciadorDesenho {
 //            g.desenhar_elipse(j * tile, t * tile, tile, tile, true);
 //            g.definir_opacidade(255);
 //        }
-
         //Desenha a paleta de cores na parte inferior da janela
 //        for (int i = 0; i < 16; i++) {
 //            g.definir_cor(cores[i]);
 //            g.desenhar_retangulo(i * 2 * tile, 0 * tile, 2 * tile, 2 * tile, false, true);
 //        }
-
         //Desenha a borda superior da janela
         g.definir_cor(0x222222);
         g.desenhar_retangulo(0, 0, LARGURA * tile, ALTURA, false, false);
@@ -135,8 +130,13 @@ public class GerenciadorDesenho {
         //Desenha a borda inferior da janela
         g.definir_cor(0xFA3332);
         g.desenhar_retangulo(0, ALTURA * tile, LARGURA * tile, ALTURA + 8, false, true);
+
+//        if (GerenciadorExecucao.getInstance().getListaAgentes() != null) {
+//            atualizar_total_agentes(GerenciadorExecucao.getInstance().getListaAgentes().size());
+//        }else{
+//            atualizar_total_agentes(0);
+//        }
         
-        atualizar_total_agentes(0);
         atualizar_status_simulacao(false);
     }
 
@@ -175,6 +175,9 @@ public class GerenciadorDesenho {
      * Retorna a altura da janela de simulação
      *
      * @return
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
      */
     public int get_altura_janela() throws ErroExecucaoBiblioteca, InterruptedException {
         return g.altura_janela();
@@ -229,7 +232,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_minimo_borda_X() {
-        return retalhos[0][0].getCoordenadaX();
+        return retalhos[0][0].getCoordenadaX() + tile;
     }
 
     /**
@@ -239,7 +242,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_minimo_borda_Y() {
-        return retalhos[ALTURA - 1][0].getCoordenadaY();
+        return retalhos[2][0].getCoordenadaY() + tile;
     }
 
     /**
@@ -249,7 +252,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_maximo_borda_X() {
-        return retalhos[0][LARGURA - 1].getCoordenadaX();
+        return retalhos[0][LARGURA - 1].getCoordenadaX() - tile;
     }
 
     /**
@@ -259,7 +262,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_maximo_borda_Y() {
-        return retalhos[ALTURA - 1][0].getCoordenadaY();
+        return retalhos[ALTURA - 1][0].getCoordenadaY() - tile;
     }
 
     /**
@@ -302,26 +305,29 @@ public class GerenciadorDesenho {
 
         return retalho_retorno;
     }
-    
+
     /**
      * Atualiza o label com o total de agentes da aplicação
+     *
      * @param total_agentes
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException {
         g.definir_cor(0xFFFFFF);
         g.desenhar_texto(4, (ALTURA * tile) + (tile / 2) + 2, "Total de agentes: " + total_agentes);
     }
-    
+
     /**
      * Atualiza o label de status da simulação
-     * @param executando 
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
-     * @throws java.lang.InterruptedException 
+     *
+     * @param executando
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
      */
-    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException {
         g.definir_cor(0xFFFFFF);
-        g.desenhar_texto(150, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
+        g.desenhar_texto(g.largura_texto("Total de Agentes") + 10, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
     }
 }

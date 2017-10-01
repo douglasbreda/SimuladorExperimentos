@@ -43,6 +43,7 @@ public final class GerenciadorInterface {
         if (!ambienteInicialiazdo) {
             desenho.inicializar_tela();
             ambienteInicialiazdo = true;
+            Thread.sleep(1000);//Adicionado pois não estava carregando os componentes no tempo suficiente para utilização em outros métodos
         }
     }
 

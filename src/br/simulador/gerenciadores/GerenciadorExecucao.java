@@ -80,7 +80,7 @@ public final class GerenciadorExecucao {
                 Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         return new Object();
     }
 
@@ -137,14 +137,16 @@ public final class GerenciadorExecucao {
         int coordenadaX = 0;
         int coordenadaY = 0;
         int id = 0;
-        int maxX = GerenciadorInterface.getInstance().getLarguraSimulacao();
-        int maxY = GerenciadorInterface.getInstance().getAlturaSimulacao();
+        int minX = GerenciadorInterface.getInstance().retorna_limite_minimo_borda_X();
+        int minY = GerenciadorInterface.getInstance().retorna_limite_minimo_borda_Y();
+        int maxX = GerenciadorInterface.getInstance().retorna_limite_maximo_borda_X();
+        int maxY = GerenciadorInterface.getInstance().retorna_limite_maximo_borda_Y();
         int velocidade = 0;
 
         for (int i = 0; i < numero_agentes; i++) {
 
-            coordenadaX = UtilSimulador.getNumeroRandomico(maxX);
-            coordenadaY = UtilSimulador.getNumeroRandomico(maxY);
+            coordenadaX = UtilSimulador.getNumeroRandomico(minX, maxX);
+            coordenadaY = UtilSimulador.getNumeroRandomico(minY, maxY);
             velocidade = UtilSimulador.getNumeroRandomico(5);
 
             IAgente agente = new Agente(coordenadaX, coordenadaY, ++id, velocidade);
@@ -160,7 +162,7 @@ public final class GerenciadorExecucao {
             addAgente(agente);
 //            getPainelBase().adicionar_agente_lista(agente);
         }
-        GerenciadorInterface.getInstance().atualizar_total_agentes(numero_agentes);
+        GerenciadorInterface.getInstance().atualizar_total_agentes(listaAgentes.size());
 //        getPainelBase().criar_posicoes_agentes();
     }
 
@@ -261,21 +263,22 @@ public final class GerenciadorExecucao {
         int numero_agentes = 0;
         if (listaAgentes != null) {
             numero_agentes = UtilSimulador.toInt(listaAgentes.stream()
-                                                             .filter(agente -> comparar_cor_agente(agente, cor))
-                                                             .count());
+                    .filter(agente -> comparar_cor_agente(agente, cor))
+                    .count());
 
         }
 
         return numero_agentes;
     }
-    
+
     /**
      * Método criado para disparar exceção dentro de um filter
+     *
      * @param agente
      * @param cor
-     * @return 
+     * @return
      */
-    private boolean comparar_cor_agente(IAgente agente, int cor){
+    private boolean comparar_cor_agente(IAgente agente, int cor) {
         try {
             return agente.retornar_cor_agente() == cor;
         } catch (ErroExecucaoBiblioteca ex) {
@@ -283,19 +286,19 @@ public final class GerenciadorExecucao {
         } catch (InterruptedException ex) {
             Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
-    
-    public int agentes_em(int coordenadaX, int coordenadaY){
+
+    public int agentes_em(int coordenadaX, int coordenadaY) {
         int numero_agentes = 0;
-        
+
         Retalho retalho = GerenciadorInterface.getInstance().get_retalho(coordenadaX, coordenadaY);
-        
-        if(retalho != null){
+
+        if (retalho != null) {
             //TODO
         }
-        
+
         return numero_agentes;
     }
 

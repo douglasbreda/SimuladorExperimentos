@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public final class UtilSimulador {
 
-    private static int [] paletaCores = {0xFFFFFF, 0xE4E4E4, 
+    private static int [] paletaCores = {0x888AAE, 0xE4E4E4, 
                                          0x888888, 0x222222, 
                                          0xFFA7D1, 0xE50000, 
                                          0xE59500, 0xA06A42, 
@@ -34,23 +34,29 @@ public final class UtilSimulador {
     }
     
     /**
-     * Retorna um número randômico no formato Double
-     * @param limite
+     * Retorna um número randômico respeitando um valor mínimo e máximo
+     * @param minimo
+     * @param limite_maximo
      * @return 
      */
-//    public static double getNumeroRandomico(double limite){
-//        Random random = new Random((long) limite);
-//        
-//        return random.nextDouble();
-//    }
-
+    public static int getNumeroRandomico(int minimo, int limite_maximo){
+        int numero_gerado = 0;
+        do{
+            Random random = new Random();
+            
+            numero_gerado = random.nextInt(limite_maximo);
+        }while(numero_gerado < minimo);
+        
+        return numero_gerado;
+    }
+    
     /**
      * Centralização do método para exibir mensagens no console
      *
      * @param mensagem
      */
     public static void setLog(String mensagem) {
-        System.out.println(mensagem);
+//        System.out.println(mensagem);
     }
 
     /**
@@ -62,7 +68,7 @@ public final class UtilSimulador {
     public static int toInt(Object valor) {
         try {
             return Integer.parseInt(String.valueOf(valor));
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             setLog("Ocorreu um erro ao converter para inteiro: " + ex.getMessage());
             return 0;
         }
@@ -77,7 +83,7 @@ public final class UtilSimulador {
     public static double toDouble(Object valor) {
         try {
             return Double.parseDouble(String.valueOf(valor));
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             setLog("Ocorreu um erro ao converter para double" + ex.getMessage());
             return 0;
         }
