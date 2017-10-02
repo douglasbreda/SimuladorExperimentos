@@ -42,13 +42,15 @@ public class GerenciadorDesenho {
             ArrayList<Biblioteca> lista = new ArrayList<>();
             lista.add(g);
             m.inicializar(ProgramaVazio.novaInstancia(), lista);
+
+            //Inicializa os retalhos
             for (int i = 0; i < ALTURA; i++) {
                 for (int j = 0; j < LARGURA; j++) {
                     retalhos[i][j] = new Retalho();
                 }
             }
 
-            g.iniciar_modo_grafico(true);
+            g.iniciar_modo_grafico(false);
             g.definir_dimensoes_janela(LARGURA * tile, (ALTURA + 2) * tile);
             rodar();
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
@@ -64,18 +66,18 @@ public class GerenciadorDesenho {
      */
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException {
 
-        new Thread(() -> {
+//        new Thread(() -> {
 //        while (esta_executando()) {
-            while (true) {
-                try {
-                    desenhar();
-                    controle();
-                    g.renderizar();
-                } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-                    Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
+//            while (true) {
+        try {
+            desenhar();
+            controle();
+            g.renderizar();
+        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
+            Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//            }
+//        }).start();
     }
 
     /**
@@ -136,7 +138,6 @@ public class GerenciadorDesenho {
 //        }else{
 //            atualizar_total_agentes(0);
 //        }
-        
         atualizar_status_simulacao(false);
     }
 
@@ -329,5 +330,16 @@ public class GerenciadorDesenho {
     public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException {
         g.definir_cor(0xFFFFFF);
         g.desenhar_texto(g.largura_texto("Total de Agentes") + 10, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
+    }
+
+    /**
+     * Chama o método que desenha os componentes
+     *
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
+     */
+    public void renderizar() throws ErroExecucaoBiblioteca, InterruptedException {
+        rodar();
     }
 }

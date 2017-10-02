@@ -183,6 +183,6 @@ public abstract class BaseAgente implements IAgente {
 
     public void definirLog(String mensagem) {
 //        LOGGER.log(Level.INFO, mensagem);
-        System.out.println(mensagem);
+        UtilSimulador.setLog(mensagem);
     }
 }

@@ -172,4 +172,13 @@ public final class GerenciadorInterface {
     public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException{
         desenho.atualizar_status_simulacao(executando);
     }
+    
+    /**
+     * Força a atualização dos componentes visuais
+     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
+     */
+    public void renderizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
+        desenho.renderizar();
+    }
 }

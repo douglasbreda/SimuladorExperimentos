@@ -160,6 +160,7 @@ public final class GerenciadorExecucao {
             UtilSimulador.setLog("------------------------------------------");
 
             addAgente(agente);
+            GerenciadorInterface.getInstance().renderizar_tela();
 //            getPainelBase().adicionar_agente_lista(agente);
         }
         GerenciadorInterface.getInstance().atualizar_total_agentes(listaAgentes.size());
