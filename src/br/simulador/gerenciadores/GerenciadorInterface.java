@@ -181,4 +181,13 @@ public final class GerenciadorInterface {
     public void renderizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
         desenho.renderizar();
     }
+    
+    /**
+     * Renderiza somente os agentes para evitar atualizações de tela desnecessárias
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public void renderizar_agentes() throws ErroExecucaoBiblioteca, InterruptedException{
+        desenho.renderizar_agentes();
+    }
 }
