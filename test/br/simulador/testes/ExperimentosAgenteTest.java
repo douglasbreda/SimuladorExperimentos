@@ -20,10 +20,13 @@ public class ExperimentosAgenteTest {
 
     public void testarFuncionalidades() throws InterruptedException, ErroExecucaoBiblioteca {
         GerenciadorInterface.getInstance().inicializarTela();
-        GerenciadorInterface.getInstance().definir_bordas(3);
 
         Thread.sleep(1000);//Para esperar a tela ser criada, pois ocorreu null pointer ao buscar componentes que ainda não foram criados
+        
+        GerenciadorInterface.getInstance().definir_cor_fundo(3);
 
+        GerenciadorInterface.getInstance().definir_bordas(3);
+        
         GerenciadorExecucao.getInstance().criar_agentes(5, true);
 
         GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_X");

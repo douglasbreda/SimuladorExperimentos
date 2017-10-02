@@ -190,4 +190,14 @@ public final class GerenciadorInterface {
     public void renderizar_agentes() throws ErroExecucaoBiblioteca, InterruptedException{
         desenho.renderizar_agentes();
     }
+    
+    /**
+     * Define a cor de fundo de todo o ambiente de simulação
+     * @param cor
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+        desenho.definir_cor_fundo(cor);
+    }
 }

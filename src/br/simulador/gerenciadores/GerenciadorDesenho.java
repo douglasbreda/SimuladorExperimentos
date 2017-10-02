@@ -10,6 +10,7 @@ import br.univali.portugol.nucleo.bibliotecas.Graficos;
 import br.univali.portugol.nucleo.bibliotecas.Mouse;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,7 @@ public class GerenciadorDesenho {
     final int LARGURA = 32;
     final int ALTURA = 32;
     final int tile = 20;
-    int cor_atual = 3;
+    int cor_atual = 0;
 
     Retalho[][] retalhos = new Retalho[ALTURA][LARGURA];
     int[] cores = {0xFFFFFF, 0xE4E4E4, 0x888888, 0x222222, 0xFFA7D1, 0xE50000, 0xE59500, 0xA06A42, 0xE5D900, 0x94E044, 0x02BE01, 0x00D3DD, 0x0083C7, 0x0000EA, 0xCF6EE4, 0x820080};
@@ -137,16 +138,33 @@ public class GerenciadorDesenho {
     }
     
     /**
-     * Desenha os retalhos "chão" da simulação
+     * Sobrecarga para colorir os retalhos com a cor default
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException 
      */
     private void desenhar_retalhos() throws ErroExecucaoBiblioteca, InterruptedException{
+        desenhar_retalhos(-1);
+    }
+    /**
+     * Desenha os retalhos "chão" da simulação
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    private void desenhar_retalhos(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
         int x = 0;
         int y = 0;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
-                g.definir_cor(cores[retalhos[i][j].retornar_cor_retalho()]);
+                
+                if(cor == -1){
+                    g.definir_cor(cores[retalhos[i][j].retornar_cor_retalho()]);
+//                      g.definir_cor(retalhos[i][j].retornar_cor_retalho());
+                }
+                else{
+                    retalhos[i][j].set_cor(cor);
+                    g.definir_cor(cor);
+                }
+                
                 x = j * tile;
                 y = i * tile;
                 g.desenhar_retangulo(x, y, tile, tile, false, true);
@@ -359,5 +377,15 @@ public class GerenciadorDesenho {
         desenhar_agentes();
         desenhar_retalhos();
         g.renderizar();
+    }
+    
+    /**
+     * Define a cor de fundo para todos os retalhos
+     * @param cor
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+        desenhar_retalhos(cor);
     }
 }
