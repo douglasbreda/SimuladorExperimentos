@@ -36,9 +36,4 @@ public class Agente extends BaseAgente
                    UtilSimulador.toInt(this.retornar_coordenada_Y()),
                    100, 50);
     }
-
-    @Override
-    public JPanel getPainel() {
-        return painelAgente;
-    }
 }

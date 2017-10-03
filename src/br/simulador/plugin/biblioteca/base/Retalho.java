@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
+import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.util.Random;
 
 /**
@@ -61,21 +62,36 @@ public class Retalho {
         this.coordenadaY = y;
     }
 
+    /**
+     * Retorna a coordenada x do retalho
+     * @return 
+     */
     public int getCoordenadaX() {
         return coordenadaX;
     }
 
+    /**
+     * Retorna a coordenada Y do retalho
+     * @return 
+     */
     public int getCoordenadaY() {
         return coordenadaY;
     }
 
-    public boolean is_parede() {
+    /**
+     * Retorna se o retalho faz parte de uma parede (para tratamento de colisões)
+     * @return 
+     */
+    public boolean eh_parede(){
         return parede;
     }
-
-    public void set_parede(boolean parede) {
-        this.parede = parede;
+    
+    /**
+     * Define se o retalho será uma parede (para tratamento de colisões)
+     * @param eh_parede 
+     */
+    public void definir_como_parede(boolean eh_parede){
+        this.parede = eh_parede;
     }
-    
-    
+
 }

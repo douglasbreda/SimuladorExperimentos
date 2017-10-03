@@ -43,11 +43,15 @@ public interface IAgente
     
     public int retornar_cor_agente() throws ErroExecucaoBiblioteca, InterruptedException;;
     
-    public int retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException;;
+    public double retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public boolean ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException;
-
-    public JPanel getPainel();
+    
+    public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException;
+    
+    public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException;
+    
+    public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException;
 }

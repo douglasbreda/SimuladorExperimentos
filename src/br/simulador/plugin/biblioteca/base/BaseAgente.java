@@ -18,6 +18,7 @@ public abstract class BaseAgente implements IAgente {
     private int id = 0;
     private int cor;
     private int velocidade = 0;
+    private double orientacao = 0;
 
     //Construtor padrão
     public BaseAgente(int coordenadaX, int coordenadaY, int id) {
@@ -52,7 +53,7 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void definir_orientacao(int graus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.orientacao = Math.toRadians(graus % 360);
     }
 
     @Override
@@ -162,8 +163,8 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public int retornar_orientacao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double retornar_orientacao() {
+        return this.orientacao;
     }
 
     @Override
@@ -171,6 +172,21 @@ public abstract class BaseAgente implements IAgente {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 //    @Override
 //    protected void paintComponent(Graphics g)
 //    {

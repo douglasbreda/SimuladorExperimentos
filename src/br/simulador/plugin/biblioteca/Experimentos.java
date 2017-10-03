@@ -569,5 +569,59 @@ public final class Experimentos extends Biblioteca {
     public double retornar_valor_max_bordaY() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
-
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna se o agente irá colidir com uma parede (Para auxiliar no tratamento de colisões",
+            autores = 
+                    {
+                        @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+                    }
+                    
+    )
+    public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException{
+        return false;
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna se o agente colidiu com alguma parede lateral (direita ou esquerda)",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException{
+        return false;
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna se o agente colidiu com alguma parede superior ou inferior",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException{
+        return false;
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna o id de um retalho partindo do retalho atual e andando algumas posições",
+            parametros = {
+                @DocumentacaoParametro(nome = "numero_retalho_a_frente", descricao = "Número de passos a andar")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public int retornar_id_retalho(int numero_retalho_a_frente) throws ErroExecucaoBiblioteca, InterruptedException{
+        return 0;
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna o id atual do retalho em que o agente está posicionado",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException{
+        return 0;
+    }
 }

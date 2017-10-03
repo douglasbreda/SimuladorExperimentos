@@ -229,25 +229,25 @@ public class GerenciadorDesenho {
         //Borda superior
         for (int i = 0; i < ALTURA; i++) {
             retalhos[2][i].set_cor(cor);
-            retalhos[2][i].set_parede(true);
+            retalhos[2][i].definir_como_parede(true);
         }
 
         //Borda inferior
         for (int i = 0; i < ALTURA; i++) {
             retalhos[ALTURA - 1][i].set_cor(cor);
-            retalhos[ALTURA - 1][i].set_parede(true);
+            retalhos[ALTURA - 1][i].definir_como_parede(true);
         }
 
         //Borda esquerda
         for (int i = 2; i < LARGURA; i++) {
             retalhos[i][0].set_cor(cor);
-            retalhos[i][0].set_parede(true);
+            retalhos[i][0].definir_como_parede(true);
         }
 
         //Borda direita
         for (int i = 2; i < LARGURA; i++) {
             retalhos[i][LARGURA - 1].set_cor(cor);
-            retalhos[i][LARGURA - 1].set_parede(true);
+            retalhos[i][LARGURA - 1].definir_como_parede(true);
         }
     }
 
