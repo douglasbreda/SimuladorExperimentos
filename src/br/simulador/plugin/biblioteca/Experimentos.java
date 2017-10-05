@@ -48,8 +48,7 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void executar_teste() throws ErroExecucaoBiblioteca, InterruptedException {
-        //Verificar nome do método pois o nome "executar" conflita com algo dentro do núcleo   
+    public void simular() throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInterface.getInstance().inicializarTela();
     }
 
