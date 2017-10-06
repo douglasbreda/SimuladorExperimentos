@@ -55,11 +55,16 @@ public class GeradorDeclaracaoMetodoSimulador {
 
         if (metodoPrincipal) {
             saida.append(identacao)
-                    .append("do")
-                    .append(identacao)
-                    .append("{")
-                    .append(identacao)
-                    .append("for(IAgente agente : agentes) {");
+                    .append("do");
+            
+            saida.println();
+            saida.append(identacao);
+            saida.println();
+            saida.append("{").append(identacao);
+            saida.println();
+            saida.append("for(IAgente agente : agentes) {");
+            saida.println();
+            saida.println("GerenciadorExecucao.getInstance().definir_agente_atual(agente)");
             
         }
         Utils.visitarBlocos(noFuncao.getBlocos(), saida, visitor, nivelEscopo, opcoes, seed); // gera o código dentro do método

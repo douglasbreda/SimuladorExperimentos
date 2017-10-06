@@ -6,7 +6,6 @@ package br.simulador.gerenciadores;
 import br.simulador.plugin.biblioteca.base.Agente;
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
-import br.simulador.plugin.biblioteca.componentes.PainelBase;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.lang.reflect.InvocationTargetException;
@@ -24,6 +23,8 @@ public final class GerenciadorExecucao {
     private static ArrayList<IAgente> listaAgentes = null;
 
     private static GerenciadorExecucao instance = null;
+    
+    private static IAgente agenteAtual;
 
     /**
      * Retorna uma instância do gerenciador da simulação
@@ -302,5 +303,16 @@ public final class GerenciadorExecucao {
 
         return numero_agentes;
     }
+    
+    /**
+     * Define qual é o agente atual da simulação
+     * @param agente 
+     */
+    public void definir_agente_atual(IAgente agente){
+        agenteAtual = agente;
+    }
 
+    public static IAgente getAgenteAtual() {
+        return agenteAtual;
+    }
 }

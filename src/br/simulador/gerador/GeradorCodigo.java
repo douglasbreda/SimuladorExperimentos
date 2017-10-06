@@ -5,6 +5,7 @@
  */
 package br.simulador.gerador;
 
+import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.univali.portugol.nucleo.Programa;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
@@ -156,6 +157,7 @@ public class GeradorCodigo {
         gerador.geraPackage("programas")
                .geraImportacaoPara(ErroExecucao.class)
                .geraImportacaoPara(Programa.class)
+               .geraImportacaoPara(GerenciadorExecucao.class)
                .geraImportacaoBibliotecasIncluidas()
                .geraNomeClasse(nomeClasseJava)
                .geraChaveAberturaClasse()
