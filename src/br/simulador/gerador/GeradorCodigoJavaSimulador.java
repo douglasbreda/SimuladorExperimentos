@@ -7,6 +7,7 @@ import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
 import br.univali.portugol.nucleo.execucao.gerador.GeradorCodigoJava;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -23,20 +24,36 @@ public class GeradorCodigoJavaSimulador {
 
     long idPrograma = System.currentTimeMillis();
 
-    String nomeClasse = "Programa".concat(String.valueOf(idPrograma));
-    String nomeArquivoJava = nomeClasse.concat(".java");
-    String nomeArquivoClass = nomeClasse.concat(".class");
+    private static final File DIRETORIO_TEMPORARIO = new File(System.getProperty("java.io.tmpdir"));
+    private static final File DIRETORIO_COMPILACAO = new File(DIRETORIO_TEMPORARIO, "portugol");
+
+    private static final String NOME_PACOTE = "programas";
+    private static final File DIRETORIO_PACOTE = new File(DIRETORIO_COMPILACAO, NOME_PACOTE);
 
     public void gerar_codigo_java(ASAPrograma asa) {
-        try (PrintWriter writerArquivoJava = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Desenvolvimento\\TTC II\\Plugin Experimentos\\Testes"), Charset.forName("utf-8"))))) {
-            GeradorCodigoJava gerador = new GeradorCodigoJava();
-            GeradorCodigoJava.Opcoes opcoes = new GeradorCodigoJava.Opcoes(true, true, true);
-            gerador.gera(asa, writerArquivoJava, nomeClasse, opcoes);
-            writerArquivoJava.flush();
-        } catch (ExcecaoVisitaASA ex) {
-            Logger.getLogger(GeradorCodigoJavaSimulador.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GeradorCodigoJavaSimulador.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            long idPrograma = System.currentTimeMillis();
+
+            String nomeClasse = "Programa".concat(String.valueOf(idPrograma));
+            String nomeArquivoJava = nomeClasse.concat(".java");
+            String nomeArquivoClass = nomeClasse.concat(".class");
+
+            DIRETORIO_PACOTE.mkdirs();
+
+            File arquivoJava = new File(DIRETORIO_PACOTE, nomeArquivoJava);
+            File arquivoClass = new File(DIRETORIO_PACOTE, nomeArquivoClass);
+
+            try (PrintWriter writerArquivoJava = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(arquivoJava), Charset.forName("utf-8"))))) {
+
+                GeradorCodigo gerador = new GeradorCodigo();
+                GeradorCodigoJava.Opcoes opcoes = new GeradorCodigoJava.Opcoes(false, false, false);
+                gerador.gera(asa, writerArquivoJava, nomeClasse, opcoes);
+                writerArquivoJava.flush();
+            } catch (ExcecaoVisitaASA | IOException ex) {
+                Logger.getLogger(GeradorCodigoJavaSimulador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
         }
     }
 }

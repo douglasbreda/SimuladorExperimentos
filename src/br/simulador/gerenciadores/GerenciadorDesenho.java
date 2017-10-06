@@ -194,7 +194,8 @@ public class GerenciadorDesenho {
      * @return
      */
     public boolean esta_executando() {
-        return g.get_janela().estaVisivel();
+        return false;
+//        return g.get_janela().estaVisivel();
     }
 
     /**
