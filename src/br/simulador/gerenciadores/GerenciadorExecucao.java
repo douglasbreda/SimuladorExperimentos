@@ -8,6 +8,7 @@ import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import br.univali.ps.plugins.base.Plugin;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public final class GerenciadorExecucao {
     private static GerenciadorExecucao instance = null;
     
     private static IAgente agenteAtual;
+    
+    private static Plugin plugin;
 
     /**
      * Retorna uma instância do gerenciador da simulação
@@ -312,7 +315,27 @@ public final class GerenciadorExecucao {
         agenteAtual = agente;
     }
 
-    public static IAgente getAgenteAtual() {
+    /**
+     * Retorna o agente atual que está executando o processo
+     * @return 
+     */
+    public IAgente getAgenteAtual() {
         return agenteAtual;
+    }
+
+    /**
+     * Atribui o plugin atual para utilização, caso necessário, em outras classes do projeto
+     * @param plugin 
+     */
+    public void setPlugin(Plugin plugin) {
+        GerenciadorExecucao.plugin = plugin;
+    }
+
+    /**
+     * Retorna o plugin atual
+     * @return 
+     */
+    public Plugin getPlugin() {
+        return plugin;
     }
 }

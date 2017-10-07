@@ -1,5 +1,6 @@
 package br.simulador.plugin;
 
+import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.plugin.acoes.AcaoEstatica;
 import br.simulador.plugin.biblioteca.Experimentos;
 import br.simulador.ui.PainelSimulacao;
@@ -28,6 +29,7 @@ public final class SimuladorExperimentos extends Plugin {
         this.utilizadorPlugins.registrarBiblioteca(Experimentos.class);
         //this.utilizadorPlugins.registrarBiblioteca(Experimentos.class);
         super.inicializar(utilizador);
+        GerenciadorExecucao.getInstance().setPlugin(this);
     }
     
     @Override
@@ -35,6 +37,7 @@ public final class SimuladorExperimentos extends Plugin {
         return visaoPlugin;
     }
     
+    @Override
     public UtilizadorPlugins getUtilizadorPlugins() {
         return utilizadorPlugins;
     }

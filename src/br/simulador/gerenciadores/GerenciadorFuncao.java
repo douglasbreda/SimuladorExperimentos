@@ -4,6 +4,7 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.gerador.GeradorCodigoJavaSimulador;
+import br.univali.portugol.nucleo.ErroCompilacao;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
 import br.univali.portugol.nucleo.asa.NoBloco;
@@ -46,7 +47,7 @@ public class GerenciadorFuncao extends VisitanteNulo {
      * @return
      * @throws ExcecaoVisitaASA
      */
-    public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA {
+    public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao {
         this.nomeMetodo = nome_metodo;
         asa.aceitar(this);
 

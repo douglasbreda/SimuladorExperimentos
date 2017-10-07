@@ -154,7 +154,7 @@ public class GeradorCodigo {
         int totalVetores = asa.getTotalVetoresDeclarados();
         int totalMatrizes = asa.getTotalMatrizesDeclaradas();
         
-        gerador.geraPackage("programas")
+        gerador.geraPackage("simulador")
                .geraImportacaoPara(ErroExecucao.class)
                .geraImportacaoPara(Programa.class)
                .geraImportacaoPara(GerenciadorExecucao.class)

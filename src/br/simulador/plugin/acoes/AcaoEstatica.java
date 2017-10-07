@@ -6,10 +6,8 @@ import br.simulador.ui.JanelaCodigoFonte;
 import br.univali.portugol.nucleo.ErroCompilacao;
 import br.univali.portugol.nucleo.Portugol;
 import br.univali.portugol.nucleo.Programa;
-import br.univali.portugol.nucleo.analise.ResultadoAnalise;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
-import br.univali.ps.plugins.base.Plugin;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -19,7 +17,6 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
