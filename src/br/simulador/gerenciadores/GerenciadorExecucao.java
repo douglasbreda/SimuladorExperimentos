@@ -311,8 +311,8 @@ public final class GerenciadorExecucao {
      * Define qual é o agente atual da simulação
      * @param agente 
      */
-    public void definir_agente_atual(IAgente agente){
-        agenteAtual = agente;
+    public void definir_agente_atual(Object agente){
+        agenteAtual = (IAgente) agente;
     }
 
     /**

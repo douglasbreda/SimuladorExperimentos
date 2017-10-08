@@ -3,9 +3,13 @@
  */
 package br.simulador.gerador;
 
+import br.simulador.gerenciadores.GerenciadorCompilacao;
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.univali.portugol.nucleo.Compilador;
+import br.univali.portugol.nucleo.CompiladorSimulador;
 import br.univali.portugol.nucleo.ErroCompilacao;
+import br.univali.portugol.nucleo.Programa;
+import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.analise.ResultadoAnalise;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
@@ -31,14 +35,14 @@ public class GeradorCodigoJavaSimulador {
     private static final File DIRETORIO_TEMPORARIO = new File(System.getProperty("java.io.tmpdir"));
     private static final File DIRETORIO_COMPILACAO = new File(DIRETORIO_TEMPORARIO, "portugol");
 
-    private static final String NOME_PACOTE = "simulador";
+    private static final String NOME_PACOTE = "programas";
     private static final File DIRETORIO_PACOTE = new File(DIRETORIO_COMPILACAO, NOME_PACOTE);
-    private Compilador compilador;
     private ResultadoAnalise resultadoAnalise;
     private String classPath;
     private String caminhoJavac;
+    private static CompiladorSimulador compilador;
 
-    public void gerar_codigo_java(ASAPrograma asa) throws ErroCompilacao {
+    public SimuladorPrograma gerar_codigo_java(ASAPrograma asa) throws ErroCompilacao {
         long idPrograma = System.currentTimeMillis();
 
         String nomeClasse = "Programa".concat(String.valueOf(idPrograma));
@@ -46,7 +50,7 @@ public class GeradorCodigoJavaSimulador {
         String nomeArquivoClass = nomeClasse.concat(".class");
         classPath = GerenciadorExecucao.getInstance().getPlugin().getUtilizadorPlugins().obterClassPathParaCompilacao();
         caminhoJavac = Caminhos.obterCaminhoExecutavelJavac();
-        compilador = new Compilador();
+        compilador = new CompiladorSimulador();
 
         DIRETORIO_PACOTE.mkdirs();
 
@@ -60,8 +64,7 @@ public class GeradorCodigoJavaSimulador {
             gerador.gera(asa, writerArquivoJava, nomeClasse, opcoes);
             writerArquivoJava.flush();
 
-            compilador.compilarJava(nomeClasse, arquivoJava, DIRETORIO_COMPILACAO, resultadoAnalise, classPath, caminhoJavac);
-
+            return compilador.compilarJava(nomeClasse, arquivoJava, DIRETORIO_COMPILACAO, resultadoAnalise, classPath, caminhoJavac);
         } catch (final IOException | ExcecaoVisitaASA ex) {
             resultadoAnalise.adicionarErro(new ErroAnalise() {
                 @Override

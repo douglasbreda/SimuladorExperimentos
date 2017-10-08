@@ -4,7 +4,10 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.gerador.GeradorCodigoJavaSimulador;
+import br.simulador.plugin.biblioteca.base.IAgente;
 import br.univali.portugol.nucleo.ErroCompilacao;
+import br.univali.portugol.nucleo.Programa;
+import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
 import br.univali.portugol.nucleo.asa.NoBloco;
@@ -13,6 +16,8 @@ import br.univali.portugol.nucleo.asa.NoDeclaracaoFuncao;
 import br.univali.portugol.nucleo.asa.NoDeclaracaoVariavel;
 import br.univali.portugol.nucleo.asa.NoInclusaoBiblioteca;
 import br.univali.portugol.nucleo.asa.VisitanteNulo;
+import br.univali.portugol.nucleo.mensagens.ErroExecucao;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +52,7 @@ public class GerenciadorFuncao extends VisitanteNulo {
      * @return
      * @throws ExcecaoVisitaASA
      */
-    public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao {
+    public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, NoSuchMethodException, ErroExecucao, InterruptedException {
         this.nomeMetodo = nome_metodo;
         asa.aceitar(this);
 
@@ -61,8 +66,9 @@ public class GerenciadorFuncao extends VisitanteNulo {
         asaGerada.getListaDeclaracoesGlobais().addAll(listaVariaveisDeclaradas);
 
         GeradorCodigoJavaSimulador gerador = new GeradorCodigoJavaSimulador();
-        gerador.gerar_codigo_java(asaGerada);
-
+        SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
+        
+        programa.simular(true, new ArrayList<IAgente>());
         return asaGerada;
     }
 

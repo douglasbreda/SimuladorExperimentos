@@ -33,7 +33,18 @@ public class GeradorDeclaracaoMetodoSimulador {
         boolean metodoPrincipal = "simular".equals(nome);
         if (metodoPrincipal) {
             nome = "simular";
-            saida.append(identacao);
+//            saida.append("@Override");
+//            saida.println();
+//            saida.append("protected void executar(String[] parametros){");
+//            saida.println();
+//            saida.append("}");
+
+            saida.println();
+            
+            saida.append(identacao)
+                    .append("@Override");
+
+            saida.println();
         }
 
         saida.append(identacao)
@@ -47,7 +58,7 @@ public class GeradorDeclaracaoMetodoSimulador {
         if (!metodoPrincipal) {
             geraParametros(noFuncao, saida);
         } else {
-            saida.append("(boolean sempre, List<IAgente> agentes)");
+            saida.append("(boolean sempre, List<?> agentes)");
         }
         saida.append(" throws ErroExecucao, InterruptedException");
         saida.println(); // pula uma linha depois da declaração da assinatura do método
@@ -55,17 +66,16 @@ public class GeradorDeclaracaoMetodoSimulador {
 
         if (metodoPrincipal) {
             saida.append(identacao)
-                    .append("do");
-            
+                    .append("do")
+                    .append(identacao)
+                    .append("{").append(identacao);
+
             saida.println();
-            saida.append(identacao);
+            saida.append("System.out.println(\"chegou aqui. Ainda beeem.\");");
+            saida.append("for(Object agente : agentes) {");
             saida.println();
-            saida.append("{").append(identacao);
-            saida.println();
-            saida.append("for(IAgente agente : agentes) {");
-            saida.println();
-            saida.println("GerenciadorExecucao.getInstance().definir_agente_atual(agente)");
-            
+//            saida.println("GerenciadorExecucao.getInstance().definir_agente_atual(agente);");
+
         }
         Utils.visitarBlocos(noFuncao.getBlocos(), saida, visitor, nivelEscopo, opcoes, seed); // gera o código dentro do método
 

@@ -8,6 +8,7 @@ import br.univali.portugol.nucleo.Portugol;
 import br.univali.portugol.nucleo.Programa;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
+import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -55,6 +56,12 @@ public class AcaoEstatica extends AbstractAction {
         } catch (ErroCompilacao ex) {
             System.err.println(ex.getMessage());
         } catch (ExcecaoVisitaASA ex) {
+            Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroExecucao ex) {
+            Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
