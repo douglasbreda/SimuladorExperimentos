@@ -5,9 +5,6 @@
  */
 package br.simulador.gerador;
 
-import br.simulador.gerenciadores.GerenciadorExecucao;
-import br.simulador.plugin.biblioteca.base.IAgente;
-import br.univali.portugol.nucleo.Programa;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
@@ -66,13 +63,12 @@ import br.univali.portugol.nucleo.asa.NoVetor;
 import br.univali.portugol.nucleo.asa.TipoDado;
 import br.univali.portugol.nucleo.asa.VisitanteASABasico;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroCarregamentoBiblioteca;
+import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.GerenciadorBibliotecas;
 import br.univali.portugol.nucleo.execucao.gerador.GeradorCodigoJava;
 import br.univali.portugol.nucleo.execucao.gerador.PreCompilador;
 import br.univali.portugol.nucleo.execucao.gerador.helpers.GeradorAtribuicao;
 import br.univali.portugol.nucleo.execucao.gerador.helpers.GeradorAtributo;
-import br.univali.portugol.nucleo.execucao.gerador.helpers.GeradorChamadaMetodo;
-import br.univali.portugol.nucleo.execucao.gerador.helpers.GeradorDeclaracaoMetodo;
 import br.univali.portugol.nucleo.execucao.gerador.helpers.GeradorDeclaracaoVariavel;
 import br.univali.portugol.nucleo.execucao.gerador.helpers.GeradorOperacao;
 import br.univali.portugol.nucleo.execucao.gerador.helpers.GeradorSwitchCase;
@@ -80,12 +76,14 @@ import br.univali.portugol.nucleo.execucao.gerador.helpers.Utils;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -155,8 +153,11 @@ public class GeradorCodigo {
         gerador.geraPackage("programas")
                 .geraImportacaoPara(ErroExecucao.class)
                 .geraImportacaoPara(SimuladorPrograma.class)
+                .geraImportacaoPara(ErroExecucaoBiblioteca.class)
+                .geraImportacaoPara(InvocationTargetException.class)
 //                .geraImportacaoPara(GerenciadorExecucao.class)
                 .geraImportacaoPara(List.class)
+                .geraImportacaoPara(SwingUtilities.class)
 //                .geraImportacaoPara(IAgente.class)
                 .geraImportacaoBibliotecasIncluidas()
                 .geraNomeClasse(nomeClasseJava)

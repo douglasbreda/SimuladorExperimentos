@@ -5,15 +5,17 @@ package br.simulador.gerenciadores;
 
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
 import br.univali.portugol.nucleo.bibliotecas.Mouse;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
-import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -35,11 +37,17 @@ public class GerenciadorDesenho {
     /**
      * Inicia a tela onde será executada a simulação
      */
-    public void inicializar_tela() {
+    public void inicializar_tela() throws InterruptedException, InvocationTargetException, ErroExecucaoBiblioteca {
+//        SwingUtilities.invokeLater(new Runnable() {
+//           @Override
+//            public void run() {
         try {
             g = new Graficos();
+            UtilSimulador.setLog("Instanciou gráficos");
             m = new Mouse();
+            UtilSimulador.setLog("Instanciou mouse");
             g.inicializar(ProgramaVazio.novaInstancia(), null);
+            UtilSimulador.setLog("Inicializou gráficos");
             ArrayList<Biblioteca> lista = new ArrayList<>();
             lista.add(g);
             m.inicializar(ProgramaVazio.novaInstancia(), lista);
@@ -57,6 +65,9 @@ public class GerenciadorDesenho {
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
             Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
+//    }
+//        });
+
     }
 
     /**
@@ -74,8 +85,10 @@ public class GerenciadorDesenho {
             desenhar();
             controle();
             g.renderizar();
+
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-            Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerenciadorInterface.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 //            }
 //        }).start();
@@ -88,9 +101,9 @@ public class GerenciadorDesenho {
      * @throws InterruptedException
      */
     private void desenhar() throws ErroExecucaoBiblioteca, InterruptedException {
-        
+
         g.definir_titulo_janela("Simulador de Experimentos");
-        
+
         desenhar_retalhos();
 
         desenhar_agentes();
@@ -98,7 +111,7 @@ public class GerenciadorDesenho {
         desenhar_painel_superior();
 
         desenhar_painel_inferior();
-        
+
         atualizar_status_simulacao(false);
     }
 
@@ -118,53 +131,56 @@ public class GerenciadorDesenho {
             }
         }
     }
-    
+
     /**
      * Desenha o painel inferior com informações relevantes a simulação
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    private void desenhar_painel_inferior() throws ErroExecucaoBiblioteca, InterruptedException{
+    private void desenhar_painel_inferior() throws ErroExecucaoBiblioteca, InterruptedException {
         g.definir_cor(0xFA3332);
         g.desenhar_retangulo(0, ALTURA * tile, LARGURA * tile, ALTURA + 8, false, true);
     }
-    
+
     /**
      * Desenha o painel superior com as opções de iniciar e parar a execução
      */
-    private void desenhar_painel_superior() throws ErroExecucaoBiblioteca, InterruptedException{
+    private void desenhar_painel_superior() throws ErroExecucaoBiblioteca, InterruptedException {
         g.definir_cor(0x222222);
         g.desenhar_retangulo(0, 0, LARGURA * tile, ALTURA, false, false);
     }
-    
+
     /**
      * Sobrecarga para colorir os retalhos com a cor default
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    private void desenhar_retalhos() throws ErroExecucaoBiblioteca, InterruptedException{
+    private void desenhar_retalhos() throws ErroExecucaoBiblioteca, InterruptedException {
         desenhar_retalhos(-1);
     }
+
     /**
      * Desenha os retalhos "chão" da simulação
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    private void desenhar_retalhos(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+    private void desenhar_retalhos(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         int x = 0;
         int y = 0;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
-                
-                if(cor == -1){
+
+                if (cor == -1) {
                     g.definir_cor(cores[retalhos[i][j].retornar_cor_retalho()]);
 //                      g.definir_cor(retalhos[i][j].retornar_cor_retalho());
-                }
-                else{
+                } else {
                     retalhos[i][j].set_cor(cor);
                     g.definir_cor(cor);
                 }
-                
+
                 x = j * tile;
                 y = i * tile;
                 g.desenhar_retangulo(x, y, tile, tile, false, true);
@@ -297,7 +313,7 @@ public class GerenciadorDesenho {
      */
     public void limpar_tudo() {
         retalhos = new Retalho[ALTURA][LARGURA];
-        inicializar_tela();
+        //inicializar_tela();
     }
 
     /**
@@ -368,25 +384,28 @@ public class GerenciadorDesenho {
     public void renderizar() throws ErroExecucaoBiblioteca, InterruptedException {
         rodar();
     }
-    
+
     /**
      * Redesenha novamente os agentes para não atualizar a tela toda novamente
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     *
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void renderizar_agentes() throws ErroExecucaoBiblioteca, InterruptedException{
+    public void renderizar_agentes() throws ErroExecucaoBiblioteca, InterruptedException {
         desenhar_agentes();
         desenhar_retalhos();
         g.renderizar();
     }
-    
+
     /**
      * Define a cor de fundo para todos os retalhos
+     *
      * @param cor
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         desenhar_retalhos(cor);
     }
 }

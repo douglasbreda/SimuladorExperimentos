@@ -10,6 +10,9 @@ import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoBibliot
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoFuncao;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoParametro;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.PropriedadesBiblioteca;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @PropriedadesBiblioteca(tipo = COMPARTILHADA)
 @DocumentacaoBiblioteca(
@@ -49,7 +52,11 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void simular() throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorInterface.getInstance().inicializarTela();
+        try {
+            GerenciadorExecucao.getInstance().inicializar_ambiente();
+        } catch (ErroExecucaoBiblioteca | InterruptedException | InvocationTargetException ex) {
+            Logger.getLogger(Experimentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @DocumentacaoFuncao(
@@ -92,7 +99,8 @@ public final class Experimentos extends Biblioteca {
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que terá o valor atribuído")
                 ,
-                @DocumentacaoParametro(nome = "valor", descricao = "Novo valor do atributo"),
+                @DocumentacaoParametro(nome = "valor", descricao = "Novo valor do atributo")
+                ,
                 @DocumentacaoParametro(nome = "id_agente", descricao = "Id do agente que terá o valor atualizado")
             },
             retorno = "Sem retorno",
@@ -374,7 +382,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
-        
+
     }
 
     @DocumentacaoFuncao(
@@ -568,39 +576,38 @@ public final class Experimentos extends Biblioteca {
     public double retornar_valor_max_bordaY() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna se o agente irá colidir com uma parede (Para auxiliar no tratamento de colisões",
-            autores = 
-                    {
-                        @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-                    }
-                    
+            autores
+            = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
     )
-    public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException{
+    public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException {
         return false;
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna se o agente colidiu com alguma parede lateral (direita ou esquerda)",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException{
+    public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException {
         return false;
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna se o agente colidiu com alguma parede superior ou inferior",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException{
+    public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException {
         return false;
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna o id de um retalho partindo do retalho atual e andando algumas posições",
             parametros = {
@@ -610,17 +617,17 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_id_retalho(int numero_retalho_a_frente) throws ErroExecucaoBiblioteca, InterruptedException{
+    public int retornar_id_retalho(int numero_retalho_a_frente) throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna o id atual do retalho em que o agente está posicionado",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException{
+    public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
 }

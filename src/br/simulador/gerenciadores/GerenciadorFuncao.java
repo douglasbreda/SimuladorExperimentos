@@ -4,9 +4,9 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.gerador.GeradorCodigoJavaSimulador;
+import br.simulador.gerador.ProgramaTeste;
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.univali.portugol.nucleo.ErroCompilacao;
-import br.univali.portugol.nucleo.Programa;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
@@ -17,7 +17,6 @@ import br.univali.portugol.nucleo.asa.NoDeclaracaoVariavel;
 import br.univali.portugol.nucleo.asa.NoInclusaoBiblioteca;
 import br.univali.portugol.nucleo.asa.VisitanteNulo;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,9 +65,11 @@ public class GerenciadorFuncao extends VisitanteNulo {
         asaGerada.getListaDeclaracoesGlobais().addAll(listaVariaveisDeclaradas);
 
         GeradorCodigoJavaSimulador gerador = new GeradorCodigoJavaSimulador();
-        SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
+//        SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
         
-        programa.simular(true, new ArrayList<IAgente>());
+        SimuladorPrograma programaTeste = new ProgramaTeste();
+        
+        programaTeste.simular(false, new ArrayList<IAgente>());
         return asaGerada;
     }
 

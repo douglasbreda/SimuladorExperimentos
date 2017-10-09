@@ -49,10 +49,10 @@ public class AcaoEstatica extends AbstractAction {
             final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
             ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
             GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
-            ASAPrograma asaGerada = gerenciadorFuncao.buscar_declaracao_metodo("simular");
-            JanelaCodigoFonte janelaFonte = new JanelaCodigoFonte();
-            janelaFonte.atribuir_codigo_fonte("Teste Janela");
-            janelaFonte.setVisible(true);
+            gerenciadorFuncao.buscar_declaracao_metodo("simular");
+//            JanelaCodigoFonte janelaFonte = new JanelaCodigoFonte();
+//            janelaFonte.atribuir_codigo_fonte("Teste Janela");
+//            janelaFonte.setVisible(true);
         } catch (ErroCompilacao ex) {
             System.err.println(ex.getMessage());
         } catch (ExcecaoVisitaASA ex) {

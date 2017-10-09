@@ -29,6 +29,12 @@ public final class GerenciadorExecucao {
     
     private static Plugin plugin;
 
+    public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException{
+        UtilSimulador.setLog("Vai inicializar o ambiente");
+        GerenciadorInterface.getInstance().inicializarTela();
+        UtilSimulador.setLog("Inicializou o ambiente");
+    }
+    
     /**
      * Retorna uma instância do gerenciador da simulação
      *

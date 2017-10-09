@@ -33,14 +33,20 @@ public class GeradorDeclaracaoMetodoSimulador {
         boolean metodoPrincipal = "simular".equals(nome);
         if (metodoPrincipal) {
             nome = "simular";
-//            saida.append("@Override");
-//            saida.println();
-//            saida.append("protected void executar(String[] parametros){");
-//            saida.println();
-//            saida.append("}");
+
+            //Verificar onde vai ficar essa parte (Teria que mudar para o plugin e não aqui)
+            saida.append("private Object agenteAtual;");
+            saida.println();
+            saida.append("@Override");
+            saida.println();
+            saida.append("public Object getAgenteAtual(){");
+            saida.println();
+            saida.append("return agenteAtual;");
+            saida.println();
+            saida.append("}");
 
             saida.println();
-            
+
             saida.append(identacao)
                     .append("@Override");
 
@@ -66,12 +72,24 @@ public class GeradorDeclaracaoMetodoSimulador {
 
         if (metodoPrincipal) {
             saida.append(identacao)
+                    .append("System.out.println(\"Executando método simular.\");")
+                    .append(identacao)
+//                    .append("SwingUtilities.invokeLater(new Runnable() {")
+//                    .append(identacao)
+//                    .append("@Override")
+//                    .append(identacao)
+//                    .append("public void run() {\n")
+                    .append(identacao)
+                    .append("try {\n")
+                    .append(identacao)
+                    .append("Experimentos.simular();")
+                    .append(identacao)
                     .append("do")
                     .append(identacao)
                     .append("{").append(identacao);
 
             saida.println();
-            saida.append("System.out.println(\"chegou aqui. Ainda beeem.\");");
+            saida.append("System.out.println(\"Vai iniciar o laço.\");");
             saida.append("for(Object agente : agentes) {");
             saida.println();
 //            saida.println("GerenciadorExecucao.getInstance().definir_agente_atual(agente);");
@@ -85,6 +103,16 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.append("}");
             saida.println();
             saida.append(identacao).append("} while (sempre);");
+            saida.println();
+
+            saida.append("} catch (ErroExecucaoBiblioteca ex) {\n")
+                    //                 .append("Logger.getLogger(Programa1507500325760.class.getName()).log(Level.SEVERE, null, ex);\n")
+                    .append("} catch (InterruptedException ex) {\n")
+                    //                 .append("Logger.getLogger(Programa1507500325760.class.getName()).log(Level.SEVERE, null, ex);\n")
+                    .append("} catch (ErroExecucao ex) {}\n");
+//                 .append("Logger.getLogger(Programa1507500325760.class.getName()).log(Level.SEVERE, null, ex);
+
+//            saida.append("}});");//Fecha o SwingUtilities
         }
         saida.append(identacao).append("}").println(); // finaliza o escopo do método
         saida.println(); // linha em branco depois de cada método

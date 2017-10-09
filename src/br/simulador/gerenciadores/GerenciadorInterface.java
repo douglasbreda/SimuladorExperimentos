@@ -4,7 +4,9 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  *
@@ -39,11 +41,12 @@ public final class GerenciadorInterface {
     /**
      * Chama a tela de inicialização do Simulador
      */
-    public void inicializarTela() throws ErroExecucaoBiblioteca, InterruptedException {
+    public void inicializarTela() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, InvocationTargetException {
         if (!ambienteInicialiazdo) {
+            UtilSimulador.setLog("Vai inicializar tela");
             desenho.inicializar_tela();
             ambienteInicialiazdo = true;
-            Thread.sleep(1000);//Adicionado pois não estava carregando os componentes no tempo suficiente para utilização em outros métodos
+            //Thread.sleep(1000);//Adicionado pois não estava carregando os componentes no tempo suficiente para utilização em outros métodos
         }
     }
 
