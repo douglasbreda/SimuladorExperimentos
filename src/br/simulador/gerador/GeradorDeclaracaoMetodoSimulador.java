@@ -74,15 +74,13 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.append(identacao)
                     .append("System.out.println(\"Executando método simular.\");")
                     .append(identacao)
-//                    .append("SwingUtilities.invokeLater(new Runnable() {")
-//                    .append(identacao)
-//                    .append("@Override")
-//                    .append(identacao)
-//                    .append("public void run() {\n")
                     .append(identacao)
                     .append("try {\n")
                     .append(identacao)
+                    .append(identacao)
+                    .append("\n")
                     .append("Experimentos.simular();")
+                    .append("Experimentos.criar_agentes(10, true);")
                     .append(identacao)
                     .append("do")
                     .append(identacao)
@@ -92,8 +90,6 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.append("System.out.println(\"Vai iniciar o laço.\");");
             saida.append("for(Object agente : agentes) {");
             saida.println();
-//            saida.println("GerenciadorExecucao.getInstance().definir_agente_atual(agente);");
-
         }
         Utils.visitarBlocos(noFuncao.getBlocos(), saida, visitor, nivelEscopo, opcoes, seed); // gera o código dentro do método
 
@@ -112,7 +108,6 @@ public class GeradorDeclaracaoMetodoSimulador {
                     .append("} catch (ErroExecucao ex) {}\n");
 //                 .append("Logger.getLogger(Programa1507500325760.class.getName()).log(Level.SEVERE, null, ex);
 
-//            saida.append("}});");//Fecha o SwingUtilities
         }
         saida.append(identacao).append("}").println(); // finaliza o escopo do método
         saida.println(); // linha em branco depois de cada método

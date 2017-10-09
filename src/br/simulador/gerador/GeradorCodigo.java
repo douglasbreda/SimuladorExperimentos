@@ -83,7 +83,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -157,7 +156,6 @@ public class GeradorCodigo {
                 .geraImportacaoPara(InvocationTargetException.class)
 //                .geraImportacaoPara(GerenciadorExecucao.class)
                 .geraImportacaoPara(List.class)
-                .geraImportacaoPara(SwingUtilities.class)
 //                .geraImportacaoPara(IAgente.class)
                 .geraImportacaoBibliotecasIncluidas()
                 .geraNomeClasse(nomeClasseJava)

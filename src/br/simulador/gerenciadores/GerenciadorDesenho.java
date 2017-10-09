@@ -15,7 +15,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -36,11 +35,12 @@ public class GerenciadorDesenho {
 
     /**
      * Inicia a tela onde será executada a simulação
+     * @throws java.lang.InterruptedException
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      */
     public void inicializar_tela() throws InterruptedException, InvocationTargetException, ErroExecucaoBiblioteca {
-//        SwingUtilities.invokeLater(new Runnable() {
-//           @Override
-//            public void run() {
+
         try {
             g = new Graficos();
             UtilSimulador.setLog("Instanciou gráficos");

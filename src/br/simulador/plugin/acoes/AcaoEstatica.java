@@ -45,7 +45,8 @@ public class AcaoEstatica extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        try{
+        new Thread(()->{
+            try{
             final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
             ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
             GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
@@ -64,6 +65,8 @@ public class AcaoEstatica extends AbstractAction {
         } catch (InterruptedException ex) {
             Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }).start();
+        
     }
 
 }

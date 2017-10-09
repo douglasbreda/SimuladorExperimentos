@@ -65,11 +65,11 @@ public class GerenciadorFuncao extends VisitanteNulo {
         asaGerada.getListaDeclaracoesGlobais().addAll(listaVariaveisDeclaradas);
 
         GeradorCodigoJavaSimulador gerador = new GeradorCodigoJavaSimulador();
-//        SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
-        
-        SimuladorPrograma programaTeste = new ProgramaTeste();
-        
-        programaTeste.simular(false, new ArrayList<IAgente>());
+        SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
+
+//        SimuladorPrograma programaTeste = new ProgramaTeste();
+
+        programa.simular(false, new ArrayList<IAgente>());
         return asaGerada;
     }
 
