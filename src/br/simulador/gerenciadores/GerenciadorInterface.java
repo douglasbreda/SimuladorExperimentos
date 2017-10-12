@@ -6,6 +6,7 @@ package br.simulador.gerenciadores;
 import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -41,7 +42,7 @@ public final class GerenciadorInterface {
     /**
      * Chama a tela de inicialização do Simulador
      */
-    public void inicializarTela() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, InvocationTargetException {
+    public void inicializarTela() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, InvocationTargetException, ErroExecucao {
         if (!ambienteInicialiazdo) {
             UtilSimulador.setLog("Vai inicializar tela");
             desenho.inicializar_tela();
@@ -181,7 +182,7 @@ public final class GerenciadorInterface {
      * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void renderizar_tela() throws ErroExecucaoBiblioteca, InterruptedException{
+    public void renderizar_tela() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
         desenho.renderizar();
     }
     

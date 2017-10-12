@@ -7,6 +7,7 @@ import br.simulador.plugin.biblioteca.base.Agente;
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.util.UtilSimulador;
+import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.ps.plugins.base.Plugin;
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +29,8 @@ public final class GerenciadorExecucao {
     private static IAgente agenteAtual;
     
     private static Plugin plugin;
+    
+    private static SimuladorPrograma simuladorPrograma = null;
 
     public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException{
         UtilSimulador.setLog("Vai inicializar o ambiente");
@@ -72,6 +75,7 @@ public final class GerenciadorExecucao {
      * @param nome_metodo
      * @param parametros
      * @param tipo_parametros
+     * @return 
      * @throws IllegalArgumentException
      */
     public Object executarMetodo(String nome_metodo, Class[] tipo_parametros, Object... parametros) {
@@ -171,10 +175,9 @@ public final class GerenciadorExecucao {
 
             addAgente(agente);
             GerenciadorInterface.getInstance().renderizar_tela();
-//            getPainelBase().adicionar_agente_lista(agente);
         }
+        
         GerenciadorInterface.getInstance().atualizar_total_agentes(listaAgentes.size());
-//        getPainelBase().criar_posicoes_agentes();
     }
 
     /**
@@ -292,9 +295,7 @@ public final class GerenciadorExecucao {
     private boolean comparar_cor_agente(IAgente agente, int cor) {
         try {
             return agente.retornar_cor_agente() == cor;
-        } catch (ErroExecucaoBiblioteca ex) {
-            Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
             Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
 

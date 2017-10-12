@@ -9,8 +9,10 @@ import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.Autor;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoBiblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoFuncao;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoParametro;
+import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.NaoExportar;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.PropriedadesBiblioteca;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -629,5 +631,10 @@ public final class Experimentos extends Biblioteca {
     )
     public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
+    }
+    
+    @NaoExportar
+    public List<?> retornar_lista_agentes(){
+        return GerenciadorExecucao.getInstance().getListaAgentes();
     }
 }

@@ -4,8 +4,6 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.gerador.GeradorCodigoJavaSimulador;
-import br.simulador.gerador.ProgramaTeste;
-import br.simulador.plugin.biblioteca.base.IAgente;
 import br.univali.portugol.nucleo.ErroCompilacao;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
@@ -18,7 +16,6 @@ import br.univali.portugol.nucleo.asa.NoInclusaoBiblioteca;
 import br.univali.portugol.nucleo.asa.VisitanteNulo;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -27,7 +24,6 @@ import java.util.List;
 public class GerenciadorFuncao extends VisitanteNulo {
 
     private final ASAPrograma asa;
-    private StringBuilder funcao;
     private String nomeMetodo;
     private final ASAPrograma asaGerada;
     private final ArrayList<NoDeclaracaoFuncao> listaMetodos;
@@ -53,41 +49,43 @@ public class GerenciadorFuncao extends VisitanteNulo {
      */
     public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, NoSuchMethodException, ErroExecucao, InterruptedException {
         this.nomeMetodo = nome_metodo;
+        
         asa.aceitar(this);
 
         asaGerada.setListaDeclaracoesGlobais(new ArrayList<>());
 
         asaGerada.setListaInclusoesBibliotecas(new ArrayList<>());
         
-        //remover_funcoes_nao_utilizadas();
         asaGerada.getListaDeclaracoesGlobais().addAll(listaMetodos);
+        
         asaGerada.getListaInclusoesBibliotecas().add(listaLibs.get(0));
+        
         asaGerada.getListaDeclaracoesGlobais().addAll(listaVariaveisDeclaradas);
 
         GeradorCodigoJavaSimulador gerador = new GeradorCodigoJavaSimulador();
+        
         SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
 
-//        SimuladorPrograma programaTeste = new ProgramaTeste();
-
-        programa.simular(false, new ArrayList<IAgente>());
+        programa.simular(false);
+        
         return asaGerada;
     }
 
     /**
      * Remove os métodos que não são utilizados na função de simular
      */
-    private void remover_funcoes_nao_utilizadas() {
-        List<NoDeclaracaoFuncao> listaRemover = new ArrayList<>();
-
-        listaMetodos.stream().filter((metodo) -> (!listaFuncoesUtilizadas.contains(metodo.getNome())
-                && !metodo.getNome().equalsIgnoreCase(nomeMetodo))).forEachOrdered((metodo) -> {
-            listaRemover.add(metodo);
-        });
-
-        listaRemover.forEach((noDeclaracaoFuncao) -> {
-            listaMetodos.remove(noDeclaracaoFuncao);
-        });
-    }
+//    private void remover_funcoes_nao_utilizadas() {
+//        List<NoDeclaracaoFuncao> listaRemover = new ArrayList<>();
+//
+//        listaMetodos.stream().filter((metodo) -> (!listaFuncoesUtilizadas.contains(metodo.getNome())
+//                && !metodo.getNome().equalsIgnoreCase(nomeMetodo))).forEachOrdered((metodo) -> {
+//            listaRemover.add(metodo);
+//        });
+//
+//        listaRemover.forEach((noDeclaracaoFuncao) -> {
+//            listaMetodos.remove(noDeclaracaoFuncao);
+//        });
+//    }
 
     @Override
     public Object visitar(NoDeclaracaoFuncao declaracaoFuncao) throws ExcecaoVisitaASA {

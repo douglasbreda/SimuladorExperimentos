@@ -3,7 +3,6 @@ package br.simulador.gerador;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
-import java.util.List;
 import br.simulador.plugin.biblioteca.Experimentos;
 
 public class ProgramaTeste extends SimuladorPrograma {
@@ -65,19 +64,19 @@ public class ProgramaTeste extends SimuladorPrograma {
     }
 
     @Override
-    public void simular(boolean sempre, List<?> agentes) throws ErroExecucao, InterruptedException {
+    public void simular(boolean sempre) throws ErroExecucao, InterruptedException {
         System.out.println("Executando método simular.");
         try {
             Experimentos.simular();
             do {
                 System.out.println("Vai iniciar o laço.");
-                for (Object agente : agentes) {
+//                for (Object agente : agentes) {
                     criar();
                     atualizar_variaveis();
                     pular();
                     mover();
 
-                }
+//                }
             } while (sempre);
         } catch (ErroExecucaoBiblioteca ex) {
         } catch (InterruptedException ex) {

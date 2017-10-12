@@ -44,6 +44,14 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.append("return agenteAtual;");
             saida.println();
             saida.append("}");
+            saida.println();
+            saida.append("private List<?> listaAgentes;");
+            saida.append(identacao)
+                 .append("public void setListaAgentes(List<?> listaAgentes){");
+            saida.println();
+            saida.append("this.listaAgentes = listaAgentes;");
+            saida.println();
+            saida.append("}");
 
             saida.println();
 
@@ -64,7 +72,7 @@ public class GeradorDeclaracaoMetodoSimulador {
         if (!metodoPrincipal) {
             geraParametros(noFuncao, saida);
         } else {
-            saida.append("(boolean sempre, List<?> agentes)");
+            saida.append("(boolean sempre)");
         }
         saida.append(" throws ErroExecucao, InterruptedException");
         saida.println(); // pula uma linha depois da declaração da assinatura do método
@@ -77,10 +85,11 @@ public class GeradorDeclaracaoMetodoSimulador {
                     .append(identacao)
                     .append("try {\n")
                     .append(identacao)
-                    .append(identacao)
                     .append("\n")
                     .append("Experimentos.simular();")
+                    .append(identacao)
                     .append("Experimentos.criar_agentes(10, true);")
+                    .append("setListaAgentes(Experimentos.retornar_lista_agentes());")
                     .append(identacao)
                     .append("do")
                     .append(identacao)
@@ -88,8 +97,10 @@ public class GeradorDeclaracaoMetodoSimulador {
 
             saida.println();
             saida.append("System.out.println(\"Vai iniciar o laço.\");");
-            saida.append("for(Object agente : agentes) {");
+            saida.append("for(Object agente : listaAgentes) {");
             saida.println();
+            saida.append(identacao);
+            saida.append("this.agenteAtual = agente;");
         }
         Utils.visitarBlocos(noFuncao.getBlocos(), saida, visitor, nivelEscopo, opcoes, seed); // gera o código dentro do método
 
