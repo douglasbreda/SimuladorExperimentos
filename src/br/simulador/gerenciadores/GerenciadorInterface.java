@@ -163,9 +163,9 @@ public final class GerenciadorInterface {
      * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
      * @throws java.lang.InterruptedException 
      */
-    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException{
-        desenho.atualizar_total_agentes(total_agentes);
-    }
+//    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException{
+//        desenho.atualizar_total_agentes(total_agentes);
+//    }
     
     /**
      * Atualiza o label que informa se a simulação está executando
@@ -173,9 +173,9 @@ public final class GerenciadorInterface {
      * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
      * @throws java.lang.InterruptedException 
      */
-    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException{
-        desenho.atualizar_status_simulacao(executando);
-    }
+//    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException{
+//        desenho.atualizar_status_simulacao(executando);
+//    }
     
     /**
      * Força a atualização dos componentes visuais

@@ -6,6 +6,7 @@ package br.simulador.testes;
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInterface;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -26,8 +27,9 @@ public class ExperimentosTest {
      *
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
+     * @throws java.lang.reflect.InvocationTargetException
      */
-    public void testarCriarAgentes() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException {
+    public void testarCriarAgentes() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         GerenciadorInterface.getInstance().inicializarTela();
 
         Thread.sleep(1000);//Para esperar a tela ser criada, pois ocorreu null pointer ao buscar componentes que ainda não foram criados

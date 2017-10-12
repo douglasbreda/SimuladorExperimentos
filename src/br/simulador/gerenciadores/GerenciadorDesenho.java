@@ -217,8 +217,15 @@ public class GerenciadorDesenho {
 
         g.definir_cor(Graficos.COR_BRANCO);
         g.definir_estilo_texto(false, true, false);
-        g.desenhar_texto(10, altura_imagem_fundo + 12, "Total de Agentes: 0");
-        int largura_total_agentes = g.largura_texto("Total de Agentes: 0");
+        
+        int totalAgentes = 0;
+        
+        if(GerenciadorExecucao.getInstance().getListaAgentes() != null)
+            totalAgentes = GerenciadorExecucao.getInstance().getListaAgentes().size();
+        
+        g.desenhar_texto(10, altura_imagem_fundo + 12, "Total de Agentes: " + totalAgentes );
+        int largura_total_agentes = g.largura_texto("Total de Agentes: " + totalAgentes);
+        
         if (status == 0) {
             g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo + 12, "Status: Parada");
 
@@ -619,10 +626,10 @@ public class GerenciadorDesenho {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException {
-        g.definir_cor(0xFFFFFF);
-        g.desenhar_texto(4, (ALTURA * tile) + (tile / 2) + 2, "Total de agentes: " + total_agentes);
-    }
+//    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException {
+//        g.definir_cor(0xFFFFFF);
+//        g.desenhar_texto(4, (ALTURA * tile) + (tile / 2) + 2, "Total de agentes: " + total_agentes);
+//    }
 
     /**
      * Atualiza o label de status da simulação
@@ -632,10 +639,10 @@ public class GerenciadorDesenho {
      * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException {
-        g.definir_cor(0xFFFFFF);
-        g.desenhar_texto(g.largura_texto("Total de Agentes") * 2, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
-    }
+//    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException {
+//        g.definir_cor(0xFFFFFF);
+//        g.desenhar_texto(g.largura_texto("Total de Agentes") * 2, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
+//    }
 
     /**
      * Chama o método que desenha os componentes

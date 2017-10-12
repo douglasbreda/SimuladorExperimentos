@@ -17,8 +17,8 @@ public abstract class BaseAgente implements IAgente {
     private int coordenadaY = 0;
     private int id = 0;
     private int cor;
-    private int velocidade = 0;
     private double orientacao = 0;
+    private boolean esta_visivel = true;
 
     //Construtor padrão
     public BaseAgente(int coordenadaX, int coordenadaY, int id) {
@@ -185,6 +185,16 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void definir_visibilidade(boolean visivel) {
+        this.esta_visivel = visivel;
+    }
+
+    @Override
+    public boolean esta_visivel() {
+        return esta_visivel;
     }
     
 //    @Override

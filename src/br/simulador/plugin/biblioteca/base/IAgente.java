@@ -54,4 +54,8 @@ public interface IAgente
     public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException;
     
     public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException;
+    
+    public void definir_visibilidade(boolean visivel);
+    
+    public boolean esta_visivel();
 }

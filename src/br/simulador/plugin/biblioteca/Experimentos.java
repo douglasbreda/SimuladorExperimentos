@@ -126,7 +126,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void morrer() throws ErroExecucaoBiblioteca, InterruptedException {
-        //Talvez precise do id do agente para saber qual deve morrer
+        GerenciadorExecucao.getInstance().remover_agente_simulacao();
     }
 
     @DocumentacaoFuncao(

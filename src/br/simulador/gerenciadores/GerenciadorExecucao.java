@@ -14,8 +14,10 @@ import br.univali.ps.plugins.base.Plugin;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -26,19 +28,19 @@ public final class GerenciadorExecucao {
     private static ArrayList<IAgente> listaAgentes = null;
 
     private static GerenciadorExecucao instance = null;
-    
+
     private static IAgente agenteAtual;
-    
+
     private static Plugin plugin;
-    
+
     private static SimuladorPrograma simuladorPrograma = null;
 
-    public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao{
+    public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         UtilSimulador.setLog("Vai inicializar o ambiente");
         GerenciadorInterface.getInstance().inicializarTela();
         UtilSimulador.setLog("Inicializou o ambiente");
     }
-    
+
     /**
      * Retorna uma instância do gerenciador da simulação
      *
@@ -76,7 +78,7 @@ public final class GerenciadorExecucao {
      * @param nome_metodo
      * @param parametros
      * @param tipo_parametros
-     * @return 
+     * @return
      * @throws IllegalArgumentException
      */
     public Object executarMetodo(String nome_metodo, Class[] tipo_parametros, Object... parametros) {
@@ -177,8 +179,8 @@ public final class GerenciadorExecucao {
             addAgente(agente);
             GerenciadorInterface.getInstance().renderizar_tela();
         }
-        
-        GerenciadorInterface.getInstance().atualizar_total_agentes(listaAgentes.size());
+
+//        GerenciadorInterface.getInstance().atualizar_total_agentes(listaAgentes.size());
     }
 
     /**
@@ -260,12 +262,25 @@ public final class GerenciadorExecucao {
     }
 
     /**
-     * Retorna a lista de agentes da aplicação
+     * Retorna a lista de agentes da aplicação que estão visiveis
      *
      * @return
      */
     public ArrayList<IAgente> getListaAgentes() {
-        return listaAgentes;
+        ArrayList<IAgente> listaRetorno = null;
+        
+        if (listaAgentes != null) {
+            List<IAgente> listaNova = listaAgentes.stream().filter(x -> x.esta_visivel()).collect(Collectors.toList());
+
+            if(listaRetorno == null)
+                listaRetorno = new ArrayList<>();
+            else
+                listaRetorno.clear();
+            
+            listaRetorno.addAll(listaNova);
+        }
+        
+        return listaRetorno;
     }
 
     /**
@@ -315,29 +330,34 @@ public final class GerenciadorExecucao {
 
         return numero_agentes;
     }
-    
+
     /**
      * Define qual é o agente atual da simulação
-     * @param agente 
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
-     * @throws java.lang.InterruptedException 
+     *
+     * @param agente
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
      */
-    public void definir_agente_atual(Object agente) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_agente_atual(Object agente) throws ErroExecucaoBiblioteca, InterruptedException {
         agenteAtual = (IAgente) agente;
         UtilSimulador.setLog("Agente atual: " + agenteAtual.retornar_id());
     }
 
     /**
      * Retorna o agente atual que está executando o processo
-     * @return 
+     *
+     * @return
      */
     public IAgente getAgenteAtual() {
         return agenteAtual;
     }
 
     /**
-     * Atribui o plugin atual para utilização, caso necessário, em outras classes do projeto
-     * @param plugin 
+     * Atribui o plugin atual para utilização, caso necessário, em outras
+     * classes do projeto
+     *
+     * @param plugin
      */
     public void setPlugin(Plugin plugin) {
         GerenciadorExecucao.plugin = plugin;
@@ -345,9 +365,22 @@ public final class GerenciadorExecucao {
 
     /**
      * Retorna o plugin atual
-     * @return 
+     *
+     * @return
      */
     public Plugin getPlugin() {
         return plugin;
+    }
+
+    /**
+     * Equivale ao método "morrer" do agente, removendo-o da lista de agentes da
+     * simulação
+     *
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    public void remover_agente_simulacao() throws ErroExecucaoBiblioteca, InterruptedException {
+        agenteAtual.definir_visibilidade(false);
+        UtilSimulador.setLog("Agente: " + agenteAtual.retornar_id() + "removido com sucesso");
     }
 }
