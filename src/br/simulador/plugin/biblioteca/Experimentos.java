@@ -240,22 +240,22 @@ public final class Experimentos extends Biblioteca {
         UtilSimulador.setLog("Está definindo a orientação");
     }
 
-    @DocumentacaoFuncao(
-            descricao = "Move o agente para uma determinada coordenada X e Y.",
-            parametros
-            = {
-                @DocumentacaoParametro(nome = "coordenadaX", descricao = "Qual a coordenada X para pular")
-                ,
-                @DocumentacaoParametro(nome = "coordenadaY", descricao = "Qual a coordenada Y para pular"),},
-            retorno = "Sem retorno",
-            autores
-            = {
-                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-            }
-    )
-    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
-
-    }
+//    @DocumentacaoFuncao(
+//            descricao = "Move o agente para uma determinada coordenada X e Y.",
+//            parametros
+//            = {
+//                @DocumentacaoParametro(nome = "coordenadaX", descricao = "Qual a coordenada X para pular")
+//                ,
+//                @DocumentacaoParametro(nome = "coordenadaY", descricao = "Qual a coordenada Y para pular"),},
+//            retorno = "Sem retorno",
+//            autores
+//            = {
+//                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+//            }
+//    )
+//    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
+//
+//    }
 
     @DocumentacaoFuncao(
             descricao = "Define uma cor ao agente.",
@@ -392,8 +392,9 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
-
+    public void ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorExecucao.getInstance().getAgenteAtual().ir_ate(coordenadaX, coordenadaY);
+        GerenciadorInterface.getInstance().renderizar_tela();
     }
 
     @DocumentacaoFuncao(

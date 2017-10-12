@@ -82,7 +82,7 @@ public class GerenciadorDesenho {
             g.iniciar_modo_grafico(false);
 //            g.definir_dimensoes_janela(LARGURA * tile, (ALTURA + 2) * tile);
             g.definir_dimensoes_janela(800, 550);
-
+            configurar();
             //Inicialização das variáveis (Separar)
             rodar();
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
@@ -108,7 +108,6 @@ public class GerenciadorDesenho {
      * @throws InterruptedException
      */
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        configurar();
 //        new Thread(() -> {
 //            while (true) {
         try {

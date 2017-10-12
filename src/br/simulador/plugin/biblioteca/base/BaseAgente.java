@@ -81,10 +81,13 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public boolean ir_ate(int coordenadaX, int coordenadaY) {
-        this.coordenadaX = coordenadaX;
-        this.coordenadaY = coordenadaY;
+    public boolean ir_ate(int nova_coordenadaX, int nova_coordenadaY) {
+        UtilSimulador.setLog("Agente " + this.id + " foi da posição X: " + this.coordenadaX + " até " + nova_coordenadaX + 
+                "e de Y: " + this.coordenadaY + " até " + nova_coordenadaY);        
         
+        this.coordenadaX = nova_coordenadaX;
+        this.coordenadaY = nova_coordenadaY;
+
         return true;//VERIFICAR ESTE RETORNO
     }
 
