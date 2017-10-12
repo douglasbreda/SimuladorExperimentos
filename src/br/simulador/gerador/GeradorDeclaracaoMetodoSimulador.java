@@ -97,9 +97,11 @@ public class GeradorDeclaracaoMetodoSimulador {
 
             saida.println();
             saida.append("System.out.println(\"Vai iniciar o laço.\");");
+            saida.append("int contador = 0;");
             saida.append("for(Object agente : listaAgentes) {");
             saida.println();
             saida.append(identacao);
+            saida.append("System.out.println(\"Repetição: \" + ++contador);");
             saida.append("System.out.println(\"Está dentro do laço.\");");
             saida.append("System.out.println(\"Total de agentes: .\" + listaAgentes.size());");
             saida.append("this.agenteAtual = agente;");

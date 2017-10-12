@@ -166,7 +166,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
-
+        UtilSimulador.setLog("Moveu para a frente com a quantidade: "+ quantidade);
     }
 
     @DocumentacaoFuncao(
@@ -625,6 +625,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int retornar_id_retalho(int numero_retalho_a_frente) throws ErroExecucaoBiblioteca, InterruptedException {
+        UtilSimulador.setLog("Veio buscar o id do retalho");
         return 0;
     }
 
@@ -635,6 +636,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException {
+        UtilSimulador.setLog("Meu retalho é: :)");
         return 0;
     }
     /**
