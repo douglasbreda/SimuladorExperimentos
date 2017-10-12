@@ -100,7 +100,10 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.append("for(Object agente : listaAgentes) {");
             saida.println();
             saida.append(identacao);
+            saida.append("System.out.println(\"Está dentro do laço.\");");
+            saida.append("System.out.println(\"Total de agentes: .\" + listaAgentes.size());");
             saida.append("this.agenteAtual = agente;");
+            saida.append("Experimentos.definir_agente_atual(agente);");
         }
         Utils.visitarBlocos(noFuncao.getBlocos(), saida, visitor, nivelEscopo, opcoes, seed); // gera o código dentro do método
 

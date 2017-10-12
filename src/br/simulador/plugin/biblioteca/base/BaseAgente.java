@@ -100,7 +100,7 @@ public abstract class BaseAgente implements IAgente {
             UtilSimulador.setLog("Valor Cadeia retornado: " + retorno);
             return retorno;
         } else {
-            throw new ErroExecucaoBiblioteca("O parâmetro " + nome_atributo + " não existe.");
+            return "";
         }
     }
 
@@ -110,7 +110,7 @@ public abstract class BaseAgente implements IAgente {
         if (verificarAtributoExiste(nome_atributo)) {
             return ((char) listaParametros.get(nome_atributo));
         } else {
-            throw new ErroExecucaoBiblioteca("O parâmetro " + nome_atributo + " não existe.");
+            return ' ';
         }
     }
 
@@ -128,7 +128,7 @@ public abstract class BaseAgente implements IAgente {
         if (verificarAtributoExiste(nome_atributo)) {
             return (UtilSimulador.toBoolean(listaParametros.get(nome_atributo).toString()));
         } else {
-            throw new ErroExecucaoBiblioteca("O parâmetro " + nome_atributo + " não existe");
+            return false;
         }
 
     }
@@ -138,7 +138,7 @@ public abstract class BaseAgente implements IAgente {
         if (verificarAtributoExiste(nome_atributo)) {
             return (UtilSimulador.toDouble(listaParametros.get(nome_atributo).toString()));
         } else {
-            throw new ErroExecucaoBiblioteca("O parâmetro " + nome_atributo + " não existe");
+            return 0;
         }
     }
 

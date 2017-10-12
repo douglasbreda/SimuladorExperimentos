@@ -17,7 +17,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -25,9 +24,9 @@ import javax.swing.SwingUtilities;
  */
 public class GerenciadorDesenho {
 
-    final int LARGURA = 32;
-    final int ALTURA = 32;
-    final int tile = 20;
+    final int LARGURA = 31;
+    final int ALTURA = 26;
+    final int tile = 18;
     int cor_atual = 0;
 
     private final String PASTA_DE_IMAGENS = "D:/Desenvolvimento/TTC II/Plugin Experimentos/SimuladorExperimentos/SimuladorExperimentos/src/br/simulador/imagens/";
@@ -110,18 +109,21 @@ public class GerenciadorDesenho {
      */
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         configurar();
+//        new Thread(() -> {
+//            while (true) {
+        try {
+            desenhar();
+            controle();
+            g.renderizar();
 
-        while (true) {
-            try {
-                desenhar();
-                controle();
-                g.renderizar();
-
-            } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-                Logger.getLogger(GerenciadorInterface.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
+            Logger.getLogger(GerenciadorInterface.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroExecucao ex) {
+            Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
         }
+//            }
+//        }).start();
     }
 
     /**
@@ -306,7 +308,8 @@ public class GerenciadorDesenho {
 
         g.desenhar_imagem(0, 0, imagem_fundo);
 
-//        desenhar_retalhos();
+        desenhar_retalhos();
+
         desenhar_botoes();
 
         desenhar_rodape();
@@ -441,8 +444,8 @@ public class GerenciadorDesenho {
                     g.definir_cor(cor);
                 }
 
-                x = j * tile;
-                y = i * tile;
+                x = (j * tile) + 250;
+                y = (i * tile) + 50;
                 g.desenhar_retangulo(x, y, tile, tile, false, true);
                 retalhos[i][j].definir_coordenadas(x, y);
             }

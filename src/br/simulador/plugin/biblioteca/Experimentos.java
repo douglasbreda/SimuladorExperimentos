@@ -2,6 +2,7 @@ package br.simulador.plugin.biblioteca;
 
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInterface;
+import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import static br.univali.portugol.nucleo.bibliotecas.base.TipoBiblioteca.COMPARTILHADA;
@@ -11,6 +12,7 @@ import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoFuncao;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.DocumentacaoParametro;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.NaoExportar;
 import br.univali.portugol.nucleo.bibliotecas.base.anotacoes.PropriedadesBiblioteca;
+import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,7 +38,7 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_agentes(int numeroAgentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException {
+    public void criar_agentes(int numeroAgentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         GerenciadorExecucao.getInstance().criar_agentes(numeroAgentes, aleatorio);
     }
 
@@ -53,7 +55,7 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void simular() throws ErroExecucaoBiblioteca, InterruptedException {
+    public void simular() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         try {
             GerenciadorExecucao.getInstance().inicializar_ambiente();
         } catch (ErroExecucaoBiblioteca | InterruptedException | InvocationTargetException ex) {
@@ -229,7 +231,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void definir_orientacao(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
-
+        UtilSimulador.setLog("Está definindo a orientação");
     }
 
     @DocumentacaoFuncao(
@@ -367,6 +369,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException {
+        UtilSimulador.setLog("Buscando a orientação do agente");
         return 0;
     }
 
@@ -587,6 +590,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException {
+        UtilSimulador.setLog("Verificando se está colidindo com a parede");
         return false;
     }
 
@@ -597,6 +601,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException {
+        UtilSimulador.setLog("Verificando se está colidindo com borda X");
         return false;
     }
 
@@ -632,9 +637,21 @@ public final class Experimentos extends Biblioteca {
     public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException {
         return 0;
     }
-    
+    /**
+     * Retorna a lista de agentes atuais da simulação
+     * @return 
+     */
     @NaoExportar
     public List<?> retornar_lista_agentes(){
         return GerenciadorExecucao.getInstance().getListaAgentes();
+    }
+    
+    /**
+     * Define o agente atual da simulação
+     * @param agente_atual 
+     */
+    @NaoExportar
+    public void definir_agente_atual(Object agente_atual) throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorExecucao.getInstance().definir_agente_atual(agente_atual);
     }
 }

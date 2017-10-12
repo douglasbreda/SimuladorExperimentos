@@ -9,6 +9,7 @@ import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
+import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import br.univali.ps.plugins.base.Plugin;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -32,7 +33,7 @@ public final class GerenciadorExecucao {
     
     private static SimuladorPrograma simuladorPrograma = null;
 
-    public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException{
+    public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao{
         UtilSimulador.setLog("Vai inicializar o ambiente");
         GerenciadorInterface.getInstance().inicializarTela();
         UtilSimulador.setLog("Inicializou o ambiente");
@@ -146,7 +147,7 @@ public final class GerenciadorExecucao {
      * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException {
+    public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 
         int coordenadaX = 0;
         int coordenadaY = 0;
@@ -186,6 +187,7 @@ public final class GerenciadorExecucao {
      * @return
      */
     public int contar_agentes() {
+        UtilSimulador.setLog("Contou os agentes");
         return listaAgentes.size();
     }
 
@@ -317,9 +319,12 @@ public final class GerenciadorExecucao {
     /**
      * Define qual é o agente atual da simulação
      * @param agente 
+     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
+     * @throws java.lang.InterruptedException 
      */
-    public void definir_agente_atual(Object agente){
+    public void definir_agente_atual(Object agente) throws ErroExecucaoBiblioteca, InterruptedException{
         agenteAtual = (IAgente) agente;
+        UtilSimulador.setLog("Agente atual: " + agenteAtual.retornar_id());
     }
 
     /**

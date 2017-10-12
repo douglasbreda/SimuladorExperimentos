@@ -62,6 +62,7 @@ public class AcaoEstatica extends AbstractAction {
         } catch (InterruptedException ex) {
             Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         }).start();
         
     }
