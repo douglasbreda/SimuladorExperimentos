@@ -137,8 +137,11 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double retornar_coordenadaX() throws ErroExecucaoBiblioteca, InterruptedException {
-        return (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_X");
+    public int retornar_coordenadaX() throws ErroExecucaoBiblioteca, InterruptedException {
+//        double coordenadaXAgente = (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_X");
+        int coordenadaXAgente = GerenciadorExecucao.getInstance().getAgenteAtual().retornar_coordenada_X();
+        UtilSimulador.setLog("X do agente " + GerenciadorExecucao.getInstance().getAgenteAtual().retornar_id() + ": " + coordenadaXAgente);
+        return coordenadaXAgente;
     }
 
     @DocumentacaoFuncao(
@@ -149,8 +152,11 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public double retornar_coordenadaY() throws ErroExecucaoBiblioteca, InterruptedException {
-        return (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_Y");
+    public int retornar_coordenadaY() throws ErroExecucaoBiblioteca, InterruptedException {
+//        double coordenadaYAgente = (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_Y");
+        int coordenadaYAgente = GerenciadorExecucao.getInstance().getAgenteAtual().retornar_coordenada_Y();
+        UtilSimulador.setLog("Y do agente " + GerenciadorExecucao.getInstance().getAgenteAtual().retornar_id() + ": " + coordenadaYAgente);
+        return coordenadaYAgente;
     }
 
     @DocumentacaoFuncao(
