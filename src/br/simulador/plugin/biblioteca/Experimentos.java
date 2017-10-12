@@ -406,7 +406,9 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int retornar_id() throws ErroExecucaoBiblioteca, InterruptedException {
-        return (int) GerenciadorExecucao.getInstance().executarMetodo("retornar_id");
+        int id = GerenciadorExecucao.getInstance().getAgenteAtual().retornar_id();
+        UtilSimulador.setLog("Retornou o id: " + id);
+        return id;
     }
 
     @DocumentacaoFuncao(
@@ -428,8 +430,8 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorInterface.getInstance().atualizar_tela();
+    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorInterface.getInstance().renderizar_tela();
     }
 
     @DocumentacaoFuncao(
@@ -508,7 +510,9 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int agentes_com_cor(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
-        return 0;
+        int agentes_encontrados = GerenciadorExecucao.getInstance().agentes_com_cor(cor);
+        UtilSimulador.setLog("Agente com a cor " + cor + " encontrados: " + agentes_encontrados);
+        return agentes_encontrados;
     }
 
     @DocumentacaoFuncao(
@@ -527,7 +531,7 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna a quantidade de agentes em um determinado patch de acordo com as coordenadas passadas por parâmetro.",
+            descricao = "Retorna a quantidade de agentes em um determinado retalho de acordo com as coordenadas passadas por parâmetro.",
             parametros = {
                 @DocumentacaoParametro(nome = "coordenadaX", descricao = "Qual a coordenada X desejada")
                 ,
@@ -538,7 +542,7 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void agentes_em_XY(double coordenadaX, double coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
+    public void agentes_em_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
 
     }
 

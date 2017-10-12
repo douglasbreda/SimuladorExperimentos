@@ -159,12 +159,19 @@ public final class GerenciadorExecucao {
         int maxX = GerenciadorInterface.getInstance().retorna_limite_maximo_borda_X();
         int maxY = GerenciadorInterface.getInstance().retorna_limite_maximo_borda_Y();
         int velocidade = 0;
+        int valor_fixo_x = (maxX / 2);
+        int valor_fixo_y = (maxY / 2);
 
         for (int i = 0; i < numero_agentes; i++) {
 
-            coordenadaX = UtilSimulador.getNumeroRandomico(minX, maxX);
-            coordenadaY = UtilSimulador.getNumeroRandomico(minY, maxY);
-            velocidade = UtilSimulador.getNumeroRandomico(5);
+            if (aleatorio) {
+                coordenadaX = UtilSimulador.getNumeroRandomico(minX, maxX);
+                coordenadaY = UtilSimulador.getNumeroRandomico(minY, maxY);
+                velocidade = UtilSimulador.getNumeroRandomico(5);
+            }else{
+                coordenadaX = valor_fixo_x;
+                coordenadaY = valor_fixo_y;
+            }
 
             IAgente agente = new Agente(coordenadaX, coordenadaY, ++id, velocidade);
 
@@ -268,18 +275,19 @@ public final class GerenciadorExecucao {
      */
     public ArrayList<IAgente> getListaAgentes() {
         ArrayList<IAgente> listaRetorno = null;
-        
+
         if (listaAgentes != null) {
             List<IAgente> listaNova = listaAgentes.stream().filter(x -> x.esta_visivel()).collect(Collectors.toList());
 
-            if(listaRetorno == null)
+            if (listaRetorno == null) {
                 listaRetorno = new ArrayList<>();
-            else
+            } else {
                 listaRetorno.clear();
-            
+            }
+
             listaRetorno.addAll(listaNova);
         }
-        
+
         return listaRetorno;
     }
 

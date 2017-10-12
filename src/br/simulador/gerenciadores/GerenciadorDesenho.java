@@ -81,7 +81,7 @@ public class GerenciadorDesenho {
             iniciar_retalhos();
             g.iniciar_modo_grafico(false);
 //            g.definir_dimensoes_janela(LARGURA * tile, (ALTURA + 2) * tile);
-            g.definir_dimensoes_janela(800, 550);
+            g.definir_dimensoes_janela(810, 550);
             configurar();
             //Inicialização das variáveis (Separar)
             rodar();
@@ -513,25 +513,26 @@ public class GerenciadorDesenho {
      */
     public void desenhar_bordas(int cor) {
         //Borda superior
-        for (int i = 0; i < ALTURA; i++) {
-            retalhos[2][i].set_cor(cor);
-            retalhos[2][i].definir_como_parede(true);
+        for (int i = 0; i < LARGURA; i++) {
+            retalhos[0][i].set_cor(cor);
+            retalhos[0][i].definir_como_parede(true);
         }
 
         //Borda inferior
-        for (int i = 0; i < ALTURA; i++) {
+        for (int i = 0; i < LARGURA; i++) {
             retalhos[ALTURA - 1][i].set_cor(cor);
             retalhos[ALTURA - 1][i].definir_como_parede(true);
         }
 
         //Borda esquerda
-        for (int i = 2; i < LARGURA; i++) {
+        for (int i = 0; i < ALTURA; i++) {
+//            UtilSimulador.setLog("Definida cor de borda para " + i + "/0");
             retalhos[i][0].set_cor(cor);
             retalhos[i][0].definir_como_parede(true);
         }
 
         //Borda direita
-        for (int i = 2; i < LARGURA; i++) {
+        for (int i = 0; i < ALTURA; i++) {
             retalhos[i][LARGURA - 1].set_cor(cor);
             retalhos[i][LARGURA - 1].definir_como_parede(true);
         }
