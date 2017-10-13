@@ -216,15 +216,16 @@ public class GerenciadorDesenho {
 
         g.definir_cor(Graficos.COR_BRANCO);
         g.definir_estilo_texto(false, true, false);
-        
+
         int totalAgentes = 0;
-        
-        if(GerenciadorExecucao.getInstance().getListaAgentes() != null)
+
+        if (GerenciadorExecucao.getInstance().getListaAgentes() != null) {
             totalAgentes = GerenciadorExecucao.getInstance().getListaAgentes().size();
-        
-        g.desenhar_texto(10, altura_imagem_fundo + 12, "Total de Agentes: " + totalAgentes );
+        }
+
+        g.desenhar_texto(10, altura_imagem_fundo + 12, "Total de Agentes: " + totalAgentes);
         int largura_total_agentes = g.largura_texto("Total de Agentes: " + totalAgentes);
-        
+
         if (status == 0) {
             g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo + 12, "Status: Parada");
 
@@ -467,7 +468,7 @@ public class GerenciadorDesenho {
         if (listaAgente != null && listaAgente.size() > 0) {
             for (IAgente agente : listaAgente) {
                 g.definir_cor(agente.retornar_cor_agente());
-                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), 10, 10, true);
+                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
             }
         }
     }
@@ -603,15 +604,50 @@ public class GerenciadorDesenho {
      * @param y
      * @return
      */
-    public Retalho get_retalho(int x, int y) {
+    public Retalho get_retalho(int x, int y, int altura, int largura) throws ErroExecucaoBiblioteca, InterruptedException {
         Retalho retalho_retorno = null;
-
+        int fator_diferenca = 8;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
-                if (retalhos[i][j].getCoordenadaX() == x
-                        && retalhos[i][j].getCoordenadaY() == y) {
-                    retalho_retorno = retalhos[i][j];
-                    break;
+                if ((x > retalhos[i][j].getCoordenadaX() && x < retalhos[i][j].getCoordenadaX() + tile)
+                        && (y > retalhos[i][j].getCoordenadaY() && y < retalhos[i][j].getCoordenadaY() + tile)) {
+                    int diferenca_X = (x + largura) - (retalhos[i][j].getCoordenadaX() + tile);
+                    int diferenca_Y = (y + altura) - (retalhos[i][j].getCoordenadaY() + tile);
+
+                    UtilSimulador.setLog("X do agente: " + x);
+                    UtilSimulador.setLog("Y do agente: " + y);
+                    UtilSimulador.setLog("Diferenca X: " + diferenca_X);
+                    UtilSimulador.setLog("Diferenca Y: " + diferenca_Y);
+                    
+                    if (diferenca_X > 0 && diferenca_X < fator_diferenca || diferenca_Y > 0 && diferenca_Y < fator_diferenca) {
+                        retalho_retorno = retalhos[i][j];
+                    }else{
+                        
+                        int indiceI = i;
+                        int indiceJ = j;
+                        
+                        if(math.valor_absoluto(diferenca_Y) > fator_diferenca){
+                            indiceI = i + 1;
+                        }else if(math.valor_absoluto(diferenca_X) > fator_diferenca){
+                            indiceJ = j + 1;
+                        }
+//                        }else if((diferenca_X + diferenca_Y) < (fator_diferenca * (-1))){
+//                            indiceI = i - 1;
+//                            indiceJ = j - 1;
+//                        }
+//                        if(diferenca_X > fator_diferenca)
+//                            indiceI = i + 1;
+//                        else if(diferenca_X < 0 && diferenca_X < (fator_diferenca * (-1)))
+//                            indiceI = i - 1;
+//                            
+//                        if(diferenca_Y > fator_diferenca)
+//                            indiceJ = j + 1;
+//                        else if(diferenca_Y < 0 && diferenca_Y < (fator_diferenca * (-1)))
+//                            indiceJ = j + 1;
+                            
+                        retalho_retorno = retalhos[indiceI][indiceJ];
+                    }
+//                    break;
                 }
             }
         }
@@ -630,7 +666,6 @@ public class GerenciadorDesenho {
 //        g.definir_cor(0xFFFFFF);
 //        g.desenhar_texto(4, (ALTURA * tile) + (tile / 2) + 2, "Total de agentes: " + total_agentes);
 //    }
-
     /**
      * Atualiza o label de status da simulação
      *
@@ -643,7 +678,6 @@ public class GerenciadorDesenho {
 //        g.definir_cor(0xFFFFFF);
 //        g.desenhar_texto(g.largura_texto("Total de Agentes") * 2, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
 //    }
-
     /**
      * Chama o método que desenha os componentes
      *
@@ -679,3 +713,4 @@ public class GerenciadorDesenho {
         desenhar_retalhos(cor);
     }
 }
+

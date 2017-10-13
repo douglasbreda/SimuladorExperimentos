@@ -542,8 +542,8 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void agentes_em_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
-
+    public void agentes_em_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+           GerenciadorExecucao.getInstance().agentes_em(coordenadaX, coordenadaY);
     }
 
     @DocumentacaoFuncao(
@@ -646,8 +646,9 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException {
+    public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         UtilSimulador.setLog("Meu retalho é: :)");
+        GerenciadorExecucao.getInstance().meu_retalho();
         return 0;
     }
     /**

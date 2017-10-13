@@ -161,6 +161,9 @@ public final class GerenciadorExecucao {
         int velocidade = 0;
         int valor_fixo_x = (maxX / 2);
         int valor_fixo_y = (maxY / 2);
+        
+//        int valor_fixo_x = 446;
+//        int valor_fixo_y = 267;
 
         for (int i = 0; i < numero_agentes; i++) {
 
@@ -327,18 +330,26 @@ public final class GerenciadorExecucao {
         return false;
     }
 
-    public int agentes_em(int coordenadaX, int coordenadaY) {
+    public int agentes_em(int coordenadaX, int coordenadaY) throws InterruptedException, ErroExecucao{
+        return agentes_em(coordenadaX, coordenadaY, agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
+    }
+    
+    public int agentes_em(int coordenadaX, int coordenadaY, int altura, int largura) throws InterruptedException, ErroExecucao {
         int numero_agentes = 0;
 
-        Retalho retalho = GerenciadorInterface.getInstance().get_retalho(coordenadaX, coordenadaY);
+        Retalho retalho = GerenciadorInterface.getInstance().get_retalho(coordenadaX, coordenadaY, altura, largura);
 
         if (retalho != null) {
-            //TODO
+            retalho.set_cor(2);
+            GerenciadorInterface.getInstance().renderizar_tela();
         }
 
         return numero_agentes;
     }
-
+    
+    public void meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        agentes_em(agenteAtual.retornar_coordenada_X(), agenteAtual.retornar_coordenada_Y(), agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
+    }
     /**
      * Define qual é o agente atual da simulação
      *

@@ -58,4 +58,12 @@ public interface IAgente
     public void definir_visibilidade(boolean visivel);
     
     public boolean esta_visivel();
+    
+    public void definir_altura_agente(int altura);
+    
+    public int retornar_altura_agente();
+    
+    public void definir_largura_agente(int largura);
+    
+    public int retornar_largura_agente();
 }

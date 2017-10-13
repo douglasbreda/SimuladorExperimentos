@@ -19,6 +19,8 @@ public abstract class BaseAgente implements IAgente {
     private int cor;
     private double orientacao = 0;
     private boolean esta_visivel = true;
+    private int altura_agente = 10;
+    private int largura_agente = 10;
 
     //Construtor padrão
     public BaseAgente(int coordenadaX, int coordenadaY, int id) {
@@ -198,6 +200,26 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public boolean esta_visivel() {
         return esta_visivel;
+    }
+
+    @Override
+    public void definir_altura_agente(int altura) {
+        this.altura_agente = altura;
+    }
+
+    @Override
+    public void definir_largura_agente(int largura) {
+        this.largura_agente = largura;
+    }
+
+    @Override
+    public int retornar_altura_agente() {
+        return this.altura_agente;
+    }
+
+    @Override
+    public int retornar_largura_agente() {
+        return this.largura_agente;
     }
     
 //    @Override

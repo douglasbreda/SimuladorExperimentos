@@ -151,10 +151,14 @@ public final class GerenciadorInterface {
      *
      * @param coordenadaX
      * @param coordenadaY
+     * @param altura
+     * @param largura
      * @return
+     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
      */
-    public Retalho get_retalho(int coordenadaX, int coordenadaY) {
-        return desenho.get_retalho(coordenadaX, coordenadaY);
+    public Retalho get_retalho(int coordenadaX, int coordenadaY, int altura, int largura) throws ErroExecucaoBiblioteca, InterruptedException {
+        return desenho.get_retalho(coordenadaX, coordenadaY, altura, largura);
     }
     
     /**
