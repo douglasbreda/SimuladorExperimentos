@@ -334,6 +334,16 @@ public final class GerenciadorExecucao {
         return agentes_em(coordenadaX, coordenadaY, agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
     }
     
+    /**
+     * Encontra quantos agentes estão em um determinado retalho
+     * @param coordenadaX
+     * @param coordenadaY
+     * @param altura
+     * @param largura
+     * @return
+     * @throws InterruptedException
+     * @throws ErroExecucao 
+     */
     public int agentes_em(int coordenadaX, int coordenadaY, int altura, int largura) throws InterruptedException, ErroExecucao {
         int numero_agentes = 0;
 
@@ -341,15 +351,26 @@ public final class GerenciadorExecucao {
 
         if (retalho != null) {
             retalho.set_cor(2);
+            numero_agentes = GerenciadorInterface.getInstance().buscar_numero_agentes(retalho);
             GerenciadorInterface.getInstance().renderizar_tela();
         }
 
         return numero_agentes;
     }
     
-    public void meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
-        agentes_em(agenteAtual.retornar_coordenada_X(), agenteAtual.retornar_coordenada_Y(), agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
+    /**
+     * Encontra o retalho atual do agente
+     * @return
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     * @throws ErroExecucao 
+     */
+    public Retalho meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        Retalho retalho = GerenciadorInterface.getInstance().get_retalho(agenteAtual.retornar_coordenada_X(), agenteAtual.retornar_coordenada_Y(), agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
+        
+        return retalho;
     }
+
     /**
      * Define qual é o agente atual da simulação
      *

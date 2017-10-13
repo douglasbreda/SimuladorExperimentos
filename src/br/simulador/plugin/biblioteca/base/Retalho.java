@@ -1,8 +1,5 @@
 package br.simulador.plugin.biblioteca.base;
 
-import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
-import java.util.Random;
-
 /**
  *
  * @author Douglas
@@ -13,12 +10,12 @@ public class Retalho {
     private int coordenadaX;
     private int coordenadaY;
     private boolean parede;
-
+    private int id;
     /*
         Construtor padrão
     */
-    public Retalho() {
-        
+    public Retalho(int id) {
+        this.id = id;
     }
 
     public void set_cor(int cor){
@@ -93,5 +90,15 @@ public class Retalho {
     public void definir_como_parede(boolean eh_parede){
         this.parede = eh_parede;
     }
+
+    /**
+     * Retorna o identificado único do retalho
+     * @return 
+     */
+    public int getId() {
+        return id;
+    }
+    
+    
 
 }

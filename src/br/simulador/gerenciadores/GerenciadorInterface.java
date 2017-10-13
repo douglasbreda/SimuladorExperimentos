@@ -162,6 +162,17 @@ public final class GerenciadorInterface {
     }
     
     /**
+     * Busca o número de agentes que estão em um determinado retalho
+     * @param retalho
+     * @return
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public int buscar_numero_agentes(Retalho retalho) throws ErroExecucaoBiblioteca, InterruptedException{
+        return desenho.buscar_agentes_no_retalho(retalho);
+    }
+    
+    /**
      * Atualiza o label de número de agentes da simulação
      * @param total_agentes 
      * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 

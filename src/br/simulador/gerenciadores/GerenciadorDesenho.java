@@ -15,6 +15,7 @@ import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,9 +95,10 @@ public class GerenciadorDesenho {
      * Inicializa os retalhos da simulação (O "chão" da simulação)
      */
     private void iniciar_retalhos() {
+        int id = 0;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
-                retalhos[i][j] = new Retalho();
+                retalhos[i][j] = new Retalho(++id);
             }
         }
     }
@@ -654,30 +656,29 @@ public class GerenciadorDesenho {
 
         return retalho_retorno;
     }
-
+    
     /**
-     * Atualiza o label com o total de agentes da aplicação
-     *
-     * @param total_agentes
+     * Retorna o número de agentes que está em um determinado retalho
+     * @param retalho
+     * @return
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException
+     * @throws InterruptedException 
      */
-//    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException {
-//        g.definir_cor(0xFFFFFF);
-//        g.desenhar_texto(4, (ALTURA * tile) + (tile / 2) + 2, "Total de agentes: " + total_agentes);
-//    }
-    /**
-     * Atualiza o label de status da simulação
-     *
-     * @param executando
-     * @throws
-     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
-     * @throws java.lang.InterruptedException
-     */
-//    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException {
-//        g.definir_cor(0xFFFFFF);
-//        g.desenhar_texto(g.largura_texto("Total de Agentes") * 2, (ALTURA * tile) + (tile / 2) + 2, "Status: " + (executando ? "executando" : "parada"));
-//    }
+    public int buscar_agentes_no_retalho(Retalho retalho ) throws ErroExecucaoBiblioteca, InterruptedException{
+        int numero_agentes = 0;
+        for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
+            if ((agente.retornar_coordenada_X() > retalho.getCoordenadaX() && 
+                    agente.retornar_coordenada_X() < retalho.getCoordenadaX() + tile)
+                        && (agente.retornar_coordenada_Y() > retalho.getCoordenadaY() 
+                        && agente.retornar_coordenada_Y() < retalho.getCoordenadaY() + tile)) {
+                numero_agentes++;
+            }
+        }
+        
+        return numero_agentes;
+    }
+    
+
     /**
      * Chama o método que desenha os componentes
      *

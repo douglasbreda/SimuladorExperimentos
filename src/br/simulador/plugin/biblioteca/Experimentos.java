@@ -2,6 +2,7 @@ package br.simulador.plugin.biblioteca;
 
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInterface;
+import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
@@ -647,10 +648,17 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        UtilSimulador.setLog("Meu retalho é: :)");
-        GerenciadorExecucao.getInstance().meu_retalho();
-        return 0;
+        int id_retalho = 0;
+        Retalho retalho = GerenciadorExecucao.getInstance().meu_retalho();
+        
+        if(retalho != null){
+            id_retalho = retalho.getId();
+            UtilSimulador.setLog("Meu retalho é: " + id_retalho);
+        }
+        return id_retalho;
     }
+    
+    
     /**
      * Retorna a lista de agentes atuais da simulação
      * @return 
