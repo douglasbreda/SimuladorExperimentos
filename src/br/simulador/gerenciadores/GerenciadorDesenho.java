@@ -5,6 +5,8 @@ package br.simulador.gerenciadores;
 
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.simulador.plugin.biblioteca.componentes.Componente;
+import br.simulador.plugin.biblioteca.componentes.TipoComponente;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
@@ -43,6 +45,8 @@ public class GerenciadorDesenho {
     private int ultimo_x;
     private int ultimo_y;
     private int status;
+    private int largura_painel_componentes = 250;
+    private int altura_painel_botoes = 50;
     private final int[] REFS_INT = new int[4];
 
     private final int INDICE_IMAGEM_BOTAO_INICIAR_0 = 0;
@@ -56,6 +60,7 @@ public class GerenciadorDesenho {
     Graficos g = new Graficos();
     Mouse m = new Mouse();
     Matematica math = new Matematica();
+    private List<Componente> listaComponentes = new ArrayList<>();
 
     /**
      * Inicia a tela onde será executada a simulação
@@ -329,6 +334,10 @@ public class GerenciadorDesenho {
 
         desenhar_linha();
 
+        desenhar_monitor("Monitor 1");
+        
+        desenhar_monitor_informacao("Teste 1");
+
 //        desenhar_painel_superior();
 //        desenhar_painel_inferior();
         tratar_cliques();
@@ -347,9 +356,9 @@ public class GerenciadorDesenho {
     private void desenhar_linha() throws ErroExecucaoBiblioteca, InterruptedException {
 
         g.definir_cor(g.COR_AMARELO);
-        g.desenhar_linha(250, 50, 250, altura_imagem_fundo);
+        g.desenhar_linha(largura_painel_componentes, altura_painel_botoes, largura_painel_componentes, altura_imagem_fundo);
         g.definir_cor(g.COR_AMARELO);
-        g.desenhar_linha(0, 50, LARGURA_DA_TELA, 50);
+        g.desenhar_linha(0, altura_painel_botoes, LARGURA_DA_TELA, altura_painel_botoes);
     }
 
     /**
@@ -620,17 +629,17 @@ public class GerenciadorDesenho {
                     UtilSimulador.setLog("Y do agente: " + y);
                     UtilSimulador.setLog("Diferenca X: " + diferenca_X);
                     UtilSimulador.setLog("Diferenca Y: " + diferenca_Y);
-                    
+
                     if (diferenca_X > 0 && diferenca_X < fator_diferenca || diferenca_Y > 0 && diferenca_Y < fator_diferenca) {
                         retalho_retorno = retalhos[i][j];
-                    }else{
-                        
+                    } else {
+
                         int indiceI = i;
                         int indiceJ = j;
-                        
-                        if(math.valor_absoluto(diferenca_Y) > fator_diferenca){
+
+                        if (math.valor_absoluto(diferenca_Y) > fator_diferenca) {
                             indiceI = i + 1;
-                        }else if(math.valor_absoluto(diferenca_X) > fator_diferenca){
+                        } else if (math.valor_absoluto(diferenca_X) > fator_diferenca) {
                             indiceJ = j + 1;
                         }
 //                        }else if((diferenca_X + diferenca_Y) < (fator_diferenca * (-1))){
@@ -646,7 +655,7 @@ public class GerenciadorDesenho {
 //                            indiceJ = j + 1;
 //                        else if(diferenca_Y < 0 && diferenca_Y < (fator_diferenca * (-1)))
 //                            indiceJ = j + 1;
-                            
+
                         retalho_retorno = retalhos[indiceI][indiceJ];
                     }
 //                    break;
@@ -656,28 +665,28 @@ public class GerenciadorDesenho {
 
         return retalho_retorno;
     }
-    
+
     /**
      * Retorna o número de agentes que está em um determinado retalho
+     *
      * @param retalho
      * @return
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public int buscar_agentes_no_retalho(Retalho retalho ) throws ErroExecucaoBiblioteca, InterruptedException{
+    public int buscar_agentes_no_retalho(Retalho retalho) throws ErroExecucaoBiblioteca, InterruptedException {
         int numero_agentes = 0;
         for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
-            if ((agente.retornar_coordenada_X() > retalho.getCoordenadaX() && 
-                    agente.retornar_coordenada_X() < retalho.getCoordenadaX() + tile)
-                        && (agente.retornar_coordenada_Y() > retalho.getCoordenadaY() 
-                        && agente.retornar_coordenada_Y() < retalho.getCoordenadaY() + tile)) {
+            if ((agente.retornar_coordenada_X() > retalho.getCoordenadaX()
+                    && agente.retornar_coordenada_X() < retalho.getCoordenadaX() + tile)
+                    && (agente.retornar_coordenada_Y() > retalho.getCoordenadaY()
+                    && agente.retornar_coordenada_Y() < retalho.getCoordenadaY() + tile)) {
                 numero_agentes++;
             }
         }
-        
+
         return numero_agentes;
     }
-    
 
     /**
      * Chama o método que desenha os componentes
@@ -713,5 +722,42 @@ public class GerenciadorDesenho {
     public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         desenhar_retalhos(cor);
     }
-}
 
+    /**
+     * Desenha o componente de monitor na tela
+     *
+     * @param titulo
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    private void desenhar_monitor(String titulo) throws ErroExecucaoBiblioteca, InterruptedException {
+        int posicaoYi = 10;
+        int posicaoYf = 60;
+
+        g.definir_cor(g.COR_BRANCO);
+        g.desenhar_linha(25, altura_painel_botoes + posicaoYi, 25, altura_painel_botoes + posicaoYf); //Borda esquerda
+        g.desenhar_linha(25, altura_painel_botoes + posicaoYf, largura_painel_componentes - 25, altura_painel_botoes + posicaoYf); //Borda direita
+        g.desenhar_linha(largura_painel_componentes - 25, altura_painel_botoes + posicaoYf, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi);//Desenha o resto da linha superior
+        g.desenhar_texto(30, altura_painel_botoes + (posicaoYi / 2), titulo);//Desenha o título
+        int largura_texto = g.largura_texto(titulo);
+
+        g.desenhar_linha(25 + largura_texto + 10, altura_painel_botoes + posicaoYi, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi); //g.desenhar_retangulo(25, 10, largura_janela - 50, 50, falso, falso)
+        g.desenhar_retangulo(38, altura_painel_botoes + (posicaoYi * 2), largura_painel_componentes - 75, (posicaoYi * 3), false, false);
+        
+        listaComponentes.add(Componente.criar(25, altura_painel_botoes + posicaoYi, 25, altura_painel_botoes + posicaoYf, TipoComponente.monitor));
+    }
+
+    /**
+     * Desenha a informação do componente de monitor
+     * @param informacao
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    private void desenhar_monitor_informacao(String informacao) throws ErroExecucaoBiblioteca, InterruptedException {
+        g.definir_cor(g.COR_BRANCO);
+        int x_inicial = ((largura_painel_componentes - 75) / 2);
+        String texto = informacao;
+        //Criar uma lista com os componentes para poder controlar onde começa um e termina o outro
+        g.desenhar_texto(x_inicial, altura_painel_botoes + 30, texto);
+    }
+}
