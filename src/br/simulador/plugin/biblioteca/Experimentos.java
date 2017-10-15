@@ -239,24 +239,8 @@ public final class Experimentos extends Biblioteca {
     )
     public void definir_orientacao(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
         UtilSimulador.setLog("Está definindo a orientação");
+        GerenciadorExecucao.getInstance().getAgenteAtual().definir_orientacao(graus);
     }
-
-//    @DocumentacaoFuncao(
-//            descricao = "Move o agente para uma determinada coordenada X e Y.",
-//            parametros
-//            = {
-//                @DocumentacaoParametro(nome = "coordenadaX", descricao = "Qual a coordenada X para pular")
-//                ,
-//                @DocumentacaoParametro(nome = "coordenadaY", descricao = "Qual a coordenada Y para pular"),},
-//            retorno = "Sem retorno",
-//            autores
-//            = {
-//                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-//            }
-//    )
-//    public void pular_para_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException {
-//
-//    }
 
     @DocumentacaoFuncao(
             descricao = "Define uma cor ao agente.",
@@ -272,7 +256,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void definir_cor_agente(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
-
+        GerenciadorExecucao.getInstance().getAgenteAtual().definir_cor_agente(cor);
     }
 
     @DocumentacaoFuncao(
@@ -304,7 +288,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public char retornar_atributo_caracter(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
-        return ' ';
+        return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_atributo_caracter(nome_atributo);
     }
 
     @DocumentacaoFuncao(
@@ -320,7 +304,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int retornar_atributo_inteiro(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
-        return 0;
+        return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_atributo_inteiro(nome_atributo);
     }
 
     @DocumentacaoFuncao(
@@ -336,7 +320,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public boolean retornar_atributo_logico(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
-        return false;
+        return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_atributo_logico(nome_atributo);
     }
 
     @DocumentacaoFuncao(
@@ -352,7 +336,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public double retornar_atributo_real(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
-        return 0;
+        return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_atributo_real(nome_atributo);
     }
 
     @DocumentacaoFuncao(
@@ -364,7 +348,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int retornar_cor_agente() throws ErroExecucaoBiblioteca, InterruptedException {
-        return 0;
+        return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_cor_agente();
     }
 
     @DocumentacaoFuncao(
@@ -377,7 +361,7 @@ public final class Experimentos extends Biblioteca {
     )
     public int retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException {
         UtilSimulador.setLog("Buscando a orientação do agente");
-        return 0;
+        return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_orientacao();
     }
 
     @DocumentacaoFuncao(
@@ -463,24 +447,25 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
-
+    public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorInterface.getInstance().criar_slider(titulo, minimo, maximo, valor_padrao);
     }
 
     @DocumentacaoFuncao(
             descricao = "Cria um componente do tipo Monitor para exibição de alguma variável durante a execução.",
             parametros
             = {
-                @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente")
-                ,
-                @DocumentacaoParametro(nome = "minimo", descricao = "Valor padrão do componente"),},
+                @DocumentacaoParametro(nome = "nome", descricao = "Identificação única do componente"),
+                @DocumentacaoParametro(nome = "titulo", descricao = "Título apresentado no componente"),
+                @DocumentacaoParametro(nome = "valor", descricao = "Valor padrão do componente"),
+            },
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_monitor(String titulo, double valor) throws ErroExecucaoBiblioteca, InterruptedException {
-
+    public void criar_monitor(String nome, String titulo, String valor) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorInterface.getInstance().criar_monitor(nome, titulo, valor);
     }
 
     @DocumentacaoFuncao(

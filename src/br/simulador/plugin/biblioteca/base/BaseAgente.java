@@ -17,7 +17,7 @@ public abstract class BaseAgente implements IAgente {
     private int coordenadaY = 0;
     private int id = 0;
     private int cor;
-    private double orientacao = 0;
+    private int orientacao = 0;
     private boolean esta_visivel = true;
     private int altura_agente = 10;
     private int largura_agente = 10;
@@ -55,7 +55,7 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void definir_orientacao(int graus) {
-        this.orientacao = Math.toRadians(graus % 360);
+        this.orientacao = graus;
     }
 
     @Override
@@ -168,7 +168,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public double retornar_orientacao() {
+    public int retornar_orientacao() {
         return this.orientacao;
     }
 

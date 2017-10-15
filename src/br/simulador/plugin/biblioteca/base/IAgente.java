@@ -43,7 +43,7 @@ public interface IAgente
     
     public int retornar_cor_agente() throws ErroExecucaoBiblioteca, InterruptedException;;
     
-    public double retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException;;
+    public int retornar_orientacao() throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public boolean ir_ate(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException;;
     

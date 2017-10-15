@@ -219,4 +219,29 @@ public final class GerenciadorInterface {
     public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
         desenho.definir_cor_fundo(cor);
     }
+    
+    /**
+     * Cria um novo componente na tela do tipo slider
+     * @param titulo
+     * @param minimo
+     * @param maximo
+     * @param valor_padrao
+     * @throws InterruptedException
+     * @throws ErroExecucao 
+     */
+    public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao{
+        desenho.criar_slider(titulo, titulo, valor_padrao, valor_padrao, valor_padrao);
+    }
+    
+    /**
+     * Cria um novo componente do tipo monitor
+     * @param nome
+     * @param titulo
+     * @param valor_atual
+     * @throws InterruptedException
+     * @throws ErroExecucao 
+     */ 
+    public void criar_monitor(String nome, String titulo, String valor_atual) throws InterruptedException, ErroExecucao{
+        desenho.criar_monitor(nome, titulo, valor_atual);
+    }
 }

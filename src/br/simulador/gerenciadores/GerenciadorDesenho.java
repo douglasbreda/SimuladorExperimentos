@@ -479,6 +479,7 @@ public class GerenciadorDesenho {
         if (listaAgente != null && listaAgente.size() > 0) {
             for (IAgente agente : listaAgente) {
                 g.definir_cor(agente.retornar_cor_agente());
+                g.definir_rotacao(agente.retornar_orientacao());
                 g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
             }
         }
