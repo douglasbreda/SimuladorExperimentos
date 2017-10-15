@@ -6,6 +6,8 @@ package br.simulador.gerenciadores;
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.plugin.biblioteca.componentes.Componente;
+import br.simulador.plugin.biblioteca.componentes.Monitor;
+import br.simulador.plugin.biblioteca.componentes.Slider;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
@@ -16,7 +18,6 @@ import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,7 +60,6 @@ public class GerenciadorDesenho {
     Graficos g = new Graficos();
     Mouse m = new Mouse();
     Matematica math = new Matematica();
-    private List<Componente> listaComponentes = new ArrayList<>();
     private final int posicaoYInicial = 10;// Posição de start da criação do primeiro componente
     private final int posicaoYFinal = 60; // Posição de final da criação do primeiro componente
     private final int posicaoXInicial = 15;
@@ -119,19 +119,24 @@ public class GerenciadorDesenho {
      */
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 //        new Thread(() -> {
-//            while (true) {
-        try {
-            desenhar();
-            controle();
-            g.renderizar();
+        //Just for tests
+        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
+        criar_slider("slider_teste", "Slider 1", 0, 12, 50);
+//        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
 
-        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-            Logger.getLogger(GerenciadorInterface.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (ErroExecucao ex) {
-            Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+        while (true) {
+            try {
+                desenhar();
+                controle();
+                g.renderizar();
+
+            } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
+                Logger.getLogger(GerenciadorInterface.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            } catch (ErroExecucao ex) {
+                Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-//            }
 //        }).start();
     }
 
@@ -162,8 +167,8 @@ public class GerenciadorDesenho {
         int mouse_x = m.posicao_x();
         int mouse_y = m.posicao_y();
 
-        UtilSimulador.setLog("X: " + mouse_x);
-        UtilSimulador.setLog("Y: " + mouse_y);
+//        UtilSimulador.setLog("X: " + mouse_x);
+//        UtilSimulador.setLog("Y: " + mouse_y);
 
         boolean mouse_dentro_do_botao_na_horizontal = (mouse_x >= x_do_botao
                 && mouse_x <= x_do_botao + LARGURA_DO_BOTAO);
@@ -335,22 +340,11 @@ public class GerenciadorDesenho {
 
         desenhar_agentes();
 
+        desenhar_componentes();
+
         desenhar_linha();
 
-//        desenhar_monitor("Monitor 1");
-        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
-//        desenhar_monitor_informacao("Teste 1");
-        
-        criar_slider("slider_teste", "Slider 1", 0, 12, 50);
-//        desenhar_slider("Slider 1");
-
-//        desenhar_painel_superior();
-//        desenhar_painel_inferior();
         tratar_cliques();
-
-//        atualizar_status_simulacao(false);
-//
-//        atualizar_total_agentes(0);
     }
 
     /**
@@ -375,13 +369,14 @@ public class GerenciadorDesenho {
      * @throws InterruptedException
      */
     private void controle() throws ErroExecucaoBiblioteca, InterruptedException {
-        int i = m.posicao_y() / tile;
-        int j = m.posicao_x() / tile;
-        if (m.botao_pressionado(m.BOTAO_ESQUERDO)) {
-            if (i > 1 && i < ALTURA && j < LARGURA) {
-                retalhos[i][j].set_cor(cor_atual);
-            }
-        }
+        controle_mouse_slider();
+//        int i = m.posicao_y() / tile;
+//        int j = m.posicao_x() / tile;
+//        if (m.botao_pressionado(m.BOTAO_ESQUERDO)) {
+//            if (i > 1 && i < ALTURA && j < LARGURA) {
+//                retalhos[i][j].set_cor(cor_atual);
+//            }
+//        }
     }
 
     /**
@@ -736,52 +731,44 @@ public class GerenciadorDesenho {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    private void desenhar_monitor(String nome, String titulo, int yInicial, int yFinal, String valor_atual) throws ErroExecucaoBiblioteca, InterruptedException {
+    private void desenhar_monitor(String nome, String titulo, int yInicial, int yFinal, String valor_atual) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int posicaoYi = yInicial;
         int posicaoYf = yFinal;
 
         g.definir_cor(g.COR_BRANCO);
         //Borda esquerda
-        g.desenhar_linha(posicaoXInicial, altura_painel_botoes + posicaoYi, posicaoXFinal, altura_painel_botoes + posicaoYf); 
-        
+        g.desenhar_linha(posicaoXInicial, posicaoYi, posicaoXFinal, posicaoYf);
+
         //Borda inferior
-        g.desenhar_linha(posicaoXInicial, altura_painel_botoes + posicaoYf, largura_painel_componentes - posicaoXFinal, altura_painel_botoes + posicaoYf); 
-        
+        g.desenhar_linha(posicaoXInicial, posicaoYf, largura_painel_componentes - posicaoXFinal, posicaoYf);
+
         //Borda direita
-        g.desenhar_linha(largura_painel_componentes - posicaoXInicial, altura_painel_botoes + posicaoYf, largura_painel_componentes - posicaoXFinal, altura_painel_botoes + posicaoYi);
-        
+        g.desenhar_linha(largura_painel_componentes - posicaoXInicial, posicaoYf, largura_painel_componentes - posicaoXFinal, posicaoYi);
+
         //Desenha o título
-        g.desenhar_texto(posicaoXInicial + 5, altura_painel_botoes + (posicaoYi / 2), titulo);
-        
+        g.desenhar_texto(posicaoXInicial + 5, (posicaoYi - 5), titulo);
+
         //Desenha o resto da linha após o título
         int largura_texto = g.largura_texto(titulo);
-        g.desenhar_linha(posicaoXInicial + largura_texto + 10, altura_painel_botoes + posicaoYi, largura_painel_componentes - posicaoXFinal, altura_painel_botoes + posicaoYi); 
-        
-        g.desenhar_retangulo(posicaoXInicial + 13, altura_painel_botoes + (posicaoYi * 2), largura_painel_componentes - 75, (posicaoYi * 3), false, false);
+        g.desenhar_linha(posicaoXInicial + largura_texto + 10, posicaoYi, largura_painel_componentes - posicaoXFinal, posicaoYi);
 
-        desenhar_monitor_informacao(valor_atual);
-        
-        listaComponentes.add(GerenciadorComponentes.criarMonitor(posicaoXInicial, posicaoXInicial, altura_painel_botoes + posicaoYi, altura_painel_botoes + posicaoYf, nome, valor_atual));
-    }
+        g.desenhar_retangulo(posicaoXInicial + 13, (posicaoYi + 10), largura_painel_componentes - 60, 33, false, false);
 
-    /**
-     * Desenha a informação do componente de monitor
-     *
-     * @param informacao
-     * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException
-     */
-    private void desenhar_monitor_informacao(String informacao) throws ErroExecucaoBiblioteca, InterruptedException {
+//        desenhar_monitor_informacao(valor_atual);
+        //Desenha as informações do monitor
         g.definir_cor(g.COR_BRANCO);
         int x_inicial = ((largura_painel_componentes - 75) / 2);
-        String texto = informacao;
+        String texto = valor_atual;
 
-        g.desenhar_texto(x_inicial, altura_painel_botoes + 30, texto);
+        g.desenhar_texto(x_inicial, posicaoYi + 20, texto);
+
+        GerenciadorComponentes.criarMonitor(posicaoXInicial, posicaoXInicial, posicaoYi, posicaoYf, posicaoYf, nome, valor_atual, 0, 0, titulo);
     }
 
-    private void desenhar_slider(String nome, String titulo, int yInicial, int yFinal, double valor_minimo, double valor_atual, double valor_maximo) throws ErroExecucaoBiblioteca, InterruptedException {
+    private void desenhar_slider(String nome, String titulo, int yInicial, int yFinal, double valor_minimo, double valor_atual, double valor_maximo) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+
         int cor_lateral = g.criar_cor(180, 180, 180);
-        int yplay = altura_painel_botoes + yInicial + 7;
+        int yplay = yInicial + 7;
         int larg = largura_painel_componentes - 120;
         int cor_botao = g.criar_cor(255, 255, 255);
         int padding_size = 8;
@@ -793,18 +780,18 @@ public class GerenciadorDesenho {
         g.definir_opacidade(200);
 
         //Borda esquerda
-        g.desenhar_linha(posicaoXInicial, altura_painel_botoes + posicaoYi, posicaoXFinal, altura_painel_botoes + posicaoYf); 
-        
+        g.desenhar_linha(posicaoXInicial, posicaoYi, posicaoXFinal, posicaoYf + 33);
+
         //Borda inferior
-        g.desenhar_linha(posicaoXInicial, altura_painel_botoes + posicaoYf, largura_painel_componentes - posicaoXFinal, altura_painel_botoes + posicaoYf);
-        
+        g.desenhar_linha(posicaoXInicial, posicaoYf + 33, largura_painel_componentes - posicaoXFinal, posicaoYf + 33);
+
         //Borda direita
-        g.desenhar_linha(largura_painel_componentes - posicaoXInicial, altura_painel_botoes + posicaoYf, largura_painel_componentes - posicaoXFinal, altura_painel_botoes + posicaoYi);
-        g.desenhar_texto(posicaoXInicial + 5, altura_painel_botoes + (posicaoYi - 5), titulo);//Desenha o título
+        g.desenhar_linha(largura_painel_componentes - posicaoXInicial, posicaoYf + 33, largura_painel_componentes - posicaoXFinal, posicaoYi);
+        g.desenhar_texto(posicaoXInicial + 5, (posicaoYi - 5), titulo);//Desenha o título
 
         //Desenha a borda superior após o título
         int largura_texto = g.largura_texto(titulo);
-        g.desenhar_linha(posicaoXInicial + largura_texto + 10, altura_painel_botoes + posicaoYi, largura_painel_componentes - posicaoXFinal, altura_painel_botoes + posicaoYi);
+        g.desenhar_linha(posicaoXInicial + largura_texto + 10, posicaoYi, largura_painel_componentes - posicaoXFinal, posicaoYi);
 
         g.definir_opacidade(255);
         g.definir_cor(cor_lateral);
@@ -814,51 +801,115 @@ public class GerenciadorDesenho {
 
         //Desenha o retangulo sobre o slider
         g.desenhar_retangulo((int) (50 + valor_atual - (padding_size / 2)), yplay + 15 - (padding_size / 4), padding_size, padding_size, false, true);
-        
+
         //Desenha a informação dos valores do slider
         g.definir_cor(cor_botao);
         g.definir_estilo_texto(false, true, false);
         g.desenhar_texto(largura_painel_componentes - 80, yplay + 10, "" + valor_atual + " / " + valor_maximo);
 //        g.desenhar_texto(alt + 10, ALTURA_DA_TELA - (alt + 15), "Teste Slider");//Desenha o valor do
-        
-        listaComponentes.add(GerenciadorComponentes.criarSlider(posicaoXInicial, posicaoXFinal, altura_painel_botoes + posicaoYi, altura_painel_botoes + posicaoYf, nome, valor_atual, valor_maximo, valor_minimo));
+
+        GerenciadorComponentes.criarSlider(posicaoXInicial, posicaoXFinal, posicaoYi, posicaoYf, yplay + 15, nome, valor_atual, valor_maximo, valor_minimo, 4, larg, titulo);
     }
 
     /**
-     * Cria um novo componente do tipo monitor considerando as posições dos outros componentes que já foram adicionados
+     * Cria um novo componente do tipo monitor considerando as posições dos
+     * outros componentes que já foram adicionados
+     *
      * @param nome
      * @param titulo
      * @param valor_atual
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void criar_monitor(String nome, String titulo, String valor_atual) throws ErroExecucaoBiblioteca, InterruptedException {
-        if (listaComponentes != null && listaComponentes.size() > 0) {
-            Componente ultimo_componente = listaComponentes.get(listaComponentes.size() - 1);
+    public void criar_monitor(String nome, String titulo, String valor_atual) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        if (GerenciadorComponentes.listaTemRegistro()) {
+            Componente ultimo_componente = GerenciadorComponentes.getUltimoComponente();
 
-            desenhar_monitor(nome, titulo, ultimo_componente.getProxima_posicao_y1(), ultimo_componente.getProxima_posicao_y2(), valor_atual);
-        } else {
-            desenhar_monitor(nome, titulo, posicaoYInicial, posicaoYFinal, valor_atual);
+            desenhar_monitor(nome, titulo, ultimo_componente.getProximoY(), ultimo_componente.getProximoY() + ultimo_componente.getAltura(), valor_atual);
+        } else { 
+            desenhar_monitor(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_atual);
         }
     }
-    
+
     /**
-     * Cria um novo componente do tipo slider considerando as posições dos outros componentes que já foram adicionados
+     * Cria um novo componente do tipo slider considerando as posições dos
+     * outros componentes que já foram adicionados
+     *
      * @param nome
      * @param titulo
      * @param valor_minimo
      * @param valor_padrao
      * @param valor_maximo
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void criar_slider(String nome, String titulo, double valor_minimo, double valor_padrao, double valor_maximo) throws ErroExecucaoBiblioteca, InterruptedException{
-        if(listaComponentes != null && listaComponentes.size() > 0){
-            Componente ultimoComponente = listaComponentes.get(listaComponentes.size() - 1);
-            
-            desenhar_slider(nome, titulo, ultimoComponente.getProxima_posicao_y1(), ultimoComponente.getProxima_posicao_y2(), valor_minimo, valor_padrao, valor_maximo);
-        }else{
-            desenhar_slider(nome, titulo, posicaoYInicial, posicaoYFinal, valor_minimo, valor_padrao, valor_maximo);
+    public void criar_slider(String nome, String titulo, double valor_minimo, double valor_padrao, double valor_maximo) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        if (GerenciadorComponentes.listaTemRegistro()) {
+            Componente ultimoComponente = GerenciadorComponentes.getUltimoComponente();
+
+            desenhar_slider(nome, titulo, ultimoComponente.getProximoY(), ultimoComponente.getProxima_posicao_y2(), valor_minimo, valor_padrao, valor_maximo);
+        } else {
+            desenhar_slider(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_minimo, valor_padrao, valor_maximo);
+        }
+    }
+
+    public void criar_interruptor() {
+
+    }
+
+    /**
+     * Método para atualizar os componentes que já estão na lista na tela
+     *
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     * @throws ErroExecucao
+     */
+    private void desenhar_componentes() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        for (Componente componente : GerenciadorComponentes.getListaComponentes()) {
+            switch (componente.getTipoComponente()) {
+                case monitor:
+                    Monitor monitor = (Monitor) componente;
+                    desenhar_monitor(monitor.getNome(), monitor.getTitulo(), monitor.getY1(), monitor.getY2(), monitor.getValor_atual());
+                    break;
+                case slider:
+                    Slider slider = (Slider) componente;
+                    desenhar_slider(slider.getNome(), slider.getTitulo(), slider.getY1(), slider.getY2(), slider.getValor_minimo(), slider.getValor_atual(), slider.getValor_maximo());
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Verifica as posições do mouse para saber se foi clicado dentro de um
+     * slider
+     *
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    private void controle_mouse_slider() throws ErroExecucaoBiblioteca, InterruptedException {
+        Slider slider = GerenciadorComponentes.verificarMouseDentroSlider(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
+
+        if (slider != null) {
+            slider.setValor_atual(m.posicao_x() - slider.getX1());
+            calcular_valores_slider(slider);
+        }
+    }
+
+    /**
+     * Calcula os valores para atribuir a posição ao slider
+     *
+     * @param slider
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    private void calcular_valores_slider(Slider slider) throws ErroExecucaoBiblioteca, InterruptedException {
+        if (slider.getValor_atual() == (slider.getLargura() - 1)) {
+            slider.setValor_atual(slider.getValor_maximo());
+        } else if (slider.getValor_atual() == 1.0) {
+            slider.setValor_atual(0.0);
+        } else {
+            slider.setValor_atual(math.arredondar(((slider.getValor_atual() * 100) / slider.getLargura()), 2));
+            slider.setValor_atual(math.arredondar(((slider.getValor_atual() * slider.getValor_maximo()) / 100), 2));
         }
     }
 }

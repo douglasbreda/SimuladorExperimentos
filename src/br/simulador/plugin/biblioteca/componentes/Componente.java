@@ -29,6 +29,18 @@ public abstract class Componente {
     
     //Define um identificador para o componente
     private String nome;
+    
+    //Armazena a largura do componente
+    private int largura;
+    
+    //Armazena a altura do componente
+    private int altura;
+    
+    //Armazena o título do componente
+    private String titulo;
+    
+    //Armazena o último y para saber onde começa o próximo componente
+    private int yFinal;
 
     public int getX1() {
         return x1;
@@ -89,11 +101,49 @@ public abstract class Componente {
     public String getNome() {
         return nome;
     }
+    
+    public int getProximoY(){
+        return yFinal + distancia;
+    }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public int getLargura() {
+        return largura;
+    }
+
+    public void setLargura(int largura) {
+        this.largura = largura;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public int getyFinal() {
+        return yFinal;
+    }
+
+    public void setyFinal(int yFinal) {
+        this.yFinal = yFinal;
+    }
     
+    
+
     /**
      * Cria uma nova instância das características de um compoenente para
      * controle na tela
@@ -102,8 +152,12 @@ public abstract class Componente {
      * @param x2
      * @param y1
      * @param y2
+     * @param yFinal
      * @param nome
+     * @param altura
+     * @param largura
+     * @param titulo
      * @return
      */
-    public abstract Componente criar(int x1, int x2, int y1, int y2, String nome);
+    public abstract Componente criar(int x1, int x2, int y1, int y2, int yFinal, String nome, int altura, int largura, String titulo);
 }
