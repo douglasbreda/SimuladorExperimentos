@@ -20,7 +20,7 @@ public class Slider extends Componente{
         this.setY1(y1);
         this.setY2(y2);
         this.setTipoComponente(TipoComponente.monitor);
-        this.setDistancia(3);
+        this.setDistancia(10);
         this.setNome(nome);
 
         return this;

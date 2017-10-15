@@ -9,7 +9,7 @@ package br.simulador.plugin.biblioteca.componentes;
  */
 public class Interruptor extends Componente{
 
-    public boolean ligado;
+    private boolean ligado;
     
     @Override
     public Componente criar(int x1, int x2, int y1, int y2, String nome) {

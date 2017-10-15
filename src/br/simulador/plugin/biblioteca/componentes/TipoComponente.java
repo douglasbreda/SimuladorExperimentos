@@ -11,5 +11,5 @@ public enum TipoComponente {
     
     slider, 
     monitor,
-    switcher
+    interruptor
 }
