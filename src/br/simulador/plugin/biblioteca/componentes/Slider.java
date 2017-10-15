@@ -26,8 +26,18 @@ public class Slider extends Componente{
         this.setLargura(largura);
         this.setTitulo(titulo);
         this.setyFinal(yFinal);
+        this.calcularValorPadraoInicialSlider();
 
         return this;
+    }
+    
+    /**
+     * Calcula a posição inicial do cursor no slider
+     */
+    private void calcularValorPadraoInicialSlider(){
+        this.valor_atual = ((valor_atual * 100) / valor_maximo);
+
+	valor_atual = ((valor_atual * this.getLargura()) / 100);
     }
 
     public double getValor_minimo() {

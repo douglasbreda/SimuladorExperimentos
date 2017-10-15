@@ -61,21 +61,26 @@ public final class GerenciadorComponentes {
      * @param altura
      * @param largura
      * @param titulo
+     * @return 
      * @throws br.univali.portugol.nucleo.mensagens.ErroExecucao
      */
-    public static void criarSlider(int x1, int x2, int y1, int y2, int yFinal, String nome, double valorPadrao, double valorMaximo, double valorMinimo, int altura, int largura, String titulo) throws ErroExecucao {
+    public static boolean criarSlider(int x1, int x2, int y1, int y2, int yFinal, String nome, double valorPadrao, double valorMaximo, double valorMinimo, int altura, int largura, String titulo) throws ErroExecucao {
 
         if (!componenteJaAdicionado(nome)) {
             Slider slider = new Slider();
 
-            slider.setValor_atual(valorPadrao);
-
             slider.setValor_maximo(valorMaximo);
 
             slider.setValor_minimo(valorMinimo);
+            
+            slider.setValor_atual(valorPadrao);
 
             adicionarComponenteLista(slider.criar(x1, x2, y1, y2, yFinal, nome, altura, largura, titulo));
+            
+            return true;
         }
+        
+        return false;
 //        } else {
 //            throw new ErroExecucao() {
 //                @Override
@@ -160,18 +165,18 @@ public final class GerenciadorComponentes {
 
         if (listaSliders != null && listaSliders.size() > 0) {
             for (Componente slider : listaSliders) {
-                UtilSimulador.setLog("X: " + posicaoXMouse + "\n");
-                UtilSimulador.setLog("Y: " + posicaoYMouse + "\n");
-                UtilSimulador.setLog("X1: " + slider.getX1() + "\n");
-                UtilSimulador.setLog("X2: " + slider.getX2() + "\n");
-                UtilSimulador.setLog("Y1: " + slider.getY1() + "\n");
-                UtilSimulador.setLog("Y2: " + slider.getY2() + "\n");
-                
+//                UtilSimulador.setLog("X: " + posicaoXMouse + "\n");
+//                UtilSimulador.setLog("Y: " + posicaoYMouse + "\n");
+//                UtilSimulador.setLog("X1: " + slider.getX1() + "\n");
+//                UtilSimulador.setLog("X2: " + slider.getX2() + "\n");
+//                UtilSimulador.setLog("Y1: " + slider.getY1() + "\n");
+//                UtilSimulador.setLog("Y2: " + slider.getY2() + "\n");
+
                 if (posicaoXMouse > slider.getX1() && posicaoXMouse < (slider.getX2())
-                        && posicaoYMouse > slider.getY1() && posicaoYMouse < slider.getY1()) {
+                        && posicaoYMouse > slider.getyFinal() && posicaoYMouse < slider.getyFinal() + 4) {
                     if (botaoPressionado) {
-                        UtilSimulador.setLog("Achou em X:" + posicaoXMouse + "\n");
-                        UtilSimulador.setLog("Achou em Y:" + posicaoYMouse + "\n");
+//                        UtilSimulador.setLog("Achou em X:" + posicaoXMouse + "\n");
+//                        UtilSimulador.setLog("Achou em Y:" + posicaoYMouse + "\n");
                         return (Slider) slider;
                     }
                 }

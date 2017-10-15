@@ -121,7 +121,7 @@ public class GerenciadorDesenho {
 //        new Thread(() -> {
         //Just for tests
         criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
-        criar_slider("slider_teste", "Slider 1", 0, 12, 50);
+        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
 //        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
 
         while (true) {
@@ -169,7 +169,6 @@ public class GerenciadorDesenho {
 
 //        UtilSimulador.setLog("X: " + mouse_x);
 //        UtilSimulador.setLog("Y: " + mouse_y);
-
         boolean mouse_dentro_do_botao_na_horizontal = (mouse_x >= x_do_botao
                 && mouse_x <= x_do_botao + LARGURA_DO_BOTAO);
         boolean mouse_dentro_do_botao_na_vertical = (mouse_y >= y_do_botao && mouse_y <= y_do_botao + ALTURA_DO_BOTAO);
@@ -800,7 +799,7 @@ public class GerenciadorDesenho {
         g.definir_cor(cor_botao);
 
         //Desenha o retangulo sobre o slider
-        g.desenhar_retangulo((int) (50 + valor_atual - (padding_size / 2)), yplay + 15 - (padding_size / 4), padding_size, padding_size, false, true);
+        g.desenhar_retangulo((int) (posicaoXInicial + valor_atual - (padding_size / 2)), yplay + 15 - (padding_size / 4), padding_size, padding_size, false, true);
 
         //Desenha a informação dos valores do slider
         g.definir_cor(cor_botao);
@@ -808,7 +807,9 @@ public class GerenciadorDesenho {
         g.desenhar_texto(largura_painel_componentes - 80, yplay + 10, "" + valor_atual + " / " + valor_maximo);
 //        g.desenhar_texto(alt + 10, ALTURA_DA_TELA - (alt + 15), "Teste Slider");//Desenha o valor do
 
-        GerenciadorComponentes.criarSlider(posicaoXInicial, posicaoXFinal, posicaoYi, posicaoYf, yplay + 15, nome, valor_atual, valor_maximo, valor_minimo, 4, larg, titulo);
+        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf, yplay + 15, nome, valor_atual, valor_maximo, valor_minimo, 4, larg, titulo)) {
+            calcular_valores_slider((Slider) GerenciadorComponentes.getUltimoComponente());
+        }
     }
 
     /**
@@ -826,7 +827,7 @@ public class GerenciadorDesenho {
             Componente ultimo_componente = GerenciadorComponentes.getUltimoComponente();
 
             desenhar_monitor(nome, titulo, ultimo_componente.getProximoY(), ultimo_componente.getProximoY() + ultimo_componente.getAltura(), valor_atual);
-        } else { 
+        } else {
             desenhar_monitor(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_atual);
         }
     }
@@ -890,6 +891,7 @@ public class GerenciadorDesenho {
         Slider slider = GerenciadorComponentes.verificarMouseDentroSlider(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
 
         if (slider != null) {
+            UtilSimulador.setLog("X1: " + slider.getX1());
             slider.setValor_atual(m.posicao_x() - slider.getX1());
             calcular_valores_slider(slider);
         }
