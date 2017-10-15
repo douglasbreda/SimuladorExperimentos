@@ -1,6 +1,5 @@
 package br.simulador.ui;
 
-import br.simulador.plugin.biblioteca.componentes.IComponenteSimulacao;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.PainelBase;
@@ -102,10 +101,10 @@ public class PainelSimulacao extends VisaoPlugin {
      * @param valor_padrao
      */
     public void criar_slider(String titulo, int valor_minimo, int valor_maximo, int valor_padrao) {
-        Slider slider = new Slider(titulo, valor_minimo, valor_maximo, valor_padrao);
-        adicionar_componente_painel(slider);
-        slider.revalidate();
-        listaSliders.add(slider);
+//        Slider slider = new Slider(titulo, valor_minimo, valor_maximo, valor_padrao);
+//        adicionar_componente_painel(slider);
+//        slider.revalidate();
+//        listaSliders.add(slider);
 
     }
 
@@ -116,10 +115,10 @@ public class PainelSimulacao extends VisaoPlugin {
      * @param valor
      */
     public void criar_monitor(String titulo, String valor) {
-        Monitor monitor = new Monitor(titulo, valor);
-        adicionar_componente_painel(monitor);
-        monitor.revalidate();
-        listaMonitores.add(monitor);
+//        Monitor monitor = new Monitor(titulo, valor);
+//        adicionar_componente_painel(monitor);
+//        monitor.revalidate();
+//        listaMonitores.add(monitor);
     }
 
     /**
@@ -129,10 +128,10 @@ public class PainelSimulacao extends VisaoPlugin {
      * @param valor_padrao
      */
     public void criar_interruptor(String titulo, boolean valor_padrao) {
-        Interruptor interruptor = new Interruptor(titulo, valor_padrao);
-        adicionar_componente_painel(interruptor);
-        interruptor.revalidate();
-        listaInterruptores.add(interruptor);
+//        Interruptor interruptor = new Interruptor(titulo, valor_padrao);
+//        adicionar_componente_painel(interruptor);
+//        interruptor.revalidate();
+//        listaInterruptores.add(interruptor);
     }
 
     /**

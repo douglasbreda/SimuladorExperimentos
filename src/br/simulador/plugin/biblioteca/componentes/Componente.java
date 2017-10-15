@@ -7,7 +7,7 @@ package br.simulador.plugin.biblioteca.componentes;
  *
  * @author Douglas
  */
-public final class Componente {
+public abstract class Componente {
 
     //Posição inicial do x do componente
     private int x1;
@@ -26,6 +26,9 @@ public final class Componente {
 
     //Define uma distância fixa para o próximo componente que está sendo criado
     private int distancia;
+    
+    //Define um identificador para o componente
+    private String nome;
 
     public int getX1() {
         return x1;
@@ -67,7 +70,7 @@ public final class Componente {
         this.tipoComponente = tipoComponente;
     }
 
-    private void setDistancia(int distancia) {
+    public void setDistancia(int distancia) {
         this.distancia = distancia;
     }
 
@@ -83,6 +86,14 @@ public final class Componente {
         return y2 + distancia;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     /**
      * Cria uma nova instância das características de um compoenente para
      * controle na tela
@@ -91,19 +102,8 @@ public final class Componente {
      * @param x2
      * @param y1
      * @param y2
-     * @param tipoComponente
+     * @param nome
      * @return
      */
-    public static Componente criar(int x1, int x2, int y1, int y2, TipoComponente tipoComponente) {
-        Componente novo_componente = new Componente();
-        novo_componente.setX1(x1);
-        novo_componente.setX2(x2);
-        novo_componente.setY1(y1);
-        novo_componente.setY2(y2);
-        novo_componente.setTipoComponente(tipoComponente);
-        novo_componente.setDistancia(3);
-
-        return novo_componente;
-    }
-
+    public abstract Componente criar(int x1, int x2, int y1, int y2, String nome);
 }

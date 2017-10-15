@@ -335,8 +335,10 @@ public class GerenciadorDesenho {
         desenhar_linha();
 
         desenhar_monitor("Monitor 1");
-        
+
         desenhar_monitor_informacao("Teste 1");
+        
+        desenhar_slider("Slider 1");
 
 //        desenhar_painel_superior();
 //        desenhar_painel_inferior();
@@ -737,21 +739,20 @@ public class GerenciadorDesenho {
         g.definir_cor(g.COR_BRANCO);
         g.desenhar_linha(25, altura_painel_botoes + posicaoYi, 25, altura_painel_botoes + posicaoYf); //Borda esquerda
         g.desenhar_linha(25, altura_painel_botoes + posicaoYf, largura_painel_componentes - 25, altura_painel_botoes + posicaoYf); //Borda direita
-        g.desenhar_linha(largura_painel_componentes - 25, altura_painel_botoes + posicaoYf, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi);//Desenha o resto da linha superior
+        g.desenhar_linha(largura_painel_componentes - 25, altura_painel_botoes + posicaoYf, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi);//Borda inferior
         g.desenhar_texto(30, altura_painel_botoes + (posicaoYi / 2), titulo);//Desenha o título
         int largura_texto = g.largura_texto(titulo);
 
-        g.desenhar_linha(25 + largura_texto + 10, altura_painel_botoes + posicaoYi, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi); //g.desenhar_retangulo(25, 10, largura_janela - 50, 50, falso, falso)
+        g.desenhar_linha(25 + largura_texto + 10, altura_painel_botoes + posicaoYi, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi); //Desenha o resto da linha superior//g.desenhar_retangulo(25, 10, largura_janela - 50, 50, falso, falso)
         g.desenhar_retangulo(38, altura_painel_botoes + (posicaoYi * 2), largura_painel_componentes - 75, (posicaoYi * 3), false, false);
-        
-        listaComponentes.add(Componente.criar(25, altura_painel_botoes + posicaoYi, 25, altura_painel_botoes + posicaoYf, TipoComponente.monitor));
     }
 
     /**
      * Desenha a informação do componente de monitor
+     *
      * @param informacao
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     private void desenhar_monitor_informacao(String informacao) throws ErroExecucaoBiblioteca, InterruptedException {
         g.definir_cor(g.COR_BRANCO);
@@ -759,5 +760,48 @@ public class GerenciadorDesenho {
         String texto = informacao;
         //Criar uma lista com os componentes para poder controlar onde começa um e termina o outro
         g.desenhar_texto(x_inicial, altura_painel_botoes + 30, texto);
+    }
+
+    private void desenhar_slider(String titulo) throws ErroExecucaoBiblioteca, InterruptedException {
+        int alt = 32;
+        int cor_lateral = g.criar_cor(180, 180, 180);
+        int yplay = altura_painel_botoes + 75;
+        int larg = largura_painel_componentes - 100;
+        int cor_botao = g.criar_cor(255, 255, 255);
+        double run = 12.5;
+        int padding_size = 8;
+        int valor_minimo;
+        int valor_maximo = 0;
+        int valor_padrao;
+        int valor_atual = 0;
+        int posicaoYi = 75;
+        int posicaoYf = 110;
+
+        //Desenha a parte externa do retângulo do slider
+        g.definir_cor(Graficos.COR_BRANCO);
+        g.definir_opacidade(200);
+//        g.desenhar_retangulo(25, altura_painel_botoes + 75, largura_painel_componentes - 50, alt, false, false);
+
+        g.desenhar_linha(25, altura_painel_botoes + posicaoYi, 25, altura_painel_botoes + posicaoYf); //Borda esquerda
+        g.desenhar_linha(25, altura_painel_botoes + posicaoYf, largura_painel_componentes - 25, altura_painel_botoes + posicaoYf); //Borda direita
+        g.desenhar_linha(largura_painel_componentes - 25, altura_painel_botoes + posicaoYf, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi);//Borda inferior
+        g.desenhar_texto(30, altura_painel_botoes + (posicaoYi - 5), titulo);//Desenha o título
+        
+        int largura_texto = g.largura_texto(titulo);
+        g.desenhar_linha(25 + largura_texto + 10, altura_painel_botoes + posicaoYi, largura_painel_componentes - 25, altura_painel_botoes + posicaoYi);
+        
+        g.definir_opacidade(255);
+        g.definir_cor(cor_lateral);
+
+        g.desenhar_retangulo(35, yplay + 15, larg, 4, false, true);
+        g.definir_cor(cor_botao);
+
+//        g.desenhar_linha(35, ALTURA_DA_TELA - alt, 35, alt);
+        
+        g.desenhar_retangulo((int) (50+run-(padding_size/2)), yplay+15-(padding_size/4), padding_size, padding_size, false, true);
+        g.definir_cor(cor_botao);
+	g.definir_estilo_texto(false, true, false);	
+	g.desenhar_texto(largura_painel_componentes-55, yplay + 10, ""+valor_atual+" / "+valor_maximo);
+	g.desenhar_texto(alt+10, ALTURA_DA_TELA-(alt + 15), "Teste Slider");
     }
 }
