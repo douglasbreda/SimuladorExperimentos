@@ -44,19 +44,20 @@ public final class Experimentos extends Biblioteca {
         GerenciadorExecucao.getInstance().criar_agentes(numeroAgentes, aleatorio);
     }
 
-    @DocumentacaoFuncao(
-            descricao = "Executa o método principal da simulação.",
-            //            parametros =
-            //            {
-            //                @DocumentacaoParametro(nome = "graus", descricao = "Quantidade em graus para rotacionar"),
-            //            },
-            retorno = "Sem retorno",
-            //            referencia = "Sem referência",
-            autores
-            = {
-                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-            }
-    )
+//    @DocumentacaoFuncao(
+//            descricao = "Executa o método principal da simulação.",
+//            //            parametros =
+//            //            {
+//            //                @DocumentacaoParametro(nome = "graus", descricao = "Quantidade em graus para rotacionar"),
+//            //            },
+//            retorno = "Sem retorno",
+//            //            referencia = "Sem referência",
+//            autores
+//            = {
+//                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+//            }
+//    )
+    @NaoExportar
     public void simular() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         try {
             GerenciadorExecucao.getInstance().inicializar_ambiente();

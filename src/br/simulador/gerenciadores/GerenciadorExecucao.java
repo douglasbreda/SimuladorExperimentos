@@ -34,6 +34,8 @@ public final class GerenciadorExecucao {
     private static Plugin plugin;
 
     private static SimuladorPrograma simuladorPrograma = null;
+    
+    private static boolean executando = false;
 
     public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         UtilSimulador.setLog("Vai inicializar o ambiente");
@@ -422,5 +424,17 @@ public final class GerenciadorExecucao {
     public void remover_agente_simulacao() throws ErroExecucaoBiblioteca, InterruptedException {
         agenteAtual.definir_visibilidade(false);
         UtilSimulador.setLog("Agente: " + agenteAtual.retornar_id() + "removido com sucesso");
+    }
+
+    /**
+     * Define se a simulação está executando ou não
+     * @return 
+     */
+    public boolean isExecutando() {
+        return executando;
+    }
+
+    public void setExecutando(boolean executando) {
+        GerenciadorExecucao.executando = executando;
     }
 }

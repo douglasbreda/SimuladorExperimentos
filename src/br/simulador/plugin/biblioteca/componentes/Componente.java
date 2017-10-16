@@ -95,7 +95,7 @@ public abstract class Componente {
     }
 
     public int getProxima_posicao_y2() {
-        return y2 + distancia;
+        return y2 + distancia + altura;
     }
 
     public String getNome() {

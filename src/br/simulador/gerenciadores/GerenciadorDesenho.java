@@ -120,23 +120,25 @@ public class GerenciadorDesenho {
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 //        new Thread(() -> {
         //Just for tests
-        //criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
-        //criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
-//        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
+        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
+        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
+        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
+        criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
+        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
 
-//        while (true) {
-        try {
-            desenhar();
-            controle();
-            g.renderizar();
+        while (!GerenciadorExecucao.getInstance().isExecutando()) {
+            try {
+                desenhar();
+                controle();
+                g.renderizar();
 
-        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-            Logger.getLogger(GerenciadorInterface.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (ErroExecucao ex) {
-            Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
+                Logger.getLogger(GerenciadorInterface.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            } catch (ErroExecucao ex) {
+                Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-//        }
 //        }).start();
     }
 
@@ -262,8 +264,10 @@ public class GerenciadorDesenho {
 //        }
 
         boolean ___sw_break___1 = false;
+        
         if (!___sw_break___1 && botao_clicado == REFS_INT[INDICE_IMAGEM_BOTAO_INICIAR_0]) {
             UtilSimulador.setLog("Iniciou\n");
+            GerenciadorExecucao.getInstance().setExecutando(true);
             status = 1;
             ___sw_break___1 = true;
 
@@ -271,6 +275,7 @@ public class GerenciadorDesenho {
 
         if (!___sw_break___1 && botao_clicado == REFS_INT[INDICE_IMAGEM_BOTAO_PARAR_2]) {
             UtilSimulador.setLog("Parou\n");
+            GerenciadorExecucao.getInstance().setExecutando(false);
             status = 0;
             ___sw_break___1 = true;
 
@@ -762,7 +767,7 @@ public class GerenciadorDesenho {
 
         g.desenhar_texto(x_inicial, posicaoYi + 20, texto);
 
-        GerenciadorComponentes.criarMonitor(posicaoXInicial, posicaoXInicial, posicaoYi, posicaoYf, posicaoYf, nome, valor_atual, 0, 0, titulo);
+        GerenciadorComponentes.criarMonitor(posicaoXInicial, posicaoXInicial, posicaoYi, posicaoYf, posicaoYf, nome, valor_atual, (posicaoYf - posicaoYi), (posicaoXFinal - posicaoXFinal), titulo);
     }
 
     private void desenhar_slider(String nome, String titulo, int yInicial, int yFinal, double valor_minimo, double valor_atual, double valor_maximo) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
@@ -780,13 +785,15 @@ public class GerenciadorDesenho {
         g.definir_opacidade(200);
 
         //Borda esquerda
-        g.desenhar_linha(posicaoXInicial, posicaoYi, posicaoXFinal, posicaoYf + 33);
+        g.desenhar_linha(posicaoXInicial, posicaoYi, posicaoXFinal, posicaoYf);
 
         //Borda inferior
-        g.desenhar_linha(posicaoXInicial, posicaoYf + 33, largura_painel_componentes - posicaoXFinal, posicaoYf + 33);
+//        g.desenhar_linha(posicaoXInicial, posicaoYf + 33, largura_painel_componentes - posicaoXFinal, posicaoYf + 33);
+        g.desenhar_linha(posicaoXInicial, posicaoYf, largura_painel_componentes - posicaoXFinal, posicaoYf);
 
         //Borda direita
-        g.desenhar_linha(largura_painel_componentes - posicaoXInicial, posicaoYf + 33, largura_painel_componentes - posicaoXFinal, posicaoYi);
+//        g.desenhar_linha(largura_painel_componentes - posicaoXInicial, posicaoYf + 33, largura_painel_componentes - posicaoXFinal, posicaoYi);
+        g.desenhar_linha(largura_painel_componentes - posicaoXInicial, posicaoYf, largura_painel_componentes - posicaoXFinal, posicaoYi);
         g.desenhar_texto(posicaoXInicial + 5, (posicaoYi - 5), titulo);//Desenha o título
 
         //Desenha a borda superior após o título
@@ -808,7 +815,8 @@ public class GerenciadorDesenho {
         g.desenhar_texto(largura_painel_componentes - 80, yplay + 10, "" + valor_atual + " / " + valor_maximo);
 //        g.desenhar_texto(alt + 10, ALTURA_DA_TELA - (alt + 15), "Teste Slider");//Desenha o valor do
 
-        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf, yplay + 15, nome, valor_atual, valor_maximo, valor_minimo, 4, larg, titulo)) {
+//        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf + 33, posicaoYf + 33, nome, valor_atual, valor_maximo, valor_minimo, posicaoYf + 33, larg, titulo)) {
+        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf, posicaoYf, nome, valor_atual, valor_maximo, valor_minimo, posicaoYf - posicaoYi, larg, titulo)) {
             calcular_valores_slider((Slider) GerenciadorComponentes.getUltimoComponente());
         }
     }
@@ -827,7 +835,7 @@ public class GerenciadorDesenho {
         if (GerenciadorComponentes.listaTemRegistro()) {
             Componente ultimo_componente = GerenciadorComponentes.getUltimoComponente();
 
-            desenhar_monitor(nome, titulo, ultimo_componente.getProximoY(), ultimo_componente.getProximoY() + ultimo_componente.getAltura(), valor_atual);
+            desenhar_monitor(nome, titulo, ultimo_componente.getProximoY(), ultimo_componente.getProxima_posicao_y2(), valor_atual);
         } else {
             desenhar_monitor(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_atual);
         }
