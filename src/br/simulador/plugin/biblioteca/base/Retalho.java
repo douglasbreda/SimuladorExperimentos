@@ -10,7 +10,7 @@ public class Retalho {
     private int coordenadaX;
     private int coordenadaY;
     private boolean parede;
-    private int id;
+    private final int id;
     /*
         Construtor padrão
     */

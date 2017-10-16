@@ -8,10 +8,10 @@ import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
 import br.simulador.plugin.biblioteca.componentes.TipoComponente;
-import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -81,14 +81,6 @@ public final class GerenciadorComponentes {
         }
         
         return false;
-//        } else {
-//            throw new ErroExecucao() {
-//                @Override
-//                protected String construirMensagem() {
-//                    return "Existem dois componentes com o nome " + nome;
-//                }
-//            };
-//        }
     }
 
     /**
@@ -165,18 +157,9 @@ public final class GerenciadorComponentes {
 
         if (listaSliders != null && listaSliders.size() > 0) {
             for (Componente slider : listaSliders) {
-//                UtilSimulador.setLog("X: " + posicaoXMouse + "\n");
-//                UtilSimulador.setLog("Y: " + posicaoYMouse + "\n");
-//                UtilSimulador.setLog("X1: " + slider.getX1() + "\n");
-//                UtilSimulador.setLog("X2: " + slider.getX2() + "\n");
-//                UtilSimulador.setLog("Y1: " + slider.getY1() + "\n");
-//                UtilSimulador.setLog("Y2: " + slider.getY2() + "\n");
-
                 if (posicaoXMouse > slider.getX1() && posicaoXMouse < (slider.getX2())
                         && posicaoYMouse > slider.getyFinal() && posicaoYMouse < slider.getyFinal() + 4) {
                     if (botaoPressionado) {
-//                        UtilSimulador.setLog("Achou em X:" + posicaoXMouse + "\n");
-//                        UtilSimulador.setLog("Achou em Y:" + posicaoYMouse + "\n");
                         return (Slider) slider;
                     }
                 }
@@ -189,5 +172,20 @@ public final class GerenciadorComponentes {
     public static List<Componente> getListaComponentes() {
         return listaComponentes;
     }
-
+    
+    /**
+     * Atribui um novo valor a um componente já criado
+     * @param nome
+     * @param novo_valor 
+     */
+    public static void atualizar_valor_monitor(String nome, String novo_valor){
+       Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.monitor && x.getNome().equalsIgnoreCase(nome)).findAny();
+       
+       if(monitor != null){
+           Monitor monitorAtualizar = (Monitor) monitor.get();
+           
+           monitorAtualizar.setValor_atual(novo_valor);
+       }
+       
+    }
 }

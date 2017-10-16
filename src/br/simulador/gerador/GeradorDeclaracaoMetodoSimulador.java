@@ -112,6 +112,8 @@ public class GeradorDeclaracaoMetodoSimulador {
         saida.println();
         if (metodoPrincipal) {
             saida.println();
+            saida.append("Experimentos.atualizar_tela();");
+            saida.println();
             saida.append("}");
             saida.println();
             saida.append(identacao).append("} while (sempre);");

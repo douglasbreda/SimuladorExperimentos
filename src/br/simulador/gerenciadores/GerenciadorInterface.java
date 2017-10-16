@@ -222,6 +222,7 @@ public final class GerenciadorInterface {
     
     /**
      * Cria um novo componente na tela do tipo slider
+     * @param nome
      * @param titulo
      * @param minimo
      * @param maximo
@@ -229,8 +230,8 @@ public final class GerenciadorInterface {
      * @throws InterruptedException
      * @throws ErroExecucao 
      */
-    public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao{
-        desenho.criar_slider(titulo, titulo, valor_padrao, valor_padrao, valor_padrao);
+    public void criar_slider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao{
+        desenho.criar_slider(nome, titulo, valor_padrao, valor_padrao, valor_padrao);
     }
     
     /**

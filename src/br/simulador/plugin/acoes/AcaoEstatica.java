@@ -2,6 +2,7 @@ package br.simulador.plugin.acoes;
 
 import br.simulador.gerenciadores.GerenciadorFuncao;
 import br.simulador.plugin.SimuladorExperimentos;
+import br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador;
 import br.simulador.ui.JanelaCodigoFonte;
 import br.univali.portugol.nucleo.ErroCompilacao;
 import br.univali.portugol.nucleo.Portugol;
@@ -26,11 +27,12 @@ import javax.swing.ImageIcon;
 public class AcaoEstatica extends AbstractAction {
 
     private SimuladorExperimentos plugin;
+
     public AcaoEstatica(SimuladorExperimentos plugin) {
         super("Ação para buscar os códigos da função", carregarIcone());
         this.plugin = plugin;
     }
-    
+
     private static Icon carregarIcone() {
         try {
             String caminho = "icone_32x32.png";
@@ -45,26 +47,16 @@ public class AcaoEstatica extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        new Thread(()->{
-            try{
-            final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
-            ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
-            GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
-            gerenciadorFuncao.buscar_declaracao_metodo("simular");
-        } catch (ErroCompilacao ex) {
-            System.err.println(ex.getMessage());
-        } catch (ExcecaoVisitaASA ex) {
-            Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchMethodException ex) {
-            Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ErroExecucao ex) {
-            Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        new Thread(() -> {
+            try {
+                final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
+                ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
+                GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
+                gerenciadorFuncao.buscar_declaracao_metodo("simular");
+            } catch (ExcecaoVisitaASA | ErroExecucao | InterruptedException | ErroCompilacao ex) {
+            }
         }).start();
-        
+
     }
 
 }

@@ -120,23 +120,23 @@ public class GerenciadorDesenho {
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 //        new Thread(() -> {
         //Just for tests
-        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
-        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
+        //criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
+        //criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
 //        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
 
-        while (true) {
-            try {
-                desenhar();
-                controle();
-                g.renderizar();
+//        while (true) {
+        try {
+            desenhar();
+            controle();
+            g.renderizar();
 
-            } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-                Logger.getLogger(GerenciadorInterface.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            } catch (ErroExecucao ex) {
-                Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
+            Logger.getLogger(GerenciadorInterface.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroExecucao ex) {
+            Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        }
 //        }).start();
     }
 

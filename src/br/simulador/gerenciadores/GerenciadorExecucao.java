@@ -200,7 +200,7 @@ public final class GerenciadorExecucao {
      */
     public int contar_agentes() {
         UtilSimulador.setLog("Contou os agentes");
-        return listaAgentes.size();
+        return getListaAgentes().size();
     }
 
     /**

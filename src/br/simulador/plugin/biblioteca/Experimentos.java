@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca;
 
+import br.simulador.gerenciadores.GerenciadorComponentes;
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInterface;
 import br.simulador.plugin.biblioteca.base.Retalho;
@@ -434,12 +435,10 @@ public final class Experimentos extends Biblioteca {
             descricao = "Permite a criação de um componente de slider para alteração de configurações durante a simulação",
             parametros
             = {
-                @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente")
-                ,
-                @DocumentacaoParametro(nome = "minimo", descricao = "Valor mínimo permitido do componente")
-                ,
-                @DocumentacaoParametro(nome = "máximo", descricao = "Valor máximo permitido do componente")
-                ,
+                @DocumentacaoParametro(nome = "nome", descricao = "Identificação única do componente"),
+                @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente"),
+                @DocumentacaoParametro(nome = "minimo", descricao = "Valor mínimo permitido do componente"),
+                @DocumentacaoParametro(nome = "máximo", descricao = "Valor máximo permitido do componente"),
                 @DocumentacaoParametro(nome = "valor_padrao", descricao = "Valor padrão para definir ao criar o componente")
             },
             autores
@@ -447,8 +446,8 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_slider(String titulo, double minimo, double maximo, double valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        GerenciadorInterface.getInstance().criar_slider(titulo, minimo, maximo, valor_padrao);
+    public void criar_slider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorInterface.getInstance().criar_slider(nome,titulo, minimo, maximo, valor_padrao);
     }
 
     @DocumentacaoFuncao(
@@ -588,6 +587,7 @@ public final class Experimentos extends Biblioteca {
     )
     public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException {
         UtilSimulador.setLog("Verificando se está colidindo com a parede");
+        GerenciadorExecucao.getInstance().getAgenteAtual().colidiu_borda_X();
         return false;
     }
 
@@ -660,5 +660,19 @@ public final class Experimentos extends Biblioteca {
     @NaoExportar
     public void definir_agente_atual(Object agente_atual) throws ErroExecucaoBiblioteca, InterruptedException{
         GerenciadorExecucao.getInstance().definir_agente_atual(agente_atual);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Atualiza o valor de um componente do tipo Monitor procurando pelo seu nome",
+            parametros = {
+                @DocumentacaoParametro(nome = "nome", descricao = "Identificador único do componente"),
+                @DocumentacaoParametro(nome = "novo_valor", descricao = "Novo valor a ser exibido pelo monitor")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void atualizar_valor_monitor(String nome, String novo_valor) throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorComponentes.atualizar_valor_monitor(nome, novo_valor);
     }
 }

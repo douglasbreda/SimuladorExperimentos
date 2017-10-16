@@ -4,6 +4,7 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.gerador.GeradorCodigoJavaSimulador;
+import br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador;
 import br.univali.portugol.nucleo.ErroCompilacao;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
@@ -46,28 +47,36 @@ public class GerenciadorFuncao extends VisitanteNulo {
      * @param nome_metodo
      * @return
      * @throws ExcecaoVisitaASA
+     * @throws br.univali.portugol.nucleo.ErroCompilacao
+     * @throws br.univali.portugol.nucleo.mensagens.ErroExecucao
+     * @throws java.lang.InterruptedException
+     * @throws br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador
      */
-    public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, NoSuchMethodException, ErroExecucao, InterruptedException {
+    public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, ErroExecucao, InterruptedException, ErroExecucaoSimulador {
         this.nomeMetodo = nome_metodo;
-        
+
         asa.aceitar(this);
 
-        asaGerada.setListaDeclaracoesGlobais(new ArrayList<>());
+        if (listaMetodos.stream().filter(x -> x.getNome().equalsIgnoreCase(nomeMetodo)).count() > 0) {
+            asaGerada.setListaDeclaracoesGlobais(new ArrayList<>());
 
-        asaGerada.setListaInclusoesBibliotecas(new ArrayList<>());
-        
-        asaGerada.getListaDeclaracoesGlobais().addAll(listaMetodos);
-        
-        asaGerada.getListaInclusoesBibliotecas().add(listaLibs.get(0));
-        
-        asaGerada.getListaDeclaracoesGlobais().addAll(listaVariaveisDeclaradas);
+            asaGerada.setListaInclusoesBibliotecas(new ArrayList<>());
 
-        GeradorCodigoJavaSimulador gerador = new GeradorCodigoJavaSimulador();
-        
-        SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
+            asaGerada.getListaDeclaracoesGlobais().addAll(listaMetodos);
 
-        programa.simular(false);
-        
+            asaGerada.getListaInclusoesBibliotecas().addAll(listaLibs);
+
+            asaGerada.getListaDeclaracoesGlobais().addAll(listaVariaveisDeclaradas);
+
+            GeradorCodigoJavaSimulador gerador = new GeradorCodigoJavaSimulador();
+
+            SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
+
+            programa.simular(false);
+        } else {
+            throw new ErroExecucaoSimulador();
+        }
+
         return asaGerada;
     }
 
@@ -86,7 +95,6 @@ public class GerenciadorFuncao extends VisitanteNulo {
 //            listaMetodos.remove(noDeclaracaoFuncao);
 //        });
 //    }
-
     @Override
     public Object visitar(NoDeclaracaoFuncao declaracaoFuncao) throws ExcecaoVisitaASA {
 
@@ -111,11 +119,11 @@ public class GerenciadorFuncao extends VisitanteNulo {
     @Override
     public Object visitar(NoInclusaoBiblioteca noInclusaoBiblioteca) throws ExcecaoVisitaASA {
 
-        if (noInclusaoBiblioteca.getNome().equalsIgnoreCase("Experimentos")) {
-            if (!listaLibs.contains(noInclusaoBiblioteca)) {
-                listaLibs.add(noInclusaoBiblioteca);
-            }
+//        if (noInclusaoBiblioteca.getNome().equalsIgnoreCase("Experimentos")) {
+        if (!listaLibs.contains(noInclusaoBiblioteca)) {
+            listaLibs.add(noInclusaoBiblioteca);
         }
+//        }
 
         return null;
     }
