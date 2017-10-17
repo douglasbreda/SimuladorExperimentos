@@ -384,6 +384,7 @@ public class GerenciadorDesenho {
      */
     private void controle() throws ErroExecucaoBiblioteca, InterruptedException {
         controle_mouse_slider();
+        controle_mouse_switch();
 //        int i = m.posicao_y() / tile;
 //        int j = m.posicao_x() / tile;
 //        if (m.botao_pressionado(m.BOTAO_ESQUERDO)) {
@@ -859,7 +860,7 @@ public class GerenciadorDesenho {
             g.desenhar_imagem(posicaoXInicial + 5, yInicial + 5, endereco_imagem_switch_off);
         }
 
-        GerenciadorComponentes.criarInterruptor(posicaoXInicial, larg, yInicial, yFinal + 33, yFinal + 33, nome, valor, 33, larg, titulo);
+        GerenciadorComponentes.criarInterruptor(posicaoXInicial + 5, posicaoXInicial + largura_imagem, yInicial, yFinal + 33, yFinal + 33, nome, valor, 33, larg, titulo);
     }
 
     /**
@@ -965,6 +966,15 @@ public class GerenciadorDesenho {
             slider.setValor_atual(m.posicao_x() - slider.getX1());
             calcular_valores_slider(slider);
         }
+    }
+    
+    /**
+     * Controla as ações do mouse para o componente de switch
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    private void controle_mouse_switch() throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorComponentes.verificarMouseDentroInterruptor(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
     }
 
     /**

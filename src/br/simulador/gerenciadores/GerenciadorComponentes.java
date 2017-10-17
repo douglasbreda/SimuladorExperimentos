@@ -171,6 +171,45 @@ public final class GerenciadorComponentes {
         return null;
     }
 
+    /**
+     * Verifica se o mouse está dentro de alguma posição do Switch
+     *
+     * @param posicaoXMouse
+     * @param posicaoYMouse
+     * @param botao_pressionado
+     */
+    public static boolean verificarMouseDentroInterruptor(int posicaoXMouse, int posicaoYMouse, boolean botao_pressionado) {
+        List<Componente> listaInterruptor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.interruptor).collect(Collectors.toList());
+        Interruptor interruptor_atual = null;
+
+        for (Componente interruptor : listaInterruptor) {
+            interruptor_atual = (Interruptor) interruptor;
+
+            if (interruptor_atual.isLigado()) {
+                if (posicaoXMouse >= (interruptor.getX1() + 32) && posicaoXMouse <= interruptor.getX2()
+                        && posicaoYMouse >= (interruptor.getY1() + 12) && posicaoYMouse < (interruptor.getY1() + 30)) {
+                    System.out.println("Entrou Ligado");
+                    System.out.println(botao_pressionado);
+                    if (botao_pressionado) {
+                        interruptor_atual.desligar();
+                        return true;
+                    }
+                }
+            } else {
+                if (posicaoXMouse >= (interruptor.getX1() + 32) && posicaoXMouse <= interruptor.getX2()
+                        && posicaoYMouse >= (interruptor.getY1() + 32) && posicaoYMouse < (interruptor.getY2() - 12)) {
+                    System.out.println("Entrou desligado");
+                    if (botao_pressionado) {
+                        interruptor_atual.ligar();
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+
     public static List<Componente> getListaComponentes() {
         return listaComponentes;
     }
