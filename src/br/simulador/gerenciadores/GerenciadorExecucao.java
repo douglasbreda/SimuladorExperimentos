@@ -434,7 +434,29 @@ public final class GerenciadorExecucao {
         return executando;
     }
 
+    /**
+     * Define o status atual da simulação (Executando ou parada)
+     * @param executando 
+     */
     public void setExecutando(boolean executando) {
         GerenciadorExecucao.executando = executando;
+    }
+
+    /**
+     * Define a instância do programa para iniciá-lo quando o usuário clicar em iniciar a simulação
+     * @param simuladorPrograma 
+     */ 
+    public void setSimuladorPrograma(SimuladorPrograma simuladorPrograma) {
+        GerenciadorExecucao.simuladorPrograma = simuladorPrograma;
+    }
+    
+    /**
+     * Inicia a simulação a partir da instância gerada do programa
+     * @throws ErroExecucao
+     * @throws InterruptedException 
+     */
+    public void iniciar_simulacao() throws ErroExecucao, InterruptedException{
+        if(GerenciadorExecucao.simuladorPrograma != null)
+           GerenciadorExecucao.simuladorPrograma.simular(false);
     }
 }

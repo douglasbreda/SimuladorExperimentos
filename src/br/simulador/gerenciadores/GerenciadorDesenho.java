@@ -267,7 +267,7 @@ public class GerenciadorDesenho {
         
         if (!___sw_break___1 && botao_clicado == REFS_INT[INDICE_IMAGEM_BOTAO_INICIAR_0]) {
             UtilSimulador.setLog("Iniciou\n");
-            GerenciadorExecucao.getInstance().setExecutando(true);
+            GerenciadorExecucao.getInstance().iniciar_simulacao();
             status = 1;
             ___sw_break___1 = true;
 

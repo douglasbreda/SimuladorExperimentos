@@ -45,14 +45,13 @@ public class GerenciadorFuncao extends VisitanteNulo {
      * Método que buscar a declaração de uma função pelo seu nome
      *
      * @param nome_metodo
-     * @return
      * @throws ExcecaoVisitaASA
      * @throws br.univali.portugol.nucleo.ErroCompilacao
      * @throws br.univali.portugol.nucleo.mensagens.ErroExecucao
      * @throws java.lang.InterruptedException
      * @throws br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador
      */
-    public ASAPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, ErroExecucao, InterruptedException, ErroExecucaoSimulador {
+    public void buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, ErroExecucao, InterruptedException, ErroExecucaoSimulador {
         this.nomeMetodo = nome_metodo;
 
         asa.aceitar(this);
@@ -72,12 +71,12 @@ public class GerenciadorFuncao extends VisitanteNulo {
 
             SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
 
+//            GerenciadorExecucao.getInstance().setSimuladorPrograma(programa);
             programa.simular(false);
         } else {
             throw new ErroExecucaoSimulador();
         }
-
-        return asaGerada;
+//        return asaGerada;
     }
 
     /**
