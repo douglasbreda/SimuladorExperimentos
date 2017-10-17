@@ -61,7 +61,7 @@ public final class GerenciadorComponentes {
      * @param altura
      * @param largura
      * @param titulo
-     * @return 
+     * @return
      * @throws br.univali.portugol.nucleo.mensagens.ErroExecucao
      */
     public static boolean criarSlider(int x1, int x2, int y1, int y2, int yFinal, String nome, double valorPadrao, double valorMaximo, double valorMinimo, int altura, int largura, String titulo) throws ErroExecucao {
@@ -72,14 +72,14 @@ public final class GerenciadorComponentes {
             slider.setValor_maximo(valorMaximo);
 
             slider.setValor_minimo(valorMinimo);
-            
+
             slider.setValor_atual(valorPadrao);
 
             adicionarComponenteLista(slider.criar(x1, x2, y1, y2, yFinal, nome, altura, largura, titulo));
-            
+
             return true;
         }
-        
+
         return false;
     }
 
@@ -109,15 +109,17 @@ public final class GerenciadorComponentes {
      */
     public static void criarInterruptor(int x1, int x2, int y1, int y2, int yFinal, String nome, boolean valorPadrao, int altura, int largura, String titulo) {
 
-        Interruptor interruptor = new Interruptor();
+        if (!componenteJaAdicionado(nome)) {
+            Interruptor interruptor = new Interruptor();
 
-        if (valorPadrao) {
-            interruptor.ligar();
-        } else {
-            interruptor.desligar();
+            if (valorPadrao) {
+                interruptor.ligar();
+            } else {
+                interruptor.desligar();
+            }
+
+            adicionarComponenteLista(interruptor.criar(x1, x2, y1, y2, yFinal, nome, altura, largura, titulo));
         }
-
-        adicionarComponenteLista(interruptor.criar(x1, x2, y1, y2, yFinal, nome, altura, largura, titulo));
     }
 
     /**
@@ -172,20 +174,21 @@ public final class GerenciadorComponentes {
     public static List<Componente> getListaComponentes() {
         return listaComponentes;
     }
-    
+
     /**
      * Atribui um novo valor a um componente já criado
+     *
      * @param nome
-     * @param novo_valor 
+     * @param novo_valor
      */
-    public static void atualizar_valor_monitor(String nome, String novo_valor){
-       Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.monitor && x.getNome().equalsIgnoreCase(nome)).findAny();
-       
-       if(monitor != null){
-           Monitor monitorAtualizar = (Monitor) monitor.get();
-           
-           monitorAtualizar.setValor_atual(novo_valor);
-       }
-       
+    public static void atualizar_valor_monitor(String nome, String novo_valor) {
+        Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.monitor && x.getNome().equalsIgnoreCase(nome)).findAny();
+
+        if (monitor != null) {
+            Monitor monitorAtualizar = (Monitor) monitor.get();
+
+            monitorAtualizar.setValor_atual(novo_valor);
+        }
+
     }
 }

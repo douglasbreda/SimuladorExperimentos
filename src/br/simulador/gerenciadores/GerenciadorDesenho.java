@@ -6,6 +6,7 @@ package br.simulador.gerenciadores;
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.plugin.biblioteca.componentes.Componente;
+import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
 import br.simulador.util.UtilSimulador;
@@ -54,6 +55,9 @@ public class GerenciadorDesenho {
     private final int INDICE_IMAGEM_BOTAO_PARAR_2 = 2;
     private final int INDICE_IMAGEM_BOTAO_PARAR_HOVER_3 = 3;
 
+    private int endereco_imagem_switch_on = 0;
+    private int endereco_imagem_switch_off = 0;
+
     Retalho[][] retalhos = new Retalho[ALTURA][LARGURA];
     int[] cores = {0xFFFFFF, 0xE4E4E4, 0x888888, 0x222222, 0xFFA7D1, 0xE50000, 0xE59500, 0xA06A42, 0xE5D900, 0x94E044, 0x02BE01, 0x00D3DD, 0x0083C7, 0x0000EA, 0xCF6EE4, 0x820080};
 
@@ -64,6 +68,8 @@ public class GerenciadorDesenho {
     private final int posicaoYFinal = 60; // Posição de final da criação do primeiro componente
     private final int posicaoXInicial = 15;
     private final int posicaoXFinal = 15;
+    private final String imagem_switch_on = "switch_on.png";
+    private final String imagem_switch_off = "switch_on.png";
 
     /**
      * Inicia a tela onde será executada a simulação
@@ -124,7 +130,8 @@ public class GerenciadorDesenho {
         criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
         criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
         criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
-        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
+        criar_interruptor("interruptor_1", "Teste Switch", false);
+//        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
 
         while (!GerenciadorExecucao.getInstance().isExecutando()) {
             try {
@@ -149,6 +156,9 @@ public class GerenciadorDesenho {
         imagem_fundo = g.carregar_imagem(PASTA_DE_IMAGENS + "fundo.jpg");
         carregar_imagens_botao("play", INDICE_IMAGEM_BOTAO_INICIAR_0, INDICE_IMAGEM_BOTAO_INICIAR_HOVER_1);
         carregar_imagens_botao("stop", INDICE_IMAGEM_BOTAO_PARAR_2, INDICE_IMAGEM_BOTAO_PARAR_HOVER_3);
+
+        endereco_imagem_switch_on = g.carregar_imagem(PASTA_DE_IMAGENS + imagem_switch_on);
+        endereco_imagem_switch_off = g.carregar_imagem(PASTA_DE_IMAGENS + imagem_switch_on);
 
 //        REFS_INT[INDICE_IMAGEM_BOTAO_INICIAR_0] = 
         LARGURA_DA_TELA = g.largura_tela();
@@ -264,7 +274,7 @@ public class GerenciadorDesenho {
 //        }
 
         boolean ___sw_break___1 = false;
-        
+
         if (!___sw_break___1 && botao_clicado == REFS_INT[INDICE_IMAGEM_BOTAO_INICIAR_0]) {
             UtilSimulador.setLog("Iniciou\n");
             GerenciadorExecucao.getInstance().iniciar_simulacao();
@@ -822,6 +832,37 @@ public class GerenciadorDesenho {
     }
 
     /**
+     * Desenha o componente do tipo Interruptor
+     *
+     * @param nome
+     * @param titulo
+     * @param yInicial
+     * @param yFinal
+     * @param valor
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    private void desenhar_interruptor(String nome, String titulo, int yInicial, int yFinal, boolean valor) throws ErroExecucaoBiblioteca, InterruptedException {
+        int altura_imagem = g.altura_imagem(endereco_imagem_switch_on);
+        int largura_imagem = g.largura_imagem(endereco_imagem_switch_off);
+        int larg = largura_painel_componentes - (posicaoXInicial * 2);
+
+        //Desenha o retângulo em volta da imagem
+        g.desenhar_retangulo(posicaoXInicial, yInicial, larg, altura_imagem + 10, false, false);
+
+        //Desenha o título
+        g.desenhar_texto(posicaoXInicial + largura_imagem + 10, yInicial + (altura_imagem/2), titulo);
+
+        if (valor) {
+            g.desenhar_imagem(posicaoXInicial + 5, yInicial + 5, endereco_imagem_switch_on);
+        } else {
+            g.desenhar_imagem(posicaoXInicial + 5, yInicial + 5, endereco_imagem_switch_off);
+        }
+
+        GerenciadorComponentes.criarInterruptor(posicaoXInicial, larg, yInicial, yFinal + 33, yFinal + 33, nome, valor, 33, larg, titulo);
+    }
+
+    /**
      * Cria um novo componente do tipo monitor considerando as posições dos
      * outros componentes que já foram adicionados
      *
@@ -863,8 +904,24 @@ public class GerenciadorDesenho {
         }
     }
 
-    public void criar_interruptor() {
+    /**
+     * Cria um componente do tipo interruptor considerando os outros componentes
+     * que já foram adicionados
+     *
+     * @param nome
+     * @param titulo
+     * @param valor
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    public void criar_interruptor(String nome, String titulo, boolean valor) throws ErroExecucaoBiblioteca, InterruptedException {
+        if (GerenciadorComponentes.listaTemRegistro()) {
+            Componente ultimoComponente = GerenciadorComponentes.getUltimoComponente();
 
+            desenhar_interruptor(nome, titulo, ultimoComponente.getProximoY(), ultimoComponente.getProxima_posicao_y2(), valor);
+        } else {
+            desenhar_interruptor(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor);
+        }
     }
 
     /**
@@ -884,6 +941,10 @@ public class GerenciadorDesenho {
                 case slider:
                     Slider slider = (Slider) componente;
                     desenhar_slider(slider.getNome(), slider.getTitulo(), slider.getY1(), slider.getY2(), slider.getValor_minimo(), slider.getValor_atual(), slider.getValor_maximo());
+                    break;
+                case interruptor:
+                    Interruptor interruptor = (Interruptor) componente;
+                    desenhar_interruptor(interruptor.getNome(), interruptor.getTitulo(), interruptor.getY1(), interruptor.getY2(), interruptor.isLigado());
                     break;
             }
         }

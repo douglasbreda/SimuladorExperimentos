@@ -17,7 +17,7 @@ public class Interruptor extends Componente{
         this.setX2(x2);
         this.setY1(y1);
         this.setY2(y2);
-        this.setTipoComponente(TipoComponente.monitor);
+        this.setTipoComponente(TipoComponente.interruptor);
         this.setDistancia(3);
         this.setNome(nome);
         this.setAltura(altura);
@@ -34,5 +34,9 @@ public class Interruptor extends Componente{
     
     public void desligar(){
         this.ligado = false;
+    }
+
+    public boolean isLigado() {
+        return ligado;
     }
 }
