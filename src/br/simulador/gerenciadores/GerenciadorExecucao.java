@@ -459,4 +459,12 @@ public final class GerenciadorExecucao {
         if(GerenciadorExecucao.simuladorPrograma != null)
            GerenciadorExecucao.simuladorPrograma.simular(false);
     }
+    
+    /**
+     * Verifica se a simulação ainda está visível
+     * @return 
+     */
+    public boolean simulacao_visivel(){
+        return true;
+    }
 }

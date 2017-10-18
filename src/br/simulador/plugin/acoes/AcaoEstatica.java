@@ -1,18 +1,22 @@
 package br.simulador.plugin.acoes;
 
+import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorFuncao;
 import br.simulador.plugin.SimuladorExperimentos;
 import br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador;
-import br.simulador.ui.JanelaCodigoFonte;
 import br.univali.portugol.nucleo.ErroCompilacao;
 import br.univali.portugol.nucleo.Portugol;
 import br.univali.portugol.nucleo.Programa;
+import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.asa.ASAPrograma;
 import br.univali.portugol.nucleo.asa.ExcecaoVisitaASA;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -27,6 +31,9 @@ import javax.swing.ImageIcon;
 public class AcaoEstatica extends AbstractAction {
 
     private SimuladorExperimentos plugin;
+
+    private final ExecutorService servico = Executors.newSingleThreadExecutor();
+    private Future<Object> tarefaSimulacao;
 
     public AcaoEstatica(SimuladorExperimentos plugin) {
         super("Ação para buscar os códigos da função", carregarIcone());
@@ -46,7 +53,6 @@ public class AcaoEstatica extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         new Thread(() -> {
             try {
                 final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
@@ -56,7 +62,38 @@ public class AcaoEstatica extends AbstractAction {
             } catch (ExcecaoVisitaASA | ErroExecucao | InterruptedException | ErroCompilacao ex) {
             }
         }).start();
+//        try {
+//        if (tarefaSimulacao == null) {
+//            executarSimulacao();
+//        }
+//
+//        while (!tarefaSimulacao.isDone()) {
+////                Thread.sleep(50);
+//        }
+//
+////            tarefaSimulacao.get().simular(false);
+////        } catch (InterruptedException ex) {
+//        }).start();
+    }
 
+    private void executarSimulacao() {
+        if (tarefaSimulacao != null) {
+            tarefaSimulacao.cancel(true);
+        }
+
+        tarefaSimulacao = servico.submit(() -> {
+
+            final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
+            ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
+            GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
+            SimuladorPrograma simulador = gerenciadorFuncao.buscar_declaracao_metodo("simular");
+            simulador.simular(false);
+
+            while (GerenciadorExecucao.getInstance().simulacao_visivel()) {
+
+            }
+            return new Object();
+        });
     }
 
 }

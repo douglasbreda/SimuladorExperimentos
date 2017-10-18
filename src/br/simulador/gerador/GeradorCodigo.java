@@ -154,9 +154,7 @@ public class GeradorCodigo {
                 .geraImportacaoPara(SimuladorPrograma.class)
                 .geraImportacaoPara(ErroExecucaoBiblioteca.class)
                 .geraImportacaoPara(InvocationTargetException.class)
-//                .geraImportacaoPara(GerenciadorExecucao.class)
                 .geraImportacaoPara(List.class)
-//                .geraImportacaoPara(IAgente.class)
                 .geraImportacaoBibliotecasIncluidas()
                 .geraNomeClasse(nomeClasseJava)
                 .geraChaveAberturaClasse()
@@ -890,7 +888,15 @@ public class GeradorCodigo {
                     .append(nomeDaClasseJava)
                     .append("() throws ErroExecucao, InterruptedException {")
                     .println();
-
+            saida.append("Experimentos.simular();");
+            saida.println();
+            saida.append("Experimentos.definir_programa_atual(this);");
+            saida.println();
+            saida.append("setListaAgentes(Experimentos.retornar_lista_agentes());");
+            saida.println();
+            saida.append("inicio();");
+            
+            
             nivelEscopo++;
 
             nivelEscopo--;

@@ -5,6 +5,7 @@ import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInterface;
 import br.simulador.plugin.biblioteca.base.Retalho;
 import br.simulador.util.UtilSimulador;
+import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import static br.univali.portugol.nucleo.bibliotecas.base.TipoBiblioteca.COMPARTILHADA;
@@ -675,5 +676,27 @@ public final class Experimentos extends Biblioteca {
     )
     public void atualizar_valor_monitor(String nome, String novo_valor) throws ErroExecucaoBiblioteca, InterruptedException{
         GerenciadorComponentes.atualizar_valor_monitor(nome, novo_valor);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Define quantas execuções terá a simulação",
+            parametros = {
+                @DocumentacaoParametro(nome = "sim", descricao = "Define se a simulação rodará enquanto o usuário desejar, ou terá apenas uma iteração")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void executar_sempre(boolean sim) throws ErroExecucaoBiblioteca, InterruptedException{
+        
+    }
+    
+    /**
+     * Método para que a simulação consiga iniciar e parar a execução do programa, definindo qual é o programa atual
+     * @param programa_atual 
+     */
+    @NaoExportar
+    public void definir_programa_atual(SimuladorPrograma programa_atual){
+        GerenciadorExecucao.getInstance().setSimuladorPrograma(programa_atual);
     }
 }

@@ -69,7 +69,7 @@ public class GerenciadorDesenho {
     private final int posicaoXInicial = 15;
     private final int posicaoXFinal = 15;
     private final String imagem_switch_on = "switch_on.png";
-    private final String imagem_switch_off = "switch_on.png";
+    private final String imagem_switch_off = "switch_off.png";
 
     /**
      * Inicia a tela onde será executada a simulação
@@ -131,7 +131,7 @@ public class GerenciadorDesenho {
         criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
         criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
         criar_interruptor("interruptor_1", "Teste Switch", false);
-//        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
+        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
 
         while (!GerenciadorExecucao.getInstance().isExecutando()) {
             try {
@@ -158,7 +158,7 @@ public class GerenciadorDesenho {
         carregar_imagens_botao("stop", INDICE_IMAGEM_BOTAO_PARAR_2, INDICE_IMAGEM_BOTAO_PARAR_HOVER_3);
 
         endereco_imagem_switch_on = g.carregar_imagem(PASTA_DE_IMAGENS + imagem_switch_on);
-        endereco_imagem_switch_off = g.carregar_imagem(PASTA_DE_IMAGENS + imagem_switch_on);
+        endereco_imagem_switch_off = g.carregar_imagem(PASTA_DE_IMAGENS + imagem_switch_off);
 
 //        REFS_INT[INDICE_IMAGEM_BOTAO_INICIAR_0] = 
         LARGURA_DA_TELA = g.largura_tela();
@@ -853,7 +853,8 @@ public class GerenciadorDesenho {
 
         //Desenha o título
         g.desenhar_texto(posicaoXInicial + largura_imagem + 10, yInicial + (altura_imagem/2), titulo);
-
+        
+//        UtilSimulador.setLog("Vai mudar o estado para: " + valor);
         if (valor) {
             g.desenhar_imagem(posicaoXInicial + 5, yInicial + 5, endereco_imagem_switch_on);
         } else {

@@ -8,6 +8,7 @@ import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
 import br.simulador.plugin.biblioteca.componentes.TipoComponente;
+import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
 import java.util.ArrayList;
 import java.util.List;
@@ -185,28 +186,27 @@ public final class GerenciadorComponentes {
         for (Componente interruptor : listaInterruptor) {
             interruptor_atual = (Interruptor) interruptor;
 
-            if (interruptor_atual.isLigado()) {
-                if (posicaoXMouse >= (interruptor.getX1() + 32) && posicaoXMouse <= interruptor.getX2()
-                        && posicaoYMouse >= (interruptor.getY1() + 12) && posicaoYMouse < (interruptor.getY1() + 30)) {
-                    System.out.println("Entrou Ligado");
-                    System.out.println(botao_pressionado);
-                    if (botao_pressionado) {
-                        interruptor_atual.desligar();
-                        return true;
-                    }
+//            if (!interruptor_atual.isLigado()) {
+            if (posicaoXMouse >= (interruptor.getX1() + 27) && posicaoXMouse <= interruptor.getX2() - 27
+                    && posicaoYMouse >= (interruptor.getY1() + 12) && posicaoYMouse < (interruptor.getY1() + 30)) {
+                UtilSimulador.setLog("Entrou Ligado");
+                UtilSimulador.setLog(String.valueOf(botao_pressionado));
+                if (botao_pressionado) {
+                    interruptor_atual.desligar();
+                    return true;
                 }
-            } else {
-                if (posicaoXMouse >= (interruptor.getX1() + 32) && posicaoXMouse <= interruptor.getX2()
-                        && posicaoYMouse >= (interruptor.getY1() + 32) && posicaoYMouse < (interruptor.getY2() - 12)) {
-                    System.out.println("Entrou desligado");
-                    if (botao_pressionado) {
-                        interruptor_atual.ligar();
-                        return true;
-                    }
+            }
+            
+            if (posicaoXMouse >= (interruptor.getX1() + 27) && posicaoXMouse <= interruptor.getX2() - 27
+                    && posicaoYMouse >= (interruptor.getY2() - 42) && posicaoYMouse < (interruptor.getY2() - 12)) {
+                UtilSimulador.setLog("Entrou desligado");
+                if (botao_pressionado) {
+                    interruptor_atual.ligar();
+                    return true;
                 }
             }
         }
-        
+
         return false;
     }
 

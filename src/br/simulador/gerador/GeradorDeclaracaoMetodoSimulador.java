@@ -47,13 +47,22 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.println();
             saida.append("private List<?> listaAgentes;");
             saida.append(identacao)
-                 .append("public void setListaAgentes(List<?> listaAgentes){");
+                    .append("public void setListaAgentes(List<?> listaAgentes){");
             saida.println();
             saida.append("this.listaAgentes = listaAgentes;");
             saida.println();
             saida.append("}");
 
             saida.println();
+            
+            //Método de configurar que chama o início
+//            saida.append("@Override");
+//            saida.append("private void configurar(){");
+//            saida.println();
+//            saida.append("inicio();");
+//            saida.println();
+//            saida.append("}");
+                    
 
             saida.append(identacao)
                     .append("@Override");
@@ -86,10 +95,7 @@ public class GeradorDeclaracaoMetodoSimulador {
                     .append("try {\n")
                     .append(identacao)
                     .append("\n")
-                    .append("Experimentos.simular();")
                     .append(identacao)
-                    .append("Experimentos.criar_agentes(10, true);")
-                    .append("setListaAgentes(Experimentos.retornar_lista_agentes());")
                     .append(identacao)
                     .append("do")
                     .append(identacao)
@@ -120,11 +126,8 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.println();
 
             saida.append("} catch (ErroExecucaoBiblioteca ex) {\n")
-                    //                 .append("Logger.getLogger(Programa1507500325760.class.getName()).log(Level.SEVERE, null, ex);\n")
-                    .append("} catch (InterruptedException ex) {\n")
-                    //                 .append("Logger.getLogger(Programa1507500325760.class.getName()).log(Level.SEVERE, null, ex);\n")
-                    .append("} catch (ErroExecucao ex) {}\n");
-//                 .append("Logger.getLogger(Programa1507500325760.class.getName()).log(Level.SEVERE, null, ex);
+                 .append("} catch (InterruptedException ex) {\n")
+                 .append("} catch (ErroExecucao ex) {}\n");
 
         }
         saida.append(identacao).append("}").println(); // finaliza o escopo do método

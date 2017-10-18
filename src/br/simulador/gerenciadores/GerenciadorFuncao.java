@@ -51,10 +51,12 @@ public class GerenciadorFuncao extends VisitanteNulo {
      * @throws java.lang.InterruptedException
      * @throws br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador
      */
-    public void buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, ErroExecucao, InterruptedException, ErroExecucaoSimulador {
+    public SimuladorPrograma buscar_declaracao_metodo(String nome_metodo) throws ExcecaoVisitaASA, ErroCompilacao, ErroExecucao, InterruptedException, ErroExecucaoSimulador {
         this.nomeMetodo = nome_metodo;
 
         asa.aceitar(this);
+
+//        SimuladorPrograma programa = null;
 
         if (listaMetodos.stream().filter(x -> x.getNome().equalsIgnoreCase(nomeMetodo)).count() > 0) {
             asaGerada.setListaDeclaracoesGlobais(new ArrayList<>());
@@ -69,14 +71,18 @@ public class GerenciadorFuncao extends VisitanteNulo {
 
             GeradorCodigoJavaSimulador gerador = new GeradorCodigoJavaSimulador();
 
-            SimuladorPrograma programa = gerador.gerar_codigo_java(asaGerada);
+            SimuladorPrograma simulador_programa = gerador.gerar_codigo_java(asaGerada);
 
+            if (simulador_programa != null) {
+//                   simulador_programa.configurar();
+            }
 //            GerenciadorExecucao.getInstance().setSimuladorPrograma(programa);
-            programa.simular(false);
+
+//            programa.simular(false);
         } else {
             throw new ErroExecucaoSimulador();
         }
-//        return asaGerada;
+        return null;
     }
 
     /**

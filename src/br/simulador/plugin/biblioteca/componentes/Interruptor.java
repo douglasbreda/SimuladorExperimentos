@@ -3,6 +3,8 @@
  */
 package br.simulador.plugin.biblioteca.componentes;
 
+import br.simulador.util.UtilSimulador;
+
 /**
  *
  * @author Douglas
@@ -30,10 +32,12 @@ public class Interruptor extends Componente{
     
     public void ligar(){
         this.ligado = true;
+        UtilSimulador.setLog("Veja só, ligou :)");
     }
     
     public void desligar(){
         this.ligado = false;
+        UtilSimulador.setLog("It is off baby");
     }
 
     public boolean isLigado() {
