@@ -42,7 +42,6 @@ public class GerenciadorDesenho {
     private int cor_predominante;
     private final int LARGURA_DO_BOTAO = 28;
     private final int ALTURA_DO_BOTAO = 28;
-    private int altura_rodape;
     private int ultimo_x;
     private int ultimo_y;
     private int status;
@@ -70,6 +69,9 @@ public class GerenciadorDesenho {
     private final int posicaoXFinal = 15;
     private final String imagem_switch_on = "switch_on.png";
     private final String imagem_switch_off = "switch_off.png";
+    private int altura_rodape = 24;
+    private final int COR_ESCURA_LINHA_DIVISORIA = 0x111111; 	// RGB = 17,17,17
+    private final int COR_CLARA_LINHA_DIVISORIA = 0x4C4C4C; 	// RGB = 76,76,76
 
     /**
      * Inicia a tela onde será executada a simulação
@@ -96,7 +98,7 @@ public class GerenciadorDesenho {
             iniciar_retalhos();
             g.iniciar_modo_grafico(false);
 //            g.definir_dimensoes_janela(LARGURA * tile, (ALTURA + 2) * tile);
-            g.definir_dimensoes_janela(810, 550);
+            g.definir_dimensoes_janela(810, 560);
             configurar();
             //Inicialização das variáveis (Separar)
             rodar();
@@ -153,7 +155,7 @@ public class GerenciadorDesenho {
      * Configurações iniciais necessárias para a simulação
      */
     private void configurar() throws ErroExecucaoBiblioteca, InterruptedException {
-        imagem_fundo = g.carregar_imagem(PASTA_DE_IMAGENS + "fundo.jpg");
+        imagem_fundo = g.carregar_imagem(PASTA_DE_IMAGENS + "fundo_exato.png");
         carregar_imagens_botao("play", INDICE_IMAGEM_BOTAO_INICIAR_0, INDICE_IMAGEM_BOTAO_INICIAR_HOVER_1);
         carregar_imagens_botao("stop", INDICE_IMAGEM_BOTAO_PARAR_2, INDICE_IMAGEM_BOTAO_PARAR_HOVER_3);
 
@@ -223,9 +225,9 @@ public class GerenciadorDesenho {
 //            throw new InterruptedException();
 //        }
 
-        g.definir_cor(cor_predominante);
-        g.definir_opacidade(200);
-        g.desenhar_retangulo(0, altura_imagem_fundo, LARGURA_DA_TELA, ALTURA_DA_TELA - altura_imagem_fundo, false, true);
+//        g.definir_cor(cor_predominante);
+//        g.definir_opacidade(200);
+//        g.desenhar_retangulo(0, altura_imagem_fundo, LARGURA_DA_TELA, ALTURA_DA_TELA - altura_imagem_fundo, false, true);
 
     }
 
@@ -236,9 +238,6 @@ public class GerenciadorDesenho {
      * @throws InterruptedException
      */
     private void desenhar_informacoes_rodape() throws ErroExecucao, InterruptedException {
-//        if (this.interrupcaoSolicitada || Thread.currentThread().isInterrupted()) {
-//            throw new InterruptedException();
-//        }
 
         g.definir_cor(Graficos.COR_BRANCO);
         g.definir_estilo_texto(false, true, false);
@@ -249,14 +248,14 @@ public class GerenciadorDesenho {
             totalAgentes = GerenciadorExecucao.getInstance().getListaAgentes().size();
         }
 
-        g.desenhar_texto(10, altura_imagem_fundo + 12, "Total de Agentes: " + totalAgentes);
+        g.desenhar_texto(10, altura_imagem_fundo - altura_rodape, "Total de Agentes: " + totalAgentes);
         int largura_total_agentes = g.largura_texto("Total de Agentes: " + totalAgentes);
 
         if (status == 0) {
-            g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo + 12, "Status: Parada");
+            g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo - altura_rodape, "Status: Parada");
 
         } else {
-            g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo + 12, "Status: Executando");
+            g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo - altura_rodape, "Status: Executando");
 
         }
     }
@@ -348,7 +347,7 @@ public class GerenciadorDesenho {
 
         desenhar_botoes();
 
-        desenhar_rodape();
+//        desenhar_rodape();
 
         desenhar_informacoes_rodape();
 
@@ -369,10 +368,27 @@ public class GerenciadorDesenho {
      */
     private void desenhar_linha() throws ErroExecucaoBiblioteca, InterruptedException {
 
-        g.definir_cor(g.COR_AMARELO);
-        g.desenhar_linha(largura_painel_componentes, altura_painel_botoes, largura_painel_componentes, altura_imagem_fundo);
-        g.definir_cor(g.COR_AMARELO);
-        g.desenhar_linha(0, altura_painel_botoes, LARGURA_DA_TELA, altura_painel_botoes);
+        //As linhas desenhadas duas vezes dão efeito de profundidade (Extraído do exemplo da bateria do Portugol Studio)
+        //Linha divisória vertical vertical
+        g.definir_cor(COR_ESCURA_LINHA_DIVISORIA);
+        g.desenhar_linha(largura_painel_componentes - 10, altura_painel_botoes - 10, largura_painel_componentes - 10, altura_imagem_fundo - altura_rodape - 10);
+        
+        g.definir_cor(COR_CLARA_LINHA_DIVISORIA);
+        g.desenhar_linha(largura_painel_componentes - 9, altura_painel_botoes - 10, largura_painel_componentes - 9, altura_imagem_fundo - altura_rodape - 10);
+        
+        //Linha divisória horizontal superior
+        g.definir_cor(COR_ESCURA_LINHA_DIVISORIA);
+        g.desenhar_linha(0, altura_painel_botoes - 10, LARGURA_DA_TELA, altura_painel_botoes - 10);
+        
+        g.definir_cor(COR_CLARA_LINHA_DIVISORIA);
+        g.desenhar_linha(0, altura_painel_botoes - 9, LARGURA_DA_TELA, altura_painel_botoes - 9);
+        
+        //Linha divisória horizontal inferior
+        g.definir_cor(COR_ESCURA_LINHA_DIVISORIA);
+        g.desenhar_linha(0, altura_imagem_fundo - altura_rodape - 10, LARGURA_DA_TELA, altura_imagem_fundo - altura_rodape - 10);
+        
+        g.definir_cor(COR_CLARA_LINHA_DIVISORIA);
+        g.desenhar_linha(0, altura_imagem_fundo - altura_rodape - 9, LARGURA_DA_TELA, altura_imagem_fundo - altura_rodape - 9);
     }
 
     /**
@@ -781,7 +797,7 @@ public class GerenciadorDesenho {
         GerenciadorComponentes.criarMonitor(posicaoXInicial, posicaoXInicial, posicaoYi, posicaoYf, posicaoYf, nome, valor_atual, (posicaoYf - posicaoYi), (posicaoXFinal - posicaoXFinal), titulo);
     }
 
-    private void desenhar_slider(String nome, String titulo, int yInicial, int yFinal, double valor_minimo, double valor_atual, double valor_maximo) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+    private void desenhar_slider(String nome, String titulo, int yInicial, int yFinal, double valor_minimo, double valor_atual, double valor_maximo, double valor_display) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 
         int cor_lateral = g.criar_cor(180, 180, 180);
         int yplay = yInicial + 7;
@@ -823,12 +839,12 @@ public class GerenciadorDesenho {
         //Desenha a informação dos valores do slider
         g.definir_cor(cor_botao);
         g.definir_estilo_texto(false, true, false);
-        g.desenhar_texto(largura_painel_componentes - 80, yplay + 10, "" + valor_atual + " / " + valor_maximo);
+        g.desenhar_texto(largura_painel_componentes - 80, yplay + 10, "" + valor_display + " / " + valor_maximo);
 //        g.desenhar_texto(alt + 10, ALTURA_DA_TELA - (alt + 15), "Teste Slider");//Desenha o valor do
 
 //        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf + 33, posicaoYf + 33, nome, valor_atual, valor_maximo, valor_minimo, posicaoYf + 33, larg, titulo)) {
-        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf, posicaoYf, nome, valor_atual, valor_maximo, valor_minimo, posicaoYf - posicaoYi, larg, titulo)) {
-            calcular_valores_slider((Slider) GerenciadorComponentes.getUltimoComponente());
+        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf, posicaoYf, nome, valor_atual, valor_maximo, valor_minimo, posicaoYf - posicaoYi, larg, titulo, valor_display)) {
+            ((Slider) GerenciadorComponentes.getUltimoComponente()).calcular_valor_inicial(valor_atual);
         }
     }
 
@@ -900,9 +916,9 @@ public class GerenciadorDesenho {
         if (GerenciadorComponentes.listaTemRegistro()) {
             Componente ultimoComponente = GerenciadorComponentes.getUltimoComponente();
 
-            desenhar_slider(nome, titulo, ultimoComponente.getProximoY(), ultimoComponente.getProxima_posicao_y2(), valor_minimo, valor_padrao, valor_maximo);
+            desenhar_slider(nome, titulo, ultimoComponente.getProximoY(), ultimoComponente.getProxima_posicao_y2(), valor_minimo, valor_padrao, valor_maximo, valor_padrao);
         } else {
-            desenhar_slider(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_minimo, valor_padrao, valor_maximo);
+            desenhar_slider(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_minimo, valor_padrao, valor_maximo, valor_padrao);
         }
     }
 
@@ -942,7 +958,7 @@ public class GerenciadorDesenho {
                     break;
                 case slider:
                     Slider slider = (Slider) componente;
-                    desenhar_slider(slider.getNome(), slider.getTitulo(), slider.getY1(), slider.getY2(), slider.getValor_minimo(), slider.getValor_atual(), slider.getValor_maximo());
+                    desenhar_slider(slider.getNome(), slider.getTitulo(), slider.getY1(), slider.getY2(), slider.getValor_minimo(), slider.getValor_atual(), slider.getValor_maximo(), slider.getValor_display());
                     break;
                 case interruptor:
                     Interruptor interruptor = (Interruptor) componente;
@@ -960,13 +976,7 @@ public class GerenciadorDesenho {
      * @throws InterruptedException
      */
     private void controle_mouse_slider() throws ErroExecucaoBiblioteca, InterruptedException {
-        Slider slider = GerenciadorComponentes.verificarMouseDentroSlider(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
-
-        if (slider != null) {
-            UtilSimulador.setLog("X1: " + slider.getX1());
-            slider.setValor_atual(m.posicao_x() - slider.getX1());
-            calcular_valores_slider(slider);
-        }
+        GerenciadorComponentes.verificarMouseDentroSlider(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
     }
     
     /**
@@ -976,23 +986,5 @@ public class GerenciadorDesenho {
      */
     private void controle_mouse_switch() throws ErroExecucaoBiblioteca, InterruptedException{
         GerenciadorComponentes.verificarMouseDentroInterruptor(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
-    }
-
-    /**
-     * Calcula os valores para atribuir a posição ao slider
-     *
-     * @param slider
-     * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException
-     */
-    private void calcular_valores_slider(Slider slider) throws ErroExecucaoBiblioteca, InterruptedException {
-        if (slider.getValor_atual() == (slider.getLargura() - 1)) {
-            slider.setValor_atual(slider.getValor_maximo());
-        } else if (slider.getValor_atual() == 1.0) {
-            slider.setValor_atual(0.0);
-        } else {
-            slider.setValor_atual(math.arredondar(((slider.getValor_atual() * 100) / slider.getLargura()), 2));
-            slider.setValor_atual(math.arredondar(((slider.getValor_atual() * slider.getValor_maximo()) / 100), 2));
-        }
     }
 }

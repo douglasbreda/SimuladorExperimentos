@@ -65,7 +65,7 @@ public final class GerenciadorComponentes {
      * @return
      * @throws br.univali.portugol.nucleo.mensagens.ErroExecucao
      */
-    public static boolean criarSlider(int x1, int x2, int y1, int y2, int yFinal, String nome, double valorPadrao, double valorMaximo, double valorMinimo, int altura, int largura, String titulo) throws ErroExecucao {
+    public static boolean criarSlider(int x1, int x2, int y1, int y2, int yFinal, String nome, double valorPadrao, double valorMaximo, double valorMinimo, int altura, int largura, String titulo, double valorDisplay) throws ErroExecucao {
 
         if (!componenteJaAdicionado(nome)) {
             Slider slider = new Slider();
@@ -75,6 +75,8 @@ public final class GerenciadorComponentes {
             slider.setValor_minimo(valorMinimo);
 
             slider.setValor_atual(valorPadrao);
+            
+            slider.setValor_display(valorDisplay);
 
             adicionarComponenteLista(slider.criar(x1, x2, y1, y2, yFinal, nome, altura, largura, titulo));
 
@@ -160,10 +162,16 @@ public final class GerenciadorComponentes {
 
         if (listaSliders != null && listaSliders.size() > 0) {
             for (Componente slider : listaSliders) {
-                if (posicaoXMouse > slider.getX1() && posicaoXMouse < (slider.getX2())
-                        && posicaoYMouse > slider.getyFinal() && posicaoYMouse < slider.getyFinal() + 4) {
+                if (posicaoXMouse >= slider.getX1() + 7 && posicaoXMouse <= (slider.getX1() + 7) + slider.getLargura()
+                        && posicaoYMouse >= slider.getY1() + 21 && posicaoYMouse <= slider.getyFinal() - 16) {
+                    UtilSimulador.setLog("está dentro do slider");
                     if (botaoPressionado) {
-                        return (Slider) slider;
+                        
+                        Slider slider_atual = (Slider) slider;
+
+                        if (slider_atual != null) {
+                            slider_atual.calcular_valores_slider(posicaoXMouse);
+                        }
                     }
                 }
             }
@@ -178,6 +186,7 @@ public final class GerenciadorComponentes {
      * @param posicaoXMouse
      * @param posicaoYMouse
      * @param botao_pressionado
+     * @return
      */
     public static boolean verificarMouseDentroInterruptor(int posicaoXMouse, int posicaoYMouse, boolean botao_pressionado) {
         List<Componente> listaInterruptor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.interruptor).collect(Collectors.toList());
@@ -189,17 +198,17 @@ public final class GerenciadorComponentes {
 //            if (!interruptor_atual.isLigado()) {
             if (posicaoXMouse >= (interruptor.getX1() + 27) && posicaoXMouse <= interruptor.getX2() - 27
                     && posicaoYMouse >= (interruptor.getY1() + 12) && posicaoYMouse < (interruptor.getY1() + 30)) {
-                UtilSimulador.setLog("Entrou Ligado");
-                UtilSimulador.setLog(String.valueOf(botao_pressionado));
+//                UtilSimulador.setLog("Entrou Ligado");
+//                UtilSimulador.setLog(String.valueOf(botao_pressionado));
                 if (botao_pressionado) {
                     interruptor_atual.desligar();
                     return true;
                 }
             }
-            
+
             if (posicaoXMouse >= (interruptor.getX1() + 27) && posicaoXMouse <= interruptor.getX2() - 27
                     && posicaoYMouse >= (interruptor.getY2() - 42) && posicaoYMouse < (interruptor.getY2() - 12)) {
-                UtilSimulador.setLog("Entrou desligado");
+//                UtilSimulador.setLog("Entrou desligado");
                 if (botao_pressionado) {
                     interruptor_atual.ligar();
                     return true;
