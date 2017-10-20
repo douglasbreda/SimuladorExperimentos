@@ -202,6 +202,16 @@ public final class GerenciadorInterface {
     }
     
     /**
+     * Força uma atualização dos componentes, porém sem ficar em loop, apenas um "refresh"
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     * @throws ErroExecucao 
+     */
+    public void renderizar_tela_parcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        desenho.renderizar_parcial();
+    }
+    
+    /**
      * Renderiza somente os agentes para evitar atualizações de tela desnecessárias
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException 

@@ -34,7 +34,7 @@ public final class GerenciadorExecucao {
     private static Plugin plugin;
 
     private static SimuladorPrograma simuladorPrograma = null;
-    
+
     private static boolean executando = false;
 
     public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
@@ -163,17 +163,16 @@ public final class GerenciadorExecucao {
         int velocidade = 0;
         int valor_fixo_x = (maxX / 2);
         int valor_fixo_y = (maxY / 2);
-        
+
 //        int valor_fixo_x = 446;
 //        int valor_fixo_y = 267;
-
         for (int i = 0; i < numero_agentes; i++) {
 
             if (aleatorio) {
                 coordenadaX = UtilSimulador.getNumeroRandomico(minX, maxX);
                 coordenadaY = UtilSimulador.getNumeroRandomico(minY, maxY);
                 velocidade = UtilSimulador.getNumeroRandomico(5);
-            }else{
+            } else {
                 coordenadaX = valor_fixo_x;
                 coordenadaY = valor_fixo_y;
             }
@@ -189,7 +188,7 @@ public final class GerenciadorExecucao {
             UtilSimulador.setLog("------------------------------------------");
 
             addAgente(agente);
-            GerenciadorInterface.getInstance().renderizar_tela();
+            GerenciadorInterface.getInstance().renderizar_tela_parcial();
         }
 
 //        GerenciadorInterface.getInstance().atualizar_total_agentes(listaAgentes.size());
@@ -332,19 +331,20 @@ public final class GerenciadorExecucao {
         return false;
     }
 
-    public int agentes_em(int coordenadaX, int coordenadaY) throws InterruptedException, ErroExecucao{
+    public int agentes_em(int coordenadaX, int coordenadaY) throws InterruptedException, ErroExecucao {
         return agentes_em(coordenadaX, coordenadaY, agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
     }
-    
+
     /**
      * Encontra quantos agentes estão em um determinado retalho
+     *
      * @param coordenadaX
      * @param coordenadaY
      * @param altura
      * @param largura
      * @return
      * @throws InterruptedException
-     * @throws ErroExecucao 
+     * @throws ErroExecucao
      */
     public int agentes_em(int coordenadaX, int coordenadaY, int altura, int largura) throws InterruptedException, ErroExecucao {
         int numero_agentes = 0;
@@ -359,17 +359,18 @@ public final class GerenciadorExecucao {
 
         return numero_agentes;
     }
-    
+
     /**
      * Encontra o retalho atual do agente
+     *
      * @return
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
-     * @throws ErroExecucao 
+     * @throws ErroExecucao
      */
-    public Retalho meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public Retalho meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         Retalho retalho = GerenciadorInterface.getInstance().get_retalho(agenteAtual.retornar_coordenada_X(), agenteAtual.retornar_coordenada_Y(), agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
-        
+
         return retalho;
     }
 
@@ -428,7 +429,8 @@ public final class GerenciadorExecucao {
 
     /**
      * Define se a simulação está executando ou não
-     * @return 
+     *
+     * @return
      */
     public boolean isExecutando() {
         return executando;
@@ -436,35 +438,47 @@ public final class GerenciadorExecucao {
 
     /**
      * Define o status atual da simulação (Executando ou parada)
-     * @param executando 
+     *
+     * @param executando
      */
     public void setExecutando(boolean executando) {
         GerenciadorExecucao.executando = executando;
     }
 
     /**
-     * Define a instância do programa para iniciá-lo quando o usuário clicar em iniciar a simulação
-     * @param simuladorPrograma 
-     */ 
+     * Define a instância do programa para iniciá-lo quando o usuário clicar em
+     * iniciar a simulação
+     *
+     * @param simuladorPrograma
+     */
     public void setSimuladorPrograma(SimuladorPrograma simuladorPrograma) {
         GerenciadorExecucao.simuladorPrograma = simuladorPrograma;
     }
-    
+
     /**
      * Inicia a simulação a partir da instância gerada do programa
+     *
      * @throws ErroExecucao
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void iniciar_simulacao() throws ErroExecucao, InterruptedException{
-        if(GerenciadorExecucao.simuladorPrograma != null)
-           GerenciadorExecucao.simuladorPrograma.simular(false);
+    public void iniciar_simulacao() throws ErroExecucao, InterruptedException {
+        try {
+            if (GerenciadorExecucao.simuladorPrograma != null) {
+                GerenciadorExecucao.simuladorPrograma.simular(false);
+            }
+
+            this.setExecutando(true);
+        } catch (ErroExecucao | InterruptedException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
-    
+
     /**
      * Verifica se a simulação ainda está visível
-     * @return 
+     *
+     * @return
      */
-    public boolean simulacao_visivel(){
+    public boolean simulacao_visivel() {
         return true;
     }
 }

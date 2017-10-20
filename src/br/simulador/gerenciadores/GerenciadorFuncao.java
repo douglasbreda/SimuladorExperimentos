@@ -74,9 +74,10 @@ public class GerenciadorFuncao extends VisitanteNulo {
             SimuladorPrograma simulador_programa = gerador.gerar_codigo_java(asaGerada);
 
             if (simulador_programa != null) {
-//                   simulador_programa.configurar();
+                 simulador_programa.configurar();
             }
-//            GerenciadorExecucao.getInstance().setSimuladorPrograma(programa);
+            
+            GerenciadorExecucao.getInstance().setSimuladorPrograma(simulador_programa);
 
 //            programa.simular(false);
         } else {

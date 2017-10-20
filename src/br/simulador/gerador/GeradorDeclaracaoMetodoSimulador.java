@@ -56,12 +56,31 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.println();
             
             //Método de configurar que chama o início
-//            saida.append("@Override");
-//            saida.append("private void configurar(){");
-//            saida.println();
-//            saida.append("inicio();");
-//            saida.println();
-//            saida.append("}");
+            saida.append("@Override");
+            saida.println();
+            saida.append("public void configurar() throws ErroExecucao, InterruptedException{");
+            saida.println();
+            saida.append("System.out.println(\"Vai chamar o método de simular\");");
+            saida.append("Experimentos.simular();");
+            saida.println();
+            saida.append("System.out.println(\"Vai definir o programa atual\");");
+            saida.append("Experimentos.definir_programa_atual(this);");
+            saida.println();
+            saida.append("System.out.println(\"Vai definir a lista de agentes\");");
+            saida.append("setListaAgentes(Experimentos.retornar_lista_agentes());");
+            saida.append("if(listaAgentes == null)");
+            saida.println();
+            saida.append("System.out.println(\"A lista de agentes está nula\");");
+            saida.println();
+            saida.append("else");
+            saida.println();
+            saida.append("System.out.println(\"Número de agentes\" + listaAgentes.size());");
+            saida.println();
+            saida.append("System.out.println(\"Vai iniciar\");");
+            saida.append("inicio();");
+            saida.append("Experimentos.atualizar_tela();");
+            saida.println();
+            saida.append("}");
                     
 
             saida.append(identacao)
@@ -90,6 +109,7 @@ public class GeradorDeclaracaoMetodoSimulador {
         if (metodoPrincipal) {
             saida.append(identacao)
                     .append("System.out.println(\"Executando método simular.\");")
+                    .append("Experimentos.definir_programa_execucao(true);")
                     .append(identacao)
                     .append(identacao)
                     .append("try {\n")
@@ -104,6 +124,7 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.println();
             saida.append("System.out.println(\"Vai iniciar o laço.\");");
             saida.append("int contador = 0;");
+            saida.append("setListaAgentes(Experimentos.retornar_lista_agentes());");
             saida.append("for(Object agente : listaAgentes) {");
             saida.println();
             saida.append(identacao);

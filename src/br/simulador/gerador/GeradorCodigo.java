@@ -888,13 +888,13 @@ public class GeradorCodigo {
                     .append(nomeDaClasseJava)
                     .append("() throws ErroExecucao, InterruptedException {")
                     .println();
-            saida.append("Experimentos.simular();");
-            saida.println();
-            saida.append("Experimentos.definir_programa_atual(this);");
-            saida.println();
-            saida.append("setListaAgentes(Experimentos.retornar_lista_agentes());");
-            saida.println();
-            saida.append("inicio();");
+//            saida.append("Experimentos.simular();");
+//            saida.println();
+//            saida.append("Experimentos.definir_programa_atual(this);");
+//            saida.println();
+//            saida.append("setListaAgentes(Experimentos.retornar_lista_agentes());");
+//            saida.println();
+//            saida.append("inicio();");
             
             
             nivelEscopo++;

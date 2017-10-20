@@ -14,6 +14,7 @@ import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
 import br.univali.portugol.nucleo.bibliotecas.Matematica;
 import br.univali.portugol.nucleo.bibliotecas.Mouse;
+import br.univali.portugol.nucleo.bibliotecas.Teclado;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
@@ -21,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -63,6 +65,7 @@ public class GerenciadorDesenho {
     Graficos g = new Graficos();
     Mouse m = new Mouse();
     Matematica math = new Matematica();
+    Teclado t = new Teclado();
     private final int posicaoYInicial = 10;// Posição de start da criação do primeiro componente
     private final int posicaoYFinal = 60; // Posição de final da criação do primeiro componente
     private final int posicaoXInicial = 15;
@@ -93,6 +96,7 @@ public class GerenciadorDesenho {
             ArrayList<Biblioteca> lista = new ArrayList<>();
             lista.add(g);
             m.inicializar(ProgramaVazio.novaInstancia(), lista);
+            t.inicializar(ProgramaVazio.novaInstancia(), lista);
 
             //Inicializa os retalhos
             iniciar_retalhos();
@@ -101,7 +105,7 @@ public class GerenciadorDesenho {
             g.definir_dimensoes_janela(810, 560);
             configurar();
             //Inicialização das variáveis (Separar)
-            rodar();
+            rodar_simples();
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
             Logger.getLogger(GerenciadorInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -120,6 +124,25 @@ public class GerenciadorDesenho {
     }
 
     /**
+     * Chamada do método para criar os componentes, e continuar com as
+     * configurações iniciais Depois, esse método fica rodando em loop enquanto
+     * o usuário não iniciar a simulação
+     */
+    private void rodar_simples() {
+        try {
+            desenhar();
+            controle();
+            g.renderizar();
+
+        } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
+            Logger.getLogger(GerenciadorInterface.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroExecucao ex) {
+            Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
      * Dispara a thread necessária por ficar renderizando a tela
      *
      * @throws ErroExecucaoBiblioteca
@@ -128,27 +151,50 @@ public class GerenciadorDesenho {
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 //        new Thread(() -> {
         //Just for tests
-        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
-        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
-        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
-        criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
-        criar_interruptor("interruptor_1", "Teste Switch", false);
-        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
+//        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
+//        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
+//        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
+//        criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
+//        criar_interruptor("interruptor_1", "Teste Switch", false);
+//        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
 
-        while (!GerenciadorExecucao.getInstance().isExecutando()) {
-            try {
-                desenhar();
-                controle();
-                g.renderizar();
+        do {
+            rodar_simples();
+        } while (!GerenciadorExecucao.getInstance().isExecutando());
 
-            } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
-                Logger.getLogger(GerenciadorInterface.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            } catch (ErroExecucao ex) {
-                Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        rodar_controle_botoes();
+    }
+
+    private boolean executarThread = false;
+
+    private void rodar_controle_botoes() {
+        if (!executarThread) {
+            executarThread = true;
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        while (!t.tecla_pressionada(Teclado.TECLA_ESC)) {
+//                            try {
+                            System.out.println("");
+//                            desenhar_botoes();
+////                            int imagem_nova = g.renderizar_imagem(810, 560);
+////                            g.liberar_imagem(imagem_nova);
+//                            } catch (ErroExecucao ex) {
+//                                Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+//                            } catch (InterruptedException ex) {
+//                                Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+//                            }
+                        }
+                        System.out.println("Saiu");
+                    } catch (ErroExecucaoBiblioteca ex) {
+                        Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(GerenciadorDesenho.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
         }
-//        }).start();
     }
 
     /**
@@ -228,7 +274,6 @@ public class GerenciadorDesenho {
 //        g.definir_cor(cor_predominante);
 //        g.definir_opacidade(200);
 //        g.desenhar_retangulo(0, altura_imagem_fundo, LARGURA_DA_TELA, ALTURA_DA_TELA - altura_imagem_fundo, false, true);
-
     }
 
     /**
@@ -302,7 +347,6 @@ public class GerenciadorDesenho {
 //        if (this.interrupcaoSolicitada || Thread.currentThread().isInterrupted()) {
 //            throw new InterruptedException();
 //        }
-
         int margem = 10;
         int espaco_entre_botoes = LARGURA_DO_BOTAO + 3;
         int x_do_botao = margem;
@@ -348,7 +392,6 @@ public class GerenciadorDesenho {
         desenhar_botoes();
 
 //        desenhar_rodape();
-
         desenhar_informacoes_rodape();
 
         desenhar_agentes();
@@ -372,21 +415,21 @@ public class GerenciadorDesenho {
         //Linha divisória vertical vertical
         g.definir_cor(COR_ESCURA_LINHA_DIVISORIA);
         g.desenhar_linha(largura_painel_componentes - 10, altura_painel_botoes - 10, largura_painel_componentes - 10, altura_imagem_fundo - altura_rodape - 10);
-        
+
         g.definir_cor(COR_CLARA_LINHA_DIVISORIA);
         g.desenhar_linha(largura_painel_componentes - 9, altura_painel_botoes - 10, largura_painel_componentes - 9, altura_imagem_fundo - altura_rodape - 10);
-        
+
         //Linha divisória horizontal superior
         g.definir_cor(COR_ESCURA_LINHA_DIVISORIA);
         g.desenhar_linha(0, altura_painel_botoes - 10, LARGURA_DA_TELA, altura_painel_botoes - 10);
-        
+
         g.definir_cor(COR_CLARA_LINHA_DIVISORIA);
         g.desenhar_linha(0, altura_painel_botoes - 9, LARGURA_DA_TELA, altura_painel_botoes - 9);
-        
+
         //Linha divisória horizontal inferior
         g.definir_cor(COR_ESCURA_LINHA_DIVISORIA);
         g.desenhar_linha(0, altura_imagem_fundo - altura_rodape - 10, LARGURA_DA_TELA, altura_imagem_fundo - altura_rodape - 10);
-        
+
         g.definir_cor(COR_CLARA_LINHA_DIVISORIA);
         g.desenhar_linha(0, altura_imagem_fundo - altura_rodape - 9, LARGURA_DA_TELA, altura_imagem_fundo - altura_rodape - 9);
     }
@@ -731,6 +774,16 @@ public class GerenciadorDesenho {
     public void renderizar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         rodar();
     }
+    
+    /**
+     * Executa apenas uma atualização da tela e não trava a execução do resto da simulação
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     * @throws ErroExecucao 
+     */
+    public void renderizar_parcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        rodar_simples();
+    }
 
     /**
      * Redesenha novamente os agentes para não atualizar a tela toda novamente
@@ -767,7 +820,10 @@ public class GerenciadorDesenho {
         int posicaoYi = yInicial;
         int posicaoYf = yFinal;
 
-        g.definir_cor(g.COR_BRANCO);
+//        g.definir_cor(g.COR_BRANCO);
+        g.definir_cor(Graficos.COR_BRANCO);
+        g.definir_opacidade(200);
+
         //Borda esquerda
         g.desenhar_linha(posicaoXInicial, posicaoYi, posicaoXFinal, posicaoYf);
 
@@ -788,7 +844,7 @@ public class GerenciadorDesenho {
 
 //        desenhar_monitor_informacao(valor_atual);
         //Desenha as informações do monitor
-        g.definir_cor(g.COR_BRANCO);
+//        g.definir_cor(g.COR_BRANCO);
         int x_inicial = ((largura_painel_componentes - 75) / 2);
         String texto = valor_atual;
 
@@ -827,18 +883,17 @@ public class GerenciadorDesenho {
         int largura_texto = g.largura_texto(titulo);
         g.desenhar_linha(posicaoXInicial + largura_texto + 10, posicaoYi, largura_painel_componentes - posicaoXFinal, posicaoYi);
 
-        g.definir_opacidade(255);
-        g.definir_cor(cor_lateral);
-
+//        g.definir_opacidade(255);
+//        g.definir_cor(cor_lateral);
         g.desenhar_retangulo(posicaoXInicial + 10, yplay + 15, larg, 4, false, true);
-        g.definir_cor(cor_botao);
+//        g.definir_cor(cor_botao);
 
         //Desenha o retangulo sobre o slider
         g.desenhar_retangulo((int) (posicaoXInicial + valor_atual - (padding_size / 2)), yplay + 15 - (padding_size / 4), padding_size, padding_size, false, true);
 
         //Desenha a informação dos valores do slider
-        g.definir_cor(cor_botao);
-        g.definir_estilo_texto(false, true, false);
+//        g.definir_cor(cor_botao);
+//        g.definir_estilo_texto(false, true, false);
         g.desenhar_texto(largura_painel_componentes - 80, yplay + 10, "" + valor_display + " / " + valor_maximo);
 //        g.desenhar_texto(alt + 10, ALTURA_DA_TELA - (alt + 15), "Teste Slider");//Desenha o valor do
 
@@ -864,12 +919,15 @@ public class GerenciadorDesenho {
         int largura_imagem = g.largura_imagem(endereco_imagem_switch_off);
         int larg = largura_painel_componentes - (posicaoXInicial * 2);
 
+        g.definir_cor(Graficos.COR_BRANCO);
+        g.definir_opacidade(200);
+
         //Desenha o retângulo em volta da imagem
         g.desenhar_retangulo(posicaoXInicial, yInicial, larg, altura_imagem + 10, false, false);
 
         //Desenha o título
-        g.desenhar_texto(posicaoXInicial + largura_imagem + 10, yInicial + (altura_imagem/2), titulo);
-        
+        g.desenhar_texto(posicaoXInicial + largura_imagem + 10, yInicial + (altura_imagem / 2), titulo);
+
 //        UtilSimulador.setLog("Vai mudar o estado para: " + valor);
         if (valor) {
             g.desenhar_imagem(posicaoXInicial + 5, yInicial + 5, endereco_imagem_switch_on);
@@ -978,13 +1036,14 @@ public class GerenciadorDesenho {
     private void controle_mouse_slider() throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorComponentes.verificarMouseDentroSlider(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
     }
-    
+
     /**
      * Controla as ações do mouse para o componente de switch
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    private void controle_mouse_switch() throws ErroExecucaoBiblioteca, InterruptedException{
+    private void controle_mouse_switch() throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorComponentes.verificarMouseDentroInterruptor(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
     }
 }

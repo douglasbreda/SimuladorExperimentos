@@ -482,7 +482,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void criar_interruptor(String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
-
+        
     }
 
     @DocumentacaoFuncao(
@@ -698,5 +698,14 @@ public final class Experimentos extends Biblioteca {
     @NaoExportar
     public void definir_programa_atual(SimuladorPrograma programa_atual){
         GerenciadorExecucao.getInstance().setSimuladorPrograma(programa_atual);
+    }
+    
+    /**
+     * Método chamada pela simulação para definir que a simulação está rodando ou está parada
+     * @param executando 
+     */ 
+    @NaoExportar
+    public void definir_programa_execucao(boolean executando){
+        GerenciadorExecucao.getInstance().setExecutando(executando);
     }
 }
