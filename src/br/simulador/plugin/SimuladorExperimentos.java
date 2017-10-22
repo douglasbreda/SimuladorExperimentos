@@ -26,8 +26,7 @@ public final class SimuladorExperimentos extends Plugin {
     protected void inicializar(UtilizadorPlugins utilizador) {
         this.utilizadorPlugins = utilizador;
         this.utilizadorPlugins.instalarAcaoPlugin(this, new AcaoEstatica(this));
-        this.utilizadorPlugins.registrarBiblioteca(Experimentos.class);
-        //this.utilizadorPlugins.registrarBiblioteca(Experimentos.class);
+        this.utilizadorPlugins.registrarBiblioteca(Experimentos.class);        
         super.inicializar(utilizador);
         GerenciadorExecucao.getInstance().setPlugin(this);
     }

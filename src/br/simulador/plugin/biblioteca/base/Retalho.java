@@ -28,7 +28,7 @@ public class Retalho {
     }
 
     //Verificar Retorno
-    public void agentes_em_XY(double coordenadaX, double coordenadaY) {
+    public void agentes_em_XY(int coordenadaX, int coordenadaY) {
         
     }
     
@@ -63,7 +63,7 @@ public class Retalho {
      * Retorna a coordenada x do retalho
      * @return 
      */
-    public int getCoordenadaX() {
+    public int get_coordenadaX() {
         return coordenadaX;
     }
 
@@ -71,7 +71,7 @@ public class Retalho {
      * Retorna a coordenada Y do retalho
      * @return 
      */
-    public int getCoordenadaY() {
+    public int get_coordenadaY() {
         return coordenadaY;
     }
 
@@ -95,7 +95,7 @@ public class Retalho {
      * Retorna o identificado único do retalho
      * @return 
      */
-    public int getId() {
+    public int get_id() {
         return id;
     }
     

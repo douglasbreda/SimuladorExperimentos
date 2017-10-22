@@ -93,7 +93,7 @@ public final class GerenciadorComponentes {
      * @return
      */
     public static boolean componenteJaAdicionado(String nome_componente) {
-        return listaComponentes.stream().filter(x -> x.getNome().equalsIgnoreCase(nome_componente)).count() > 0;
+        return listaComponentes.stream().filter(x -> x.get_nome().equalsIgnoreCase(nome_componente)).count() > 0;
     }
 
     /**
@@ -158,12 +158,12 @@ public final class GerenciadorComponentes {
     }
 
     public static Slider verificarMouseDentroSlider(int posicaoXMouse, int posicaoYMouse, boolean botaoPressionado) {
-        List<Componente> listaSliders = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.slider).collect(Collectors.toList());
+        List<Componente> listaSliders = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.slider).collect(Collectors.toList());
 
         if (listaSliders != null && listaSliders.size() > 0) {
             for (Componente slider : listaSliders) {
-                if (posicaoXMouse >= slider.getX1() + 7 && posicaoXMouse <= (slider.getX1() + 7) + slider.getLargura()
-                        && posicaoYMouse >= slider.getY1() + 21 && posicaoYMouse <= slider.getyFinal() - 16) {
+                if (posicaoXMouse >= slider.get_x1() + 7 && posicaoXMouse <= (slider.get_x1() + 7) + slider.get_largura()
+                        && posicaoYMouse >= slider.get_y1() + 21 && posicaoYMouse <= slider.get_yFinal() - 16) {
                     UtilSimulador.setLog("está dentro do slider");
                     if (botaoPressionado) {
                         
@@ -189,15 +189,15 @@ public final class GerenciadorComponentes {
      * @return
      */
     public static boolean verificarMouseDentroInterruptor(int posicaoXMouse, int posicaoYMouse, boolean botao_pressionado) {
-        List<Componente> listaInterruptor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.interruptor).collect(Collectors.toList());
+        List<Componente> listaInterruptor = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.interruptor).collect(Collectors.toList());
         Interruptor interruptor_atual = null;
 
         for (Componente interruptor : listaInterruptor) {
             interruptor_atual = (Interruptor) interruptor;
 
 //            if (!interruptor_atual.isLigado()) {
-            if (posicaoXMouse >= (interruptor.getX1() + 27) && posicaoXMouse <= interruptor.getX2() - 27
-                    && posicaoYMouse >= (interruptor.getY1() + 12) && posicaoYMouse < (interruptor.getY1() + 30)) {
+            if (posicaoXMouse >= (interruptor.get_x1() + 27) && posicaoXMouse <= interruptor.get_x2() - 27
+                    && posicaoYMouse >= (interruptor.get_y1() + 12) && posicaoYMouse < (interruptor.get_y1() + 30)) {
 //                UtilSimulador.setLog("Entrou Ligado");
 //                UtilSimulador.setLog(String.valueOf(botao_pressionado));
                 if (botao_pressionado) {
@@ -206,8 +206,8 @@ public final class GerenciadorComponentes {
                 }
             }
 
-            if (posicaoXMouse >= (interruptor.getX1() + 27) && posicaoXMouse <= interruptor.getX2() - 27
-                    && posicaoYMouse >= (interruptor.getY2() - 42) && posicaoYMouse < (interruptor.getY2() - 12)) {
+            if (posicaoXMouse >= (interruptor.get_x1() + 27) && posicaoXMouse <= interruptor.get_x2() - 27
+                    && posicaoYMouse >= (interruptor.get_y2() - 42) && posicaoYMouse < (interruptor.get_y2() - 12)) {
 //                UtilSimulador.setLog("Entrou desligado");
                 if (botao_pressionado) {
                     interruptor_atual.ligar();
@@ -230,7 +230,7 @@ public final class GerenciadorComponentes {
      * @param novo_valor
      */
     public static void atualizar_valor_monitor(String nome, String novo_valor) {
-        Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.monitor && x.getNome().equalsIgnoreCase(nome)).findAny();
+        Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.monitor && x.get_nome().equalsIgnoreCase(nome)).findAny();
 
         if (monitor != null) {
             Monitor monitorAtualizar = (Monitor) monitor.get();

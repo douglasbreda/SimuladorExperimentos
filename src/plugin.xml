@@ -6,7 +6,8 @@ and open the template in the editor.
 -->
 
 <plugin nome="Simulador Experimentos" versao="1.0.0" classe="br.simulador.plugin.SimuladorExperimentos">
-    <descricao>Plugin de exemplo, para ilustrar o desenvolvimento de plugins no Portugol Studio</descricao>
+    <descricao>Plugin que permite a criação de experimentos virtuais e/ou naturais utilizando os conceitos
+        do modelamento bifocal</descricao>
     <autores>
         <autor nome="Douglas Breda" email="bredadouglas@gmail.com"/>
     </autores>    

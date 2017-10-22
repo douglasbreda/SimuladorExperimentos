@@ -633,7 +633,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_minimo_borda_X() {
-        return retalhos[0][0].getCoordenadaX() + tile;
+        return retalhos[0][0].get_coordenadaX() + tile;
     }
 
     /**
@@ -643,7 +643,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_minimo_borda_Y() {
-        return retalhos[2][0].getCoordenadaY() + tile;
+        return retalhos[2][0].get_coordenadaY() + tile;
     }
 
     /**
@@ -653,7 +653,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_maximo_borda_X() {
-        return retalhos[0][LARGURA - 1].getCoordenadaX() - tile;
+        return retalhos[0][LARGURA - 1].get_coordenadaX() - tile;
     }
 
     /**
@@ -663,7 +663,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_maximo_borda_Y() {
-        return retalhos[ALTURA - 1][0].getCoordenadaY() - tile;
+        return retalhos[ALTURA - 1][0].get_coordenadaY() - tile;
     }
 
     /**
@@ -696,10 +696,10 @@ public class GerenciadorDesenho {
         int fator_diferenca = 8;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
-                if ((x > retalhos[i][j].getCoordenadaX() && x < retalhos[i][j].getCoordenadaX() + tile)
-                        && (y > retalhos[i][j].getCoordenadaY() && y < retalhos[i][j].getCoordenadaY() + tile)) {
-                    int diferenca_X = (x + largura) - (retalhos[i][j].getCoordenadaX() + tile);
-                    int diferenca_Y = (y + altura) - (retalhos[i][j].getCoordenadaY() + tile);
+                if ((x > retalhos[i][j].get_coordenadaX() && x < retalhos[i][j].get_coordenadaX() + tile)
+                        && (y > retalhos[i][j].get_coordenadaY() && y < retalhos[i][j].get_coordenadaY() + tile)) {
+                    int diferenca_X = (x + largura) - (retalhos[i][j].get_coordenadaX() + tile);
+                    int diferenca_Y = (y + altura) - (retalhos[i][j].get_coordenadaY() + tile);
 
                     UtilSimulador.setLog("X do agente: " + x);
                     UtilSimulador.setLog("Y do agente: " + y);
@@ -753,10 +753,10 @@ public class GerenciadorDesenho {
     public int buscar_agentes_no_retalho(Retalho retalho) throws ErroExecucaoBiblioteca, InterruptedException {
         int numero_agentes = 0;
         for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
-            if ((agente.retornar_coordenada_X() > retalho.getCoordenadaX()
-                    && agente.retornar_coordenada_X() < retalho.getCoordenadaX() + tile)
-                    && (agente.retornar_coordenada_Y() > retalho.getCoordenadaY()
-                    && agente.retornar_coordenada_Y() < retalho.getCoordenadaY() + tile)) {
+            if ((agente.retornar_coordenada_X() > retalho.get_coordenadaX()
+                    && agente.retornar_coordenada_X() < retalho.get_coordenadaX() + tile)
+                    && (agente.retornar_coordenada_Y() > retalho.get_coordenadaY()
+                    && agente.retornar_coordenada_Y() < retalho.get_coordenadaY() + tile)) {
                 numero_agentes++;
             }
         }
@@ -952,7 +952,7 @@ public class GerenciadorDesenho {
         if (GerenciadorComponentes.listaTemRegistro()) {
             Componente ultimo_componente = GerenciadorComponentes.getUltimoComponente();
 
-            desenhar_monitor(nome, titulo, ultimo_componente.getProximoY(), ultimo_componente.getProxima_posicao_y2(), valor_atual);
+            desenhar_monitor(nome, titulo, ultimo_componente.get_proximo_y(), ultimo_componente.getProxima_posicao_y2(), valor_atual);
         } else {
             desenhar_monitor(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_atual);
         }
@@ -974,7 +974,7 @@ public class GerenciadorDesenho {
         if (GerenciadorComponentes.listaTemRegistro()) {
             Componente ultimoComponente = GerenciadorComponentes.getUltimoComponente();
 
-            desenhar_slider(nome, titulo, ultimoComponente.getProximoY(), ultimoComponente.getProxima_posicao_y2(), valor_minimo, valor_padrao, valor_maximo, valor_padrao);
+            desenhar_slider(nome, titulo, ultimoComponente.get_proximo_y(), ultimoComponente.getProxima_posicao_y2(), valor_minimo, valor_padrao, valor_maximo, valor_padrao);
         } else {
             desenhar_slider(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor_minimo, valor_padrao, valor_maximo, valor_padrao);
         }
@@ -994,7 +994,7 @@ public class GerenciadorDesenho {
         if (GerenciadorComponentes.listaTemRegistro()) {
             Componente ultimoComponente = GerenciadorComponentes.getUltimoComponente();
 
-            desenhar_interruptor(nome, titulo, ultimoComponente.getProximoY(), ultimoComponente.getProxima_posicao_y2(), valor);
+            desenhar_interruptor(nome, titulo, ultimoComponente.get_proximo_y(), ultimoComponente.getProxima_posicao_y2(), valor);
         } else {
             desenhar_interruptor(nome, titulo, altura_painel_botoes + posicaoYInicial, altura_painel_botoes + posicaoYFinal, valor);
         }
@@ -1009,18 +1009,18 @@ public class GerenciadorDesenho {
      */
     private void desenhar_componentes() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         for (Componente componente : GerenciadorComponentes.getListaComponentes()) {
-            switch (componente.getTipoComponente()) {
+            switch (componente.get_tipo_componente()) {
                 case monitor:
                     Monitor monitor = (Monitor) componente;
-                    desenhar_monitor(monitor.getNome(), monitor.getTitulo(), monitor.getY1(), monitor.getY2(), monitor.getValor_atual());
+                    desenhar_monitor(monitor.get_nome(), monitor.get_titulo(), monitor.get_y1(), monitor.get_y2(), monitor.getValor_atual());
                     break;
                 case slider:
                     Slider slider = (Slider) componente;
-                    desenhar_slider(slider.getNome(), slider.getTitulo(), slider.getY1(), slider.getY2(), slider.getValor_minimo(), slider.getValor_atual(), slider.getValor_maximo(), slider.getValor_display());
+                    desenhar_slider(slider.get_nome(), slider.get_titulo(), slider.get_y1(), slider.get_y2(), slider.getValor_minimo(), slider.getValor_atual(), slider.getValor_maximo(), slider.getValor_display());
                     break;
                 case interruptor:
                     Interruptor interruptor = (Interruptor) componente;
-                    desenhar_interruptor(interruptor.getNome(), interruptor.getTitulo(), interruptor.getY1(), interruptor.getY2(), interruptor.isLigado());
+                    desenhar_interruptor(interruptor.get_nome(), interruptor.get_titulo(), interruptor.get_y1(), interruptor.get_y2(), interruptor.isLigado());
                     break;
             }
         }

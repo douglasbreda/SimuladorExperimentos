@@ -639,7 +639,7 @@ public final class Experimentos extends Biblioteca {
         Retalho retalho = GerenciadorExecucao.getInstance().meu_retalho();
         
         if(retalho != null){
-            id_retalho = retalho.getId();
+            id_retalho = retalho.get_id();
             UtilSimulador.setLog("Meu retalho é: " + id_retalho);
         }
         return id_retalho;

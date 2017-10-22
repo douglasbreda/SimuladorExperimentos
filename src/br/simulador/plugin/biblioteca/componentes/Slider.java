@@ -26,19 +26,19 @@ public class Slider extends Componente {
 
     @Override
     public Componente criar(int x1, int x2, int y1, int y2, int yFinal, String nome, int altura, int largura, String titulo) {
-        this.setX1(x1);
-        this.setX2(x2);
-        this.setY1(y1);
-        this.setY2(y2);
-        this.setTipoComponente(TipoComponente.slider);
-        this.setDistancia(10);
-        this.setNome(nome);
-        this.setAltura(altura);
-        this.setLargura(largura);
-        this.setTitulo(titulo);
-        this.setyFinal(yFinal);
-        this.cem_por_cento = (this.getX1() + this.getLargura()) - this.getX1();
-        this.diferenca = (this.getX1() + this.getLargura()) - cem_por_cento;
+        this.set_x1(x1);
+        this.set_x2(x2);
+        this.set_y1(y1);
+        this.set_y2(y2);
+        this.set_tipo_componente(TipoComponente.slider);
+        this.set_distancia(10);
+        this.set_nome(nome);
+        this.set_altura(altura);
+        this.set_largura(largura);
+        this.set_titulo(titulo);
+        this.set_yFinal(yFinal);
+        this.cem_por_cento = (this.get_x1() + this.get_largura()) - this.get_x1();
+        this.diferenca = (this.get_x1() + this.get_largura()) - cem_por_cento;
         this.calcular_valor_inicial(this.valor_display);
 
         return this;
@@ -50,7 +50,7 @@ public class Slider extends Componente {
 //    private void calcularValorPadraoInicialSlider() {
 //        this.valor_atual = ((valor_atual * 100) / valor_maximo);
 //
-//        valor_atual = ((valor_atual * this.getLargura()) / 100);
+//        valor_atual = ((valor_atual * this.get_largura()) / 100);
 //    }
     public double getValor_minimo() {
         return valor_minimo;
@@ -96,12 +96,12 @@ public class Slider extends Componente {
         this.valor_atual = ((posicao_real * 100) / cem_por_cento) + diferenca;
         this.valor_display = ((valor_atual - diferenca) * this.valor_maximo) / 100;
 
-//        if (slider.getValor_atual() == (slider.getLargura() - 1)) {
+//        if (slider.getValor_atual() == (slider.get_largura() - 1)) {
 //            slider.setValor_atual(slider.getValor_maximo());
 //        } else if (slider.getValor_atual() == 1.0) {
 //            slider.setValor_atual(0.0);
 //        } else {
-//            slider.setValor_atual(Math.round(((slider.getValor_atual() * 100) / slider.getLargura())));
+//            slider.setValor_atual(Math.round(((slider.getValor_atual() * 100) / slider.get_largura())));
 //            slider.setValor_atual(Math.round((slider.getValor_atual() * slider.getValor_maximo()) / 100));
 //        }
     }

@@ -22,7 +22,7 @@ public abstract class Componente {
     private int y2;
 
     //Define o tipo do componente
-    private TipoComponente tipoComponente;
+    private TipoComponente tipo_componente;
 
     //Define uma distância fixa para o próximo componente que está sendo criado
     private int distancia;
@@ -42,51 +42,51 @@ public abstract class Componente {
     //Armazena o último y para saber onde começa o próximo componente
     private int yFinal;
 
-    public int getX1() {
+    public int get_x1() {
         return x1;
     }
 
-    public void setX1(int x1) {
+    public void set_x1(int x1) {
         this.x1 = x1;
     }
 
-    public int getX2() {
+    public int get_x2() {
         return x2;
     }
 
-    public void setX2(int x2) {
+    public void set_x2(int x2) {
         this.x2 = x2;
     }
 
-    public int getY1() {
+    public int get_y1() {
         return y1;
     }
 
-    public void setY1(int y1) {
+    public void set_y1(int y1) {
         this.y1 = y1;
     }
 
-    public int getY2() {
+    public int get_y2() {
         return y2;
     }
 
-    public void setY2(int y2) {
+    public void set_y2(int y2) {
         this.y2 = y2;
     }
 
-    public TipoComponente getTipoComponente() {
-        return tipoComponente;
+    public TipoComponente get_tipo_componente() {
+        return tipo_componente;
     }
 
-    public void setTipoComponente(TipoComponente tipoComponente) {
-        this.tipoComponente = tipoComponente;
+    public void set_tipo_componente(TipoComponente tipo_componente) {
+        this.tipo_componente = tipo_componente;
     }
 
-    public void setDistancia(int distancia) {
+    public void set_distancia(int distancia) {
         this.distancia = distancia;
     }
 
-    public int getDistancia() {
+    public int get_distancia() {
         return distancia;
     }
 
@@ -98,47 +98,47 @@ public abstract class Componente {
         return y2 + distancia + altura;
     }
 
-    public String getNome() {
+    public String get_nome() {
         return nome;
     }
     
-    public int getProximoY(){
+    public int get_proximo_y(){
         return yFinal + distancia;
     }
 
-    public void setNome(String nome) {
+    public void set_nome(String nome) {
         this.nome = nome;
     }
 
-    public int getLargura() {
+    public int get_largura() {
         return largura;
     }
 
-    public void setLargura(int largura) {
+    public void set_largura(int largura) {
         this.largura = largura;
     }
 
-    public int getAltura() {
+    public int get_altura() {
         return altura;
     }
 
-    public void setAltura(int altura) {
+    public void set_altura(int altura) {
         this.altura = altura;
     }
 
-    public String getTitulo() {
+    public String get_titulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void set_titulo(String titulo) {
         this.titulo = titulo;
     }
 
-    public int getyFinal() {
+    public int get_yFinal() {
         return yFinal;
     }
 
-    public void setyFinal(int yFinal) {
+    public void set_yFinal(int yFinal) {
         this.yFinal = yFinal;
     }
     
