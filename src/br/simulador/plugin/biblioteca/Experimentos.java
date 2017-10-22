@@ -708,4 +708,13 @@ public final class Experimentos extends Biblioteca {
     public void definir_programa_execucao(boolean executando){
         GerenciadorExecucao.getInstance().setExecutando(executando);
     }
+    
+    /**
+     * Método para atualizar o número de ticks(passos) da simulação
+     * @param total_ticks 
+     */
+    @NaoExportar
+    public void atualizar_ticks(int total_ticks){
+        GerenciadorExecucao.getInstance().setTicks(total_ticks);
+    }
 }

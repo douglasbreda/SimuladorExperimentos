@@ -151,18 +151,19 @@ public class GerenciadorDesenho {
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 //        new Thread(() -> {
         //Just for tests
-//        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
-//        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
+        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
+        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
+        criar_slider("slider_teste", "Slider 1", 0, 10, 100);
 //        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
 //        criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
 //        criar_interruptor("interruptor_1", "Teste Switch", false);
 //        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
-
+        boolean isExecutando = GerenciadorExecucao.getInstance().isExecutando();
         do {
             rodar_simples();
-        } while (!GerenciadorExecucao.getInstance().isExecutando());
+        } while (!isExecutando);
 
-        rodar_controle_botoes();
+        //rodar_controle_botoes();
     }
 
     private boolean executarThread = false;
@@ -295,14 +296,19 @@ public class GerenciadorDesenho {
 
         g.desenhar_texto(10, altura_imagem_fundo - altura_rodape, "Total de Agentes: " + totalAgentes);
         int largura_total_agentes = g.largura_texto("Total de Agentes: " + totalAgentes);
+        int largura_status = 0;
 
         if (status == 0) {
             g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo - altura_rodape, "Status: Parada");
+            largura_status = g.largura_texto("Status: Parada");
 
         } else {
             g.desenhar_texto(10 + largura_total_agentes + 50, altura_imagem_fundo - altura_rodape, "Status: Executando");
-
+            largura_status = g.largura_texto("Status: Executando");
         }
+
+        int total_ticks = GerenciadorExecucao.getInstance().getTicks();
+        g.desenhar_texto(10 + largura_total_agentes + largura_status + 100, altura_imagem_fundo - altura_rodape, "Ticks: " + total_ticks);
     }
 
     /**
@@ -774,14 +780,16 @@ public class GerenciadorDesenho {
     public void renderizar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         rodar();
     }
-    
+
     /**
-     * Executa apenas uma atualização da tela e não trava a execução do resto da simulação
+     * Executa apenas uma atualização da tela e não trava a execução do resto da
+     * simulação
+     *
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
-     * @throws ErroExecucao 
+     * @throws ErroExecucao
      */
-    public void renderizar_parcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public void renderizar_parcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         rodar_simples();
     }
 
@@ -845,7 +853,7 @@ public class GerenciadorDesenho {
 //        desenhar_monitor_informacao(valor_atual);
         //Desenha as informações do monitor
 //        g.definir_cor(g.COR_BRANCO);
-        int x_inicial = ((largura_painel_componentes - 75) / 2);
+        int x_inicial = ((largura_painel_componentes - 50) / 2);
         String texto = valor_atual;
 
         g.desenhar_texto(x_inicial, posicaoYi + 20, texto);
@@ -889,12 +897,13 @@ public class GerenciadorDesenho {
 //        g.definir_cor(cor_botao);
 
         //Desenha o retangulo sobre o slider
-        g.desenhar_retangulo((int) (posicaoXInicial + valor_atual - (padding_size / 2)), yplay + 15 - (padding_size / 4), padding_size, padding_size, false, true);
+//        g.desenhar_retangulo((int) (posicaoXInicial + valor_atual - (padding_size / 2)), yplay + 15 - (padding_size / 4), padding_size, padding_size, false, true);
+        g.desenhar_retangulo((int) valor_atual, yplay + 15 - (padding_size / 4), padding_size, padding_size, false, true);
 
         //Desenha a informação dos valores do slider
 //        g.definir_cor(cor_botao);
 //        g.definir_estilo_texto(false, true, false);
-        g.desenhar_texto(largura_painel_componentes - 80, yplay + 10, "" + valor_display + " / " + valor_maximo);
+        g.desenhar_texto(largura_painel_componentes - 85, yplay + 10, "" + valor_display + " / " + valor_maximo);
 //        g.desenhar_texto(alt + 10, ALTURA_DA_TELA - (alt + 15), "Teste Slider");//Desenha o valor do
 
 //        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf + 33, posicaoYf + 33, nome, valor_atual, valor_maximo, valor_minimo, posicaoYf + 33, larg, titulo)) {

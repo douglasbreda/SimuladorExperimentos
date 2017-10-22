@@ -36,6 +36,10 @@ public final class GerenciadorExecucao {
     private static SimuladorPrograma simuladorPrograma = null;
 
     private static boolean executando = false;
+    
+    //Define os passos da simulação
+    //Ou seja, cada vez que um ciclo de execução é completado
+    private static int ticks = 0;
 
     public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         UtilSimulador.setLog("Vai inicializar o ambiente");
@@ -433,7 +437,7 @@ public final class GerenciadorExecucao {
      * @return
      */
     public boolean isExecutando() {
-        return executando;
+        return GerenciadorExecucao.executando;
     }
 
     /**
@@ -480,5 +484,21 @@ public final class GerenciadorExecucao {
      */
     public boolean simulacao_visivel() {
         return true;
+    }
+    
+    /**
+     * Retorna o número de ticks da simulação
+     * @return 
+     */
+    public int getTicks() {
+        return GerenciadorExecucao.ticks;
+    }
+
+    /**
+     * Chamada para definir o número de ticks da simulação
+     * @param ticks 
+     */
+    public void setTicks(int ticks) {
+        GerenciadorExecucao.ticks = ticks;
     }
 }

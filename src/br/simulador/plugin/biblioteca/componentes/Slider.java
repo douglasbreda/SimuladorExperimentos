@@ -3,6 +3,8 @@
  */
 package br.simulador.plugin.biblioteca.componentes;
 
+import br.simulador.util.UtilSimulador;
+
 /**
  *
  * @author Douglas
@@ -46,12 +48,9 @@ public class Slider extends Componente {
 
     /**
      * Calcula a posição inicial do cursor no slider
+     *
+     * @return
      */
-//    private void calcularValorPadraoInicialSlider() {
-//        this.valor_atual = ((valor_atual * 100) / valor_maximo);
-//
-//        valor_atual = ((valor_atual * this.get_largura()) / 100);
-//    }
     public double getValor_minimo() {
         return valor_minimo;
     }
@@ -91,19 +90,19 @@ public class Slider extends Componente {
      */
     public void calcular_valores_slider(int posicaoXAtual) {
 
-        int posicao_real = posicaoXAtual - diferenca;
+        int posicao_real = 0;
+        posicao_real = posicaoXAtual - diferenca;
 
-        this.valor_atual = ((posicao_real * 100) / cem_por_cento) + diferenca;
-        this.valor_display = ((valor_atual - diferenca) * this.valor_maximo) / 100;
-
-//        if (slider.getValor_atual() == (slider.get_largura() - 1)) {
-//            slider.setValor_atual(slider.getValor_maximo());
-//        } else if (slider.getValor_atual() == 1.0) {
-//            slider.setValor_atual(0.0);
-//        } else {
-//            slider.setValor_atual(Math.round(((slider.getValor_atual() * 100) / slider.get_largura())));
-//            slider.setValor_atual(Math.round((slider.getValor_atual() * slider.getValor_maximo()) / 100));
-//        }
+        if ((posicao_real - this.get_largura()) >= 0 && (posicao_real - this.get_largura()) <= 3) {
+            valor_display = valor_maximo;
+            valor_atual = this.get_x1() + this.get_largura() - 5;
+        } else if (posicao_real <= 1) {
+            valor_display = 0;
+            valor_atual = this.get_x1();
+        } else {
+            this.valor_atual = ((posicao_real * 100) / cem_por_cento) + diferenca;
+            this.valor_display = ((valor_atual - diferenca) * this.valor_maximo) / 100;
+        }
     }
 
     /**

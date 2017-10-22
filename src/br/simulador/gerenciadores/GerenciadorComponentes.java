@@ -162,7 +162,7 @@ public final class GerenciadorComponentes {
 
         if (listaSliders != null && listaSliders.size() > 0) {
             for (Componente slider : listaSliders) {
-                if (posicaoXMouse >= slider.get_x1() + 7 && posicaoXMouse <= (slider.get_x1() + 7) + slider.get_largura()
+                if (posicaoXMouse >= slider.get_x1() && posicaoXMouse <= (slider.get_x1()) + slider.get_largura()
                         && posicaoYMouse >= slider.get_y1() + 21 && posicaoYMouse <= slider.get_yFinal() - 16) {
                     UtilSimulador.setLog("está dentro do slider");
                     if (botaoPressionado) {

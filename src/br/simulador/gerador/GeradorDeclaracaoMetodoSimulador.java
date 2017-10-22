@@ -117,6 +117,7 @@ public class GeradorDeclaracaoMetodoSimulador {
                     .append("\n")
                     .append(identacao)
                     .append(identacao)
+                    .append("int ticks = 0;")
                     .append("do")
                     .append(identacao)
                     .append("{").append(identacao);
@@ -143,6 +144,7 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.println();
             saida.append("}");
             saida.println();
+            saida.append("Experimentos.atualizar_ticks(++ticks);");
             saida.append(identacao).append("} while (sempre);");
             saida.println();
 
