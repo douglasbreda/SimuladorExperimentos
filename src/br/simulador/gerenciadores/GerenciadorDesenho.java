@@ -561,7 +561,9 @@ public class GerenciadorDesenho {
             for (IAgente agente : listaAgente) {
                 g.definir_cor(agente.retornar_cor_agente());
                 g.definir_rotacao(agente.retornar_orientacao());
-                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
+//                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
+                g.desenhar_linha(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_coordenada_X() + 10, agente.retornar_coordenada_Y() + 10);
+                g.definir_rotacao(0);
             }
         }
     }

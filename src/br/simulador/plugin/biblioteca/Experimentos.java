@@ -210,7 +210,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void girar_esquerda(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
-
+        
     }
 
     @DocumentacaoFuncao(

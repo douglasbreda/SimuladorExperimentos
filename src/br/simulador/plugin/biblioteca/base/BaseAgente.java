@@ -33,6 +33,7 @@ public abstract class BaseAgente implements IAgente {
         this.coordenadaY = coordenadaY;
         this.id = id;
         this.cor = UtilSimulador.corRandomica();
+        this.orientacao = UtilSimulador.getNumeroRandomico(360);
         definir_log("Agente " + id + " inicializado com sucesso.");
     }
 
