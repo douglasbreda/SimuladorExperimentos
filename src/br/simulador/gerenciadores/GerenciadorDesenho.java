@@ -865,7 +865,7 @@ public class GerenciadorDesenho {
 
         int cor_lateral = g.criar_cor(180, 180, 180);
         int yplay = yInicial + 7;
-        int larg = largura_painel_componentes - 120;
+        int larg = largura_painel_componentes - 130;
         int cor_botao = g.criar_cor(255, 255, 255);
         int padding_size = 8;
         int posicaoYi = yInicial;
@@ -903,7 +903,7 @@ public class GerenciadorDesenho {
         //Desenha a informação dos valores do slider
 //        g.definir_cor(cor_botao);
 //        g.definir_estilo_texto(false, true, false);
-        g.desenhar_texto(largura_painel_componentes - 85, yplay + 10, "" + valor_display + " / " + valor_maximo);
+        g.desenhar_texto(largura_painel_componentes - 100, yplay + 10, "" + valor_display + "/" + valor_maximo);
 //        g.desenhar_texto(alt + 10, ALTURA_DA_TELA - (alt + 15), "Teste Slider");//Desenha o valor do
 
 //        if (GerenciadorComponentes.criarSlider(posicaoXInicial + 10, posicaoXInicial + 10 + larg, posicaoYi, posicaoYf + 33, posicaoYf + 33, nome, valor_atual, valor_maximo, valor_minimo, posicaoYf + 33, larg, titulo)) {

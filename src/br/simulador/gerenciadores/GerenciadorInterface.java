@@ -241,7 +241,7 @@ public final class GerenciadorInterface {
      * @throws ErroExecucao 
      */
     public void criar_slider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao{
-        desenho.criar_slider(nome, titulo, valor_padrao, valor_padrao, valor_padrao);
+        desenho.criar_slider(nome, titulo, minimo, valor_padrao, maximo);
     }
     
     /**
