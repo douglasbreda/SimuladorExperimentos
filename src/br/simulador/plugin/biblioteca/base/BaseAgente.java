@@ -11,7 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class BaseAgente implements IAgente {
 
-    
     private final Map<String, Object> lista_parametros = new ConcurrentHashMap<>();
     private int coordenadaX = 0;
     private int coordenadaY = 0;
@@ -23,10 +22,12 @@ public abstract class BaseAgente implements IAgente {
     private int largura_agente = 10;
 
     /**
-     * Construtor padrão que recebe as coordenadas e um identificador para cada agente criado
+     * Construtor padrão que recebe as coordenadas e um identificador para cada
+     * agente criado
+     *
      * @param coordenadaX
      * @param coordenadaY
-     * @param id 
+     * @param id
      */
     public BaseAgente(int coordenadaX, int coordenadaY, int id) {
         this.coordenadaX = coordenadaX;
@@ -39,7 +40,8 @@ public abstract class BaseAgente implements IAgente {
 
     /**
      * Adiciona um parâmetro a lista de parâmetros do agente
-     * @param nome 
+     *
+     * @param nome
      */
     private void adicionar_parametro_lista(String nome) {
         if (!lista_parametros.containsKey(nome)) {
@@ -72,14 +74,47 @@ public abstract class BaseAgente implements IAgente {
         }
     }
 
+    /**
+     * Rotaciona o agente para a direita
+     * Caso o valor seja maior que zero, o valor é subtraído de 360 para ver a diferença e transformá-la na nova orientação
+     * @param graus 
+     */
     @Override
     public void girar_direita(int graus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int valor = orientacao + graus;
+        
+        UtilSimulador.setLog("Orientação atual = " + orientacao);
+        UtilSimulador.setLog("Valor novo = " + valor);
+        
+        if(valor > 360){
+            orientacao = (valor - 360);
+        }else{
+            orientacao = valor;
+        }
+        
+        UtilSimulador.setLog("Nova orientação = " + orientacao);
     }
 
+    /**
+     * Rotaciona o agente para a esquerda.
+     * Caso o valor seja menor que zero, o resto do valor é descontado de 360 para descobrir a nova orientação
+     * @param graus 
+     */
     @Override
     public void girar_esquerda(int graus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int valor = orientacao - graus;
+
+        UtilSimulador.setLog("Orientação atual = " + orientacao);
+        UtilSimulador.setLog("Valor novo = " + valor);
+        
+        if (valor < 0) {
+            valor *= -1;
+            orientacao = 360 - valor;
+        } else {
+            orientacao = valor;
+        }
+        
+        UtilSimulador.setLog("Nova orientação = " + orientacao);
     }
 
     @Override
@@ -90,9 +125,9 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public boolean ir_ate(int nova_coordenadaX, int nova_coordenadaY) {
-        UtilSimulador.setLog("Agente " + this.id + " foi da posição X: " + this.coordenadaX + " até " + nova_coordenadaX + 
-                "e de Y: " + this.coordenadaY + " até " + nova_coordenadaY);        
-        
+        UtilSimulador.setLog("Agente " + this.id + " foi da posição X: " + this.coordenadaX + " até " + nova_coordenadaX
+                + "e de Y: " + this.coordenadaY + " até " + nova_coordenadaY);
+
         this.coordenadaX = nova_coordenadaX;
         this.coordenadaY = nova_coordenadaY;
 
@@ -101,7 +136,8 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void mover_frente(int quantidade) {
-        this.coordenadaX += quantidade;
+        this.coordenadaX += (quantidade * Math.cos(orientacao));
+        this.coordenadaY += (quantidade * Math.sin(orientacao));
     }
 
     @Override
@@ -179,7 +215,8 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void voltar(int quantidade) {
-        this.coordenadaX -=  quantidade;
+        this.coordenadaX -= (quantidade * Math.cos(orientacao));
+        this.coordenadaY -= (quantidade * Math.sin(orientacao));
     }
 
     @Override
@@ -226,7 +263,7 @@ public abstract class BaseAgente implements IAgente {
     public int retornar_largura_agente() {
         return this.largura_agente;
     }
-    
+
     private boolean verificar_atributo_existe(String nome) {
         return lista_parametros.containsKey(nome);
     }

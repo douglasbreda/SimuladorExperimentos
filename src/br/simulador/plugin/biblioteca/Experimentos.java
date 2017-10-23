@@ -209,8 +209,9 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void girar_esquerda(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
-        
+    public void girar_esquerda(int graus) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorExecucao.getInstance().getAgenteAtual().girar_esquerda(graus);
+        GerenciadorInterface.getInstance().renderizar_tela();
     }
 
     @DocumentacaoFuncao(
@@ -225,8 +226,9 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void girar_direita(int graus) throws ErroExecucaoBiblioteca, InterruptedException {
-
+    public void girar_direita(int graus) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorExecucao.getInstance().getAgenteAtual().girar_direita(graus);
+        GerenciadorInterface.getInstance().renderizar_tela();
     }
 
     @DocumentacaoFuncao(

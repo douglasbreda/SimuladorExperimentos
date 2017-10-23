@@ -832,7 +832,7 @@ public class GerenciadorDesenho {
 
 //        g.definir_cor(g.COR_BRANCO);
         g.definir_cor(Graficos.COR_BRANCO);
-        g.definir_opacidade(200);
+//        g.definir_opacidade(200);
 
         //Borda esquerda
         g.desenhar_linha(posicaoXInicial, posicaoYi, posicaoXFinal, posicaoYf);
@@ -875,7 +875,7 @@ public class GerenciadorDesenho {
 
         //Desenha a parte externa do retângulo do slider
         g.definir_cor(Graficos.COR_BRANCO);
-        g.definir_opacidade(200);
+//        g.definir_opacidade(200);
 
         //Borda esquerda
         g.desenhar_linha(posicaoXInicial, posicaoYi, posicaoXFinal, posicaoYf);
@@ -931,7 +931,7 @@ public class GerenciadorDesenho {
         int larg = largura_painel_componentes - (posicaoXInicial * 2);
 
         g.definir_cor(Graficos.COR_BRANCO);
-        g.definir_opacidade(200);
+//        g.definir_opacidade(200);
 
         //Desenha o retângulo em volta da imagem
         g.desenhar_retangulo(posicaoXInicial, yInicial, larg, altura_imagem + 10, false, false);
