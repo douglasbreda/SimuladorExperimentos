@@ -70,8 +70,8 @@ public class GerenciadorDesenho {
     private final int posicaoYFinal = 60; // Posição de final da criação do primeiro componente
     private final int posicaoXInicial = 15;
     private final int posicaoXFinal = 15;
-    private final String imagem_switch_on = "switch_on.png";
-    private final String imagem_switch_off = "switch_off.png";
+    private final String imagem_switch_on = "switch_on_32.png";
+    private final String imagem_switch_off = "switch_off_32.png";
     private int altura_rodape = 24;
     private final int COR_ESCURA_LINHA_DIVISORIA = 0x111111; 	// RGB = 17,17,17
     private final int COR_CLARA_LINHA_DIVISORIA = 0x4C4C4C; 	// RGB = 76,76,76
@@ -151,12 +151,12 @@ public class GerenciadorDesenho {
     private void rodar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 //        new Thread(() -> {
         //Just for tests
-        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
-        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
-        criar_slider("slider_teste", "Slider 1", 0, 10, 100);
+//        criar_monitor("monitor_teste", "Monitor 1", "Teste 1");
+//        criar_slider("slider_teste", "Slider 1", 0, 12.5, 50);
+//        criar_slider("slider_teste", "Slider 1", 0, 10, 100);
 //        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
 //        criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
-//        criar_interruptor("interruptor_1", "Teste Switch", false);
+        criar_interruptor("interruptor_1", "Teste Switch", false);
 //        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
         boolean isExecutando = GerenciadorExecucao.getInstance().isExecutando();
         do {
@@ -1053,6 +1053,7 @@ public class GerenciadorDesenho {
      * @throws InterruptedException
      */
     private void controle_mouse_switch() throws ErroExecucaoBiblioteca, InterruptedException {
+//        UtilSimulador.setLog("X: " + m.posicao_x() + " / Y: " + m.posicao_y());
         GerenciadorComponentes.verificarMouseDentroInterruptor(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
     }
 }

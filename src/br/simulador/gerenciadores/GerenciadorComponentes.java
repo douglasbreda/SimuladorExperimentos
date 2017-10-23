@@ -195,10 +195,13 @@ public final class GerenciadorComponentes {
         for (Componente interruptor : listaInterruptor) {
             interruptor_atual = (Interruptor) interruptor;
 
+//            UtilSimulador.setLog("Y1 = " + interruptor.get_y1());
+//            UtilSimulador.setLog("Y2 = " + interruptor.get_y2());
+            
 //            if (!interruptor_atual.isLigado()) {
-            if (posicaoXMouse >= (interruptor.get_x1() + 27) && posicaoXMouse <= interruptor.get_x2() - 27
-                    && posicaoYMouse >= (interruptor.get_y1() + 12) && posicaoYMouse < (interruptor.get_y1() + 30)) {
-//                UtilSimulador.setLog("Entrou Ligado");
+            if (posicaoXMouse >= (interruptor.get_x1() + 10) && posicaoXMouse <= interruptor.get_x2() - 10
+                    && posicaoYMouse >= (interruptor.get_y1() + 7) && posicaoYMouse < (interruptor.get_y1() + 16)) {
+                UtilSimulador.setLog("Entrou Ligado");
 //                UtilSimulador.setLog(String.valueOf(botao_pressionado));
                 if (botao_pressionado) {
                     interruptor_atual.desligar();
@@ -206,9 +209,9 @@ public final class GerenciadorComponentes {
                 }
             }
 
-            if (posicaoXMouse >= (interruptor.get_x1() + 27) && posicaoXMouse <= interruptor.get_x2() - 27
-                    && posicaoYMouse >= (interruptor.get_y2() - 42) && posicaoYMouse < (interruptor.get_y2() - 12)) {
-//                UtilSimulador.setLog("Entrou desligado");
+            if (posicaoXMouse >= (interruptor.get_x1() + 10) && posicaoXMouse <= interruptor.get_x2() - 10
+                    && posicaoYMouse >= ((interruptor.get_y2() - 46)  - 17) && posicaoYMouse < ((interruptor.get_y2() - 46) - 7)) {
+                UtilSimulador.setLog("Entrou desligado");
                 if (botao_pressionado) {
                     interruptor_atual.ligar();
                     return true;
