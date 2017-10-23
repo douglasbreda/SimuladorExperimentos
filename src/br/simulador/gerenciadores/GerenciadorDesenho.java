@@ -156,7 +156,7 @@ public class GerenciadorDesenho {
 //        criar_slider("slider_teste", "Slider 1", 0, 10, 100);
 //        criar_monitor("monitor_outro", "Monitor 2", "Teste 2");
 //        criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
-        criar_interruptor("interruptor_1", "Teste Switch", false);
+//        criar_interruptor("interruptor_1", "Teste Switch", false);
 //        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
         boolean isExecutando = GerenciadorExecucao.getInstance().isExecutando();
         do {

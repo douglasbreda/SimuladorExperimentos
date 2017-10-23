@@ -255,4 +255,16 @@ public final class GerenciadorInterface {
     public void criar_monitor(String nome, String titulo, String valor_atual) throws InterruptedException, ErroExecucao{
         desenho.criar_monitor(nome, titulo, valor_atual);
     }
+    
+    /**
+     * Cria um novo componente do tipo interruptor
+     * @param nome
+     * @param titulo
+     * @param valor_padrao
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    public void criar_interruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException{
+        desenho.criar_interruptor(nome, titulo, valor_padrao);
+    }
 }

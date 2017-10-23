@@ -37,12 +37,15 @@ public final class GerenciadorExecucao {
 
     private static boolean executando = false;
     
+    private static boolean ambienteInicializado = false;
+    
     //Define os passos da simulação
     //Ou seja, cada vez que um ciclo de execução é completado
     private static int ticks = 0;
 
     public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         UtilSimulador.setLog("Vai inicializar o ambiente");
+        ambienteInicializado = true;
         GerenciadorInterface.getInstance().inicializarTela();
         UtilSimulador.setLog("Inicializou o ambiente");
     }
@@ -501,4 +504,13 @@ public final class GerenciadorExecucao {
     public void setTicks(int ticks) {
         GerenciadorExecucao.ticks = ticks;
     }
+
+    /**
+     * Retorna para verificação se o ambiente da simulação já foi inicializado
+     * @return 
+     */
+    public boolean isAmbienteInicializado() {
+        return ambienteInicializado;
+    }
+
 }

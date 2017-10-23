@@ -42,7 +42,9 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void criar_agentes(int numeroAgentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        GerenciadorExecucao.getInstance().criar_agentes(numeroAgentes, aleatorio);
+        if (verificar_ambiente_inicializado()) {
+            GerenciadorExecucao.getInstance().criar_agentes(numeroAgentes, aleatorio);
+        }
     }
 
 //    @DocumentacaoFuncao(
@@ -176,7 +178,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
-        UtilSimulador.setLog("Moveu para a frente com a quantidade: "+ quantidade);
+        UtilSimulador.setLog("Moveu para a frente com a quantidade: " + quantidade);
     }
 
     @DocumentacaoFuncao(
@@ -437,10 +439,14 @@ public final class Experimentos extends Biblioteca {
             descricao = "Permite a criação de um componente de slider para alteração de configurações durante a simulação",
             parametros
             = {
-                @DocumentacaoParametro(nome = "nome", descricao = "Identificação única do componente"),
-                @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente"),
-                @DocumentacaoParametro(nome = "minimo", descricao = "Valor mínimo permitido do componente"),
-                @DocumentacaoParametro(nome = "máximo", descricao = "Valor máximo permitido do componente"),
+                @DocumentacaoParametro(nome = "nome", descricao = "Identificação única do componente")
+                ,
+                @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente")
+                ,
+                @DocumentacaoParametro(nome = "minimo", descricao = "Valor mínimo permitido do componente")
+                ,
+                @DocumentacaoParametro(nome = "máximo", descricao = "Valor máximo permitido do componente")
+                ,
                 @DocumentacaoParametro(nome = "valor_padrao", descricao = "Valor padrão para definir ao criar o componente")
             },
             autores
@@ -449,17 +455,18 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void criar_slider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        GerenciadorInterface.getInstance().criar_slider(nome,titulo, minimo, maximo, valor_padrao);
+        GerenciadorInterface.getInstance().criar_slider(nome, titulo, minimo, maximo, valor_padrao);
     }
 
     @DocumentacaoFuncao(
             descricao = "Cria um componente do tipo Monitor para exibição de alguma variável durante a execução.",
             parametros
             = {
-                @DocumentacaoParametro(nome = "nome", descricao = "Identificação única do componente"),
-                @DocumentacaoParametro(nome = "titulo", descricao = "Título apresentado no componente"),
-                @DocumentacaoParametro(nome = "valor", descricao = "Valor padrão do componente"),
-            },
+                @DocumentacaoParametro(nome = "nome", descricao = "Identificação única do componente")
+                ,
+                @DocumentacaoParametro(nome = "titulo", descricao = "Título apresentado no componente")
+                ,
+                @DocumentacaoParametro(nome = "valor", descricao = "Valor padrão do componente"),},
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
@@ -473,6 +480,8 @@ public final class Experimentos extends Biblioteca {
             descricao = "Cria um componente do tipo Interruptor que permite ao usuário ligar ou desligar determinada funcionalidade ou característica de uma agente ou ambiente.",
             parametros
             = {
+                @DocumentacaoParametro(nome = "nome", descricao = "Identificador do componente")
+                ,
                 @DocumentacaoParametro(nome = "titulo", descricao = "Título do componente")
                 ,
                 @DocumentacaoParametro(nome = "valor_padrao", descricao = "Se inicia com verdadeiro ou falso"),},
@@ -481,8 +490,8 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_interruptor(String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
-        
+    public void criar_interruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        GerenciadorInterface.getInstance().criar_monitor(titulo, titulo, titulo);
     }
 
     @DocumentacaoFuncao(
@@ -530,7 +539,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void agentes_em_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-           GerenciadorExecucao.getInstance().agentes_em(coordenadaX, coordenadaY);
+        GerenciadorExecucao.getInstance().agentes_em(coordenadaX, coordenadaY);
     }
 
     @DocumentacaoFuncao(
@@ -637,47 +646,49 @@ public final class Experimentos extends Biblioteca {
     public int meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int id_retalho = 0;
         Retalho retalho = GerenciadorExecucao.getInstance().meu_retalho();
-        
-        if(retalho != null){
+
+        if (retalho != null) {
             id_retalho = retalho.get_id();
             UtilSimulador.setLog("Meu retalho é: " + id_retalho);
         }
         return id_retalho;
     }
-    
-    
+
     /**
      * Retorna a lista de agentes atuais da simulação
-     * @return 
+     *
+     * @return
      */
     @NaoExportar
-    public List<?> retornar_lista_agentes(){
+    public List<?> retornar_lista_agentes() {
         return GerenciadorExecucao.getInstance().getListaAgentes();
     }
-    
+
     /**
      * Define o agente atual da simulação
-     * @param agente_atual 
+     *
+     * @param agente_atual
      */
     @NaoExportar
-    public void definir_agente_atual(Object agente_atual) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_agente_atual(Object agente_atual) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorExecucao.getInstance().definir_agente_atual(agente_atual);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Atualiza o valor de um componente do tipo Monitor procurando pelo seu nome",
             parametros = {
-                @DocumentacaoParametro(nome = "nome", descricao = "Identificador único do componente"),
+                @DocumentacaoParametro(nome = "nome", descricao = "Identificador único do componente")
+                ,
                 @DocumentacaoParametro(nome = "novo_valor", descricao = "Novo valor a ser exibido pelo monitor")
             },
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void atualizar_valor_monitor(String nome, String novo_valor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void atualizar_valor_monitor(String nome, String novo_valor) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorComponentes.atualizar_valor_monitor(nome, novo_valor);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Define quantas execuções terá a simulação",
             parametros = {
@@ -687,34 +698,53 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void executar_sempre(boolean sim) throws ErroExecucaoBiblioteca, InterruptedException{
-        
+    public void executar_sempre(boolean sim) throws ErroExecucaoBiblioteca, InterruptedException {
+
     }
-    
+
     /**
-     * Método para que a simulação consiga iniciar e parar a execução do programa, definindo qual é o programa atual
-     * @param programa_atual 
+     * Método para que a simulação consiga iniciar e parar a execução do
+     * programa, definindo qual é o programa atual
+     *
+     * @param programa_atual
      */
     @NaoExportar
-    public void definir_programa_atual(SimuladorPrograma programa_atual){
+    public void definir_programa_atual(SimuladorPrograma programa_atual) {
         GerenciadorExecucao.getInstance().setSimuladorPrograma(programa_atual);
     }
-    
+
     /**
-     * Método chamada pela simulação para definir que a simulação está rodando ou está parada
-     * @param executando 
-     */ 
-    @NaoExportar
-    public void definir_programa_execucao(boolean executando){
-        GerenciadorExecucao.getInstance().setExecutando(executando);
-    }
-    
-    /**
-     * Método para atualizar o número de ticks(passos) da simulação
-     * @param total_ticks 
+     * Método chamada pela simulação para definir que a simulação está rodando
+     * ou está parada
+     *
+     * @param executando
      */
     @NaoExportar
-    public void atualizar_ticks(int total_ticks){
+    public void definir_programa_execucao(boolean executando) {
+        GerenciadorExecucao.getInstance().setExecutando(executando);
+    }
+
+    /**
+     * Método para atualizar o número de ticks(passos) da simulação
+     *
+     * @param total_ticks
+     */
+    @NaoExportar
+    public void atualizar_ticks(int total_ticks) {
         GerenciadorExecucao.getInstance().setTicks(total_ticks);
+    }
+
+    /**
+     * Verifica se o ambiente foi inicializado para evitar erros ao acessar
+     * componentes nulos
+     *
+     * @throws ErroExecucaoBiblioteca
+     */
+    private boolean verificar_ambiente_inicializado() throws ErroExecucaoBiblioteca {
+        if (!GerenciadorExecucao.getInstance().isAmbienteInicializado()) {
+            throw new ErroExecucaoBiblioteca("[Erro Experimentos] O ambiente da simulação deve ser inicializado. Para isso, utilize o botão do plugin de simulação no canto esquerdo abaixo dos ícones padrões do Portugol");
+        }
+
+        return true;
     }
 }
