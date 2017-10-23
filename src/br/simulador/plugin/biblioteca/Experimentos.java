@@ -178,7 +178,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
-        UtilSimulador.setLog("Moveu para a frente com a quantidade: " + quantidade);
+        GerenciadorExecucao.getInstance().getAgenteAtual().mover_frente(quantidade);
     }
 
     @DocumentacaoFuncao(
@@ -194,7 +194,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void voltar(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
-
+        GerenciadorExecucao.getInstance().getAgenteAtual().voltar(quantidade);
     }
 
     @DocumentacaoFuncao(
@@ -277,7 +277,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public String retornar_atributo_cadeia(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
-        return "";
+        return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_atributo_cadeia(nome_atributo);
     }
 
     @DocumentacaoFuncao(
@@ -553,7 +553,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void definir_cor_retalho(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
-
+        GerenciadorExecucao.getInstance().getAgenteAtual().definir_cor_agente(cor);
     }
 
     @DocumentacaoFuncao(
@@ -609,8 +609,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException {
-        UtilSimulador.setLog("Verificando se está colidindo com borda X");
-        return false;
+        return GerenciadorExecucao.getInstance().getAgenteAtual().colidiu_borda_X();
     }
 
     @DocumentacaoFuncao(
@@ -620,7 +619,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException {
-        return false;
+        return GerenciadorExecucao.getInstance().getAgenteAtual().colidiu_borda_Y();
     }
 
     @DocumentacaoFuncao(
@@ -744,7 +743,6 @@ public final class Experimentos extends Biblioteca {
         if (!GerenciadorExecucao.getInstance().isAmbienteInicializado()) {
             throw new ErroExecucaoBiblioteca("[Erro Experimentos] O ambiente da simulação deve ser inicializado. Para isso, utilize o botão do plugin de simulação no canto esquerdo abaixo dos ícones padrões do Portugol");
         }
-
         return true;
     }
 }

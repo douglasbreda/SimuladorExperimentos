@@ -22,9 +22,13 @@ public abstract class BaseAgente implements IAgente {
     private int altura_agente = 10;
     private int largura_agente = 10;
 
-    //Construtor padrão
+    /**
+     * Construtor padrão que recebe as coordenadas e um identificador para cada agente criado
+     * @param coordenadaX
+     * @param coordenadaY
+     * @param id 
+     */
     public BaseAgente(int coordenadaX, int coordenadaY, int id) {
-        inicializar();
         this.coordenadaX = coordenadaX;
         this.coordenadaY = coordenadaY;
         this.id = id;
@@ -32,10 +36,10 @@ public abstract class BaseAgente implements IAgente {
         definir_log("Agente " + id + " inicializado com sucesso.");
     }
 
-    private void inicializar() {
-//        listaParametros = new HashMap<>();
-    }
-
+    /**
+     * Adiciona um parâmetro a lista de parâmetros do agente
+     * @param nome 
+     */
     private void adicionar_parametro_lista(String nome) {
         if (!lista_parametros.containsKey(nome)) {
             lista_parametros.put(nome, "");
@@ -79,7 +83,8 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void morrer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Método implementado diretamente na classe GerenciadorExecucao, "
+                + "pois entende-se como a morte de um agente apenas a sua remoção da lista de agentes."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -95,7 +100,7 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void mover_frente(int quantidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.coordenadaX += quantidade;
     }
 
     @Override
@@ -135,7 +140,6 @@ public abstract class BaseAgente implements IAgente {
         } else {
             return false;
         }
-
     }
 
     @Override
@@ -174,7 +178,7 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void voltar(int quantidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.coordenadaX -=  quantidade;
     }
 
     @Override
@@ -222,18 +226,11 @@ public abstract class BaseAgente implements IAgente {
         return this.largura_agente;
     }
     
-//    @Override
-//    protected void paintComponent(Graphics g)
-//    {
-//        //Cria aqui os desenhos (as formas)
-//        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-//    }
     private boolean verificar_atributo_existe(String nome) {
         return lista_parametros.containsKey(nome);
     }
 
     public void definir_log(String mensagem) {
-//        LOGGER.log(Level.INFO, mensagem);
         UtilSimulador.setLog(mensagem);
     }
 }
