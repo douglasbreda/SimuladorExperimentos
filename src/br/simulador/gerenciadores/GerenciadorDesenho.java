@@ -9,7 +9,6 @@ import br.simulador.plugin.biblioteca.componentes.Componente;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
-import br.simulador.plugin.biblioteca.componentes.TipoForma;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
@@ -119,7 +118,7 @@ public class GerenciadorDesenho {
         int id = 0;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
-                retalhos[i][j] = new Retalho(++id);
+                retalhos[i][j] = new Retalho(++id, Graficos.COR_BRANCO);
             }
         }
     }
@@ -159,6 +158,9 @@ public class GerenciadorDesenho {
 //        criar_monitor("monitor_mais_um", "Monitor 3", "Teste 2");
 //        criar_interruptor("interruptor_1", "Teste Switch", false);
 //        criar_slider("slider_outro", "Slider 1", 0, 12.5, 50);
+//        definir_cor_retalho(45, Graficos.COR_AZUL);
+//        desenhar_retalhos();
+//            definir_cor_fundo(Graficos.COR_VERDE);
         boolean isExecutando = GerenciadorExecucao.getInstance().isExecutando();
         do {
             rodar_simples();
@@ -521,28 +523,28 @@ public class GerenciadorDesenho {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    private void desenhar_retalhos() throws ErroExecucaoBiblioteca, InterruptedException {
-        desenhar_retalhos(-1);
-    }
-
+//    private void desenhar_retalhos() throws ErroExecucaoBiblioteca, InterruptedException {
+//        desenhar_retalhos(-1);
+//    }
     /**
      * Desenha os retalhos "chão" da simulação
      *
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    private void desenhar_retalhos(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
+    private void desenhar_retalhos() throws ErroExecucaoBiblioteca, InterruptedException {
         int x = 0;
         int y = 0;
         for (int i = 0; i < ALTURA; i++) {
             for (int j = 0; j < LARGURA; j++) {
 
-                if (cor == -1) {
-                    g.definir_cor(cores[retalhos[i][j].retornar_cor_retalho()]);
-                } else {
-                    retalhos[i][j].set_cor(cor);
-                    g.definir_cor(cor);
-                }
+//                if (cor == -1) {
+//                    g.definir_cor(Graficos.COR_BRANCO);
+//                    g.definir_cor(cores[retalhos[i][j].retornar_cor_retalho()]);
+//                } else {
+//                    retalhos[i][j].set_cor(cor);
+                g.definir_cor(retalhos[i][j].retornar_cor_retalho());
+//                }
 
                 x = (j * tile) + 250;
                 y = (i * tile) + 50;
@@ -572,9 +574,10 @@ public class GerenciadorDesenho {
 
     /**
      * Desenha as formas de acordo com o tipo definido pelo usuário
+     *
      * @param agente
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     private void desenhar_forma(IAgente agente) throws ErroExecucaoBiblioteca, InterruptedException {
         switch (agente.retornar_forma_agente()) {
@@ -838,7 +841,13 @@ public class GerenciadorDesenho {
      * @throws InterruptedException
      */
     public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
-        desenhar_retalhos(cor);
+        for (int i = 0; i < ALTURA; i++) {
+            for (int j = 0; j < LARGURA; j++) {
+                retalhos[i][j].set_cor(cor);
+            }
+        }
+        
+        desenhar_retalhos();
     }
 
     /**
@@ -1079,5 +1088,35 @@ public class GerenciadorDesenho {
     private void controle_mouse_switch() throws ErroExecucaoBiblioteca, InterruptedException {
 //        UtilSimulador.setLog("X: " + m.posicao_x() + " / Y: " + m.posicao_y());
         GerenciadorComponentes.verificarMouseDentroInterruptor(m.posicao_x(), m.posicao_y(), m.algum_botao_pressionado());
+    }
+
+    /**
+     * Procura por um retalho na lista e, pelo seu id, atribui a cor passada por
+     * parâmetro
+     *
+     * @param id
+     * @param cor
+     */
+    public void definir_cor_retalho(int id, int cor) {
+        Retalho retalho_encontrado = null;
+
+        //Busca o retalho na lista
+        for (int i = 0; i < ALTURA; i++) {
+            for (int j = 0; j < LARGURA; j++) {
+                if (retalhos[i][j].get_id() == id) {
+                    retalho_encontrado = retalhos[i][j];
+                    break;
+                }
+            }
+
+            if (retalho_encontrado != null) {
+                break;
+            }
+        }
+
+        //Atribui a cor a ele
+        if (retalho_encontrado != null) {
+            retalho_encontrado.set_cor(cor);
+        }
     }
 }

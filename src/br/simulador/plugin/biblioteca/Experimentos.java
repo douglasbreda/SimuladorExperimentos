@@ -553,8 +553,9 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_cor_retalho(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorExecucao.getInstance().getAgenteAtual().definir_cor_agente(cor);
+    public void definir_cor_retalho(int cor) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        int idRetalhoAgente = meu_retalho();
+        GerenciadorInterface.getInstance().definir_cor_retalho(idRetalhoAgente, cor);
     }
 
     @DocumentacaoFuncao(

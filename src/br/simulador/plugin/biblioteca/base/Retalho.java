@@ -14,8 +14,9 @@ public class Retalho {
     /*
         Construtor padrão
     */
-    public Retalho(int id) {
+    public Retalho(int id, int cor) {
         this.id = id;
+        this.cor = cor;
     }
 
     public void set_cor(int cor){

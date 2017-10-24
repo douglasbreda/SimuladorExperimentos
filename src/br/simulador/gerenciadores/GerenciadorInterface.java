@@ -267,4 +267,13 @@ public final class GerenciadorInterface {
     public void criar_interruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException{
         desenho.criar_interruptor(nome, titulo, valor_padrao);
     }
+    
+    /**
+     * Atribuir a cor a um retalho procurando pelo seu id
+     * @param id
+     * @param cor 
+     */
+    public void definir_cor_retalho(int id, int cor){
+        
+    }
 }
