@@ -492,7 +492,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void criar_interruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        GerenciadorInterface.getInstance().criar_monitor(titulo, titulo, titulo);
+        GerenciadorInterface.getInstance().criar_interruptor(nome, titulo, valor_padrao);
     }
 
     @DocumentacaoFuncao(
