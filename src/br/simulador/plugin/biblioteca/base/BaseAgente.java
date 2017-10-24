@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
+import br.simulador.plugin.biblioteca.componentes.TipoForma;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import java.util.Map;
@@ -20,6 +21,7 @@ public abstract class BaseAgente implements IAgente {
     private boolean esta_visivel = true;
     private int altura_agente = 10;
     private int largura_agente = 10;
+    private int forma;
 
     /**
      * Construtor padrão que recebe as coordenadas e um identificador para cada
@@ -28,13 +30,15 @@ public abstract class BaseAgente implements IAgente {
      * @param coordenadaX
      * @param coordenadaY
      * @param id
+     * @param forma
      */
-    public BaseAgente(int coordenadaX, int coordenadaY, int id) {
+    public BaseAgente(int coordenadaX, int coordenadaY, int id, int forma) {
         this.coordenadaX = coordenadaX;
         this.coordenadaY = coordenadaY;
         this.id = id;
         this.cor = UtilSimulador.corRandomica();
         this.orientacao = UtilSimulador.getNumeroRandomico(360);
+        this.forma = forma;
         definir_log("Agente " + id + " inicializado com sucesso.");
     }
 
@@ -271,4 +275,26 @@ public abstract class BaseAgente implements IAgente {
     public void definir_log(String mensagem) {
         UtilSimulador.setLog(mensagem);
     }
+
+    @Override
+    public void definir_forma_agente(int forma) {
+        this.forma = forma;
+    }
+
+    @Override
+    public TipoForma retornar_forma_agente() {
+        switch(forma){
+            case 0:
+                return TipoForma.circulo;
+            case 1:
+                return TipoForma.linha;
+        }
+        
+        return TipoForma.circulo;
+    }
+    
+    
+    
+    
+    
 }

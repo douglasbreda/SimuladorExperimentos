@@ -6,6 +6,7 @@ package br.simulador.gerenciadores;
 import br.simulador.plugin.biblioteca.base.Agente;
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.simulador.plugin.biblioteca.componentes.TipoForma;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
@@ -36,9 +37,11 @@ public final class GerenciadorExecucao {
     private static SimuladorPrograma simuladorPrograma = null;
 
     private static boolean executando = false;
-    
+
     private static boolean ambienteInicializado = false;
-    
+
+    private static TipoForma formaAgente = TipoForma.circulo;
+
     //Define os passos da simulação
     //Ou seja, cada vez que um ciclo de execução é completado
     private static int ticks = 0;
@@ -184,7 +187,7 @@ public final class GerenciadorExecucao {
                 coordenadaY = valor_fixo_y;
             }
 
-            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id, velocidade);
+            IAgente agente = new Agente(coordenadaX, coordenadaY, ++id, formaAgente.ordinal());
 
             UtilSimulador.setLog("------------------------------------------");
 
@@ -488,10 +491,11 @@ public final class GerenciadorExecucao {
     public boolean simulacao_visivel() {
         return true;
     }
-    
+
     /**
      * Retorna o número de ticks da simulação
-     * @return 
+     *
+     * @return
      */
     public int getTicks() {
         return GerenciadorExecucao.ticks;
@@ -499,7 +503,8 @@ public final class GerenciadorExecucao {
 
     /**
      * Chamada para definir o número de ticks da simulação
-     * @param ticks 
+     *
+     * @param ticks
      */
     public void setTicks(int ticks) {
         GerenciadorExecucao.ticks = ticks;
@@ -507,10 +512,25 @@ public final class GerenciadorExecucao {
 
     /**
      * Retorna para verificação se o ambiente da simulação já foi inicializado
-     * @return 
+     *
+     * @return
      */
     public boolean isAmbienteInicializado() {
         return ambienteInicializado;
     }
 
+    /**
+     * Define qual é o formato dos desenhos dos agentes
+     * @param forma 
+     */
+    public void setFormaAgente(int forma) {
+        switch (forma) {
+            case 0:
+                formaAgente = TipoForma.circulo;
+                break;
+            case 1:
+                formaAgente = TipoForma.linha;
+                break;
+        }
+    }
 }

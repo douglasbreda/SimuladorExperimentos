@@ -10,30 +10,22 @@ import javax.swing.JPanel;
  */
 public class Agente extends BaseAgente
 {
-    private JPanel painelAgente = null;
-
+    /**
+     * Construtor vazio
+     */
     public Agente() {
-        super(0, 0, 0);
+        super(0, 0, 0, 0);
     }
     
-    public Agente(int coordenadaX, int coordenadaY, int id, int velocidade)
+    /**
+     * Construtor que já recebe as configurações do agente
+     * @param coordenadaX
+     * @param coordenadaY
+     * @param id
+     * @param forma 
+     */
+    public Agente(int coordenadaX, int coordenadaY, int id, int forma)
     {
-        super(coordenadaX, coordenadaY, id);
-        criarFormaAgente();
-    }
-    
-    public void criarFormaAgente(){
-        painelAgente = new JPanel(){
-            @Override
-            public void paint(Graphics g) {
-                desenharCirculo(g);
-            }
-        };
-    }
-    
-    private void desenharCirculo(Graphics g){
-        g.fillOval(UtilSimulador.toInt(this.retornar_coordenada_X()),
-                   UtilSimulador.toInt(this.retornar_coordenada_Y()),
-                   100, 50);
+        super(coordenadaX, coordenadaY, id, forma);
     }
 }

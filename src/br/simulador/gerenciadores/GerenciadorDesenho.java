@@ -9,6 +9,7 @@ import br.simulador.plugin.biblioteca.componentes.Componente;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
+import br.simulador.plugin.biblioteca.componentes.TipoForma;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
@@ -561,10 +562,31 @@ public class GerenciadorDesenho {
             for (IAgente agente : listaAgente) {
                 g.definir_cor(agente.retornar_cor_agente());
                 g.definir_rotacao(agente.retornar_orientacao());
+                desenhar_forma(agente);
 //                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
-                g.desenhar_linha(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_coordenada_X() + 10, agente.retornar_coordenada_Y() + 10);
+//                g.desenhar_linha(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_coordenada_X() + 10, agente.retornar_coordenada_Y() + 10);
                 g.definir_rotacao(0);
             }
+        }
+    }
+
+    /**
+     * Desenha as formas de acordo com o tipo definido pelo usuário
+     * @param agente
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    private void desenhar_forma(IAgente agente) throws ErroExecucaoBiblioteca, InterruptedException {
+        switch (agente.retornar_forma_agente()) {
+            case circulo:
+                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
+                break;
+            case linha:
+                g.desenhar_linha(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_coordenada_X() + 10, agente.retornar_coordenada_Y() + 10);
+                break;
+            default:
+                g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
+                break;
         }
     }
 

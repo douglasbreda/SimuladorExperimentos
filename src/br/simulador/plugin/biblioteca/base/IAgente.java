@@ -1,7 +1,7 @@
 package br.simulador.plugin.biblioteca.base;
 
+import br.simulador.plugin.biblioteca.componentes.TipoForma;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
-import javax.swing.JPanel;
 
 /**
  *
@@ -66,4 +66,10 @@ public interface IAgente
     public void definir_largura_agente(int largura);
     
     public int retornar_largura_agente();
+    
+    public void definir_forma_agente(int forma);
+    
+    public TipoForma retornar_forma_agente();
+        
+    
 }

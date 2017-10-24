@@ -144,7 +144,6 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int retornar_coordenadaX() throws ErroExecucaoBiblioteca, InterruptedException {
-//        double coordenadaXAgente = (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_X");
         int coordenadaXAgente = GerenciadorExecucao.getInstance().getAgenteAtual().retornar_coordenada_X();
         UtilSimulador.setLog("X do agente " + GerenciadorExecucao.getInstance().getAgenteAtual().retornar_id() + ": " + coordenadaXAgente);
         return coordenadaXAgente;
@@ -159,7 +158,6 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public int retornar_coordenadaY() throws ErroExecucaoBiblioteca, InterruptedException {
-//        double coordenadaYAgente = (Double) GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_Y");
         int coordenadaYAgente = GerenciadorExecucao.getInstance().getAgenteAtual().retornar_coordenada_Y();
         UtilSimulador.setLog("Y do agente " + GerenciadorExecucao.getInstance().getAgenteAtual().retornar_id() + ": " + coordenadaYAgente);
         return coordenadaYAgente;
@@ -344,6 +342,7 @@ public final class Experimentos extends Biblioteca {
     )
     public double retornar_atributo_real(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
         return GerenciadorExecucao.getInstance().getAgenteAtual().retornar_atributo_real(nome_atributo);
+
     }
 
     @DocumentacaoFuncao(
@@ -688,6 +687,24 @@ public final class Experimentos extends Biblioteca {
     )
     public void atualizar_valor_monitor(String nome, String novo_valor) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorComponentes.atualizar_valor_monitor(nome, novo_valor);
+    }
+
+    @DocumentacaoFuncao(
+            descricao = "Define qual a forma o agente assumirá <br>"
+            + "Os tipos permitidos são: <br>"
+            + "0: Formato de círculo <br>"
+            + "1: Formato de uma reta <br>"
+            + "Por padrão, caso não seja utilizado este método, os agentes assumirão a forma de círculos. <br>"
+            + "Para que as formas sejam aplicadas aos agentes, este método deve ser chamado antes do método \"criar_agentes\"",
+            parametros = {
+                @DocumentacaoParametro(nome = "forma", descricao = "Define qual é a forma escolhida")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void definir_forma_agentes(int forma) throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorExecucao.getInstance().setFormaAgente(forma);
     }
 
     @DocumentacaoFuncao(
