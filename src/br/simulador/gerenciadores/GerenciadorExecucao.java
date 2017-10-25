@@ -45,6 +45,9 @@ public final class GerenciadorExecucao {
     //Define os passos da simulação
     //Ou seja, cada vez que um ciclo de execução é completado
     private static int ticks = 0;
+    
+    //Define se vai rodar a simulação dentro de um while(true) ou não
+    private static boolean executar_sempre = false;
 
     public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         UtilSimulador.setLog("Vai inicializar o ambiente");
@@ -166,11 +169,10 @@ public final class GerenciadorExecucao {
         int coordenadaX = 0;
         int coordenadaY = 0;
         int id = 0;
-        int minX = GerenciadorInterface.getInstance().retorna_limite_minimo_borda_X();
-        int minY = GerenciadorInterface.getInstance().retorna_limite_minimo_borda_Y();
-        int maxX = GerenciadorInterface.getInstance().retorna_limite_maximo_borda_X();
-        int maxY = GerenciadorInterface.getInstance().retorna_limite_maximo_borda_Y();
-        int velocidade = 0;
+        int minX = GerenciadorInterface.getInstance().retornar_valor_min_borda_x();
+        int minY = GerenciadorInterface.getInstance().retornar_valor_min_borda_y();
+        int maxX = GerenciadorInterface.getInstance().retornar_valor_max_borda_x();
+        int maxY = GerenciadorInterface.getInstance().retornar_valor_max_borda_y();
         int valor_fixo_x = (maxX / 2);
         int valor_fixo_y = (maxY / 2);
 
@@ -181,7 +183,7 @@ public final class GerenciadorExecucao {
             if (aleatorio) {
                 coordenadaX = UtilSimulador.getNumeroRandomico(minX, maxX);
                 coordenadaY = UtilSimulador.getNumeroRandomico(minY, maxY);
-                velocidade = UtilSimulador.getNumeroRandomico(5);
+//                velocidade = UtilSimulador.getNumeroRandomico(5);
             } else {
                 coordenadaX = valor_fixo_x;
                 coordenadaY = valor_fixo_y;
@@ -474,7 +476,7 @@ public final class GerenciadorExecucao {
     public void iniciar_simulacao() throws ErroExecucao, InterruptedException {
         try {
             if (GerenciadorExecucao.simuladorPrograma != null) {
-                GerenciadorExecucao.simuladorPrograma.simular(false);
+                GerenciadorExecucao.simuladorPrograma.simular(executar_sempre);
             }
 
             this.setExecutando(true);
@@ -533,4 +535,22 @@ public final class GerenciadorExecucao {
                 break;
         }
     }
+
+    /**
+     * Busca se a simulação irá executar em um while(true) ou não
+     * @return 
+     */
+    public boolean isExecutar_sempre() {
+        return GerenciadorExecucao.executar_sempre;
+    }
+
+    /**
+     * Define se a simulação irá executar em um while(true)
+     * @param executar_sempre 
+     */
+    public void setExecutar_sempre(boolean executar_sempre) {
+        GerenciadorExecucao.executar_sempre = executar_sempre;
+    }
+    
+    
 }

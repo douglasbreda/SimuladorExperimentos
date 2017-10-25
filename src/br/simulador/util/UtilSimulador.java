@@ -57,7 +57,7 @@ public final class UtilSimulador {
      * @param mensagem
      */
     public static void setLog(String mensagem) {
-        System.out.println(mensagem);
+//        System.out.println(mensagem);
     }
 
     /**

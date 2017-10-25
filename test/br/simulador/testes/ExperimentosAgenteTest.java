@@ -38,10 +38,10 @@ public class ExperimentosAgenteTest {
         GerenciadorExecucao.getInstance().executarMetodo("criar_atributo", 1, "velocidade");
         GerenciadorExecucao.getInstance().executarMetodo("retornar_atributo_cadeia", 1, "velocidade");
 
-        System.out.println("Máximo X: " + GerenciadorInterface.getInstance().retorna_limite_maximo_borda_X());
-        System.out.println("Máximo Y: " + GerenciadorInterface.getInstance().retorna_limite_maximo_borda_Y());
-        System.out.println("Mínimo X: " + GerenciadorInterface.getInstance().retorna_limite_minimo_borda_X());
-        System.out.println("Mínimo Y: " + GerenciadorInterface.getInstance().retorna_limite_minimo_borda_Y());
+        System.out.println("Máximo X: " + GerenciadorInterface.getInstance().retornar_valor_max_borda_x());
+        System.out.println("Máximo Y: " + GerenciadorInterface.getInstance().retornar_valor_max_borda_y());
+        System.out.println("Mínimo X: " + GerenciadorInterface.getInstance().retornar_valor_min_borda_x());
+        System.out.println("Mínimo Y: " + GerenciadorInterface.getInstance().retornar_valor_min_borda_y());
 
         int iContador = 0;
         for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {

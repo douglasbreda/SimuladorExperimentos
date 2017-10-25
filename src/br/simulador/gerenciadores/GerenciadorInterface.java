@@ -92,42 +92,6 @@ public final class GerenciadorInterface {
     }
 
     /**
-     * Retorna o limite mínimo para X
-     *
-     * @return
-     */
-    public int retorna_limite_minimo_borda_X() {
-        return desenho.retorna_valor_minimo_borda_X();
-    }
-
-    /**
-     * Retorna o limite mínimo para Y
-     *
-     * @return
-     */
-    public int retorna_limite_minimo_borda_Y() {
-        return desenho.retorna_valor_minimo_borda_Y();
-    }
-
-    /**
-     * Retorna o limite máximo para X
-     *
-     * @return
-     */
-    public int retorna_limite_maximo_borda_X() {
-        return desenho.retorna_valor_maximo_borda_X();
-    }
-
-    /**
-     * Retorna o limite máximo para Y
-     *
-     * @return
-     */
-    public int retorna_limite_maximo_borda_Y() {
-        return desenho.retorna_valor_maximo_borda_Y();
-    }
-
-    /**
      * Reseta as informações da simulação e configura a tela com a posição
      * inicial
      */
@@ -274,6 +238,37 @@ public final class GerenciadorInterface {
      * @param cor 
      */
     public void definir_cor_retalho(int id, int cor){
-        
+        desenho.definir_cor_retalho(id, cor);
+    }
+    
+    /**
+     * Retorna o valor máximo no eixo X. Ou seja, onde começa a parede que define as bordas no lado direito
+     */
+    public int retornar_valor_max_borda_x(){
+        return desenho.retorna_valor_maximo_borda_X();
+    }
+    
+    /**
+     * Retorna o valor máximo no eixo Y. Ou seja, onde começa a parede que define as bordas na parte superior
+     * @return 
+     */
+    public int retornar_valor_max_borda_y(){
+        return desenho.retorna_valor_maximo_borda_Y();
+    }
+    
+    /**
+     * Retorna o valor mínimo no eixo X. Ou seja, onde começa a parede que define as bordas no lado esquerdo
+     * @return 
+     */
+    public int retornar_valor_min_borda_x(){
+        return desenho.retorna_valor_minimo_borda_X();
+    } 
+    
+    /**
+     * Retorna o valor máximo no eixo Y. Ou seja, onde começa a parede que define as bordas na parte inferior
+     * @return 
+     */
+    public int retornar_valor_min_borda_y(){
+        return desenho.retorna_valor_minimo_borda_Y();
     }
 }
