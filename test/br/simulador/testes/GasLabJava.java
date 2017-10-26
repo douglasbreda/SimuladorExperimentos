@@ -55,6 +55,7 @@ public class GasLabJava {
         exp.criar_monitor("rapidos", "Rápidos", tipo.inteiro_para_cadeia(rapidos, 10));
         exp.criar_monitor("media_v", "Média de velocidade", tipo.real_para_cadeia(media_velocidade));
         exp.criar_monitor("media_e", "Rápidos", tipo.real_para_cadeia(media_energia));
+        exp.criar_slider("slider_1", "Teste", 0, 100, 25);
         exp.criar_atributo("velocidade", "10");
         atualizar_variaveis();
 //        simular();
@@ -101,6 +102,9 @@ public class GasLabJava {
         exp.atualizar_valor_monitor("rapidos", tipo.inteiro_para_cadeia(rapidos, 10));
         exp.atualizar_valor_monitor("media_v", tipo.real_para_cadeia(media_velocidade));
         exp.atualizar_valor_monitor("media_e", tipo.real_para_cadeia(media_energia));
+
+        System.out.println("Valor do slider: " + exp.retornar_valor_atual_slider("slider_1"));
+
     }
 
     public void simular() {
@@ -147,11 +151,9 @@ public class GasLabJava {
 
 //        boolean colidindoY = coordenadaY >= valorMaximoBordaY
 //                || coordenadaY <= valorMinimoBordaY; //Se bateu em alguma parede na esquerda ou direita, reflete a orientação em torno do eixo X
-
         if (colidindoX) {
 
 //            System.out.println("----------------Colidiu X--------------------------------");
-
 //            System.out.println("ID: " + exp.retornar_id());
 //            System.out.println("X: " + coordenadaX);
 //            System.out.println("Máx X: " + valorMaximoBordaX);
@@ -159,7 +161,6 @@ public class GasLabJava {
 //            System.out.println("Y: " + coordenadaY);
 //            System.out.println("Máx Y: " + valorMaximoBordaY);
 //            System.out.println("Min Y: " + valorMinimoBordaY);
-
             int orientacao = exp.retornar_orientacao();
 //            System.out.println("Orientação atual: " + orientacao);
             int novaOrientacao = orientacao * (-1);
@@ -172,7 +173,6 @@ public class GasLabJava {
         if (colidindoY) {
 
 //            System.out.println("----------------Colidiu Y--------------------------------");
-
 //            System.out.println("ID: " + exp.retornar_id());
 //            System.out.println("X: " + coordenadaX);
 //            System.out.println("Máx X: " + valorMaximoBordaX);
@@ -180,7 +180,6 @@ public class GasLabJava {
 //            System.out.println("Y: " + coordenadaY);
 //            System.out.println("Máx Y: " + valorMaximoBordaY);
 //            System.out.println("Min Y: " + valorMinimoBordaY);
-
             int orientacao = exp.retornar_orientacao();
 //            System.out.println("Orientação atual: " + orientacao);
             int novaOrientacao = 180 - orientacao;

@@ -727,7 +727,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void atualizar_valor_monitor(String nome, String novo_valor) throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorComponentes.atualizar_valor_monitor(nome, novo_valor);
+        GerenciadorComponentes.atualizarValorMonitor(nome, novo_valor);
     }
 
     @DocumentacaoFuncao(
@@ -814,6 +814,32 @@ public final class Experimentos extends Biblioteca {
     )
     public void inverter_sentido() throws ErroExecucaoBiblioteca, InterruptedException{
         GerenciadorExecucao.getInstance().getAgenteAtual().inverter_sentido();
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna o valor atual de um slider",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            },
+            parametros = {
+                @DocumentacaoParametro(nome = "nome_slider", descricao = "Nome do componente utilizado para encontrá-lo entre os componentes")
+            }
+    )
+    public double retornar_valor_atual_slider(String nome_slider) throws ErroExecucaoBiblioteca, InterruptedException{
+        return GerenciadorComponentes.buscarValorAtualSlider(nome_slider);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna o valor atual de um interruptor",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            },
+            parametros = {
+                @DocumentacaoParametro(nome = "nome_interruptor", descricao = "Nome do componente utilizado para encontrá-lo entre os componentes")
+            }
+    )
+    public boolean retornar_valor_atual_interruptor(String nome_interruptor){
+        return GerenciadorComponentes.buscarValorAtualInterruptor(nome_interruptor);
     }
     
 }

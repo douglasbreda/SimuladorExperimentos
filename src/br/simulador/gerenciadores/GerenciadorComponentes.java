@@ -36,6 +36,7 @@ public final class GerenciadorComponentes {
      * @param altura
      * @param largura
      * @param titulo
+     * @throws br.univali.portugol.nucleo.mensagens.ErroExecucao
      */
     public static void criarMonitor(int x1, int x2, int y1, int y2, int yFinal, String nome, String valorAtual, int altura, int largura, String titulo) throws ErroExecucao {
         if (!componenteJaAdicionado(nome)) {
@@ -62,6 +63,7 @@ public final class GerenciadorComponentes {
      * @param altura
      * @param largura
      * @param titulo
+     * @param valorDisplay
      * @return
      * @throws br.univali.portugol.nucleo.mensagens.ErroExecucao
      */
@@ -232,7 +234,7 @@ public final class GerenciadorComponentes {
      * @param nome
      * @param novo_valor
      */
-    public static void atualizar_valor_monitor(String nome, String novo_valor) {
+    public static void atualizarValorMonitor(String nome, String novo_valor) {
         Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.monitor && x.get_nome().equalsIgnoreCase(nome)).findAny();
 
         if (monitor != null) {
@@ -240,6 +242,39 @@ public final class GerenciadorComponentes {
 
             monitorAtualizar.setValor_atual(novo_valor);
         }
-
+    }
+    
+    /**
+     * Retorna o valor atual de um componente slider consultando pelo seu nome
+     * @param nome_slider
+     * @return 
+     */
+    public static double buscarValorAtualSlider(String nome_slider){
+        Optional<Componente> slider = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.slider && x.get_nome().equalsIgnoreCase(nome_slider)).findAny();
+        
+        if(slider != null){
+            Slider sliderEncontrado = (Slider) slider.get();
+            
+            return sliderEncontrado.getValor_display();
+        }
+        
+        return 0.0;
+    }
+    
+    /**
+     * Retorna o valor de um interruptor consultando pelo seu nome
+     * @param nome_interruptor
+     * @return 
+     */
+    public static boolean buscarValorAtualInterruptor(String nome_interruptor){
+        Optional<Componente> interruptor = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.slider && x.get_nome().equalsIgnoreCase(nome_interruptor)).findAny();
+        
+        if(interruptor != null){
+            Interruptor interruptorEncontrado = (Interruptor) interruptor.get();
+            
+            return interruptorEncontrado.isLigado();
+        }
+        
+        return false;
     }
 }

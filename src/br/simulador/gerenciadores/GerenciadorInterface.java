@@ -42,6 +42,9 @@ public final class GerenciadorInterface {
 
     /**
      * Chama a tela de inicialização do Simulador
+     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
+     * @throws java.lang.reflect.InvocationTargetException
      */
     public void inicializarTela() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, InvocationTargetException, ErroExecucao {
         if (!ambienteInicialiazdo) {
@@ -283,10 +286,7 @@ public final class GerenciadorInterface {
         TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
         
         if(tipo_parede != null){
-            if(tipo_parede == TipoParede.parede_x)
-                return true;
-            else
-                return false;
+            return tipo_parede == TipoParede.parede_x;
         }
         
         return false;
@@ -296,10 +296,7 @@ public final class GerenciadorInterface {
         TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
         
         if(tipo_parede != null){
-            if(tipo_parede == TipoParede.parede_y)
-                return true;
-            else
-                return false;
+            return tipo_parede == TipoParede.parede_y;
         }
         
         return false;
