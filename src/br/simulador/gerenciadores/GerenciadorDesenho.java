@@ -5,6 +5,7 @@ package br.simulador.gerenciadores;
 
 import br.simulador.plugin.biblioteca.base.IAgente;
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.simulador.plugin.biblioteca.base.TipoParede;
 import br.simulador.plugin.biblioteca.componentes.Componente;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
@@ -636,26 +637,26 @@ public class GerenciadorDesenho {
         //Borda superior
         for (int i = 0; i < LARGURA; i++) {
             retalhos[0][i].set_cor(cor);
-            retalhos[0][i].definir_como_parede(true);
+            retalhos[0][i].definir_como_parede(true, TipoParede.parede_y);
         }
 
         //Borda inferior
         for (int i = 0; i < LARGURA; i++) {
             retalhos[ALTURA - 1][i].set_cor(cor);
-            retalhos[ALTURA - 1][i].definir_como_parede(true);
+            retalhos[ALTURA - 1][i].definir_como_parede(true, TipoParede.parede_y);
         }
 
         //Borda esquerda
         for (int i = 0; i < ALTURA; i++) {
 //            UtilSimulador.setLog("Definida cor de borda para " + i + "/0");
             retalhos[i][0].set_cor(cor);
-            retalhos[i][0].definir_como_parede(true);
+            retalhos[i][0].definir_como_parede(true, TipoParede.parede_x);
         }
 
         //Borda direita
         for (int i = 0; i < ALTURA; i++) {
             retalhos[i][LARGURA - 1].set_cor(cor);
-            retalhos[i][LARGURA - 1].definir_como_parede(true);
+            retalhos[i][LARGURA - 1].definir_como_parede(true, TipoParede.parede_x);
         }
     }
 
@@ -764,8 +765,9 @@ public class GerenciadorDesenho {
 //                            indiceJ = j + 1;
 //                        else if(diferenca_Y < 0 && diferenca_Y < (fator_diferenca * (-1)))
 //                            indiceJ = j + 1;
-
-                        retalho_retorno = retalhos[indiceI][indiceJ];
+                        if (indiceI < ALTURA && indiceJ < LARGURA) {
+                            retalho_retorno = retalhos[indiceI][indiceJ];
+                        }
                     }
 //                    break;
                 }
@@ -846,7 +848,7 @@ public class GerenciadorDesenho {
                 retalhos[i][j].set_cor(cor);
             }
         }
-        
+
         desenhar_retalhos();
     }
 
@@ -1118,5 +1120,28 @@ public class GerenciadorDesenho {
         if (retalho_encontrado != null) {
             retalho_encontrado.set_cor(cor);
         }
+    }
+
+    /**
+     * Retorna qual é o tipo da parede do retalho (X ou Y)
+     *
+     * @param id
+     * @return
+     */
+    public TipoParede verificar_retalho_eh_parede(int id) {
+        //Busca o retalho na lista
+        TipoParede tipo_parede = null;
+        for (int i = 0; i < ALTURA; i++) {
+            for (int j = 0; j < LARGURA; j++) {
+                if (retalhos[i][j].get_id() == id) {
+                    if (retalhos[i][j].eh_parede()) {
+                        tipo_parede = retalhos[i][j].getTipo_parede();
+                        break;
+                    }
+                }
+            }
+        }
+
+        return tipo_parede;
     }
 }

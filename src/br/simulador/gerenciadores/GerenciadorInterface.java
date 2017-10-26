@@ -4,6 +4,7 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.simulador.plugin.biblioteca.base.TipoParede;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
@@ -243,6 +244,7 @@ public final class GerenciadorInterface {
     
     /**
      * Retorna o valor máximo no eixo X. Ou seja, onde começa a parede que define as bordas no lado direito
+     * @return 
      */
     public int retornar_valor_max_borda_x(){
         return desenho.retorna_valor_maximo_borda_X();
@@ -270,5 +272,36 @@ public final class GerenciadorInterface {
      */
     public int retornar_valor_min_borda_y(){
         return desenho.retorna_valor_minimo_borda_Y();
+    }
+    
+    /**
+     * Retorna se o retalho é uma parede lateral
+     * @param id
+     * @return 
+     */
+    public boolean verificar_retalho_eh_parede_X(int id){
+        TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
+        
+        if(tipo_parede != null){
+            if(tipo_parede == TipoParede.parede_x)
+                return true;
+            else
+                return false;
+        }
+        
+        return false;
+    }
+    
+    public boolean verificar_retalho_eh_parede_Y(int id){
+        TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
+        
+        if(tipo_parede != null){
+            if(tipo_parede == TipoParede.parede_y)
+                return true;
+            else
+                return false;
+        }
+        
+        return false;
     }
 }

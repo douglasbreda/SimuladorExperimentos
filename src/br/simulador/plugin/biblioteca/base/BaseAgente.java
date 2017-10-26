@@ -22,6 +22,7 @@ public abstract class BaseAgente implements IAgente {
     private int altura_agente = 10;
     private int largura_agente = 10;
     private int forma;
+    private boolean moverFrente = true;
 
     /**
      * Construtor padrão que recebe as coordenadas e um identificador para cada
@@ -67,6 +68,14 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public void definir_orientacao(int graus) {
         this.orientacao = graus;
+//        if (graus > 360) {
+//            orientacao = (graus - 360);
+//        } else if (graus < 0) {
+//            graus *= -1;
+//            graus = 360 - graus;
+//        } else {
+//            orientacao = graus;
+//        }
     }
 
     @Override
@@ -79,30 +88,33 @@ public abstract class BaseAgente implements IAgente {
     }
 
     /**
-     * Rotaciona o agente para a direita
-     * Caso o valor seja maior que zero, o valor é subtraído de 360 para ver a diferença e transformá-la na nova orientação
-     * @param graus 
+     * Rotaciona o agente para a direita Caso o valor seja maior que zero, o
+     * valor é subtraído de 360 para ver a diferença e transformá-la na nova
+     * orientação
+     *
+     * @param graus
      */
     @Override
     public void girar_direita(int graus) {
         int valor = orientacao + graus;
-        
+
         UtilSimulador.setLog("Orientação atual = " + orientacao);
         UtilSimulador.setLog("Valor novo = " + valor);
-        
-        if(valor > 360){
+
+        if (valor > 360) {
             orientacao = (valor - 360);
-        }else{
+        } else {
             orientacao = valor;
         }
-        
+
         UtilSimulador.setLog("Nova orientação = " + orientacao);
     }
 
     /**
-     * Rotaciona o agente para a esquerda.
-     * Caso o valor seja menor que zero, o resto do valor é descontado de 360 para descobrir a nova orientação
-     * @param graus 
+     * Rotaciona o agente para a esquerda. Caso o valor seja menor que zero, o
+     * resto do valor é descontado de 360 para descobrir a nova orientação
+     *
+     * @param graus
      */
     @Override
     public void girar_esquerda(int graus) {
@@ -110,14 +122,14 @@ public abstract class BaseAgente implements IAgente {
 
         UtilSimulador.setLog("Orientação atual = " + orientacao);
         UtilSimulador.setLog("Valor novo = " + valor);
-        
+
         if (valor < 0) {
             valor *= -1;
             orientacao = 360 - valor;
         } else {
             orientacao = valor;
         }
-        
+
         UtilSimulador.setLog("Nova orientação = " + orientacao);
     }
 
@@ -140,8 +152,12 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void mover_frente(int quantidade) {
-        this.coordenadaX += (quantidade * Math.cos(orientacao));
-        this.coordenadaY += (quantidade * Math.sin(orientacao));
+        if (moverFrente) {
+            this.coordenadaX += (quantidade * Math.cos(orientacao));
+            this.coordenadaY += (quantidade * Math.sin(orientacao));
+        }else{
+            voltar(quantidade);
+        }
     }
 
     @Override
@@ -283,18 +299,19 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public TipoForma retornar_forma_agente() {
-        switch(forma){
+        switch (forma) {
             case 0:
                 return TipoForma.circulo;
             case 1:
                 return TipoForma.linha;
         }
-        
+
         return TipoForma.circulo;
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public void inverter_sentido() {
+        this.moverFrente = !moverFrente;
+    }
+
 }

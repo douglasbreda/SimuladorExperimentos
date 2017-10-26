@@ -14,8 +14,14 @@ import br.univali.portugol.nucleo.bibliotecas.Graficos;
 public class TesteGetCores {
     
     public static void main(String[] args) {
-        System.out.println(Graficos.COR_VERDE);
-        System.out.println(Graficos.COR_VERMELHO);
-        System.out.println(Graficos.COR_AZUL);
+//        System.out.println(Graficos.COR_VERDE);
+//        System.out.println(Graficos.COR_VERMELHO);
+//        System.out.println(Graficos.COR_AZUL);
+//        System.out.println(Graficos.COR_AMARELO);
+        System.out.println(Math.cos(100));
+        System.out.println(Math.cos(-100));
+        
+        System.out.println(Math.sin(100));
+        System.out.println(Math.sin(-100));
     }
 }

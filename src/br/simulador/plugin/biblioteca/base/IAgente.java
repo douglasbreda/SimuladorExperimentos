@@ -71,5 +71,5 @@ public interface IAgente
     
     public TipoForma retornar_forma_agente();
         
-    
+    public void inverter_sentido();
 }

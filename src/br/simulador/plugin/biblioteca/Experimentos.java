@@ -613,18 +613,32 @@ public final class Experimentos extends Biblioteca {
         return GerenciadorInterface.getInstance().retornar_valor_min_borda_y();
     }
 
-//    @DocumentacaoFuncao(
-//            descricao = "Retorna se o agente irá colidir com uma parede (Para auxiliar no tratamento de colisões",
-//            autores
-//            = {
-//                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-//            }
-//    )
-//    public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException {
-//        UtilSimulador.setLog("Verificando se está colidindo com a parede");
+    @DocumentacaoFuncao(
+            descricao = "Retorna se o agente irá colidir com uma parede (Para auxiliar no tratamento de colisões",
+            autores
+            = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_com_parede_X() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        UtilSimulador.setLog("Verificando se está colidindo com a parede");
+        int idRetalho = meu_retalho();
+        return GerenciadorInterface.getInstance().verificar_retalho_eh_parede_X(idRetalho);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Retorna se o agente irá colidir com uma parede (Para auxiliar no tratamento de colisões",
+            autores
+            = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_com_parede_Y() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        UtilSimulador.setLog("Verificando se está colidindo com a parede");
+        int idRetalho = meu_retalho();
+        return GerenciadorInterface.getInstance().verificar_retalho_eh_parede_Y(idRetalho);
 //        GerenciadorExecucao.getInstance().getAgenteAtual().colidiu_borda_X();
-//        return false;
-//    }
+    }
 
 //    @DocumentacaoFuncao(
 //            descricao = "Retorna se o agente colidiu com alguma parede lateral (direita ou esquerda)",
@@ -772,5 +786,9 @@ public final class Experimentos extends Biblioteca {
             throw new ErroExecucaoBiblioteca("[Erro Experimentos] O ambiente da simulação deve ser inicializado. Para isso, utilize o botão do plugin de simulação no canto esquerdo abaixo dos ícones padrões do Portugol");
         }
         return true;
+    }
+    
+    public void inverter_sentido(){
+        GerenciadorExecucao.getInstance().getAgenteAtual().inverter_sentido();
     }
 }

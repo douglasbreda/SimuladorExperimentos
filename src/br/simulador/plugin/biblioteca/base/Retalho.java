@@ -9,7 +9,13 @@ public class Retalho {
     private int cor;
     private int coordenadaX;
     private int coordenadaY;
+    
+    //Define se o retalho é uma parede ou não
     private boolean parede;
+    
+    //Define se o retalho é uma parede na posição X ou Y
+    private TipoParede tipo_parede;
+    
     private final int id;
     /*
         Construtor padrão
@@ -87,9 +93,11 @@ public class Retalho {
     /**
      * Define se o retalho será uma parede (para tratamento de colisões)
      * @param eh_parede 
+     * @param tipo_parede 
      */
-    public void definir_como_parede(boolean eh_parede){
+    public void definir_como_parede(boolean eh_parede, TipoParede tipo_parede){
         this.parede = eh_parede;
+        this.tipo_parede = tipo_parede;
     }
 
     /**
@@ -99,7 +107,12 @@ public class Retalho {
     public int get_id() {
         return id;
     }
-    
-    
 
+    /**
+     * Retorna qual é o tipo da parede do retalho
+     * @return 
+     */
+    public TipoParede getTipo_parede() {
+        return tipo_parede;
+    }
 }
