@@ -48,16 +48,16 @@ public abstract class BaseAgente implements IAgente {
      *
      * @param nome
      */
-    private void adicionar_parametro_lista(String nome) {
+    private void adicionar_parametro_lista(String nome, String valor_padrao) {
         if (!lista_parametros.containsKey(nome)) {
-            lista_parametros.put(nome, "");
+            lista_parametros.put(nome, valor_padrao);
             definir_log("Parâmetro " + nome + " adicionado ao agente " + id);
         }
     }
 
     @Override
-    public void criar_atributo(String nome_atributo) {
-        adicionar_parametro_lista(nome_atributo);
+    public void criar_atributo(String nome_atributo, String valor_padrao) {
+        adicionar_parametro_lista(nome_atributo, valor_padrao);
     }
 
     @Override
@@ -79,7 +79,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void definir_valor_atributo(String nome_atributo, String valor, int id_agente) {
+    public void definir_valor_atributo(String nome_atributo, String valor) {
         if (verificar_atributo_existe(nome_atributo)) {
             definir_log("Parâmetro " + nome_atributo + " valor atual: " + lista_parametros.get(nome_atributo));
             lista_parametros.replace(nome_atributo, valor);

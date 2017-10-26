@@ -73,8 +73,8 @@ public final class Experimentos extends Biblioteca {
             descricao = "Permite a criação de variáveis para controle e uso durante a simulação.",
             parametros
             = {
-                //Verificar se será criada a opção para passar um tipo ou valor default
-                @DocumentacaoParametro(nome = "nome_atributo", descricao = "Define a identificação do atributo.")
+                @DocumentacaoParametro(nome = "nome_atributo", descricao = "Define a identificação do atributo."),
+                @DocumentacaoParametro(nome = "valor_padrao", descricao = "Define um valor default para atribuir ao atributo criado")
             },
             retorno = "Sem retorno",
             autores
@@ -82,8 +82,8 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_atributo(String nome_atributo) throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorExecucao.getInstance().executarMetodo("criar_parametro", 1, nome_atributo);
+    public void criar_atributo(String nome_atributo, String valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
+        GerenciadorExecucao.getInstance().executarMetodo("criar_atributo", 2, nome_atributo, valor_padrao);
     }
 
     @DocumentacaoFuncao(
@@ -103,6 +103,26 @@ public final class Experimentos extends Biblioteca {
         return GerenciadorExecucao.getInstance().media(nome_atributo);
     }
 
+//    @DocumentacaoFuncao(
+//            descricao = "Define um valor a um determinado atributo.",
+//            parametros
+//            = {
+//                @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que terá o valor atribuído")
+//                ,
+//                @DocumentacaoParametro(nome = "valor", descricao = "Novo valor do atributo")
+//                ,
+//                @DocumentacaoParametro(nome = "id_agente", descricao = "Id do agente que terá o valor atualizado")
+//            },
+//            retorno = "Sem retorno",
+//            autores
+//            = {
+//                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+//            }
+//    )
+//    public void definir_valor_atributo(String nome_atributo, String valor, int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
+//        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente(nome_atributo, valor, id_agente);
+//    }
+    
     @DocumentacaoFuncao(
             descricao = "Define um valor a um determinado atributo.",
             parametros
@@ -110,8 +130,6 @@ public final class Experimentos extends Biblioteca {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que terá o valor atribuído")
                 ,
                 @DocumentacaoParametro(nome = "valor", descricao = "Novo valor do atributo")
-                ,
-                @DocumentacaoParametro(nome = "id_agente", descricao = "Id do agente que terá o valor atualizado")
             },
             retorno = "Sem retorno",
             autores
@@ -119,8 +137,8 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_valor_atributo(String nome_atributo, String valor, int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente(nome_atributo, valor, id_agente);
+    public void definir_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorExecucao.getInstance().getAgenteAtual().definir_valor_atributo(nome_atributo, valor);
     }
 
     @DocumentacaoFuncao(
@@ -788,7 +806,14 @@ public final class Experimentos extends Biblioteca {
         return true;
     }
     
-    public void inverter_sentido(){
+    @DocumentacaoFuncao(
+            descricao = "Inverte o sentido da direção do agente (para facilitar os movimentos)",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void inverter_sentido() throws ErroExecucaoBiblioteca, InterruptedException{
         GerenciadorExecucao.getInstance().getAgenteAtual().inverter_sentido();
     }
+    
 }

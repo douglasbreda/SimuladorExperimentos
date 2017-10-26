@@ -38,7 +38,7 @@ public class GasLabJava {
     public static void main(String[] args) throws ErroExecucao, InterruptedException {
         GasLabJava gas = new GasLabJava();
         gas.configurar();
-        gas.simular();
+//        gas.simular();
     }
 
     public Object getAgenteAtual() {
@@ -47,7 +47,7 @@ public class GasLabJava {
 
     private void inicio() throws InterruptedException, ErroExecucao, ErroExecucaoBiblioteca {
         exp.definir_forma_agentes(0);
-        exp.criar_agentes(10, true);
+        exp.criar_agentes(1, true);
         exp.executar_sempre(true);
         exp.definir_bordas(-256);
         exp.criar_monitor("lentos", "Lento", tipo.inteiro_para_cadeia(lentos, 10));
@@ -55,7 +55,9 @@ public class GasLabJava {
         exp.criar_monitor("rapidos", "Rápidos", tipo.inteiro_para_cadeia(rapidos, 10));
         exp.criar_monitor("media_v", "Média de velocidade", tipo.real_para_cadeia(media_velocidade));
         exp.criar_monitor("media_e", "Rápidos", tipo.real_para_cadeia(media_energia));
-        simular();
+        exp.criar_atributo("velocidade", "10");
+        atualizar_variaveis();
+//        simular();
     }
 
     private List<?> listaAgentes;
@@ -79,6 +81,7 @@ public class GasLabJava {
         System.out.println("Vai iniciar");
         inicio();
         exp.atualizar_tela();
+        exp.definir_valor_atributo("velocidade", String.valueOf(lentos));
     }
 
     private void atualizar_variaveis() throws ErroExecucaoBiblioteca, InterruptedException {

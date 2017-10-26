@@ -244,12 +244,13 @@ public final class GerenciadorExecucao {
      * Adiciona atributos/parametros a todos os agentes da lista
      *
      * @param nome
+     * @param valor_padrao
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public void adicionar_atributo_agentes(String nome) throws ErroExecucaoBiblioteca, InterruptedException {
+    public void adicionar_atributo_agentes(String nome, String valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
         for (IAgente agente : listaAgentes) {
-            agente.criar_atributo(nome);
+            agente.criar_atributo(nome, valor_padrao);
         }
     }
 
@@ -265,7 +266,7 @@ public final class GerenciadorExecucao {
             for (IAgente agente : listaAgentes) {
 
                 if (agente.retornar_id() == id) {
-                    agente.definir_valor_atributo(nome_atributo, valor, id);
+//                    agente.definir_valor_atributo(nome_atributo, valor, id);
                 }
             }
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
