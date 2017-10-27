@@ -194,6 +194,6 @@ public class GasLabJava {
         //se(exp.retornar_id_retalho(exp.retornar_atributo_inteiro("velocidade") * tick_delta) != exp.meu_retalho())
         //	ultima_colisao = exp.retornar_id()
 
-        exp.mover_frente(3);
+        exp.mover(3);
     }
 }

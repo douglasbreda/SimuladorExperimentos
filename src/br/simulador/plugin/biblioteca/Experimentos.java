@@ -41,9 +41,9 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void criar_agentes(int numeroAgentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+    public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         if (verificar_ambiente_inicializado()) {
-            GerenciadorExecucao.getInstance().criar_agentes(numeroAgentes, aleatorio);
+            GerenciadorExecucao.getInstance().criar_agentes(numero_agentes, aleatorio);
         }
     }
 
@@ -74,7 +74,7 @@ public final class Experimentos extends Biblioteca {
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Define a identificação do atributo."),
-                @DocumentacaoParametro(nome = "valor_padrao", descricao = "Define um valor default para atribuir ao atributo criado")
+                @DocumentacaoParametro(nome = "valor_padrao", descricao = "Define um valor padrão para atribuir ao atributo criado")
             },
             retorno = "Sem retorno",
             autores
@@ -193,7 +193,7 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void mover_frente(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
+    public void mover(int quantidade) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorExecucao.getInstance().getAgenteAtual().mover_frente(quantidade);
     }
 
@@ -269,8 +269,7 @@ public final class Experimentos extends Biblioteca {
             descricao = "Define uma cor ao agente.",
             parametros
             = {
-                @DocumentacaoParametro(nome = "cor", descricao = "Cor para o agente. Utilize a biblioteca Gráficos que já possui "
-                        + "cores pré-definidas")
+                @DocumentacaoParametro(nome = "cor", descricao = "Código da cor a ser utilizada")
             },
             retorno = "Sem retorno",
             autores
@@ -433,7 +432,7 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Realiza a atualização dos componentes visuais caso necessário.",
+            descricao = "Realiza a atualização dos componentes visuais, caso necessário.",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
@@ -496,7 +495,7 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Cria um componente do tipo Interruptor que permite ao usuário ligar ou desligar determinada funcionalidade ou característica de uma agente ou ambiente.",
+            descricao = "Cria um componente do tipo Interruptor que permite ao usuário ligar ou desligar determinada funcionalidade ou característica.",
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome", descricao = "Identificador do componente")
@@ -514,15 +513,17 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna quantos agentes possuem uma determinada cor.",
+            descricao = "Retorna o número de agentes que possuem uma determinada cor.",
             parametros
             = {
-                @DocumentacaoParametro(nome = "cor", descricao = "Define o código inteiro da cor a ser atribuída ao agente")
+                @DocumentacaoParametro(nome = "cor", descricao = "Define o código inteiro da cor que será utilizada para encontrar os agentes.")
             },
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-            }
+            },
+            retorno = "Número de agentes"
+            
     )
     public int agentes_com_cor(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         int agentes_encontrados = GerenciadorExecucao.getInstance().agentes_com_cor(cor);
@@ -555,10 +556,11 @@ public final class Experimentos extends Biblioteca {
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-            }
+            },
+            retorno = "Quantidade de agentes"
     )
-    public void agentes_em_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        GerenciadorExecucao.getInstance().agentes_em(coordenadaX, coordenadaY);
+    public int agentes_em_XY(int coordenadaX, int coordenadaY) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        return GerenciadorExecucao.getInstance().agentes_em(coordenadaX, coordenadaY);
     }
 
     @DocumentacaoFuncao(
@@ -632,11 +634,12 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna se o agente irá colidir com uma parede (Para auxiliar no tratamento de colisões",
+            descricao = "Retorna se o agente irá colidir com uma parede lateral (Para auxiliar no tratamento de colisões)",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-            }
+            },
+            retorno = "Se colidiu ou não"
     )
     public boolean colidiu_com_parede_X() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         UtilSimulador.setLog("Verificando se está colidindo com a parede");
@@ -645,11 +648,12 @@ public final class Experimentos extends Biblioteca {
     }
     
     @DocumentacaoFuncao(
-            descricao = "Retorna se o agente irá colidir com uma parede (Para auxiliar no tratamento de colisões",
+            descricao = "Retorna se o agente colidiu com uma parede superior ou inferior (Para auxiliar no tratamento de colisões)",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
-            }
+            },
+            retorno = "Se colidiu ou não"
     )
     public boolean colidiu_com_parede_Y() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         UtilSimulador.setLog("Verificando se está colidindo com a parede");
@@ -749,7 +753,7 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Define quantas execuções terá a simulação",
+            descricao = "Define se a simulação rodará até que o usário decida para ou uma única vez",
             parametros = {
                 @DocumentacaoParametro(nome = "sim", descricao = "Define se a simulação rodará enquanto o usuário desejar, ou terá apenas uma iteração")
             },
@@ -838,7 +842,7 @@ public final class Experimentos extends Biblioteca {
                 @DocumentacaoParametro(nome = "nome_interruptor", descricao = "Nome do componente utilizado para encontrá-lo entre os componentes")
             }
     )
-    public boolean retornar_valor_atual_interruptor(String nome_interruptor){
+    public boolean retornar_valor_atual_interruptor(String nome_interruptor) throws ErroExecucaoBiblioteca, InterruptedException{
         return GerenciadorComponentes.buscarValorAtualInterruptor(nome_interruptor);
     }
     
