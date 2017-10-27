@@ -6,6 +6,5 @@ Plugin desenvolvido para o [Portugol Studio](http://lite.acad.univali.br/portugo
 
 Buscando possibilitar a execução de simulações que se adequem aos conceitos de modelamento bifocal.
 
-![Exemplo de uma simulação](src/br/simulador/imagens/tela.png)
 
 
