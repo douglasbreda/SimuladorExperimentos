@@ -586,7 +586,7 @@ public class GerenciadorDesenho {
                 g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
                 break;
             case linha:
-                g.desenhar_linha(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_coordenada_X() + 10, agente.retornar_coordenada_Y() + 10);
+                g.desenhar_linha(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_coordenada_X() + 30, agente.retornar_coordenada_Y() + 10);
                 break;
             default:
                 g.desenhar_elipse(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y(), agente.retornar_largura_agente(), agente.retornar_altura_agente(), true);
@@ -634,31 +634,126 @@ public class GerenciadorDesenho {
      * @param cor
      */
     public void desenhar_bordas(int cor) {
+
+        desenhar_borda_superior(cor);
+
+        desenhar_borda_inferior(cor);
+
+        desenhar_borda_esquerda(cor);
+
+        desenhar_borda_direita(cor);
+    }
+
+    /**
+     * Desenha a borda superior da simulação
+     */
+    public void desenhar_borda_superior(int cor) {
         //Borda superior
         for (int i = 0; i < LARGURA; i++) {
             retalhos[0][i].set_cor(cor);
             retalhos[0][i].definir_como_parede(true, TipoParede.parede_y);
         }
+    }
 
+    /**
+     * Desenha a borda inferior da simulação
+     *
+     * @param cor
+     */
+    public void desenhar_borda_inferior(int cor) {
         //Borda inferior
         for (int i = 0; i < LARGURA; i++) {
             retalhos[ALTURA - 1][i].set_cor(cor);
             retalhos[ALTURA - 1][i].definir_como_parede(true, TipoParede.parede_y);
         }
+    }
 
-        //Borda esquerda
-        for (int i = 0; i < ALTURA; i++) {
-//            UtilSimulador.setLog("Definida cor de borda para " + i + "/0");
-            retalhos[i][0].set_cor(cor);
-            retalhos[i][0].definir_como_parede(true, TipoParede.parede_x);
-        }
-
+    /**
+     * Desenha a borda direita da simulação
+     *
+     * @param cor
+     */
+    public void desenhar_borda_direita(int cor) {
         //Borda direita
         for (int i = 0; i < ALTURA; i++) {
             retalhos[i][LARGURA - 1].set_cor(cor);
             retalhos[i][LARGURA - 1].definir_como_parede(true, TipoParede.parede_x);
         }
     }
+
+    /**
+     * Desenha a borda esquerda da simulação
+     *
+     * @param cor
+     */
+    public void desenhar_borda_esquerda(int cor) {
+
+        //Borda esquerda
+        for (int i = 0; i < ALTURA; i++) {
+            retalhos[i][0].set_cor(cor);
+            retalhos[i][0].definir_como_parede(true, TipoParede.parede_x);
+        }
+    }
+
+    /**
+     * Verifica se a borda que colidiu é uma borda do lado esquerdo
+     * @param id
+     * @return
+     */
+    public boolean verificar_borda_esquerda(int id) {
+        //Borda esquerda
+        for (int i = 0; i < ALTURA; i++) {
+            if (retalhos[i][0].get_id() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Verifica se uma borda que colidiu é uma borda do lado direito
+     * @param id
+     * @return 
+     */
+    public boolean verificar_borda_direita(int id){
+        //Borda direita
+        for (int i = 0; i < ALTURA; i++) {
+            if(retalhos[i][LARGURA - 1].get_id() == id)
+                return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Verifica se uma borda que colidiu é uma borda na parte superior
+     * @param id
+     * @return 
+     */
+    public boolean verificar_borda_superior(int id){
+        //Borda superior
+        for (int i = 0; i < LARGURA; i++) {
+            if(retalhos[0][i].get_id() == id)
+                return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Verifica se uma borda que colidiu é uma borda na parte inferior
+     * @param id
+     * @return 
+     */
+    public boolean verificar_borda_inferior(int id){
+        //Borda inferior
+        for (int i = 0; i < LARGURA; i++) {
+            if(retalhos[ALTURA - 1][i].get_id() == id)
+                return true;
+        }
+        
+        return false;
+    }
+    
 
     /**
      * Retorna a coordenada minima de X possível de acessar para controle de

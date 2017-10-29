@@ -237,7 +237,7 @@ public final class GerenciadorExecucao {
         }
 
         UtilSimulador.setLog("A média é: " + media);
-        return media;
+        return Math.round(media);
     }
 
     /**

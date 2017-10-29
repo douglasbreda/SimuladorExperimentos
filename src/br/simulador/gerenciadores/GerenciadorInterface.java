@@ -94,7 +94,39 @@ public final class GerenciadorInterface {
     public void definir_bordas(int cor) {
         desenho.desenhar_bordas(cor);
     }
-
+    
+    /**
+     * Desenha a borda esquerda com a cor passada
+     * @param cor 
+     */
+    public void definir_borda_esquerda(int cor){
+        desenho.desenhar_borda_esquerda(cor);
+    }
+    
+    /**
+     * Desenha a borda direita com a cor passada
+     * @param cor 
+     */
+    public void definir_borda_direita(int cor){
+        desenho.desenhar_borda_direita(cor);
+    }
+    
+    /**
+     * Desenha a borda superior com a cor passada
+     * @param cor 
+     */
+    public void definir_borda_superior(int cor){
+        desenho.desenhar_borda_superior(cor);
+    }
+    
+    /**
+     * Desenha a borda inferior com a cor passada
+     * @param cor 
+     */
+    public void definir_borda_inferior(int cor){
+        desenho.desenhar_borda_inferior(cor);
+    }
+   
     /**
      * Reseta as informações da simulação e configura a tela com a posição
      * inicial
@@ -292,12 +324,65 @@ public final class GerenciadorInterface {
         return false;
     }
     
+    /**
+     * Verifica se o retalho definido é uma parede inferior ou superior
+     * @param id
+     * @return 
+     */
     public boolean verificar_retalho_eh_parede_Y(int id){
         TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
         
         if(tipo_parede != null){
             return tipo_parede == TipoParede.parede_y;
         }
+        
+        return false;
+    }
+    
+    /**
+     * Verifica se colidiu com a parede esquerda
+     * @param id
+     * @return 
+     */
+    public boolean verificar_colidiu_parede_esquerda(int id){
+        if(verificar_retalho_eh_parede_X(id))
+            return desenho.verificar_borda_esquerda(id);
+        
+        return false;
+    }
+    
+    /**
+     * Verifica se colidiu com a parede direita
+     * @param id
+     * @return 
+     */
+    public boolean verificar_colidiu_parede_direita(int id){
+        if(verificar_retalho_eh_parede_X(id))
+            return desenho.verificar_borda_direita(id);
+        
+        return false;
+    }
+    
+    /**
+     * Verifica se colidiu com a parede superior
+     * @param id
+     * @return 
+     */
+    public boolean verificar_colidiu_parede_superior(int id){
+        if(verificar_retalho_eh_parede_Y(id))
+            return desenho.verificar_borda_superior(id);
+        
+        return false;
+    }
+    
+    /**
+     * Verifica se colidiu com a parede inferior
+     * @param id
+     * @return 
+     */
+    public boolean verificar_colidiu_parede_inferior(int id){
+        if(verificar_retalho_eh_parede_Y(id))
+            return desenho.verificar_borda_superior(id);
         
         return false;
     }

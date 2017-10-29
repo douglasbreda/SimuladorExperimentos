@@ -51,17 +51,38 @@ public class AcaoEstatica extends AbstractAction {
         }
     }
 
+    private void executar() throws ErroCompilacao, ExcecaoVisitaASA, ErroExecucao, InterruptedException {
+        final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
+        ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
+        GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
+        gerenciadorFuncao.buscar_declaracao_metodo("simular");
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        new Thread(() -> {
-            try {
-                final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
-                ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
-                GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
-                gerenciadorFuncao.buscar_declaracao_metodo("simular");
-            } catch (ExcecaoVisitaASA | ErroExecucao | InterruptedException | ErroCompilacao ex) {
+        try{
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    executar();
+                } catch (ErroCompilacao | ExcecaoVisitaASA | ErroExecucao | InterruptedException ex) {
+                    Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }).start();
+        });
+        }catch(Exception ex){
+            
+        }
+//        new Thread(() -> {
+//            try {
+//                final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
+//                ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
+//                GerenciadorFuncao gerenciadorFuncao = new GerenciadorFuncao(asa);
+//                gerenciadorFuncao.buscar_declaracao_metodo("simular");
+//            } catch (ExcecaoVisitaASA | ErroExecucao | InterruptedException | ErroCompilacao ex) {
+//            }
+//        }).start();
 //        try {
 //        if (tarefaSimulacao == null) {
 //            executarSimulacao();

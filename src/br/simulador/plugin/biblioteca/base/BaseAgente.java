@@ -1,5 +1,6 @@
 package br.simulador.plugin.biblioteca.base;
 
+import br.simulador.gerenciadores.GerenciadorInterface;
 import br.simulador.plugin.biblioteca.componentes.TipoForma;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
@@ -153,9 +154,43 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public void mover_frente(int quantidade) {
         if (moverFrente) {
+//            int prox_coordenadaX = (int) (coordenadaX + (quantidade * Math.cos(orientacao)));
+//            if (prox_coordenadaX > GerenciadorInterface.getInstance().retornar_valor_max_borda_x()) {
+//                while (prox_coordenadaX > GerenciadorInterface.getInstance().retornar_valor_max_borda_x()) {
+//                    quantidade--;
+//                    prox_coordenadaX = (int) (coordenadaX + (quantidade * Math.cos(orientacao)));
+//                    System.out.println("Esta dentro do frente X");
+//                }
+//
+//                inverter_sentido();
+//            }
+//
+//            int prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
+//            if (prox_coordenadaY > GerenciadorInterface.getInstance().retornar_valor_max_borda_y()) {
+//                while (prox_coordenadaY > GerenciadorInterface.getInstance().retornar_valor_max_borda_y()) {
+//                    quantidade--;
+//                    prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
+//                    System.out.println("Esta dentro do frente Y");
+//                }
+//
+//                inverter_sentido();
+//            }
+
+            int prox_coordenadaX = (int) (coordenadaX + (quantidade * Math.cos(orientacao)));
+            if (prox_coordenadaX >= GerenciadorInterface.getInstance().retornar_valor_max_borda_x()) {
+                coordenadaX = GerenciadorInterface.getInstance().retornar_valor_max_borda_x() - 1;
+                inverter_sentido();
+            }
+
+            int prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
+            if (prox_coordenadaY >= GerenciadorInterface.getInstance().retornar_valor_max_borda_y()) {
+                coordenadaY = GerenciadorInterface.getInstance().retornar_valor_max_borda_y() - 1;
+                inverter_sentido();
+            }
+
             this.coordenadaX += (quantidade * Math.cos(orientacao));
             this.coordenadaY += (quantidade * Math.sin(orientacao));
-        }else{
+        } else {
             voltar(quantidade);
         }
     }
@@ -235,6 +270,42 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void voltar(int quantidade) {
+//        int prox_coordenadaX = (int) (coordenadaX - (quantidade * Math.cos(orientacao)));
+//        if (prox_coordenadaX < GerenciadorInterface.getInstance().retornar_valor_min_borda_x()) {
+//            while (prox_coordenadaX < GerenciadorInterface.getInstance().retornar_valor_min_borda_x()) {
+//                quantidade--;
+//                prox_coordenadaX = (int) (coordenadaX - (quantidade * Math.cos(orientacao)));
+//                System.out.println("Esta dentro do voltar X");
+//            }
+//            
+//            inverter_sentido();
+//        }
+//        
+//        int prox_coordenadaY = (int) (coordenadaY - (quantidade * Math.sin(orientacao)));
+//        if (prox_coordenadaY < GerenciadorInterface.getInstance().retornar_valor_min_borda_y()) {
+//            while (prox_coordenadaY < GerenciadorInterface.getInstance().retornar_valor_min_borda_y()) {
+//                quantidade++;
+//                prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
+//                System.out.println("Esta dentro do voltar Y");
+//            }
+//            
+//            inverter_sentido();
+//        }
+
+        int prox_coordenadaX = (int) (coordenadaX - (quantidade * Math.cos(orientacao)));
+        if (prox_coordenadaX < GerenciadorInterface.getInstance().retornar_valor_min_borda_x()) {
+            coordenadaX = GerenciadorInterface.getInstance().retornar_valor_min_borda_x() + 1;
+            inverter_sentido();
+            return;
+        }
+
+        int prox_coordenadaY = (int) (coordenadaY - (quantidade * Math.sin(orientacao)));
+        if (prox_coordenadaY < GerenciadorInterface.getInstance().retornar_valor_min_borda_y()) {
+            coordenadaY = GerenciadorInterface.getInstance().retornar_valor_min_borda_y() + 1;
+            inverter_sentido();
+            return;
+        }
+
         this.coordenadaX -= (quantidade * Math.cos(orientacao));
         this.coordenadaY -= (quantidade * Math.sin(orientacao));
     }

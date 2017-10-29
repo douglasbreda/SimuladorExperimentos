@@ -83,7 +83,7 @@ public final class Experimentos extends Biblioteca {
             }
     )
     public void criar_atributo(String nome_atributo, String valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
-        GerenciadorExecucao.getInstance().executarMetodo("criar_atributo", 2, nome_atributo, valor_padrao);
+        GerenciadorExecucao.getInstance().adicionar_atributo_agentes(nome_atributo, valor_padrao);
     }
 
     @DocumentacaoFuncao(
@@ -182,10 +182,10 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Move o agente n passos(verificar explicação para os passos) para a frente.",
+            descricao = "Move o agente n posições para a frente.",
             parametros
             = {
-                @DocumentacaoParametro(nome = "quantidade", descricao = "Quantidade de passos para mover")
+                @DocumentacaoParametro(nome = "quantidade", descricao = "Número de posições para mover")
             },
             retorno = "Sem retorno",
             autores
@@ -198,10 +198,10 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Faz com que o agente retorne n passos.",
+            descricao = "Faz com que o agente retorne n posições.",
             parametros
             = {
-                @DocumentacaoParametro(nome = "quantidade", descricao = "Quantidade de passos para retornar")
+                @DocumentacaoParametro(nome = "quantidade", descricao = "Número de posições para retornar")
             },
             retorno = "Sem retorno",
             autores
@@ -282,12 +282,12 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna um parâmetro no formato de cadeia de caracteres.",
+            descricao = "Retorna um atributo no formato de cadeia de caracteres.",
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
-            retorno = "Retorna o parâmetro convertido para cadeia de caracteres",
+            retorno = "Retorna o atributo convertido para cadeia de caracteres",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
@@ -298,12 +298,12 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna um parâmetro no formato de caracter.",
+            descricao = "Retorna um atributo no formato de caracter.",
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
-            retorno = "Retorna o parâmetro convertido para caractere",
+            retorno = "Retorna o atributo convertido para caractere",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
@@ -314,12 +314,12 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna um parâmetro no formato inteiro.",
+            descricao = "Retorna um atributo no formato inteiro.",
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
-            retorno = "Retorna o parâmetro convertido para número inteiro",
+            retorno = "Retorna o atributo convertido para número inteiro",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
@@ -330,12 +330,12 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna um parâmetro no formato lógico.",
+            descricao = "Retorna um atributo no formato lógico.",
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
-            retorno = "Retorna o parâmetro convertido para lógico",
+            retorno = "Retorna o atributo convertido para lógico",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
@@ -346,12 +346,12 @@ public final class Experimentos extends Biblioteca {
     }
 
     @DocumentacaoFuncao(
-            descricao = "Retorna um parâmetro no formato real.",
+            descricao = "Retorna um atributo no formato real.",
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que será retornado")
             },
-            retorno = "Retorna o parâmetro convertido para número real",
+            retorno = "Retorna o atributo convertido para número real",
             autores
             = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
@@ -642,7 +642,7 @@ public final class Experimentos extends Biblioteca {
             retorno = "Se colidiu ou não"
     )
     public boolean colidiu_com_parede_X() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        UtilSimulador.setLog("Verificando se está colidindo com a parede");
+//        UtilSimulador.setLog("Verificando se está colidindo com a parede");
         int idRetalho = meu_retalho();
         return GerenciadorInterface.getInstance().verificar_retalho_eh_parede_X(idRetalho);
     }
@@ -846,4 +846,99 @@ public final class Experimentos extends Biblioteca {
         return GerenciadorComponentes.buscarValorAtualInterruptor(nome_interruptor);
     }
     
+    @DocumentacaoFuncao(
+            descricao = "Define a cor apenas da borda esquerda da simulação",
+            parametros = {
+                @DocumentacaoParametro(nome = "cor", descricao = "Código inteiro da cor desejada")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void definir_borda_esquerda(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorInterface.getInstance().definir_borda_esquerda(cor);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Define a cor apenas da borda direita da simulação",
+            parametros = {
+                @DocumentacaoParametro(nome = "cor", descricao = "Código inteiro da cor desejada")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void definir_borda_direita(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorInterface.getInstance().definir_borda_direita(cor);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Define a cor apenas da borda inferior da simulação",
+            parametros = {
+                @DocumentacaoParametro(nome = "cor", descricao = "Código inteiro da cor desejada")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void definir_borda_inferior(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorInterface.getInstance().definir_borda_inferior(cor);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Define a cor apenas da borda superior da simulação",
+            parametros = {
+                @DocumentacaoParametro(nome = "cor", descricao = "Código inteiro da cor desejada")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void definir_borda_superior(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorInterface.getInstance().definir_borda_superior(cor);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Verifica se o agente colidiu com a parede esquerda",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_com_parede_esquerda() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        int idRetalho = meu_retalho();
+        return GerenciadorInterface.getInstance().verificar_colidiu_parede_esquerda(idRetalho);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Verifica se o agente colidiu com a parede direita",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_com_parede_direita() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        int idRetalho = meu_retalho();
+        return GerenciadorInterface.getInstance().verificar_colidiu_parede_direita(idRetalho);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Verifica se o agente colidiu com a parede superior",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_com_parede_superior() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        int idRetalho = meu_retalho();
+        return GerenciadorInterface.getInstance().verificar_colidiu_parede_superior(idRetalho);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Verifica se o agente colidiu com a parede inferior",
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public boolean colidiu_com_parede_inferior() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        int idRetalho = meu_retalho();
+        return GerenciadorInterface.getInstance().verificar_colidiu_parede_inferior(idRetalho);
+    }
 }

@@ -46,8 +46,8 @@ public class GasLabJava {
     }
 
     private void inicio() throws InterruptedException, ErroExecucao, ErroExecucaoBiblioteca {
-        exp.definir_forma_agentes(0);
-        exp.criar_agentes(1, true);
+        exp.definir_forma_agentes(1);
+        exp.criar_agentes(10, true);
         exp.executar_sempre(true);
         exp.definir_bordas(-256);
         exp.criar_monitor("lentos", "Lento", tipo.inteiro_para_cadeia(lentos, 10));
@@ -58,7 +58,7 @@ public class GasLabJava {
         exp.criar_slider("slider_1", "Teste", 0, 100, 25);
         exp.criar_atributo("velocidade", "10");
         atualizar_variaveis();
-//        simular();
+        simular();
     }
 
     private List<?> listaAgentes;
