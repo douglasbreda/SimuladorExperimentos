@@ -4,7 +4,7 @@
 
 Plugin desenvolvido para o [Portugol Studio](http://lite.acad.univali.br/portugol/) como trabalho de conclusão de curso de Ciência da Computação.
 
-Buscando possibilitar a execução de simulações que se adequem aos conceitos de modelamento bifocal.
+Buscando possibilitar a execução de simulações que se adequem aos conceitos de [modelamento bifocal](https://tltl.stanford.edu/project/bifocal-modeling).
 
 
 
