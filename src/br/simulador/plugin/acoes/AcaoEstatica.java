@@ -51,6 +51,13 @@ public class AcaoEstatica extends AbstractAction {
         }
     }
 
+    /**
+     * Método chamada para dar início ao processo de simulação
+     * @throws ErroCompilacao
+     * @throws ExcecaoVisitaASA
+     * @throws ErroExecucao
+     * @throws InterruptedException 
+     */
     private void executar() throws ErroCompilacao, ExcecaoVisitaASA, ErroExecucao, InterruptedException {
         final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
         ASAPrograma asa = plugin.getUtilizadorPlugins().obterASAProgramaAnalisado();
@@ -60,20 +67,14 @@ public class AcaoEstatica extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try{
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    executar();
-                } catch (ErroCompilacao | ExcecaoVisitaASA | ErroExecucao | InterruptedException ex) {
-                    Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        
+        new Thread(() -> {
+            try {
+                executar();
+            } catch (ErroCompilacao | ExcecaoVisitaASA | ErroExecucao | InterruptedException ex) {
+                Logger.getLogger(AcaoEstatica.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-        }catch(Exception ex){
-            
-        }
+        }).start();
 //        new Thread(() -> {
 //            try {
 //                final Programa programa = Portugol.compilarParaAnalise(plugin.getUtilizadorPlugins().obterCodigoFonteUsuario());
