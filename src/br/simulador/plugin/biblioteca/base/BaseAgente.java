@@ -154,42 +154,27 @@ public abstract class BaseAgente implements IAgente {
     @Override
     public void mover_frente(int quantidade) {
         if (moverFrente) {
-//            int prox_coordenadaX = (int) (coordenadaX + (quantidade * Math.cos(orientacao)));
-//            if (prox_coordenadaX > GerenciadorInterface.getInstance().retornar_valor_max_borda_x()) {
-//                while (prox_coordenadaX > GerenciadorInterface.getInstance().retornar_valor_max_borda_x()) {
-//                    quantidade--;
-//                    prox_coordenadaX = (int) (coordenadaX + (quantidade * Math.cos(orientacao)));
-//                    System.out.println("Esta dentro do frente X");
-//                }
-//
-//                inverter_sentido();
-//            }
-//
-//            int prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
-//            if (prox_coordenadaY > GerenciadorInterface.getInstance().retornar_valor_max_borda_y()) {
-//                while (prox_coordenadaY > GerenciadorInterface.getInstance().retornar_valor_max_borda_y()) {
-//                    quantidade--;
-//                    prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
-//                    System.out.println("Esta dentro do frente Y");
-//                }
-//
-//                inverter_sentido();
-//            }
+            //Verifica os totais para comparar caso sejam menor que zero
+            int quantidadeX = (int)(quantidade * Math.cos(orientacao));
+            int quantidadeY = (int)(quantidade * Math.sin(orientacao));
+            
+            int prox_coordenadaX = (int) (coordenadaX + (quantidadeX > 0 ? quantidadeX : 1) );
 
-            int prox_coordenadaX = (int) (coordenadaX + (quantidade * Math.cos(orientacao)));
-            if (prox_coordenadaX >= GerenciadorInterface.getInstance().retornar_valor_max_borda_x()) {
-                coordenadaX = GerenciadorInterface.getInstance().retornar_valor_max_borda_x() - 1;
-                inverter_sentido();
+            if (prox_coordenadaX > GerenciadorInterface.getInstance().get_largura_maxima_painel_simulacao()) {
+                coordenadaX = GerenciadorInterface.getInstance().retornar_valor_min_borda_x() + 1;
+                return;
+            }
+//
+            int prox_coordenadaY = (int) (coordenadaY + (quantidadeY > 0 ? quantidadeY : 1));
+
+            if (prox_coordenadaY > GerenciadorInterface.getInstance().get_altura_maxima_painel_simulacao()) {
+                coordenadaY = GerenciadorInterface.getInstance().retornar_valor_min_borda_y() + 1;
+                return;
             }
 
-            int prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
-            if (prox_coordenadaY >= GerenciadorInterface.getInstance().retornar_valor_max_borda_y()) {
-                coordenadaY = GerenciadorInterface.getInstance().retornar_valor_max_borda_y() - 1;
-                inverter_sentido();
-            }
+            this.coordenadaX += quantidadeX > 0 ? quantidadeX : 1;
+            this.coordenadaY += quantidadeY > 0 ? quantidadeY : 1;
 
-            this.coordenadaX += (quantidade * Math.cos(orientacao));
-            this.coordenadaY += (quantidade * Math.sin(orientacao));
         } else {
             voltar(quantidade);
         }
@@ -270,44 +255,23 @@ public abstract class BaseAgente implements IAgente {
 
     @Override
     public void voltar(int quantidade) {
-//        int prox_coordenadaX = (int) (coordenadaX - (quantidade * Math.cos(orientacao)));
-//        if (prox_coordenadaX < GerenciadorInterface.getInstance().retornar_valor_min_borda_x()) {
-//            while (prox_coordenadaX < GerenciadorInterface.getInstance().retornar_valor_min_borda_x()) {
-//                quantidade--;
-//                prox_coordenadaX = (int) (coordenadaX - (quantidade * Math.cos(orientacao)));
-//                System.out.println("Esta dentro do voltar X");
-//            }
-//            
-//            inverter_sentido();
-//        }
-//        
-//        int prox_coordenadaY = (int) (coordenadaY - (quantidade * Math.sin(orientacao)));
-//        if (prox_coordenadaY < GerenciadorInterface.getInstance().retornar_valor_min_borda_y()) {
-//            while (prox_coordenadaY < GerenciadorInterface.getInstance().retornar_valor_min_borda_y()) {
-//                quantidade++;
-//                prox_coordenadaY = (int) (coordenadaY + (quantidade * Math.sin(orientacao)));
-//                System.out.println("Esta dentro do voltar Y");
-//            }
-//            
-//            inverter_sentido();
-//        }
-
         int prox_coordenadaX = (int) (coordenadaX - (quantidade * Math.cos(orientacao)));
-        if (prox_coordenadaX < GerenciadorInterface.getInstance().retornar_valor_min_borda_x()) {
-            coordenadaX = GerenciadorInterface.getInstance().retornar_valor_min_borda_x() + 1;
-            inverter_sentido();
+        if (prox_coordenadaX < GerenciadorInterface.getInstance().get_largura_minima_painel_simulacao()) {
+            coordenadaX = GerenciadorInterface.getInstance().retornar_valor_max_borda_x() - 1;
             return;
         }
 
         int prox_coordenadaY = (int) (coordenadaY - (quantidade * Math.sin(orientacao)));
-        if (prox_coordenadaY < GerenciadorInterface.getInstance().retornar_valor_min_borda_y()) {
-            coordenadaY = GerenciadorInterface.getInstance().retornar_valor_min_borda_y() + 1;
-            inverter_sentido();
+        if (prox_coordenadaY < GerenciadorInterface.getInstance().get_altura_minima_painel_simulacao()) {
+            coordenadaY = GerenciadorInterface.getInstance().retornar_valor_max_borda_y() - 1;            
             return;
         }
 
-        this.coordenadaX -= (quantidade * Math.cos(orientacao));
-        this.coordenadaY -= (quantidade * Math.sin(orientacao));
+        int quantidadeX = (int)(quantidade * Math.cos(orientacao));
+        int quantidadeY = (int)(quantidade * Math.sin(orientacao));
+        
+        this.coordenadaX -= quantidadeX > 0 ? quantidadeX : 1;
+        this.coordenadaY -= quantidadeY > 0 ? quantidadeY : 1;
     }
 
     @Override

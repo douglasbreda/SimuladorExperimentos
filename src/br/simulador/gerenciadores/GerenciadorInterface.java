@@ -377,6 +377,7 @@ public final class GerenciadorInterface {
     
     /**
      * Verifica se colidiu com a parede inferior
+     * 
      * @param id
      * @return 
      */
@@ -386,4 +387,41 @@ public final class GerenciadorInterface {
         
         return false;
     }
+    
+    /**
+     * Retorna a altura máxima do painel onde está ocorrendo a simulação
+     * 
+     * @return 
+     */
+    public int get_altura_maxima_painel_simulacao(){
+        return desenho.get_altura_maxima_painel_simulacao();
+    }
+    
+    /**
+     * Retorna a altura mínima do painel onde está ocorrendo a simulação
+     * 
+     * @return 
+     */
+    public int get_altura_minima_painel_simulacao(){
+        return desenho.get_altura_minima_painel_simulacao();
+    }
+    
+    /**
+     * Retorna a largua máxima do painel onde está ocorrendo a simulação
+     * 
+     * @return 
+     */
+    public int get_largura_maxima_painel_simulacao(){
+        return desenho.get_largura_maxima_painel_simulacao();
+    }
+    
+    /**
+     * Retorna a largura mínima do painel onde está ocorrendo a simulação
+     * 
+     * @return 
+     */
+    public int get_largura_minima_painel_simulacao(){
+        return desenho.get_largura_minima_painel_simulacao();
+    }
+    
 }

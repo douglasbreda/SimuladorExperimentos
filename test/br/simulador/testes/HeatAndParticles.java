@@ -28,7 +28,7 @@ public class HeatAndParticles {
     public static void main(String[] args) throws ErroExecucao, InterruptedException {
         HeatAndParticles gas = new HeatAndParticles();
         gas.configurar();
-        //gas.simular();
+        gas.simular();
     }
 
     public Object getAgenteAtual() {
@@ -154,10 +154,8 @@ public class HeatAndParticles {
     private void mover() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int velocidade = tipo.real_para_inteiro(exp.retornar_atributo_real("velocidade"));
         System.out.println(velocidade);
-
-       // exp.mover(velocidade);
-
-//        exp.definir_cor_retalho(-16776961);
+        exp.mover(3);
+//        exp.definir_cor_retalho(-256);
     }
 
 }

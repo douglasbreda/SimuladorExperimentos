@@ -46,7 +46,7 @@ public class GasLabJava {
     }
 
     private void inicio() throws InterruptedException, ErroExecucao, ErroExecucaoBiblioteca {
-        exp.definir_forma_agentes(1);
+        exp.definir_forma_agentes(0);
         exp.criar_agentes(10, true);
         exp.executar_sempre(true);
         exp.definir_bordas(-256);

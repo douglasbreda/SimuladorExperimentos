@@ -422,7 +422,7 @@ public class GerenciadorDesenho {
     private void desenhar_linha() throws ErroExecucaoBiblioteca, InterruptedException {
 
         //As linhas desenhadas duas vezes dão efeito de profundidade (Extraído do exemplo da bateria do Portugol Studio)
-        //Linha divisória vertical vertical
+        //Linha divisória vertical 
         g.definir_cor(COR_ESCURA_LINHA_DIVISORIA);
         g.desenhar_linha(largura_painel_componentes - 10, altura_painel_botoes - 10, largura_painel_componentes - 10, altura_imagem_fundo - altura_rodape - 10);
 
@@ -646,6 +646,8 @@ public class GerenciadorDesenho {
 
     /**
      * Desenha a borda superior da simulação
+     * 
+     * @param cor
      */
     public void desenhar_borda_superior(int cor) {
         //Borda superior
@@ -772,7 +774,7 @@ public class GerenciadorDesenho {
      * @return
      */
     public int retorna_valor_minimo_borda_Y() {
-        return retalhos[2][0].get_coordenadaY() + tile;
+        return retalhos[0][0].get_coordenadaY() + tile;
     }
 
     /**
@@ -1238,5 +1240,42 @@ public class GerenciadorDesenho {
         }
 
         return tipo_parede;
+    }
+    
+    /**
+     * Retorna a altura máxima (y) do painel onde ocorre a simulação
+     * 
+     * @return 
+     */
+    public int get_altura_maxima_painel_simulacao(){
+        return ALTURA_DA_TELA - altura_rodape - 20;
+    }
+    
+    /**
+     * Retorna a altura mínima (y) do painel onde ocorre a simulação
+     * 
+     * @return 
+     */
+    public int get_altura_minima_painel_simulacao(){
+        return altura_painel_botoes;
+        
+    }
+    
+    /**
+     * Retorna a largura máxima (x) do painel de simulação 
+     * 
+     * @return 
+     */
+    public int get_largura_maxima_painel_simulacao(){
+        return LARGURA_DA_TELA - 1;
+    }
+    
+    /**
+     * Retorna a largura mínima (x) do painel de simulação
+     * 
+     * @return 
+     */
+    public int get_largura_minima_painel_simulacao(){
+        return largura_painel_componentes;
     }
 }
