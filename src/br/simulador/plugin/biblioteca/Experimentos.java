@@ -941,4 +941,13 @@ public final class Experimentos extends Biblioteca {
         int idRetalho = meu_retalho();
         return GerenciadorInterface.getInstance().verificar_colidiu_parede_inferior(idRetalho);
     }
+    
+    public int retornar_agente_aqui() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+        int idRetalho = meu_retalho();
+        return GerenciadorExecucao.getInstance().buscar_agente_aqui(idRetalho);
+    }
+    
+    public int retornar_orientacao_por_agente(int id_agente) throws ErroExecucaoBiblioteca, InterruptedException{
+        return GerenciadorExecucao.getInstance().getOrientacaoPorId(id_agente);
+    }
 }

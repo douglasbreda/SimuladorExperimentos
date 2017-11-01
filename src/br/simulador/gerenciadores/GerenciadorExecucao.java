@@ -16,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public final class GerenciadorExecucao {
     //Define os passos da simulação
     //Ou seja, cada vez que um ciclo de execução é completado
     private static int ticks = 0;
-    
+
     //Define se vai rodar a simulação dentro de um while(true) ou não
     private static boolean executar_sempre = false;
 
@@ -524,7 +525,8 @@ public final class GerenciadorExecucao {
 
     /**
      * Define qual é o formato dos desenhos dos agentes
-     * @param forma 
+     *
+     * @param forma
      */
     public void setFormaAgente(int forma) {
         switch (forma) {
@@ -539,7 +541,8 @@ public final class GerenciadorExecucao {
 
     /**
      * Busca se a simulação irá executar em um while(true) ou não
-     * @return 
+     *
+     * @return
      */
     public boolean isExecutar_sempre() {
         return GerenciadorExecucao.executar_sempre;
@@ -547,11 +550,46 @@ public final class GerenciadorExecucao {
 
     /**
      * Define se a simulação irá executar em um while(true)
-     * @param executar_sempre 
+     *
+     * @param executar_sempre
      */
     public void setExecutar_sempre(boolean executar_sempre) {
         GerenciadorExecucao.executar_sempre = executar_sempre;
     }
-    
-    
+
+    /**
+     * Retorna o agente que está no mesmo retalho que o agente atual
+     *
+     * @param idRetalho
+     * @return
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    public int buscar_agente_aqui(int idRetalho) throws ErroExecucaoBiblioteca, InterruptedException {
+        Retalho retalho = GerenciadorInterface.getInstance().buscar_retalho_por_id(idRetalho);
+
+        if (retalho != null) {
+            return GerenciadorInterface.getInstance().buscar_id_agente_retalho(retalho, getAgenteAtual().retornar_id());
+        }
+
+        return 0;
+    }
+
+    /**
+     * Retorna a orientação de um agente de acordo com o seu id
+     *
+     * @param id
+     * @return
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    public int getOrientacaoPorId(int id) throws ErroExecucaoBiblioteca, InterruptedException {
+        for (IAgente agente : listaAgentes) {
+            if (agente.retornar_id() == id) {
+                return agente.retornar_orientacao();
+            }
+        }
+        
+        return getAgenteAtual().retornar_orientacao();
+    }
 }

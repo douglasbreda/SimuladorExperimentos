@@ -42,7 +42,9 @@ public final class GerenciadorInterface {
 
     /**
      * Chama a tela de inicialização do Simulador
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     *
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      * @throws java.lang.reflect.InvocationTargetException
      */
@@ -94,39 +96,43 @@ public final class GerenciadorInterface {
     public void definir_bordas(int cor) {
         desenho.desenhar_bordas(cor);
     }
-    
+
     /**
      * Desenha a borda esquerda com a cor passada
-     * @param cor 
+     *
+     * @param cor
      */
-    public void definir_borda_esquerda(int cor){
+    public void definir_borda_esquerda(int cor) {
         desenho.desenhar_borda_esquerda(cor);
     }
-    
+
     /**
      * Desenha a borda direita com a cor passada
-     * @param cor 
+     *
+     * @param cor
      */
-    public void definir_borda_direita(int cor){
+    public void definir_borda_direita(int cor) {
         desenho.desenhar_borda_direita(cor);
     }
-    
+
     /**
      * Desenha a borda superior com a cor passada
-     * @param cor 
+     *
+     * @param cor
      */
-    public void definir_borda_superior(int cor){
+    public void definir_borda_superior(int cor) {
         desenho.desenhar_borda_superior(cor);
     }
-    
+
     /**
      * Desenha a borda inferior com a cor passada
-     * @param cor 
+     *
+     * @param cor
      */
-    public void definir_borda_inferior(int cor){
+    public void definir_borda_inferior(int cor) {
         desenho.desenhar_borda_inferior(cor);
     }
-   
+
     /**
      * Reseta as informações da simulação e configura a tela com a posição
      * inicial
@@ -154,274 +160,329 @@ public final class GerenciadorInterface {
      * @param altura
      * @param largura
      * @return
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
     public Retalho get_retalho(int coordenadaX, int coordenadaY, int altura, int largura) throws ErroExecucaoBiblioteca, InterruptedException {
         return desenho.get_retalho(coordenadaX, coordenadaY, altura, largura);
     }
-    
+
     /**
      * Busca o número de agentes que estão em um determinado retalho
+     *
      * @param retalho
      * @return
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public int buscar_numero_agentes(Retalho retalho) throws ErroExecucaoBiblioteca, InterruptedException{
+    public int buscar_numero_agentes(Retalho retalho) throws ErroExecucaoBiblioteca, InterruptedException {
         return desenho.buscar_agentes_no_retalho(retalho);
     }
-    
+
     /**
      * Atualiza o label de número de agentes da simulação
-     * @param total_agentes 
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
-     * @throws java.lang.InterruptedException 
+     *
+     * @param total_agentes
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
      */
 //    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException{
 //        desenho.atualizar_total_agentes(total_agentes);
 //    }
-    
     /**
      * Atualiza o label que informa se a simulação está executando
-     * @param executando 
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca 
-     * @throws java.lang.InterruptedException 
+     *
+     * @param executando
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     * @throws java.lang.InterruptedException
      */
 //    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException{
 //        desenho.atualizar_status_simulacao(executando);
 //    }
-    
     /**
      * Força a atualização dos componentes visuais
-     * @throws br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
+     *
+     * @throws
+     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void renderizar_tela() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public void renderizar_tela() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         desenho.renderizar();
     }
-    
+
     /**
-     * Força uma atualização dos componentes, porém sem ficar em loop, apenas um "refresh"
+     * Força uma atualização dos componentes, porém sem ficar em loop, apenas um
+     * "refresh"
+     *
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
-     * @throws ErroExecucao 
+     * @throws ErroExecucao
      */
-    public void renderizar_tela_parcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public void renderizar_tela_parcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         desenho.renderizar_parcial();
     }
-    
+
     /**
-     * Renderiza somente os agentes para evitar atualizações de tela desnecessárias
+     * Renderiza somente os agentes para evitar atualizações de tela
+     * desnecessárias
+     *
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void renderizar_agentes() throws ErroExecucaoBiblioteca, InterruptedException{
+    public void renderizar_agentes() throws ErroExecucaoBiblioteca, InterruptedException {
         desenho.renderizar_agentes();
     }
-    
+
     /**
      * Define a cor de fundo de todo o ambiente de simulação
+     *
      * @param cor
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         desenho.definir_cor_fundo(cor);
     }
-    
+
     /**
      * Cria um novo componente na tela do tipo slider
+     *
      * @param nome
      * @param titulo
      * @param minimo
      * @param maximo
      * @param valor_padrao
      * @throws InterruptedException
-     * @throws ErroExecucao 
+     * @throws ErroExecucao
      */
-    public void criar_slider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao{
+    public void criar_slider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao {
         desenho.criar_slider(nome, titulo, minimo, valor_padrao, maximo);
     }
-    
+
     /**
      * Cria um novo componente do tipo monitor
+     *
      * @param nome
      * @param titulo
      * @param valor_atual
      * @throws InterruptedException
-     * @throws ErroExecucao 
-     */ 
-    public void criar_monitor(String nome, String titulo, String valor_atual) throws InterruptedException, ErroExecucao{
+     * @throws ErroExecucao
+     */
+    public void criar_monitor(String nome, String titulo, String valor_atual) throws InterruptedException, ErroExecucao {
         desenho.criar_monitor(nome, titulo, valor_atual);
     }
-    
+
     /**
      * Cria um novo componente do tipo interruptor
+     *
      * @param nome
      * @param titulo
      * @param valor_padrao
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    public void criar_interruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void criar_interruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
         desenho.criar_interruptor(nome, titulo, valor_padrao);
     }
-    
+
     /**
      * Atribuir a cor a um retalho procurando pelo seu id
+     *
      * @param id
-     * @param cor 
+     * @param cor
      */
-    public void definir_cor_retalho(int id, int cor){
+    public void definir_cor_retalho(int id, int cor) {
         desenho.definir_cor_retalho(id, cor);
     }
-    
+
     /**
-     * Retorna o valor máximo no eixo X. Ou seja, onde começa a parede que define as bordas no lado direito
-     * @return 
+     * Retorna o valor máximo no eixo X. Ou seja, onde começa a parede que
+     * define as bordas no lado direito
+     *
+     * @return
      */
-    public int retornar_valor_max_borda_x(){
+    public int retornar_valor_max_borda_x() {
         return desenho.retorna_valor_maximo_borda_X();
     }
-    
+
     /**
-     * Retorna o valor máximo no eixo Y. Ou seja, onde começa a parede que define as bordas na parte superior
-     * @return 
+     * Retorna o valor máximo no eixo Y. Ou seja, onde começa a parede que
+     * define as bordas na parte superior
+     *
+     * @return
      */
-    public int retornar_valor_max_borda_y(){
+    public int retornar_valor_max_borda_y() {
         return desenho.retorna_valor_maximo_borda_Y();
     }
-    
+
     /**
-     * Retorna o valor mínimo no eixo X. Ou seja, onde começa a parede que define as bordas no lado esquerdo
-     * @return 
+     * Retorna o valor mínimo no eixo X. Ou seja, onde começa a parede que
+     * define as bordas no lado esquerdo
+     *
+     * @return
      */
-    public int retornar_valor_min_borda_x(){
+    public int retornar_valor_min_borda_x() {
         return desenho.retorna_valor_minimo_borda_X();
-    } 
-    
+    }
+
     /**
-     * Retorna o valor máximo no eixo Y. Ou seja, onde começa a parede que define as bordas na parte inferior
-     * @return 
+     * Retorna o valor máximo no eixo Y. Ou seja, onde começa a parede que
+     * define as bordas na parte inferior
+     *
+     * @return
      */
-    public int retornar_valor_min_borda_y(){
+    public int retornar_valor_min_borda_y() {
         return desenho.retorna_valor_minimo_borda_Y();
     }
-    
+
     /**
      * Retorna se o retalho é uma parede lateral
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_retalho_eh_parede_X(int id){
+    public boolean verificar_retalho_eh_parede_X(int id) {
         TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
-        
-        if(tipo_parede != null){
+
+        if (tipo_parede != null) {
             return tipo_parede == TipoParede.parede_x;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Verifica se o retalho definido é uma parede inferior ou superior
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_retalho_eh_parede_Y(int id){
+    public boolean verificar_retalho_eh_parede_Y(int id) {
         TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
-        
-        if(tipo_parede != null){
+
+        if (tipo_parede != null) {
             return tipo_parede == TipoParede.parede_y;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Verifica se colidiu com a parede esquerda
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_colidiu_parede_esquerda(int id){
-        if(verificar_retalho_eh_parede_X(id))
+    public boolean verificar_colidiu_parede_esquerda(int id) {
+        if (verificar_retalho_eh_parede_X(id)) {
             return desenho.verificar_borda_esquerda(id);
-        
+        }
+
         return false;
     }
-    
+
     /**
      * Verifica se colidiu com a parede direita
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_colidiu_parede_direita(int id){
-        if(verificar_retalho_eh_parede_X(id))
+    public boolean verificar_colidiu_parede_direita(int id) {
+        if (verificar_retalho_eh_parede_X(id)) {
             return desenho.verificar_borda_direita(id);
-        
+        }
+
         return false;
     }
-    
+
     /**
      * Verifica se colidiu com a parede superior
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_colidiu_parede_superior(int id){
-        if(verificar_retalho_eh_parede_Y(id))
+    public boolean verificar_colidiu_parede_superior(int id) {
+        if (verificar_retalho_eh_parede_Y(id)) {
             return desenho.verificar_borda_superior(id);
-        
+        }
+
         return false;
     }
-    
+
     /**
      * Verifica se colidiu com a parede inferior
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_colidiu_parede_inferior(int id){
-        if(verificar_retalho_eh_parede_Y(id))
+    public boolean verificar_colidiu_parede_inferior(int id) {
+        if (verificar_retalho_eh_parede_Y(id)) {
             return desenho.verificar_borda_superior(id);
-        
+        }
+
         return false;
     }
-    
+
     /**
      * Retorna a altura máxima do painel onde está ocorrendo a simulação
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int get_altura_maxima_painel_simulacao(){
+    public int get_altura_maxima_painel_simulacao() {
         return desenho.get_altura_maxima_painel_simulacao();
     }
-    
+
     /**
      * Retorna a altura mínima do painel onde está ocorrendo a simulação
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int get_altura_minima_painel_simulacao(){
+    public int get_altura_minima_painel_simulacao() {
         return desenho.get_altura_minima_painel_simulacao();
     }
-    
+
     /**
      * Retorna a largua máxima do painel onde está ocorrendo a simulação
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int get_largura_maxima_painel_simulacao(){
+    public int get_largura_maxima_painel_simulacao() {
         return desenho.get_largura_maxima_painel_simulacao();
     }
-    
+
     /**
      * Retorna a largura mínima do painel onde está ocorrendo a simulação
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int get_largura_minima_painel_simulacao(){
+    public int get_largura_minima_painel_simulacao() {
         return desenho.get_largura_minima_painel_simulacao();
     }
-    
+
+    /**
+     * Retorna a instância do objeto retalho buscando pelo seu ID
+     *
+     * @param id
+     * @return
+     */
+    public Retalho buscar_retalho_por_id(int id) {
+        return desenho.buscar_retalho_por_id(id);
+    }
+
+    /**
+     * Retorna o id do agente que se encontra no mesmo retalho do agente atual
+     * da simulação
+     *
+     * @param retalho
+     * @param idAgenteAtual
+     * @return
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    public int buscar_id_agente_retalho(Retalho retalho, int idAgenteAtual) throws ErroExecucaoBiblioteca, InterruptedException {
+        return desenho.buscar_id_agente_retalho(retalho, idAgenteAtual);
+    }
 }

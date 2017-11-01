@@ -646,7 +646,7 @@ public class GerenciadorDesenho {
 
     /**
      * Desenha a borda superior da simulação
-     * 
+     *
      * @param cor
      */
     public void desenhar_borda_superior(int cor) {
@@ -699,6 +699,7 @@ public class GerenciadorDesenho {
 
     /**
      * Verifica se a borda que colidiu é uma borda do lado esquerdo
+     *
      * @param id
      * @return
      */
@@ -711,51 +712,56 @@ public class GerenciadorDesenho {
         }
         return false;
     }
-    
+
     /**
      * Verifica se uma borda que colidiu é uma borda do lado direito
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_borda_direita(int id){
+    public boolean verificar_borda_direita(int id) {
         //Borda direita
         for (int i = 0; i < ALTURA; i++) {
-            if(retalhos[i][LARGURA - 1].get_id() == id)
+            if (retalhos[i][LARGURA - 1].get_id() == id) {
                 return true;
+            }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Verifica se uma borda que colidiu é uma borda na parte superior
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_borda_superior(int id){
+    public boolean verificar_borda_superior(int id) {
         //Borda superior
         for (int i = 0; i < LARGURA; i++) {
-            if(retalhos[0][i].get_id() == id)
+            if (retalhos[0][i].get_id() == id) {
                 return true;
+            }
         }
         return false;
     }
-    
+
     /**
      * Verifica se uma borda que colidiu é uma borda na parte inferior
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public boolean verificar_borda_inferior(int id){
+    public boolean verificar_borda_inferior(int id) {
         //Borda inferior
         for (int i = 0; i < LARGURA; i++) {
-            if(retalhos[ALTURA - 1][i].get_id() == id)
+            if (retalhos[ALTURA - 1][i].get_id() == id) {
                 return true;
+            }
         }
-        
+
         return false;
     }
-    
 
     /**
      * Retorna a coordenada minima de X possível de acessar para controle de
@@ -894,6 +900,32 @@ public class GerenciadorDesenho {
         }
 
         return numero_agentes;
+    }
+
+    /**
+     * Retorna o id do primeiro agente encontrado naquele retalho que seja 
+     * diferente do agente atual da simulação
+     *
+     * @param retalho
+     * @param idAgenteAtual
+     * @return
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
+    public int buscar_id_agente_retalho(Retalho retalho, int idAgenteAtual) throws ErroExecucaoBiblioteca, InterruptedException {
+
+        for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
+            if ((agente.retornar_coordenada_X() > retalho.get_coordenadaX()
+                    && agente.retornar_coordenada_X() < retalho.get_coordenadaX() + tile)
+                    && (agente.retornar_coordenada_Y() > retalho.get_coordenadaY()
+                    && agente.retornar_coordenada_Y() < retalho.get_coordenadaY() + tile)) {
+                if (idAgenteAtual != agente.retornar_id()) {
+                    return agente.retornar_id();
+                }
+            }
+        }
+
+        return 0;
     }
 
     /**
@@ -1241,41 +1273,60 @@ public class GerenciadorDesenho {
 
         return tipo_parede;
     }
-    
+
     /**
      * Retorna a altura máxima (y) do painel onde ocorre a simulação
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int get_altura_maxima_painel_simulacao(){
+    public int get_altura_maxima_painel_simulacao() {
         return ALTURA_DA_TELA - altura_rodape - 20;
     }
-    
+
     /**
      * Retorna a altura mínima (y) do painel onde ocorre a simulação
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int get_altura_minima_painel_simulacao(){
+    public int get_altura_minima_painel_simulacao() {
         return altura_painel_botoes;
-        
+
     }
-    
+
     /**
-     * Retorna a largura máxima (x) do painel de simulação 
-     * 
-     * @return 
+     * Retorna a largura máxima (x) do painel de simulação
+     *
+     * @return
      */
-    public int get_largura_maxima_painel_simulacao(){
+    public int get_largura_maxima_painel_simulacao() {
         return LARGURA_DA_TELA - 1;
     }
-    
+
     /**
      * Retorna a largura mínima (x) do painel de simulação
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int get_largura_minima_painel_simulacao(){
+    public int get_largura_minima_painel_simulacao() {
         return largura_painel_componentes;
+    }
+
+    /**
+     * Retorna uma instância de um retalho de acordo com o seu id
+     *
+     * @param id
+     * @return
+     */
+    public Retalho buscar_retalho_por_id(int id) {
+
+        for (int i = 0; i < ALTURA; i++) {
+            for (int j = 0; j < LARGURA; j++) {
+                if (retalhos[i][j].get_id() == id) {
+                    return retalhos[i][j];
+                }
+            }
+        }
+
+        return null;
     }
 }

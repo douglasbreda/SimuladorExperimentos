@@ -113,31 +113,48 @@ public class HeatAndParticles {
         boolean colidindoX = exp.colidiu_com_parede_X();
         boolean colidindoY = exp.colidiu_com_parede_Y();
         boolean colidindoEsquerda = exp.colidiu_com_parede_esquerda();
+        int idAgenteColidindo = exp.retornar_agente_aqui();
 
-        if (colidindoEsquerda) {
-            //Pega os atributos atuais do agente
-            double energia_atual = exp.retornar_atributo_real("energia");
-            double velocidade_atual = exp.retornar_atributo_real("velocidade");
-            double massa = exp.retornar_atributo_real("massa");
-
-            energia_atual = ((energia_atual + temperatura) / 2);
-            velocidade_atual = Math.sqrt(2 * energia_atual / massa);
-
-            exp.definir_valor_atributo("energia", String.valueOf(energia_atual));
-            exp.definir_valor_atributo("velocidade", String.valueOf(velocidade_atual));
-
-            recolorir_agentes(exp.retornar_id());
-        } else if (colidindoX) {
-            int orientacao = exp.retornar_orientacao();
-            int novaOrientacao = orientacao * (-1);
-            exp.definir_orientacao(novaOrientacao);
+        if (idAgenteColidindo > 0) {
+            int orientacaoOutroAgente = exp.retornar_orientacao_por_agente(idAgenteColidindo);
+            
+            exp.definir_orientacao(orientacaoOutroAgente);
+            
             exp.inverter_sentido();
-        }
-        if (colidindoY) {
-            int orientacao = exp.retornar_orientacao();
-            int novaOrientacao = 180 - orientacao;
-            exp.definir_orientacao(novaOrientacao);
-            exp.inverter_sentido();
+
+        } else {
+
+            if (colidindoEsquerda) {
+                //Pega os atributos atuais do agente
+                double energia_atual = exp.retornar_atributo_real("energia");
+                double velocidade_atual = exp.retornar_atributo_real("velocidade");
+                double massa = exp.retornar_atributo_real("massa");
+
+                energia_atual = ((energia_atual + temperatura) / 2);
+                velocidade_atual = Math.sqrt(2 * energia_atual / massa);
+
+                exp.definir_valor_atributo("energia", String.valueOf(energia_atual));
+                exp.definir_valor_atributo("velocidade", String.valueOf(velocidade_atual));
+
+                recolorir_agentes(exp.retornar_id());
+
+                int orientacao = exp.retornar_orientacao();
+                int novaOrientacao = orientacao * (-1);
+                exp.definir_orientacao(novaOrientacao);
+                exp.inverter_sentido();
+
+            } else if (colidindoX) {
+                int orientacao = exp.retornar_orientacao();
+                int novaOrientacao = orientacao * (-1);
+                exp.definir_orientacao(novaOrientacao);
+                exp.inverter_sentido();
+            }
+            if (colidindoY) {
+                int orientacao = exp.retornar_orientacao();
+                int novaOrientacao = 180 - orientacao;
+                exp.definir_orientacao(novaOrientacao);
+                exp.inverter_sentido();
+            }
         }
     }
 
