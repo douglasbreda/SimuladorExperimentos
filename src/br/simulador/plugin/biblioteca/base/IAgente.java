@@ -27,7 +27,7 @@ public interface IAgente
     
     public void criarAtributo(String nome_atributo, String valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException;;
     
-    public void definirValorAtributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, InterruptedException;;
+    public void atualizarValorAtributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, InterruptedException;;
     
     public void definirCorAgente(int cor) throws ErroExecucaoBiblioteca, InterruptedException;;
     

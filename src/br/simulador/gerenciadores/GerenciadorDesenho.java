@@ -10,7 +10,6 @@ import br.simulador.plugin.biblioteca.componentes.Componente;
 import br.simulador.plugin.biblioteca.componentes.Interruptor;
 import br.simulador.plugin.biblioteca.componentes.Monitor;
 import br.simulador.plugin.biblioteca.componentes.Slider;
-import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.ProgramaVazio;
 import br.univali.portugol.nucleo.bibliotecas.Graficos;
 import br.univali.portugol.nucleo.bibliotecas.Matematica;
@@ -23,7 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -74,6 +72,7 @@ public class GerenciadorDesenho {
     private int alturaRodape = 24;
     private final int corEscuraLinhaDivisoria = 0x111111; 	// RGB = 17,17,17
     private final int corClaraLinhaDivisoria = 0x4C4C4C; 	// RGB = 76,76,76
+    private String tituloSimulacao = "";
 
     /**
      * Inicia a tela onde será executada a simulação
@@ -324,8 +323,8 @@ public class GerenciadorDesenho {
      */
     private void desenhar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 
-        g.definir_titulo_janela("Simulador de Experimentos - Gas in a box");
-
+        desenharTituloSimulacao(tituloSimulacao);
+        
         g.desenhar_imagem(0, 0, imagemFundo);
 
         desenharRetalhos();
@@ -341,6 +340,22 @@ public class GerenciadorDesenho {
         desenharLinhas();
 
         tratarCliques();
+    }
+
+    /**
+     * Desenha o título do experimento
+     * 
+     * @param titulo
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    private void desenharTituloSimulacao(String titulo) throws ErroExecucaoBiblioteca, InterruptedException {
+        tituloSimulacao = titulo;
+        if (titulo.isEmpty()) {
+            g.definir_titulo_janela("Simulador de Experimentos");
+        } else {
+            g.definir_titulo_janela("Simulador de Experimentos - " + titulo);
+        }
     }
 
     /**
@@ -1169,5 +1184,25 @@ public class GerenciadorDesenho {
         }
 
         return null;
+    }
+
+    /**
+     * Define quando a janela da simulação está visível para liberar o Portugol
+     * Studio OBS: Quando era aberto sem isso, era possível abrir várias
+     * instâncias da simulação
+     *
+     * @return
+     */
+    public boolean janelaVisivel() {
+        return g.esta_visivel();
+    }
+
+    /**
+     * Define qual será o título do experimento da simulação
+     * 
+     * @param tituloSimulacao 
+     */
+    public void setTituloSimulacao(String tituloSimulacao) {
+        this.tituloSimulacao = tituloSimulacao;
     }
 }

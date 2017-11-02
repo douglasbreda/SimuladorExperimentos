@@ -70,7 +70,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void definirValorAtributo(String nome_atributo, String valor) {
+    public void atualizarValorAtributo(String nome_atributo, String valor) {
         if (verificar_atributo_existe(nome_atributo)) {
             listaParametros.replace(nome_atributo, valor);
         }

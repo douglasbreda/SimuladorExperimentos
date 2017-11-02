@@ -11,7 +11,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import layout.TableLayout;
 
 /**
  *
@@ -20,7 +19,7 @@ import layout.TableLayout;
 public class PainelBase extends javax.swing.JPanel {
 
     private ArrayList<Point2D> points;
-    private TableLayout layout = null;
+//    private TableLayout layout = null;
     private ArrayList<Retalho> listaRetalhos = null;
     private ArrayList<IAgente> listaAgentes = null;
 
@@ -39,13 +38,13 @@ public class PainelBase extends javax.swing.JPanel {
         points = new ArrayList<Point2D>();
         setBackground(Color.WHITE);
 
-        double size[][] = {
-            {0.25, 0.25, 0.25, 0.25},
-            {50, TableLayout.FILL, 40, 40, 40}};
-
-        layout = new TableLayout(size);
-        this.setLayout(layout);
-        this.inicializar_lista_retalhos();
+//        double size[][] = {
+//            {0.25, 0.25, 0.25, 0.25},
+//            {50, TableLayout.FILL, 40, 40, 40}};
+//
+//        layout = new TableLayout(size);
+//        this.setLayout(layout);
+//        this.inicializar_lista_retalhos();
     }
 
     /**
@@ -54,12 +53,12 @@ public class PainelBase extends javax.swing.JPanel {
     private void inicializar_lista_retalhos() {
         listaRetalhos = new ArrayList<>();
         int id = 0;
-        for (int i = 0; i < layout.getRow().length; i++) {
-            for (int j = 0; j < layout.getColumn().length; j++) {
+//        for (int i = 0; i < layout.getRow().length; i++) {
+//            for (int j = 0; j < layout.getColumn().length; j++) {
 //                listaRetalhos.add(new Retalho(++id, i, j, layout));
 //                  listaRetalhos.add(new Retalho(++id));
-            }
-        }
+//            }
+//        }
     }
 
     /**
@@ -70,7 +69,7 @@ public class PainelBase extends javax.swing.JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        layout.drawGrid(this, g);
+//        layout.drawGrid(this, g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.red);
@@ -80,7 +79,7 @@ public class PainelBase extends javax.swing.JPanel {
 //            g2.fillOval(point.x, point.y, 20, 20);
         }
 
-        layout.updatePoints(points);
+//        layout.updatePoints(points);
         
         this.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
     }
@@ -113,9 +112,9 @@ public class PainelBase extends javax.swing.JPanel {
         repaint();
     }
 
-    public TableLayout getLayout() {
-        return layout;
-    }
+//    public TableLayout getLayout() {
+//        return layout;
+//    }
 
     public ArrayList<IAgente> getListaAgentes() {
         return listaAgentes;

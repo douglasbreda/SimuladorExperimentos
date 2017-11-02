@@ -259,7 +259,7 @@ public final class GerenciadorExecucao {
             for (IAgente agente : listaAgentes) {
 
                 if (agente.retornarId() == id) {
-//                    agente.definirValorAtributo(nome_atributo, valor, id);
+//                    agente.atualizarValorAtributo(nome_atributo, valor, id);
                 }
             }
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
@@ -479,7 +479,7 @@ public final class GerenciadorExecucao {
      * @return
      */
     public boolean simulacaoVisivel() {
-        return true;
+        return GerenciadorInterface.getInstance().janelaSimulacaoVisivel();
     }
 
     /**

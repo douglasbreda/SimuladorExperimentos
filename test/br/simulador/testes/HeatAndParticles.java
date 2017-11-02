@@ -5,7 +5,6 @@
 package br.simulador.testes;
 
 import br.simulador.plugin.biblioteca.Experimentos;
-import br.univali.portugol.nucleo.bibliotecas.Matematica;
 import br.univali.portugol.nucleo.bibliotecas.Tipos;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
@@ -47,6 +46,7 @@ public class HeatAndParticles {
         exp.criar_monitor("mediaMassa", "Média Massa", "0");
         exp.criar_atributo("massa", "1");
         exp.criar_atributo("velocidade", "5");
+        exp.definir_titulo_simulacao("Teste título");
         double energia = 5;//(0.5 * 1 * 10 * 10);//(0.5 * mass * speed * speed)
         exp.criar_atributo("energia", String.valueOf(energia));
         atualizar_variaveis();
@@ -75,6 +75,7 @@ public class HeatAndParticles {
         exp.atualizar_valor_monitor("mediaEnergia", tipo.real_para_cadeia(mediaEnergia));
         exp.atualizar_valor_monitor("mediaVelocidade", tipo.real_para_cadeia(mediaVelocidade));
         exp.atualizar_valor_monitor("mediaMassa", tipo.real_para_cadeia(mediaMassa));
+//        System.out.println(exp.retornar_valor_atual_slider("temperatura"));
     }
 
     public void simular() {
@@ -93,9 +94,10 @@ public class HeatAndParticles {
                     pular();
                     mover();
 
-                    exp.atualizar_tela();
+//                 exp.atualizar_tela();
                 }
 
+                exp.atualizar_tela();
                 exp.atualizar_ticks(++ticks);
 
             } while (true);
@@ -118,7 +120,7 @@ public class HeatAndParticles {
         if (idAgenteColidindo > 0) {
             int orientacaoOutroAgente = exp.retornar_orientacao_por_agente(idAgenteColidindo);
             
-            exp.definir_orientacao(orientacaoOutroAgente);
+//            exp.definir_orientacao(orientacaoOutroAgente);
             
             exp.inverter_sentido();
 
@@ -134,8 +136,8 @@ public class HeatAndParticles {
                 energia_atual = ((energia_atual + temperatura) / 2);
                 velocidade_atual = Math.sqrt(2 * energia_atual / massa);
 
-                exp.definir_valor_atributo("energia", String.valueOf(energia_atual));
-                exp.definir_valor_atributo("velocidade", String.valueOf(velocidade_atual));
+                exp.atualizar_valor_atributo("energia", String.valueOf(energia_atual));
+                exp.atualizar_valor_atributo("velocidade", String.valueOf(velocidade_atual));
 
                 recolorir_agentes(exp.retornar_id());
 
@@ -171,7 +173,7 @@ public class HeatAndParticles {
 
     private void mover() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int velocidade = tipo.real_para_inteiro(exp.retornar_atributo_real("velocidade"));
-        System.out.println(velocidade);
+//        System.out.println(velocidade);
         exp.mover(3);
 //        exp.definir_cor_retalho(-256);
     }

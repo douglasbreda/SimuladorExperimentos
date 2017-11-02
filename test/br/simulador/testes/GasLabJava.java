@@ -82,7 +82,7 @@ public class GasLabJava {
         System.out.println("Vai iniciar");
         inicio();
         exp.atualizar_tela();
-        exp.definir_valor_atributo("velocidade", String.valueOf(lentos));
+        exp.atualizar_valor_atributo("velocidade", String.valueOf(lentos));
     }
 
     private void atualizar_variaveis() throws ErroExecucaoBiblioteca, InterruptedException {

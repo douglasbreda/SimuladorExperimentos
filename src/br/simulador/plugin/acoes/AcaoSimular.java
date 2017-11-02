@@ -86,6 +86,16 @@ public class AcaoSimular extends AbstractAction {
                 Logger.getLogger(AcaoSimular.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
+        
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(AcaoSimular.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+//        while(GerenciadorExecucao.getInstance().simulacaoVisivel()){
+//            System.out.println("está esperando");
+//        }
 //        try {
 //        if (tarefaSimulacao == null) {
 //            executarSimulacao();

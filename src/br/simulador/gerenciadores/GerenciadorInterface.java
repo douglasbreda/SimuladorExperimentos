@@ -463,4 +463,22 @@ public final class GerenciadorInterface {
     public int buscarIdAgenteRetalho(Retalho retalho, int idAgenteAtual) throws ErroExecucaoBiblioteca, InterruptedException {
         return desenho.buscarIdAgenteRetalho(retalho, idAgenteAtual);
     }
+    
+    /**
+     * Retorna se a janela onde roda a simulação ainda está aberta
+     * 
+     * @return 
+     */
+    public boolean janelaSimulacaoVisivel(){
+        return desenho.janelaVisivel();
+    }
+    
+    /**
+     * Define qual será o título apresentando na parte superior da janela da simulação
+     * 
+     * @param titulo 
+     */
+    public void definirTituloSimulacao(String titulo){
+        desenho.setTituloSimulacao(titulo);
+    }
 }

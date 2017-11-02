@@ -119,12 +119,12 @@ public final class Experimentos extends Biblioteca {
 //                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
 //            }
 //    )
-//    public void definirValorAtributo(String nome_atributo, String valor, int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
+//    public void atualizarValorAtributo(String nome_atributo, String valor, int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
 //        GerenciadorExecucao.getInstance().definirValorAtributoPorAgente(nome_atributo, valor, id_agente);
 //    }
     
     @DocumentacaoFuncao(
-            descricao = "Define um valor a um determinado atributo.",
+            descricao = "Atualiza o valor a um determinado atributo.",
             parametros
             = {
                 @DocumentacaoParametro(nome = "nome_atributo", descricao = "Nome do atributo que terá o valor atribuído")
@@ -137,8 +137,8 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, ErroExecucaoBiblioteca, InterruptedException{
-        GerenciadorExecucao.getInstance().getAgenteAtual().definirValorAtributo(nome_atributo, valor);
+    public void atualizar_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorExecucao.getInstance().getAgenteAtual().atualizarValorAtributo(nome_atributo, valor);
     }
 
     @DocumentacaoFuncao(
@@ -964,5 +964,18 @@ public final class Experimentos extends Biblioteca {
     )
     public int retornar_orientacao_por_agente(int id_agente) throws ErroExecucaoBiblioteca, InterruptedException{
         return GerenciadorExecucao.getInstance().getOrientacaoPorId(id_agente);
+    }
+    
+    @DocumentacaoFuncao(
+            descricao = "Define qual será o título exibido na parte superior da simulação",
+            parametros = {
+                @DocumentacaoParametro(nome = "titulo", descricao = "Título que será exibido")
+            },
+            autores = {
+                @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
+            }
+    )
+    public void definir_titulo_simulacao(String titulo) throws ErroExecucaoBiblioteca, InterruptedException{
+        GerenciadorInterface.getInstance().definirTituloSimulacao(titulo);
     }
 }
