@@ -1,9 +1,5 @@
 package br.simulador.plugin.biblioteca.base;
 
-import br.simulador.util.UtilSimulador;
-import java.awt.Graphics;
-import javax.swing.JPanel;
-
 /**
  *
  * @author Douglas

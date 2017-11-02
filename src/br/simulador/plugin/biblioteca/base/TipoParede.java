@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Estrutura para facilitar a identificação de uma parede para saber
+ * se ela é uma parede lateral ou vertical
  */
 package br.simulador.plugin.biblioteca.base;
 
@@ -10,6 +9,6 @@ package br.simulador.plugin.biblioteca.base;
  * @author Douglas
  */
 public enum TipoParede {
-    parede_x,
-    parede_y
+    paredeX,
+    paredeY
 }

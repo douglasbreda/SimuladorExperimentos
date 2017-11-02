@@ -51,7 +51,7 @@ public final class GerenciadorInterface {
     public void inicializarTela() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, InvocationTargetException, ErroExecucao {
         if (!ambienteInicialiazdo) {
             UtilSimulador.setLog("Vai inicializar tela");
-            desenho.inicializar_tela();
+            desenho.inicializarTela();
             ambienteInicialiazdo = true;
             //Thread.sleep(1000);//Adicionado pois não estava carregando os componentes no tempo suficiente para utilização em outros métodos
         }
@@ -62,8 +62,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public boolean esta_executando() {
-        return desenho.esta_executando();
+    public boolean estaExecutando() {
+        return desenho.estaExecutando();
     }
 
     /**
@@ -74,7 +74,7 @@ public final class GerenciadorInterface {
      * @throws InterruptedException
      */
     public int getAlturaSimulacao() throws ErroExecucaoBiblioteca, InterruptedException {
-        return desenho.get_altura_janela();
+        return desenho.getAlturaJanela();
     }
 
     /**
@@ -85,7 +85,7 @@ public final class GerenciadorInterface {
      * @throws InterruptedException
      */
     public int getLarguraSimulacao() throws ErroExecucaoBiblioteca, InterruptedException {
-        return desenho.get_largura_janela();
+        return desenho.getLarguraJanela();
     }
 
     /**
@@ -93,8 +93,8 @@ public final class GerenciadorInterface {
      *
      * @param cor
      */
-    public void definir_bordas(int cor) {
-        desenho.desenhar_bordas(cor);
+    public void definirBordas(int cor) {
+        desenho.desenharBordas(cor);
     }
 
     /**
@@ -102,8 +102,8 @@ public final class GerenciadorInterface {
      *
      * @param cor
      */
-    public void definir_borda_esquerda(int cor) {
-        desenho.desenhar_borda_esquerda(cor);
+    public void definirBordaEsquerda(int cor) {
+        desenho.desenharBordaEsquerda(cor);
     }
 
     /**
@@ -111,8 +111,8 @@ public final class GerenciadorInterface {
      *
      * @param cor
      */
-    public void definir_borda_direita(int cor) {
-        desenho.desenhar_borda_direita(cor);
+    public void definirBordaDireita(int cor) {
+        desenho.desenharBordaDireita(cor);
     }
 
     /**
@@ -120,8 +120,8 @@ public final class GerenciadorInterface {
      *
      * @param cor
      */
-    public void definir_borda_superior(int cor) {
-        desenho.desenhar_borda_superior(cor);
+    public void definirBordaSuperior(int cor) {
+        desenho.desenharBordaSuperior(cor);
     }
 
     /**
@@ -129,16 +129,16 @@ public final class GerenciadorInterface {
      *
      * @param cor
      */
-    public void definir_borda_inferior(int cor) {
-        desenho.desenhar_borda_inferior(cor);
+    public void definirBordaInferior(int cor) {
+        desenho.desenharBordaInferior(cor);
     }
 
     /**
      * Reseta as informações da simulação e configura a tela com a posição
      * inicial
      */
-    public void limpar_tudo() {
-        desenho.limpar_tudo();
+    public void limparTudo() {
+        desenho.limparTudo();
     }
 
     /**
@@ -148,8 +148,8 @@ public final class GerenciadorInterface {
      * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void atualizar_tela() throws ErroExecucaoBiblioteca, InterruptedException {
-        desenho.atualizar_tela();
+    public void atualizarTela() throws ErroExecucaoBiblioteca, InterruptedException {
+        desenho.atualizarTela();
     }
 
     /**
@@ -164,8 +164,8 @@ public final class GerenciadorInterface {
      * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public Retalho get_retalho(int coordenadaX, int coordenadaY, int altura, int largura) throws ErroExecucaoBiblioteca, InterruptedException {
-        return desenho.get_retalho(coordenadaX, coordenadaY, altura, largura);
+    public Retalho getRetalho(int coordenadaX, int coordenadaY, int altura, int largura) throws ErroExecucaoBiblioteca, InterruptedException {
+        return desenho.getRetalho(coordenadaX, coordenadaY, altura, largura);
     }
 
     /**
@@ -176,32 +176,10 @@ public final class GerenciadorInterface {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public int buscar_numero_agentes(Retalho retalho) throws ErroExecucaoBiblioteca, InterruptedException {
-        return desenho.buscar_agentes_no_retalho(retalho);
+    public int buscarNumeroAgentes(Retalho retalho) throws ErroExecucaoBiblioteca, InterruptedException {
+        return desenho.buscarAgentesRetalho(retalho);
     }
 
-    /**
-     * Atualiza o label de número de agentes da simulação
-     *
-     * @param total_agentes
-     * @throws
-     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
-     * @throws java.lang.InterruptedException
-     */
-//    public void atualizar_total_agentes(int total_agentes) throws ErroExecucaoBiblioteca, InterruptedException{
-//        desenho.atualizar_total_agentes(total_agentes);
-//    }
-    /**
-     * Atualiza o label que informa se a simulação está executando
-     *
-     * @param executando
-     * @throws
-     * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
-     * @throws java.lang.InterruptedException
-     */
-//    public void atualizar_status_simulacao(boolean executando) throws ErroExecucaoBiblioteca, InterruptedException{
-//        desenho.atualizar_status_simulacao(executando);
-//    }
     /**
      * Força a atualização dos componentes visuais
      *
@@ -209,7 +187,7 @@ public final class GerenciadorInterface {
      * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void renderizar_tela() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+    public void renderizarTela() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         desenho.renderizar();
     }
 
@@ -221,8 +199,8 @@ public final class GerenciadorInterface {
      * @throws InterruptedException
      * @throws ErroExecucao
      */
-    public void renderizar_tela_parcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        desenho.renderizar_parcial();
+    public void renderizarTelaParcial() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        desenho.renderizarParcial();
     }
 
     /**
@@ -232,8 +210,8 @@ public final class GerenciadorInterface {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public void renderizar_agentes() throws ErroExecucaoBiblioteca, InterruptedException {
-        desenho.renderizar_agentes();
+    public void renderizarAgentes() throws ErroExecucaoBiblioteca, InterruptedException {
+        desenho.renderizarAgentes();
     }
 
     /**
@@ -243,8 +221,8 @@ public final class GerenciadorInterface {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public void definir_cor_fundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
-        desenho.definir_cor_fundo(cor);
+    public void definirCorFundo(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
+        desenho.definirCorFundo(cor);
     }
 
     /**
@@ -258,8 +236,8 @@ public final class GerenciadorInterface {
      * @throws InterruptedException
      * @throws ErroExecucao
      */
-    public void criar_slider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao {
-        desenho.criar_slider(nome, titulo, minimo, valor_padrao, maximo);
+    public void criarSlider(String nome, String titulo, double minimo, double maximo, double valor_padrao) throws InterruptedException, ErroExecucao {
+        desenho.criarSlider(nome, titulo, minimo, valor_padrao, maximo);
     }
 
     /**
@@ -271,8 +249,8 @@ public final class GerenciadorInterface {
      * @throws InterruptedException
      * @throws ErroExecucao
      */
-    public void criar_monitor(String nome, String titulo, String valor_atual) throws InterruptedException, ErroExecucao {
-        desenho.criar_monitor(nome, titulo, valor_atual);
+    public void criarMonitor(String nome, String titulo, String valor_atual) throws InterruptedException, ErroExecucao {
+        desenho.criarMonitor(nome, titulo, valor_atual);
     }
 
     /**
@@ -284,8 +262,8 @@ public final class GerenciadorInterface {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public void criar_interruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
-        desenho.criar_interruptor(nome, titulo, valor_padrao);
+    public void criarInterruptor(String nome, String titulo, boolean valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
+        desenho.criarInterruptor(nome, titulo, valor_padrao);
     }
 
     /**
@@ -294,8 +272,8 @@ public final class GerenciadorInterface {
      * @param id
      * @param cor
      */
-    public void definir_cor_retalho(int id, int cor) {
-        desenho.definir_cor_retalho(id, cor);
+    public void definirCorRetalho(int id, int cor) {
+        desenho.definirCorRetalho(id, cor);
     }
 
     /**
@@ -304,8 +282,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int retornar_valor_max_borda_x() {
-        return desenho.retorna_valor_maximo_borda_X();
+    public int retornarValorMaxBordaX() {
+        return desenho.retornarValorMaximoBordaX();
     }
 
     /**
@@ -314,8 +292,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int retornar_valor_max_borda_y() {
-        return desenho.retorna_valor_maximo_borda_Y();
+    public int retornarValorMaxBordaY() {
+        return desenho.retornarValorMaximoBordaY();
     }
 
     /**
@@ -324,8 +302,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int retornar_valor_min_borda_x() {
-        return desenho.retorna_valor_minimo_borda_X();
+    public int retornarValorMinBordaX() {
+        return desenho.retornarValorMinimoBordaX();
     }
 
     /**
@@ -334,8 +312,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int retornar_valor_min_borda_y() {
-        return desenho.retorna_valor_minimo_borda_Y();
+    public int retornarValorMinBordaY() {
+        return desenho.retornarValorMinimoBordaY();
     }
 
     /**
@@ -344,11 +322,11 @@ public final class GerenciadorInterface {
      * @param id
      * @return
      */
-    public boolean verificar_retalho_eh_parede_X(int id) {
-        TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
+    public boolean verificarRetalhoEhParedeX(int id) {
+        TipoParede tipoParede = desenho.verificarRetalhoEhParede(id);
 
-        if (tipo_parede != null) {
-            return tipo_parede == TipoParede.parede_x;
+        if (tipoParede != null) {
+            return tipoParede == TipoParede.paredeX;
         }
 
         return false;
@@ -360,11 +338,11 @@ public final class GerenciadorInterface {
      * @param id
      * @return
      */
-    public boolean verificar_retalho_eh_parede_Y(int id) {
-        TipoParede tipo_parede = desenho.verificar_retalho_eh_parede(id);
+    public boolean verificarRetalhoEhParedeY(int id) {
+        TipoParede tipo_parede = desenho.verificarRetalhoEhParede(id);
 
         if (tipo_parede != null) {
-            return tipo_parede == TipoParede.parede_y;
+            return tipo_parede == TipoParede.paredeY;
         }
 
         return false;
@@ -376,9 +354,9 @@ public final class GerenciadorInterface {
      * @param id
      * @return
      */
-    public boolean verificar_colidiu_parede_esquerda(int id) {
-        if (verificar_retalho_eh_parede_X(id)) {
-            return desenho.verificar_borda_esquerda(id);
+    public boolean verificarColidiuParedeEsquerda(int id) {
+        if (verificarRetalhoEhParedeX(id)) {
+            return desenho.verificarBordaEsquerda(id);
         }
 
         return false;
@@ -390,9 +368,9 @@ public final class GerenciadorInterface {
      * @param id
      * @return
      */
-    public boolean verificar_colidiu_parede_direita(int id) {
-        if (verificar_retalho_eh_parede_X(id)) {
-            return desenho.verificar_borda_direita(id);
+    public boolean verificarColidiuParedeDireita(int id) {
+        if (verificarRetalhoEhParedeX(id)) {
+            return desenho.verificarBordaDireita(id);
         }
 
         return false;
@@ -404,9 +382,9 @@ public final class GerenciadorInterface {
      * @param id
      * @return
      */
-    public boolean verificar_colidiu_parede_superior(int id) {
-        if (verificar_retalho_eh_parede_Y(id)) {
-            return desenho.verificar_borda_superior(id);
+    public boolean verificarColidiuParedeSuperior(int id) {
+        if (verificarRetalhoEhParedeY(id)) {
+            return desenho.verificarBordaSuperior(id);
         }
 
         return false;
@@ -418,9 +396,9 @@ public final class GerenciadorInterface {
      * @param id
      * @return
      */
-    public boolean verificar_colidiu_parede_inferior(int id) {
-        if (verificar_retalho_eh_parede_Y(id)) {
-            return desenho.verificar_borda_superior(id);
+    public boolean verificarColidiuParedeInferior(int id) {
+        if (verificarRetalhoEhParedeY(id)) {
+            return desenho.verificarBordaSuperior(id);
         }
 
         return false;
@@ -431,8 +409,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int get_altura_maxima_painel_simulacao() {
-        return desenho.get_altura_maxima_painel_simulacao();
+    public int getAlturaMaximaPainelSimulacao() {
+        return desenho.getAlturaMaximaPainelSimulacao();
     }
 
     /**
@@ -440,8 +418,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int get_altura_minima_painel_simulacao() {
-        return desenho.get_altura_minima_painel_simulacao();
+    public int getAlturaMinimaPainelSimulacao() {
+        return desenho.getAlturaMinimaPainelSimulacao();
     }
 
     /**
@@ -449,8 +427,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int get_largura_maxima_painel_simulacao() {
-        return desenho.get_largura_maxima_painel_simulacao();
+    public int getLarguraMaximaPainelSimulacao() {
+        return desenho.getLarguraMaximaPainelSimulacao();
     }
 
     /**
@@ -458,8 +436,8 @@ public final class GerenciadorInterface {
      *
      * @return
      */
-    public int get_largura_minima_painel_simulacao() {
-        return desenho.get_largura_minima_painel_simulacao();
+    public int getLarguraMinimaPainelSimulacao() {
+        return desenho.getLarguraMinimaPainelSimulacao();
     }
 
     /**
@@ -468,8 +446,8 @@ public final class GerenciadorInterface {
      * @param id
      * @return
      */
-    public Retalho buscar_retalho_por_id(int id) {
-        return desenho.buscar_retalho_por_id(id);
+    public Retalho buscarRetalhoPorId(int id) {
+        return desenho.buscarRetalhoPorId(id);
     }
 
     /**
@@ -482,7 +460,7 @@ public final class GerenciadorInterface {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public int buscar_id_agente_retalho(Retalho retalho, int idAgenteAtual) throws ErroExecucaoBiblioteca, InterruptedException {
-        return desenho.buscar_id_agente_retalho(retalho, idAgenteAtual);
+    public int buscarIdAgenteRetalho(Retalho retalho, int idAgenteAtual) throws ErroExecucaoBiblioteca, InterruptedException {
+        return desenho.buscarIdAgenteRetalho(retalho, idAgenteAtual);
     }
 }

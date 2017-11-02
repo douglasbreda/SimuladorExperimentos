@@ -25,11 +25,11 @@ public class ExperimentosAgenteTest {
 
         Thread.sleep(1000);//Para esperar a tela ser criada, pois ocorreu null pointer ao buscar componentes que ainda não foram criados
         
-        GerenciadorInterface.getInstance().definir_cor_fundo(3);
+        GerenciadorInterface.getInstance().definirCorFundo(3);
 
-        GerenciadorInterface.getInstance().definir_bordas(3);
+        GerenciadorInterface.getInstance().definirBordas(3);
         
-        GerenciadorExecucao.getInstance().criar_agentes(5, true);
+        GerenciadorExecucao.getInstance().criarAgentes(5, true);
 
         GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_X");
         GerenciadorExecucao.getInstance().executarMetodo("retornar_coordenada_Y");
@@ -38,55 +38,55 @@ public class ExperimentosAgenteTest {
         GerenciadorExecucao.getInstance().executarMetodo("criar_atributo", 1, "velocidade");
         GerenciadorExecucao.getInstance().executarMetodo("retornar_atributo_cadeia", 1, "velocidade");
 
-        System.out.println("Máximo X: " + GerenciadorInterface.getInstance().retornar_valor_max_borda_x());
-        System.out.println("Máximo Y: " + GerenciadorInterface.getInstance().retornar_valor_max_borda_y());
-        System.out.println("Mínimo X: " + GerenciadorInterface.getInstance().retornar_valor_min_borda_x());
-        System.out.println("Mínimo Y: " + GerenciadorInterface.getInstance().retornar_valor_min_borda_y());
+        System.out.println("Máximo X: " + GerenciadorInterface.getInstance().retornarValorMaxBordaX());
+        System.out.println("Máximo Y: " + GerenciadorInterface.getInstance().retornarValorMaxBordaY());
+        System.out.println("Mínimo X: " + GerenciadorInterface.getInstance().retornarValorMinBordaX());
+        System.out.println("Mínimo Y: " + GerenciadorInterface.getInstance().retornarValorMinBordaY());
 
         int iContador = 0;
         for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
             if (iContador < 2) {
-                agente.definir_cor_agente(0xE59500);
+                agente.definirCorAgente(0xE59500);
             } else if (iContador > 2 && iContador < 5) {
-                agente.definir_cor_agente(0x00D3DD);
+                agente.definirCorAgente(0x00D3DD);
             } else {
-                agente.definir_cor_agente(0x820080);
+                agente.definirCorAgente(0x820080);
             }
             iContador++;
         }
 
-        System.out.println("Agentes com a cor 0xE59500: " + GerenciadorExecucao.getInstance().agentes_com_cor(0xE59500));
-        System.out.println("Agentes com a cor 0x00D3DD: " + GerenciadorExecucao.getInstance().agentes_com_cor(0x00D3DD));
-        System.out.println("Agentes com a cor 0x820080: " + GerenciadorExecucao.getInstance().agentes_com_cor(0x820080));
+        System.out.println("Agentes com a cor 0xE59500: " + GerenciadorExecucao.getInstance().agentesComCor(0xE59500));
+        System.out.println("Agentes com a cor 0x00D3DD: " + GerenciadorExecucao.getInstance().agentesComCor(0x00D3DD));
+        System.out.println("Agentes com a cor 0x820080: " + GerenciadorExecucao.getInstance().agentesComCor(0x820080));
 
         int posicaoX = 0;
         int posicaoY = 0;
         
         
-//        while (GerenciadorInterface.getInstance().esta_executando()) {
+//        while (GerenciadorInterface.getInstance().estaExecutando()) {
         for (int i = 0; i < 10; i++) {
             Thread.sleep(1000);
             for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
-                posicaoX = agente.retornar_coordenada_X() + 5;
-                posicaoY = agente.retornar_coordenada_Y() + 5;
-                agente.ir_ate(posicaoX, posicaoY);
+                posicaoX = agente.retornarCoordenadaX() + 5;
+                posicaoY = agente.retornarCoordenadaY() + 5;
+                agente.irAte(posicaoX, posicaoY);
                 System.out.println("Posição X:" + posicaoX);
                 System.out.println("Posição Y:" + posicaoY);
-                GerenciadorInterface.getInstance().renderizar_tela();
-//                GerenciadorInterface.getInstance().atualizar_tela();
+                GerenciadorInterface.getInstance().renderizarTela();
+//                GerenciadorInterface.getInstance().atualizarTela();
             }
         }
         
         for (int i = 0; i < 10; i++) {
             Thread.sleep(1000);
             for (IAgente agente : GerenciadorExecucao.getInstance().getListaAgentes()) {
-                posicaoX = agente.retornar_coordenada_X() - 7;
-                posicaoY = agente.retornar_coordenada_Y() - 3;
-                agente.ir_ate(posicaoX, posicaoY);
+                posicaoX = agente.retornarCoordenadaX() - 7;
+                posicaoY = agente.retornarCoordenadaY() - 3;
+                agente.irAte(posicaoX, posicaoY);
                 System.out.println("Posição X:" + posicaoX);
                 System.out.println("Posição Y:" + posicaoY);
-                GerenciadorInterface.getInstance().renderizar_tela();
-//                GerenciadorInterface.getInstance().atualizar_tela();
+                GerenciadorInterface.getInstance().renderizarTela();
+//                GerenciadorInterface.getInstance().atualizarTela();
             }
         }
         //}

@@ -13,15 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class BaseAgente implements IAgente {
 
-    private final Map<String, Object> lista_parametros = new ConcurrentHashMap<>();
+    private final Map<String, Object> listaParametros = new ConcurrentHashMap<>();
     private int coordenadaX = 0;
     private int coordenadaY = 0;
     private int id = 0;
     private int cor;
     private int orientacao = 0;
-    private boolean esta_visivel = true;
-    private int altura_agente = 10;
-    private int largura_agente = 10;
+    private boolean estaVisivel = true;
+    private int alturaAgente = 10;
+    private int larguraAgente = 10;
     private int forma;
     private boolean moverFrente = true;
 
@@ -41,7 +41,6 @@ public abstract class BaseAgente implements IAgente {
         this.cor = UtilSimulador.corRandomica();
         this.orientacao = UtilSimulador.getNumeroRandomico(360);
         this.forma = forma;
-        definir_log("Agente " + id + " inicializado com sucesso.");
     }
 
     /**
@@ -49,42 +48,31 @@ public abstract class BaseAgente implements IAgente {
      *
      * @param nome
      */
-    private void adicionar_parametro_lista(String nome, String valor_padrao) {
-        if (!lista_parametros.containsKey(nome)) {
-            lista_parametros.put(nome, valor_padrao);
-            definir_log("Parâmetro " + nome + " adicionado ao agente " + id);
+    private void adicionarParametroLista(String nome, String valor_padrao) {
+        if (!listaParametros.containsKey(nome)) {
+            listaParametros.put(nome, valor_padrao);
         }
     }
 
     @Override
-    public void criar_atributo(String nome_atributo, String valor_padrao) {
-        adicionar_parametro_lista(nome_atributo, valor_padrao);
+    public void criarAtributo(String nome_atributo, String valor_padrao) {
+        adicionarParametroLista(nome_atributo, valor_padrao);
     }
 
     @Override
-    public void definir_cor_agente(int cor) {
+    public void definirCorAgente(int cor) {
         this.cor = cor;
     }
 
     @Override
-    public void definir_orientacao(int graus) {
+    public void definirOrientacao(int graus) {
         this.orientacao = graus;
-//        if (graus > 360) {
-//            orientacao = (graus - 360);
-//        } else if (graus < 0) {
-//            graus *= -1;
-//            graus = 360 - graus;
-//        } else {
-//            orientacao = graus;
-//        }
     }
 
     @Override
-    public void definir_valor_atributo(String nome_atributo, String valor) {
+    public void definirValorAtributo(String nome_atributo, String valor) {
         if (verificar_atributo_existe(nome_atributo)) {
-            definir_log("Parâmetro " + nome_atributo + " valor atual: " + lista_parametros.get(nome_atributo));
-            lista_parametros.replace(nome_atributo, valor);
-            definir_log("Parâmetro " + nome_atributo + " valor atualizado: " + lista_parametros.get(nome_atributo));
+            listaParametros.replace(nome_atributo, valor);
         }
     }
 
@@ -96,19 +84,14 @@ public abstract class BaseAgente implements IAgente {
      * @param graus
      */
     @Override
-    public void girar_direita(int graus) {
+    public void girarDireita(int graus) {
         int valor = orientacao + graus;
-
-        UtilSimulador.setLog("Orientação atual = " + orientacao);
-        UtilSimulador.setLog("Valor novo = " + valor);
 
         if (valor > 360) {
             orientacao = (valor - 360);
         } else {
             orientacao = valor;
         }
-
-        UtilSimulador.setLog("Nova orientação = " + orientacao);
     }
 
     /**
@@ -118,11 +101,8 @@ public abstract class BaseAgente implements IAgente {
      * @param graus
      */
     @Override
-    public void girar_esquerda(int graus) {
+    public void girarEsquerda(int graus) {
         int valor = orientacao - graus;
-
-        UtilSimulador.setLog("Orientação atual = " + orientacao);
-        UtilSimulador.setLog("Valor novo = " + valor);
 
         if (valor < 0) {
             valor *= -1;
@@ -130,8 +110,6 @@ public abstract class BaseAgente implements IAgente {
         } else {
             orientacao = valor;
         }
-
-        UtilSimulador.setLog("Nova orientação = " + orientacao);
     }
 
     @Override
@@ -141,9 +119,9 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public boolean ir_ate(int nova_coordenadaX, int nova_coordenadaY) {
-        UtilSimulador.setLog("Agente " + this.id + " foi da posição X: " + this.coordenadaX + " até " + nova_coordenadaX
-                + "e de Y: " + this.coordenadaY + " até " + nova_coordenadaY);
+    public boolean irAte(int nova_coordenadaX, int nova_coordenadaY) {
+//        UtilSimulador.setLog("Agente " + this.id + " foi da posição X: " + this.coordenadaX + " até " + nova_coordenadaX
+//                + "e de Y: " + this.coordenadaY + " até " + nova_coordenadaY);
 
         this.coordenadaX = nova_coordenadaX;
         this.coordenadaY = nova_coordenadaY;
@@ -152,7 +130,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void mover_frente(int quantidade) {
+    public void moverFrente(int quantidade) {
         if (moverFrente) {
             //Verifica os totais para comparar caso sejam menor que zero
             int quantidadeX = (int)(quantidade * Math.cos(orientacao));
@@ -160,15 +138,15 @@ public abstract class BaseAgente implements IAgente {
             
             int prox_coordenadaX = (int) (coordenadaX + (quantidadeX > 0 ? quantidadeX : 1) );
 
-            if (prox_coordenadaX > GerenciadorInterface.getInstance().get_largura_maxima_painel_simulacao()) {
-                coordenadaX = GerenciadorInterface.getInstance().retornar_valor_min_borda_x() + 1;
+            if (prox_coordenadaX > GerenciadorInterface.getInstance().getLarguraMaximaPainelSimulacao()) {
+                coordenadaX = GerenciadorInterface.getInstance().retornarValorMinBordaX() + 1;
                 return;
             }
 //
             int prox_coordenadaY = (int) (coordenadaY + (quantidadeY > 0 ? quantidadeY : 1));
 
-            if (prox_coordenadaY > GerenciadorInterface.getInstance().get_altura_maxima_painel_simulacao()) {
-                coordenadaY = GerenciadorInterface.getInstance().retornar_valor_min_borda_y() + 1;
+            if (prox_coordenadaY > GerenciadorInterface.getInstance().getAlturaMaximaPainelSimulacao()) {
+                coordenadaY = GerenciadorInterface.getInstance().retornarValorMinBordaY() + 1;
                 return;
             }
 
@@ -181,9 +159,9 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public String retornar_atributo_cadeia(String nome_atributo) throws ErroExecucaoBiblioteca {
+    public String retornarAtributoCadeia(String nome_atributo) throws ErroExecucaoBiblioteca {
         if (verificar_atributo_existe(nome_atributo)) {
-            String retorno = ((String) lista_parametros.get(nome_atributo));
+            String retorno = ((String) listaParametros.get(nome_atributo));
             UtilSimulador.setLog("Valor Cadeia retornado: " + retorno);
             return retorno;
         } else {
@@ -192,78 +170,78 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public char retornar_atributo_caracter(String nome_atributo) throws ErroExecucaoBiblioteca {
+    public char retornarAtributoCaracter(String nome_atributo) throws ErroExecucaoBiblioteca {
 
         if (verificar_atributo_existe(nome_atributo)) {
-            return ((char) lista_parametros.get(nome_atributo));
+            return ((char) listaParametros.get(nome_atributo));
         } else {
             return ' ';
         }
     }
 
     @Override
-    public int retornar_atributo_inteiro(String nome_atributo) {
+    public int retornarAtributoInteiro(String nome_atributo) {
         if (verificar_atributo_existe(nome_atributo)) {
-            return (UtilSimulador.toInt(lista_parametros.get(nome_atributo).toString()));
+            return (UtilSimulador.toInt(listaParametros.get(nome_atributo).toString()));
         } else {
             return 0;
         }
     }
 
     @Override
-    public boolean retornar_atributo_logico(String nome_atributo) throws ErroExecucaoBiblioteca {
+    public boolean retornarAtributoLogico(String nome_atributo) throws ErroExecucaoBiblioteca {
         if (verificar_atributo_existe(nome_atributo)) {
-            return (UtilSimulador.toBoolean(lista_parametros.get(nome_atributo).toString()));
+            return (UtilSimulador.toBoolean(listaParametros.get(nome_atributo).toString()));
         } else {
             return false;
         }
     }
 
     @Override
-    public double retornar_atributo_real(String nome_atributo) throws ErroExecucaoBiblioteca {
+    public double retornarAtributoReal(String nome_atributo) throws ErroExecucaoBiblioteca {
         if (verificar_atributo_existe(nome_atributo)) {
-            return (UtilSimulador.toDouble(lista_parametros.get(nome_atributo).toString()));
+            return (UtilSimulador.toDouble(listaParametros.get(nome_atributo).toString()));
         } else {
             return 0;
         }
     }
 
     @Override
-    public int retornar_coordenada_X() {
+    public int retornarCoordenadaX() {
         return this.coordenadaX;
     }
 
     @Override
-    public int retornar_coordenada_Y() {
+    public int retornarCoordenadaY() {
         return this.coordenadaY;
     }
 
     @Override
-    public int retornar_cor_agente() {
+    public int retornarCorAgente() {
         return this.cor;
     }
 
     @Override
-    public int retornar_id() {
+    public int retornarId() {
         return this.id;
     }
 
     @Override
-    public int retornar_orientacao() {
+    public int retornarOrientacao() {
         return this.orientacao;
     }
 
     @Override
     public void voltar(int quantidade) {
         int prox_coordenadaX = (int) (coordenadaX - (quantidade * Math.cos(orientacao)));
-        if (prox_coordenadaX < GerenciadorInterface.getInstance().get_largura_minima_painel_simulacao()) {
-            coordenadaX = GerenciadorInterface.getInstance().retornar_valor_max_borda_x() - 1;
+        if (prox_coordenadaX < GerenciadorInterface.getInstance().getLarguraMinimaPainelSimulacao()) {
+            coordenadaX = GerenciadorInterface.getInstance().retornarValorMaxBordaX() - 1;
             return;
         }
 
         int prox_coordenadaY = (int) (coordenadaY - (quantidade * Math.sin(orientacao)));
-        if (prox_coordenadaY < GerenciadorInterface.getInstance().get_altura_minima_painel_simulacao()) {
-            coordenadaY = GerenciadorInterface.getInstance().retornar_valor_max_borda_y() - 1;            
+        if (prox_coordenadaY < GerenciadorInterface.getInstance().getAlturaMinimaPainelSimulacao()) {
+            coordenadaY = GerenciadorInterface.getInstance().retornarValorMaxBordaY() - 1;            
             return;
         }
 
@@ -275,52 +253,52 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public boolean colidiu_com_parede() throws ErroExecucaoBiblioteca, InterruptedException {
+    public boolean colidiuComParede() throws ErroExecucaoBiblioteca, InterruptedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean colidiu_borda_X() throws ErroExecucaoBiblioteca, InterruptedException {
+    public boolean colidiuBordaX() throws ErroExecucaoBiblioteca, InterruptedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean colidiu_borda_Y() throws ErroExecucaoBiblioteca, InterruptedException {
+    public boolean colidiuBordaY() throws ErroExecucaoBiblioteca, InterruptedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void definir_visibilidade(boolean visivel) {
-        this.esta_visivel = visivel;
+    public void definirVisibilidade(boolean visivel) {
+        this.estaVisivel = visivel;
     }
 
     @Override
-    public boolean esta_visivel() {
-        return esta_visivel;
+    public boolean estaVisivel() {
+        return estaVisivel;
     }
 
     @Override
-    public void definir_altura_agente(int altura) {
-        this.altura_agente = altura;
+    public void definirAlturaAgente(int altura) {
+        this.alturaAgente = altura;
     }
 
     @Override
-    public void definir_largura_agente(int largura) {
-        this.largura_agente = largura;
+    public void definirLarguraAgente(int largura) {
+        this.larguraAgente = largura;
     }
 
     @Override
-    public int retornar_altura_agente() {
-        return this.altura_agente;
+    public int retornarAlturaAgente() {
+        return this.alturaAgente;
     }
 
     @Override
-    public int retornar_largura_agente() {
-        return this.largura_agente;
+    public int retornarLarguraAgente() {
+        return this.larguraAgente;
     }
 
     private boolean verificar_atributo_existe(String nome) {
-        return lista_parametros.containsKey(nome);
+        return listaParametros.containsKey(nome);
     }
 
     public void definir_log(String mensagem) {
@@ -328,12 +306,12 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void definir_forma_agente(int forma) {
+    public void definirFormaAgente(int forma) {
         this.forma = forma;
     }
 
     @Override
-    public TipoForma retornar_forma_agente() {
+    public TipoForma retornarFormaAgente() {
         switch (forma) {
             case 0:
                 return TipoForma.circulo;
@@ -345,7 +323,7 @@ public abstract class BaseAgente implements IAgente {
     }
 
     @Override
-    public void inverter_sentido() {
+    public void inverterSentido() {
         this.moverFrente = !moverFrente;
     }
 

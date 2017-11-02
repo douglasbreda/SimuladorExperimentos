@@ -28,10 +28,8 @@ import java.nio.charset.Charset;
 public class GeradorCodigoJavaSimulador {
 
     long idPrograma = System.currentTimeMillis();
-
     private static final File DIRETORIO_TEMPORARIO = new File(System.getProperty("java.io.tmpdir"));
     private static final File DIRETORIO_COMPILACAO = new File(DIRETORIO_TEMPORARIO, "portugol");
-
     private static final String NOME_PACOTE = "programas";
     private static final File DIRETORIO_PACOTE = new File(DIRETORIO_COMPILACAO, NOME_PACOTE);
     private ResultadoAnalise resultadoAnalise;
@@ -39,6 +37,14 @@ public class GeradorCodigoJavaSimulador {
     private String caminhoJavac;
     private static CompiladorSimulador compilador;
 
+    /**
+     * Método que gera e compila o código Portugol para Java, retornando uma
+     * instância da classe SimuladorPrograma
+     *
+     * @param asa
+     * @return
+     * @throws ErroCompilacao
+     */
     public SimuladorPrograma gerar_codigo_java(ASAPrograma asa) throws ErroCompilacao {
         long idPrograma = System.currentTimeMillis();
 

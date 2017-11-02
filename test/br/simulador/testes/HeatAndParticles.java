@@ -124,6 +124,7 @@ public class HeatAndParticles {
 
         } else {
 
+            
             if (colidindoEsquerda) {
                 //Pega os atributos atuais do agente
                 double energia_atual = exp.retornar_atributo_real("energia");

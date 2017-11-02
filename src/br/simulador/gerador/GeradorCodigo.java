@@ -107,24 +107,6 @@ public class GeradorCodigo {
     private int indiceAtualInicializacaoPara = -1;
     private GeradorCodigoJava.Opcoes opcoesPadrao;
 
-//    public static class Opcoes
-//    {
-//        public final boolean gerandoCodigoParaInterrupcaoDeThread;
-//        public final boolean gerandoCodigoParaPontosDeParada;
-//        public final boolean gerandoCodigoParaInspecaoDeSimbolos;
-//
-//        public Opcoes(boolean geraCodigoParaInterrupcaoDeThread, boolean geraCodigoParaPontosDeParada, boolean geraCodigoParaInspecaoDeSimbolos)
-//        {
-//            this.gerandoCodigoParaInterrupcaoDeThread = geraCodigoParaInterrupcaoDeThread;
-//            this.gerandoCodigoParaPontosDeParada = geraCodigoParaPontosDeParada;
-//            this.gerandoCodigoParaInspecaoDeSimbolos = geraCodigoParaInspecaoDeSimbolos;
-//        }
-//
-//        public Opcoes()
-//        {
-//            this(false, false, false);
-//        }
-//    }
     public GeradorCodigo(long seed) {
         this.seed = seed;
     }

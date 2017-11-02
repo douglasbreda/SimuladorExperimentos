@@ -1,5 +1,5 @@
 /**
- * Gerenciador para controlar a execução das Threads para cada agente
+ * Gerenciador para controlar a execução das simulação
  */
 package br.simulador.gerenciadores;
 
@@ -16,7 +16,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -50,11 +49,17 @@ public final class GerenciadorExecucao {
     //Define se vai rodar a simulação dentro de um while(true) ou não
     private static boolean executar_sempre = false;
 
-    public void inicializar_ambiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
-        UtilSimulador.setLog("Vai inicializar o ambiente");
+    /**
+     * Inicializa o ambiente da simulação
+     *
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     * @throws InvocationTargetException
+     * @throws ErroExecucao
+     */
+    public void inicializarAmbiente() throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         ambienteInicializado = true;
         GerenciadorInterface.getInstance().inicializarTela();
-        UtilSimulador.setLog("Inicializou o ambiente");
     }
 
     /**
@@ -122,6 +127,7 @@ public final class GerenciadorExecucao {
      * parâmetros
      *
      * @param nome_metodo
+     * @return
      * @throws IllegalArgumentException
      */
     public Object executarMetodo(String nome_metodo) {
@@ -159,32 +165,29 @@ public final class GerenciadorExecucao {
     /**
      * Centralização do método de criação de agentes
      *
-     * @param numero_agentes
+     * @param numeroAgentes
      * @param aleatorio
      * @throws
      * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void criar_agentes(int numero_agentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+    public void criarAgentes(int numeroAgentes, boolean aleatorio) throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 
         int coordenadaX = 0;
         int coordenadaY = 0;
         int id = 0;
-        int minX = GerenciadorInterface.getInstance().retornar_valor_min_borda_x();
-        int minY = GerenciadorInterface.getInstance().retornar_valor_min_borda_y();
-        int maxX = GerenciadorInterface.getInstance().retornar_valor_max_borda_x();
-        int maxY = GerenciadorInterface.getInstance().retornar_valor_max_borda_y();
+        int minX = GerenciadorInterface.getInstance().retornarValorMinBordaX();
+        int minY = GerenciadorInterface.getInstance().retornarValorMinBordaY();
+        int maxX = GerenciadorInterface.getInstance().retornarValorMaxBordaX();
+        int maxY = GerenciadorInterface.getInstance().retornarValorMaxBordaY();
         int valor_fixo_x = (maxX / 2);
         int valor_fixo_y = (maxY / 2);
 
-//        int valor_fixo_x = 446;
-//        int valor_fixo_y = 267;
-        for (int i = 0; i < numero_agentes; i++) {
+        for (int i = 0; i < numeroAgentes; i++) {
 
             if (aleatorio) {
                 coordenadaX = UtilSimulador.getNumeroRandomico(minX, maxX);
                 coordenadaY = UtilSimulador.getNumeroRandomico(minY, maxY);
-//                velocidade = UtilSimulador.getNumeroRandomico(5);
             } else {
                 coordenadaX = valor_fixo_x;
                 coordenadaY = valor_fixo_y;
@@ -192,19 +195,9 @@ public final class GerenciadorExecucao {
 
             IAgente agente = new Agente(coordenadaX, coordenadaY, ++id, formaAgente.ordinal());
 
-            UtilSimulador.setLog("------------------------------------------");
-
-            UtilSimulador.setLog("Agente: " + agente.retornar_id());
-            UtilSimulador.setLog("X: " + agente.retornar_coordenada_X());
-            UtilSimulador.setLog("Y: " + agente.retornar_coordenada_Y());
-
-            UtilSimulador.setLog("------------------------------------------");
-
             addAgente(agente);
-            GerenciadorInterface.getInstance().renderizar_tela_parcial();
+            GerenciadorInterface.getInstance().renderizarTelaParcial();
         }
-
-//        GerenciadorInterface.getInstance().atualizar_total_agentes(listaAgentes.size());
     }
 
     /**
@@ -212,26 +205,25 @@ public final class GerenciadorExecucao {
      *
      * @return
      */
-    public int contar_agentes() {
-        UtilSimulador.setLog("Contou os agentes");
+    public int contarAgentes() {
         return getListaAgentes().size();
     }
 
     /**
      * Retorna a média de uma parâmetro do agente
      *
-     * @param nome_parametro
+     * @param nomeParametro
      * @return
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public double media(String nome_parametro) throws ErroExecucaoBiblioteca, InterruptedException {
+    public double media(String nomeParametro) throws ErroExecucaoBiblioteca, InterruptedException {
 
         double media = 0;
 
         if (listaAgentes.size() > 0) {
             for (IAgente agente : listaAgentes) {
-                media += agente.retornar_atributo_real(nome_parametro);
+                media += agente.retornarAtributoReal(nomeParametro);
             }
 
             media = media / listaAgentes.size();
@@ -245,29 +237,29 @@ public final class GerenciadorExecucao {
      * Adiciona atributos/parametros a todos os agentes da lista
      *
      * @param nome
-     * @param valor_padrao
+     * @param valorPadrao
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public void adicionar_atributo_agentes(String nome, String valor_padrao) throws ErroExecucaoBiblioteca, InterruptedException {
+    public void adicionarAtributoAgente(String nome, String valorPadrao) throws ErroExecucaoBiblioteca, InterruptedException {
         for (IAgente agente : listaAgentes) {
-            agente.criar_atributo(nome, valor_padrao);
+            agente.criarAtributo(nome, valorPadrao);
         }
     }
 
     /**
      * Define um valor a um atributo por agente
      *
-     * @param nome_atributo
+     * @param nomeAtributo
      * @param valor
      * @param id ID do agente que terá o atributo alterado
      */
-    public void definir_valor_atributo_por_agente(String nome_atributo, String valor, int id) {
+    public void definirValorAtributoPorAgente(String nomeAtributo, String valor, int id) {
         try {
             for (IAgente agente : listaAgentes) {
 
-                if (agente.retornar_id() == id) {
-//                    agente.definir_valor_atributo(nome_atributo, valor, id);
+                if (agente.retornarId() == id) {
+//                    agente.definirValorAtributo(nome_atributo, valor, id);
                 }
             }
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
@@ -277,13 +269,10 @@ public final class GerenciadorExecucao {
 
     /**
      * Limpa a lista de agentes
+     * 
      */
     public void limpar_tudo() {
-        UtilSimulador.setLog("Número de agentes atuais: " + listaAgentes.size());
-
         listaAgentes.clear();
-
-        UtilSimulador.setLog("Após limpeza: " + listaAgentes.size());
     }
 
     /**
@@ -295,7 +284,7 @@ public final class GerenciadorExecucao {
         ArrayList<IAgente> listaRetorno = null;
 
         if (listaAgentes != null) {
-            List<IAgente> listaNova = listaAgentes.stream().filter(x -> x.esta_visivel()).collect(Collectors.toList());
+            List<IAgente> listaNova = listaAgentes.stream().filter(x -> x.estaVisivel()).collect(Collectors.toList());
 
             if (listaRetorno == null) {
                 listaRetorno = new ArrayList<>();
@@ -316,16 +305,15 @@ public final class GerenciadorExecucao {
      * @param cor
      * @return
      */
-    public int agentes_com_cor(int cor) {
-        int numero_agentes = 0;
+    public int agentesComCor(int cor) {
+        int numeroAgentes = 0;
         if (listaAgentes != null) {
-            numero_agentes = UtilSimulador.toInt(listaAgentes.stream()
-                    .filter(agente -> comparar_cor_agente(agente, cor))
+            numeroAgentes = UtilSimulador.toInt(listaAgentes.stream()
+                    .filter(agente -> compararCorAgente(agente, cor))
                     .count());
-
         }
 
-        return numero_agentes;
+        return numeroAgentes;
     }
 
     /**
@@ -335,9 +323,9 @@ public final class GerenciadorExecucao {
      * @param cor
      * @return
      */
-    private boolean comparar_cor_agente(IAgente agente, int cor) {
+    private boolean compararCorAgente(IAgente agente, int cor) {
         try {
-            return agente.retornar_cor_agente() == cor;
+            return agente.retornarCorAgente() == cor;
         } catch (ErroExecucaoBiblioteca | InterruptedException ex) {
             Logger.getLogger(GerenciadorExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -345,8 +333,8 @@ public final class GerenciadorExecucao {
         return false;
     }
 
-    public int agentes_em(int coordenadaX, int coordenadaY) throws InterruptedException, ErroExecucao {
-        return agentes_em(coordenadaX, coordenadaY, agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
+    public int agentesEm(int coordenadaX, int coordenadaY) throws InterruptedException, ErroExecucao {
+        return agentesEm(coordenadaX, coordenadaY, agenteAtual.retornarAlturaAgente(), agenteAtual.retornarLarguraAgente());
     }
 
     /**
@@ -360,18 +348,18 @@ public final class GerenciadorExecucao {
      * @throws InterruptedException
      * @throws ErroExecucao
      */
-    public int agentes_em(int coordenadaX, int coordenadaY, int altura, int largura) throws InterruptedException, ErroExecucao {
-        int numero_agentes = 0;
+    public int agentesEm(int coordenadaX, int coordenadaY, int altura, int largura) throws InterruptedException, ErroExecucao {
+        int numeroAgentes = 0;
 
-        Retalho retalho = GerenciadorInterface.getInstance().get_retalho(coordenadaX, coordenadaY, altura, largura);
+        Retalho retalho = GerenciadorInterface.getInstance().getRetalho(coordenadaX, coordenadaY, altura, largura);
 
         if (retalho != null) {
             retalho.set_cor(2);
-            numero_agentes = GerenciadorInterface.getInstance().buscar_numero_agentes(retalho);
-            GerenciadorInterface.getInstance().renderizar_tela();
+            numeroAgentes = GerenciadorInterface.getInstance().buscarNumeroAgentes(retalho);
+            GerenciadorInterface.getInstance().renderizarTela();
         }
 
-        return numero_agentes;
+        return numeroAgentes;
     }
 
     /**
@@ -382,8 +370,8 @@ public final class GerenciadorExecucao {
      * @throws InterruptedException
      * @throws ErroExecucao
      */
-    public Retalho meu_retalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
-        Retalho retalho = GerenciadorInterface.getInstance().get_retalho(agenteAtual.retornar_coordenada_X(), agenteAtual.retornar_coordenada_Y(), agenteAtual.retornar_altura_agente(), agenteAtual.retornar_largura_agente());
+    public Retalho meuRetalho() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
+        Retalho retalho = GerenciadorInterface.getInstance().getRetalho(agenteAtual.retornarCoordenadaX(), agenteAtual.retornarCoordenadaY(), agenteAtual.retornarAlturaAgente(), agenteAtual.retornarLarguraAgente());
 
         return retalho;
     }
@@ -396,9 +384,8 @@ public final class GerenciadorExecucao {
      * br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca
      * @throws java.lang.InterruptedException
      */
-    public void definir_agente_atual(Object agente) throws ErroExecucaoBiblioteca, InterruptedException {
+    public void definirAgenteAtual(Object agente) throws ErroExecucaoBiblioteca, InterruptedException {
         agenteAtual = (IAgente) agente;
-        UtilSimulador.setLog("Agente atual: " + agenteAtual.retornar_id());
     }
 
     /**
@@ -436,9 +423,8 @@ public final class GerenciadorExecucao {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public void remover_agente_simulacao() throws ErroExecucaoBiblioteca, InterruptedException {
-        agenteAtual.definir_visibilidade(false);
-        UtilSimulador.setLog("Agente: " + agenteAtual.retornar_id() + "removido com sucesso");
+    public void removerAgenteSimulacao() throws ErroExecucaoBiblioteca, InterruptedException {
+        agenteAtual.definirVisibilidade(false);
     }
 
     /**
@@ -475,13 +461,13 @@ public final class GerenciadorExecucao {
      * @throws ErroExecucao
      * @throws InterruptedException
      */
-    public void iniciar_simulacao() throws ErroExecucao, InterruptedException {
+    public void iniciarSimulacao() throws ErroExecucao, InterruptedException {
         try {
             if (GerenciadorExecucao.simuladorPrograma != null) {
                 GerenciadorExecucao.simuladorPrograma.simular(executar_sempre);
             }
-
             this.setExecutando(true);
+            
         } catch (ErroExecucao | InterruptedException ex) {
             System.err.println(ex.getMessage());
         }
@@ -492,7 +478,7 @@ public final class GerenciadorExecucao {
      *
      * @return
      */
-    public boolean simulacao_visivel() {
+    public boolean simulacaoVisivel() {
         return true;
     }
 
@@ -544,7 +530,7 @@ public final class GerenciadorExecucao {
      *
      * @return
      */
-    public boolean isExecutar_sempre() {
+    public boolean isExecutarSempre() {
         return GerenciadorExecucao.executar_sempre;
     }
 
@@ -553,7 +539,7 @@ public final class GerenciadorExecucao {
      *
      * @param executar_sempre
      */
-    public void setExecutar_sempre(boolean executar_sempre) {
+    public void setExecutarSempre(boolean executar_sempre) {
         GerenciadorExecucao.executar_sempre = executar_sempre;
     }
 
@@ -565,11 +551,11 @@ public final class GerenciadorExecucao {
      * @throws ErroExecucaoBiblioteca
      * @throws InterruptedException
      */
-    public int buscar_agente_aqui(int idRetalho) throws ErroExecucaoBiblioteca, InterruptedException {
-        Retalho retalho = GerenciadorInterface.getInstance().buscar_retalho_por_id(idRetalho);
+    public int buscarAgentesAqui(int idRetalho) throws ErroExecucaoBiblioteca, InterruptedException {
+        Retalho retalho = GerenciadorInterface.getInstance().buscarRetalhoPorId(idRetalho);
 
         if (retalho != null) {
-            return GerenciadorInterface.getInstance().buscar_id_agente_retalho(retalho, getAgenteAtual().retornar_id());
+            return GerenciadorInterface.getInstance().buscarIdAgenteRetalho(retalho, getAgenteAtual().retornarId());
         }
 
         return 0;
@@ -585,11 +571,11 @@ public final class GerenciadorExecucao {
      */
     public int getOrientacaoPorId(int id) throws ErroExecucaoBiblioteca, InterruptedException {
         for (IAgente agente : listaAgentes) {
-            if (agente.retornar_id() == id) {
-                return agente.retornar_orientacao();
+            if (agente.retornarId() == id) {
+                return agente.retornarOrientacao();
             }
         }
-        
-        return getAgenteAtual().retornar_orientacao();
+
+        return getAgenteAtual().retornarOrientacao();
     }
 }

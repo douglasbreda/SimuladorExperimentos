@@ -42,7 +42,7 @@ public final class GerenciadorComponentes {
         if (!componenteJaAdicionado(nome)) {
             Monitor monitor = new Monitor();
 
-            monitor.setValor_atual(valorAtual);
+            monitor.setValorAtual(valorAtual);
 
             adicionarComponenteLista(monitor.criar(x1, x2, y1, y2, yFinal, nome, altura, largura, titulo));
         }
@@ -95,7 +95,7 @@ public final class GerenciadorComponentes {
      * @return
      */
     public static boolean componenteJaAdicionado(String nome_componente) {
-        return listaComponentes.stream().filter(x -> x.get_nome().equalsIgnoreCase(nome_componente)).count() > 0;
+        return listaComponentes.stream().filter(x -> x.getNome().equalsIgnoreCase(nome_componente)).count() > 0;
     }
 
     /**
@@ -159,13 +159,21 @@ public final class GerenciadorComponentes {
         return listaComponentes.get(listaComponentes.size() - 1);
     }
 
+    /**
+     * Método de controle para identificar se o mouse está dentro de um slider
+     * 
+     * @param posicaoXMouse
+     * @param posicaoYMouse
+     * @param botaoPressionado
+     * @return 
+     */
     public static Slider verificarMouseDentroSlider(int posicaoXMouse, int posicaoYMouse, boolean botaoPressionado) {
-        List<Componente> listaSliders = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.slider).collect(Collectors.toList());
+        List<Componente> listaSliders = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.slider).collect(Collectors.toList());
 
         if (listaSliders != null && listaSliders.size() > 0) {
             for (Componente slider : listaSliders) {
-                if (posicaoXMouse >= slider.get_x1() && posicaoXMouse <= (slider.get_x1()) + slider.get_largura()
-                        && posicaoYMouse >= slider.get_y1() + 21 && posicaoYMouse <= slider.get_yFinal() - 16) {
+                if (posicaoXMouse >= slider.getX1() && posicaoXMouse <= (slider.getX1()) + slider.getLargura()
+                        && posicaoYMouse >= slider.getY1() + 21 && posicaoYMouse <= slider.getYFinal() - 16) {
                     UtilSimulador.setLog("está dentro do slider");
                     if (botaoPressionado) {
                         
@@ -191,18 +199,18 @@ public final class GerenciadorComponentes {
      * @return
      */
     public static boolean verificarMouseDentroInterruptor(int posicaoXMouse, int posicaoYMouse, boolean botao_pressionado) {
-        List<Componente> listaInterruptor = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.interruptor).collect(Collectors.toList());
+        List<Componente> listaInterruptor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.interruptor).collect(Collectors.toList());
         Interruptor interruptor_atual = null;
 
         for (Componente interruptor : listaInterruptor) {
             interruptor_atual = (Interruptor) interruptor;
 
-//            UtilSimulador.setLog("Y1 = " + interruptor.get_y1());
-//            UtilSimulador.setLog("Y2 = " + interruptor.get_y2());
+//            UtilSimulador.setLog("Y1 = " + interruptor.getY1());
+//            UtilSimulador.setLog("Y2 = " + interruptor.getY2());
             
 //            if (!interruptor_atual.isLigado()) {
-            if (posicaoXMouse >= (interruptor.get_x1() + 10) && posicaoXMouse <= interruptor.get_x2() - 10
-                    && posicaoYMouse >= (interruptor.get_y1() + 7) && posicaoYMouse < (interruptor.get_y1() + 16)) {
+            if (posicaoXMouse >= (interruptor.getX1() + 10) && posicaoXMouse <= interruptor.getX2() - 10
+                    && posicaoYMouse >= (interruptor.getY1() + 7) && posicaoYMouse < (interruptor.getY1() + 16)) {
                 UtilSimulador.setLog("Entrou Ligado");
 //                UtilSimulador.setLog(String.valueOf(botao_pressionado));
                 if (botao_pressionado) {
@@ -211,8 +219,8 @@ public final class GerenciadorComponentes {
                 }
             }
 
-            if (posicaoXMouse >= (interruptor.get_x1() + 10) && posicaoXMouse <= interruptor.get_x2() - 10
-                    && posicaoYMouse >= ((interruptor.get_y2() - 46)  - 17) && posicaoYMouse < ((interruptor.get_y2() - 46) - 7)) {
+            if (posicaoXMouse >= (interruptor.getX1() + 10) && posicaoXMouse <= interruptor.getX2() - 10
+                    && posicaoYMouse >= ((interruptor.getY2() - 46)  - 17) && posicaoYMouse < ((interruptor.getY2() - 46) - 7)) {
                 UtilSimulador.setLog("Entrou desligado");
                 if (botao_pressionado) {
                     interruptor_atual.ligar();
@@ -224,6 +232,11 @@ public final class GerenciadorComponentes {
         return false;
     }
 
+    /**
+     * Retorna a lista dos componentes criados
+     * 
+     * @return 
+     */
     public static List<Componente> getListaComponentes() {
         return listaComponentes;
     }
@@ -235,22 +248,23 @@ public final class GerenciadorComponentes {
      * @param novo_valor
      */
     public static void atualizarValorMonitor(String nome, String novo_valor) {
-        Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.monitor && x.get_nome().equalsIgnoreCase(nome)).findAny();
+        Optional<Componente> monitor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.monitor && x.getNome().equalsIgnoreCase(nome)).findAny();
 
         if (monitor != null) {
             Monitor monitorAtualizar = (Monitor) monitor.get();
 
-            monitorAtualizar.setValor_atual(novo_valor);
+            monitorAtualizar.setValorAtual(novo_valor);
         }
     }
     
     /**
      * Retorna o valor atual de um componente slider consultando pelo seu nome
+     * 
      * @param nome_slider
      * @return 
      */
     public static double buscarValorAtualSlider(String nome_slider){
-        Optional<Componente> slider = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.slider && x.get_nome().equalsIgnoreCase(nome_slider)).findAny();
+        Optional<Componente> slider = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.slider && x.getNome().equalsIgnoreCase(nome_slider)).findAny();
         
         if(slider != null){
             Slider sliderEncontrado = (Slider) slider.get();
@@ -263,11 +277,12 @@ public final class GerenciadorComponentes {
     
     /**
      * Retorna o valor de um interruptor consultando pelo seu nome
+     * 
      * @param nome_interruptor
      * @return 
      */
     public static boolean buscarValorAtualInterruptor(String nome_interruptor){
-        Optional<Componente> interruptor = listaComponentes.stream().filter(x -> x.get_tipo_componente() == TipoComponente.slider && x.get_nome().equalsIgnoreCase(nome_interruptor)).findAny();
+        Optional<Componente> interruptor = listaComponentes.stream().filter(x -> x.getTipoComponente() == TipoComponente.slider && x.getNome().equalsIgnoreCase(nome_interruptor)).findAny();
         
         if(interruptor != null){
             Interruptor interruptorEncontrado = (Interruptor) interruptor.get();

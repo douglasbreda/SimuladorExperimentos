@@ -59,10 +59,9 @@ public class GerenciadorFuncao extends VisitanteNulo {
         this.nomeMetodo = nome_metodo;
 
         listaDeclaracoesGlobais = asa.getListaDeclaracoesGlobais();
-        
+
         asa.aceitar(this);
 
-//        SimuladorPrograma programa = null;
         if (listaMetodos.stream().filter(x -> x.getNome().equalsIgnoreCase(nomeMetodo)).count() > 0) {
             asaGerada.setListaDeclaracoesGlobais(new ArrayList<>());
 
@@ -83,26 +82,12 @@ public class GerenciadorFuncao extends VisitanteNulo {
             }
 
             GerenciadorExecucao.getInstance().setSimuladorPrograma(simulador_programa);
-
-//            programa.simular(false);
         } else {
             throw new ErroExecucaoSimulador();
         }
+        
         return null;
     }
-
-//    @Override
-//    public Object visitar(ASAPrograma asap) throws ExcecaoVisitaASA {
-//
-//
-//        for (NoDeclaracao no : asap.getListaDeclaracoesGlobais()) {
-//            if (no instanceof NoDeclaracaoVariavel) {
-//                no.aceitar(this);
-//            }
-//        }
-//
-//        return null;
-//    }
 
     @Override
     public Object visitar(NoDeclaracaoFuncao declaracaoFuncao) throws ExcecaoVisitaASA {
@@ -128,7 +113,6 @@ public class GerenciadorFuncao extends VisitanteNulo {
     @Override
     public Object visitar(NoInclusaoBiblioteca noInclusaoBiblioteca) throws ExcecaoVisitaASA {
 
-//        if (noInclusaoBiblioteca.getNome().equalsIgnoreCase("Experimentos")) {
         if (!listaLibs.contains(noInclusaoBiblioteca)) {
             listaLibs.add(noInclusaoBiblioteca);
         }

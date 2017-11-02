@@ -13,7 +13,6 @@ public class Inicializador {
 
     public static void main(String[] args) throws ErroExecucaoBiblioteca, InterruptedException, InvocationTargetException, ErroExecucao {
         GerenciadorInterface.getInstance().inicializarTela();
-        GerenciadorInterface.getInstance().renderizar_tela();
-        //System.exit(0);
+        GerenciadorInterface.getInstance().renderizarTela();
     }
 }

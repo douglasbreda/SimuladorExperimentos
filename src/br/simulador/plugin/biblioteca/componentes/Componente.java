@@ -22,7 +22,7 @@ public abstract class Componente {
     private int y2;
 
     //Define o tipo do componente
-    private TipoComponente tipo_componente;
+    private TipoComponente tipoComponente;
 
     //Define uma distância fixa para o próximo componente que está sendo criado
     private int distancia;
@@ -42,108 +42,106 @@ public abstract class Componente {
     //Armazena o último y para saber onde começa o próximo componente
     private int yFinal;
 
-    public int get_x1() {
+    public int getX1() {
         return x1;
     }
 
-    public void set_x1(int x1) {
+    public void setX1(int x1) {
         this.x1 = x1;
     }
 
-    public int get_x2() {
+    public int getX2() {
         return x2;
     }
 
-    public void set_x2(int x2) {
+    public void setX2(int x2) {
         this.x2 = x2;
     }
 
-    public int get_y1() {
+    public int getY1() {
         return y1;
     }
 
-    public void set_y1(int y1) {
+    public void setY1(int y1) {
         this.y1 = y1;
     }
 
-    public int get_y2() {
+    public int getY2() {
         return y2;
     }
 
-    public void set_y2(int y2) {
+    public void setY2(int y2) {
         this.y2 = y2;
     }
 
-    public TipoComponente get_tipo_componente() {
-        return tipo_componente;
+    public TipoComponente getTipoComponente() {
+        return tipoComponente;
     }
 
-    public void set_tipo_componente(TipoComponente tipo_componente) {
-        this.tipo_componente = tipo_componente;
+    public void setTipoComponente(TipoComponente tipoComponente) {
+        this.tipoComponente = tipoComponente;
     }
 
-    public void set_distancia(int distancia) {
+    public void setDistancia(int distancia) {
         this.distancia = distancia;
     }
 
-    public int get_distancia() {
+    public int getDistancia() {
         return distancia;
     }
 
-    public int getProxima_posicao_y1() {
+    public int getProximaPosicaoY1() {
         return y1 + distancia;
     }
 
-    public int getProxima_posicao_y2() {
+    public int getProximaPosicaoY2() {
         return y2 + distancia + altura;
     }
 
-    public String get_nome() {
+    public String getNome() {
         return nome;
     }
     
-    public int get_proximo_y(){
+    public int getProximoY(){
         return yFinal + distancia;
     }
 
-    public void set_nome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public int get_largura() {
+    public int getLargura() {
         return largura;
     }
 
-    public void set_largura(int largura) {
+    public void setLargura(int largura) {
         this.largura = largura;
     }
 
-    public int get_altura() {
+    public int getAltura() {
         return altura;
     }
 
-    public void set_altura(int altura) {
+    public void setAltura(int altura) {
         this.altura = altura;
     }
 
-    public String get_titulo() {
+    public String getTitulo() {
         return titulo;
     }
 
-    public void set_titulo(String titulo) {
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
-    public int get_yFinal() {
+    public int getYFinal() {
         return yFinal;
     }
 
-    public void set_yFinal(int yFinal) {
+    public void setYFinal(int yFinal) {
         this.yFinal = yFinal;
     }
     
-    
-
     /**
      * Cria uma nova instância das características de um compoenente para
      * controle na tela

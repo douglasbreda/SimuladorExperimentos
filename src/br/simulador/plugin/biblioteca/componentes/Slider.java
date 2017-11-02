@@ -28,19 +28,19 @@ public class Slider extends Componente {
 
     @Override
     public Componente criar(int x1, int x2, int y1, int y2, int yFinal, String nome, int altura, int largura, String titulo) {
-        this.set_x1(x1);
-        this.set_x2(x2);
-        this.set_y1(y1);
-        this.set_y2(y2);
-        this.set_tipo_componente(TipoComponente.slider);
-        this.set_distancia(10);
-        this.set_nome(nome);
-        this.set_altura(altura);
-        this.set_largura(largura);
-        this.set_titulo(titulo);
-        this.set_yFinal(yFinal);
-        this.cem_por_cento = (this.get_x1() + this.get_largura()) - this.get_x1();
-        this.diferenca = (this.get_x1() + this.get_largura()) - cem_por_cento;
+        this.setX1(x1);
+        this.setX2(x2);
+        this.setY1(y1);
+        this.setY2(y2);
+        this.setTipoComponente(TipoComponente.slider);
+        this.setDistancia(10);
+        this.setNome(nome);
+        this.setAltura(altura);
+        this.setLargura(largura);
+        this.setTitulo(titulo);
+        this.setYFinal(yFinal);
+        this.cem_por_cento = (this.getX1() + this.getLargura()) - this.getX1();
+        this.diferenca = (this.getX1() + this.getLargura()) - cem_por_cento;
         this.calcular_valor_inicial(this.valor_display);
 
         return this;
@@ -93,12 +93,12 @@ public class Slider extends Componente {
         int posicao_real = 0;
         posicao_real = posicaoXAtual - diferenca;
 
-        if ((posicao_real - this.get_largura()) >= 0 && (posicao_real - this.get_largura()) <= 3) {
+        if ((posicao_real - this.getLargura()) >= 0 && (posicao_real - this.getLargura()) <= 3) {
             valor_display = valor_maximo;
-            valor_atual = this.get_x1() + this.get_largura() - 5;
+            valor_atual = this.getX1() + this.getLargura() - 5;
         } else if (posicao_real <= 1) {
             valor_display = 0;
-            valor_atual = this.get_x1();
+            valor_atual = this.getX1();
         } else {
             this.valor_atual = ((posicao_real * 100) / cem_por_cento) + diferenca;
             this.valor_display = ((valor_atual - diferenca) * this.valor_maximo) / 100;

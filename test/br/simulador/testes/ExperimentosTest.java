@@ -34,14 +34,14 @@ public class ExperimentosTest {
 
         Thread.sleep(1000);//Para esperar a tela ser criada, pois ocorreu null pointer ao buscar componentes que ainda não foram criados
 
-        GerenciadorExecucao.getInstance().criar_agentes(10, true);
+        GerenciadorExecucao.getInstance().criarAgentes(10, true);
     }
 
     /**
      * Testa a função de contar agentes
      */
     public void testarContarAgentes() {
-        System.out.println("A simulação contém " + GerenciadorExecucao.getInstance().contar_agentes() + " agentes.");
+        System.out.println("A simulação contém " + GerenciadorExecucao.getInstance().contarAgentes() + " agentes.");
     }
 
     public void testarMedia() throws ErroExecucaoBiblioteca, InterruptedException {
@@ -49,23 +49,23 @@ public class ExperimentosTest {
         //Verificar se isso é necessário mesmo
         GerenciadorExecucao.getInstance().executarMetodo("criar_parametro", 1, "velocidade");
 
-        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente("velocidade", "20", 1);
+        GerenciadorExecucao.getInstance().definirValorAtributoPorAgente("velocidade", "20", 1);
 
-        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente("velocidade", "15", 3);
+        GerenciadorExecucao.getInstance().definirValorAtributoPorAgente("velocidade", "15", 3);
 
-        GerenciadorExecucao.getInstance().definir_valor_atributo_por_agente("velocidade", "17", 5);
+        GerenciadorExecucao.getInstance().definirValorAtributoPorAgente("velocidade", "17", 5);
 
         GerenciadorExecucao.getInstance().media("velocidade");
         
         GerenciadorExecucao.getInstance().limpar_tudo();
         
-//        GerenciadorInterface.getInstance().getJanelaSimulador().criar_slider("Slider 1", 0, 100, 12);
+//        GerenciadorInterface.getInstance().getJanelaSimulador().criarSlider("Slider 1", 0, 100, 12);
 //        
-//        GerenciadorInterface.getInstance().getJanelaSimulador().criar_monitor("Monitor 1", "100");
+//        GerenciadorInterface.getInstance().getJanelaSimulador().criarMonitor("Monitor 1", "100");
 //        
-//        GerenciadorInterface.getInstance().getJanelaSimulador().criar_interruptor("Switch 1", true);
+//        GerenciadorInterface.getInstance().getJanelaSimulador().criarInterruptor("Switch 1", true);
         
-//        GerenciadorInterface.getInstance().atualizar_tela();
+//        GerenciadorInterface.getInstance().atualizarTela();
         
     }
 

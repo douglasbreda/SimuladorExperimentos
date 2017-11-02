@@ -1,7 +1,7 @@
 package br.simulador.plugin;
 
 import br.simulador.gerenciadores.GerenciadorExecucao;
-import br.simulador.plugin.acoes.AcaoEstatica;
+import br.simulador.plugin.acoes.AcaoSimular;
 import br.simulador.plugin.biblioteca.Experimentos;
 import br.simulador.ui.PainelSimulacao;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
@@ -25,7 +25,7 @@ public final class SimuladorExperimentos extends Plugin {
     @Override
     protected void inicializar(UtilizadorPlugins utilizador) {
         this.utilizadorPlugins = utilizador;
-        this.utilizadorPlugins.instalarAcaoPlugin(this, new AcaoEstatica(this));
+        this.utilizadorPlugins.instalarAcaoPlugin(this, new AcaoSimular(this));
         this.utilizadorPlugins.registrarBiblioteca(Experimentos.class);        
         super.inicializar(utilizador);
         GerenciadorExecucao.getInstance().setPlugin(this);

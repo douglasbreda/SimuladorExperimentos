@@ -108,7 +108,7 @@ public class PainelBase extends javax.swing.JPanel {
         }
 
         for (IAgente agente : listaAgentes) {
-            points.add(new Point2D.Double(agente.retornar_coordenada_X(), agente.retornar_coordenada_Y()));
+            points.add(new Point2D.Double(agente.retornarCoordenadaX(), agente.retornarCoordenadaY()));
         }
         repaint();
     }
