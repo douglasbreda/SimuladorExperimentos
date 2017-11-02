@@ -149,8 +149,12 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.println();
 
             saida.append("} catch (ErroExecucaoBiblioteca ex) {\n")
+                 .append("throw new ErroExecucaoSimulador(ex.getMensagem());")
                  .append("} catch (InterruptedException ex) {\n")
-                 .append("} catch (ErroExecucao ex) {}\n");
+                 .append("throw new ErroExecucaoSimulador(ex.getMensagem());")   
+                 .append("} catch (ErroExecucao ex) {")
+                 .append("throw new ErroExecucaoSimulador(ex.getMensagem());")
+                 .append("}\n");
 
         }
         saida.append(identacao).append("}").println(); // finaliza o escopo do método

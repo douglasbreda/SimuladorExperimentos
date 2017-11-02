@@ -4,6 +4,7 @@ import br.simulador.gerenciadores.GerenciadorComponentes;
 import br.simulador.gerenciadores.GerenciadorExecucao;
 import br.simulador.gerenciadores.GerenciadorInterface;
 import br.simulador.plugin.biblioteca.base.Retalho;
+import br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador;
 import br.simulador.util.UtilSimulador;
 import br.univali.portugol.nucleo.SimuladorPrograma;
 import br.univali.portugol.nucleo.bibliotecas.base.Biblioteca;
@@ -977,5 +978,10 @@ public final class Experimentos extends Biblioteca {
     )
     public void definir_titulo_simulacao(String titulo) throws ErroExecucaoBiblioteca, InterruptedException{
         GerenciadorInterface.getInstance().definirTituloSimulacao(titulo);
+    }
+    
+    @NaoExportar
+    public void adicionar_erro(ErroExecucaoSimulador erro) throws ErroExecucaoBiblioteca{
+        throw new ErroExecucaoBiblioteca(erro.getMensagem());
     }
 }
