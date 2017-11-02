@@ -4,6 +4,7 @@
 package br.simulador.gerenciadores;
 
 import br.simulador.gerador.GeradorCodigoJavaSimulador;
+import br.simulador.plugin.biblioteca.Experimentos;
 import br.simulador.plugin.biblioteca.erro.ErroExecucaoSimulador;
 import br.univali.portugol.nucleo.ErroCompilacao;
 import br.univali.portugol.nucleo.SimuladorPrograma;

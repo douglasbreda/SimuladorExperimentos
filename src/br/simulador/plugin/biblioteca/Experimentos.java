@@ -74,7 +74,8 @@ public final class Experimentos extends Biblioteca {
             descricao = "Permite a criação de variáveis para controle e uso durante a simulação.",
             parametros
             = {
-                @DocumentacaoParametro(nome = "nome_atributo", descricao = "Define a identificação do atributo."),
+                @DocumentacaoParametro(nome = "nome_atributo", descricao = "Define a identificação do atributo.")
+                ,
                 @DocumentacaoParametro(nome = "valor_padrao", descricao = "Define um valor padrão para atribuir ao atributo criado")
             },
             retorno = "Sem retorno",
@@ -123,7 +124,6 @@ public final class Experimentos extends Biblioteca {
 //    public void atualizarValorAtributo(String nome_atributo, String valor, int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
 //        GerenciadorExecucao.getInstance().definirValorAtributoPorAgente(nome_atributo, valor, id_agente);
 //    }
-    
     @DocumentacaoFuncao(
             descricao = "Atualiza o valor a um determinado atributo.",
             parametros
@@ -138,7 +138,7 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void atualizar_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, ErroExecucaoBiblioteca, InterruptedException{
+    public void atualizar_valor_atributo(String nome_atributo, String valor) throws ErroExecucaoBiblioteca, ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorExecucao.getInstance().getAgenteAtual().atualizarValorAtributo(nome_atributo, valor);
     }
 
@@ -524,7 +524,6 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             },
             retorno = "Número de agentes"
-            
     )
     public int agentes_com_cor(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         int agentes_encontrados = GerenciadorExecucao.getInstance().agentesComCor(cor);
@@ -600,7 +599,7 @@ public final class Experimentos extends Biblioteca {
     public int retornar_valor_max_bordaX() throws ErroExecucaoBiblioteca, InterruptedException {
         return GerenciadorInterface.getInstance().retornarValorMaxBordaX();
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna qual é o limite máximo da coordenada X do retalho.",
             autores
@@ -622,7 +621,7 @@ public final class Experimentos extends Biblioteca {
     public int retornar_valor_max_bordaY() throws ErroExecucaoBiblioteca, InterruptedException {
         return GerenciadorInterface.getInstance().retornarValorMaxBordaY();
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna qual é o limite máximo da coordenada Y do retalho.",
             autores
@@ -647,7 +646,7 @@ public final class Experimentos extends Biblioteca {
         int idRetalho = meu_retalho();
         return GerenciadorInterface.getInstance().verificarRetalhoEhParedeX(idRetalho);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna se o agente colidiu com uma parede superior ou inferior (Para auxiliar no tratamento de colisões)",
             autores
@@ -672,7 +671,6 @@ public final class Experimentos extends Biblioteca {
 //    public boolean colidiuBordaX() throws ErroExecucaoBiblioteca, InterruptedException {
 //        return GerenciadorExecucao.getInstance().getAgenteAtual().colidiuBordaX();
 //    }
-
 //    @DocumentacaoFuncao(
 //            descricao = "Retorna se o agente colidiu com alguma parede superior ou inferior",
 //            autores = {
@@ -682,7 +680,6 @@ public final class Experimentos extends Biblioteca {
 //    public boolean colidiuBordaY() throws ErroExecucaoBiblioteca, InterruptedException {
 //        return GerenciadorExecucao.getInstance().getAgenteAtual().colidiuBordaY();
 //    }
-
     @DocumentacaoFuncao(
             descricao = "Retorna o id atual do retalho em que o agente está posicionado",
             autores = {
@@ -810,17 +807,17 @@ public final class Experimentos extends Biblioteca {
         }
         return true;
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Inverte o sentido da direção do agente (para facilitar os movimentos)",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void inverter_sentido() throws ErroExecucaoBiblioteca, InterruptedException{
+    public void inverter_sentido() throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorExecucao.getInstance().getAgenteAtual().inverterSentido();
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna o valor atual de um slider",
             autores = {
@@ -830,10 +827,10 @@ public final class Experimentos extends Biblioteca {
                 @DocumentacaoParametro(nome = "nome_slider", descricao = "Nome do componente utilizado para encontrá-lo entre os componentes")
             }
     )
-    public double retornar_valor_atual_slider(String nome_slider) throws ErroExecucaoBiblioteca, InterruptedException{
+    public double retornar_valor_atual_slider(String nome_slider) throws ErroExecucaoBiblioteca, InterruptedException {
         return GerenciadorComponentes.buscarValorAtualSlider(nome_slider);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna o valor atual de um interruptor",
             autores = {
@@ -843,10 +840,10 @@ public final class Experimentos extends Biblioteca {
                 @DocumentacaoParametro(nome = "nome_interruptor", descricao = "Nome do componente utilizado para encontrá-lo entre os componentes")
             }
     )
-    public boolean retornar_valor_atual_interruptor(String nome_interruptor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public boolean retornar_valor_atual_interruptor(String nome_interruptor) throws ErroExecucaoBiblioteca, InterruptedException {
         return GerenciadorComponentes.buscarValorAtualInterruptor(nome_interruptor);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Define a cor apenas da borda esquerda da simulação",
             parametros = {
@@ -856,10 +853,10 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_borda_esquerda(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_borda_esquerda(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInterface.getInstance().definirBordaEsquerda(cor);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Define a cor apenas da borda direita da simulação",
             parametros = {
@@ -869,10 +866,10 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_borda_direita(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_borda_direita(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInterface.getInstance().definirBordaDireita(cor);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Define a cor apenas da borda inferior da simulação",
             parametros = {
@@ -882,10 +879,10 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_borda_inferior(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_borda_inferior(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInterface.getInstance().definirBordaInferior(cor);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Define a cor apenas da borda superior da simulação",
             parametros = {
@@ -895,65 +892,65 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_borda_superior(int cor) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_borda_superior(int cor) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInterface.getInstance().definirBordaSuperior(cor);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Verifica se o agente colidiu com a parede esquerda",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public boolean colidiu_com_parede_esquerda() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public boolean colidiu_com_parede_esquerda() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int idRetalho = meu_retalho();
         return GerenciadorInterface.getInstance().verificarColidiuParedeEsquerda(idRetalho);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Verifica se o agente colidiu com a parede direita",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public boolean colidiu_com_parede_direita() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public boolean colidiu_com_parede_direita() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int idRetalho = meu_retalho();
         return GerenciadorInterface.getInstance().verificarColidiuParedeDireita(idRetalho);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Verifica se o agente colidiu com a parede superior",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public boolean colidiu_com_parede_superior() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public boolean colidiu_com_parede_superior() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int idRetalho = meu_retalho();
         return GerenciadorInterface.getInstance().verificarColidiuParedeSuperior(idRetalho);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Verifica se o agente colidiu com a parede inferior",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public boolean colidiu_com_parede_inferior() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public boolean colidiu_com_parede_inferior() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int idRetalho = meu_retalho();
         return GerenciadorInterface.getInstance().verificarColidiuParedeInferior(idRetalho);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna se há outro agente no mesmo retalho do agente atual",
             autores = {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_agente_aqui() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao{
+    public int retornar_agente_aqui() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int idRetalho = meu_retalho();
         return GerenciadorExecucao.getInstance().buscarAgentesAqui(idRetalho);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Retorna a orientação de um agente específico buscando pelo seu id",
             parametros = {
@@ -963,10 +960,10 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public int retornar_orientacao_por_agente(int id_agente) throws ErroExecucaoBiblioteca, InterruptedException{
+    public int retornar_orientacao_por_agente(int id_agente) throws ErroExecucaoBiblioteca, InterruptedException {
         return GerenciadorExecucao.getInstance().getOrientacaoPorId(id_agente);
     }
-    
+
     @DocumentacaoFuncao(
             descricao = "Define qual será o título exibido na parte superior da simulação",
             parametros = {
@@ -976,12 +973,35 @@ public final class Experimentos extends Biblioteca {
                 @Autor(nome = "Douglas Breda", email = "bredadouglas@gmail.com")
             }
     )
-    public void definir_titulo_simulacao(String titulo) throws ErroExecucaoBiblioteca, InterruptedException{
+    public void definir_titulo_simulacao(String titulo) throws ErroExecucaoBiblioteca, InterruptedException {
         GerenciadorInterface.getInstance().definirTituloSimulacao(titulo);
     }
-    
+
+    /**
+     * Método não publicado na biblioteca para disparar erros no console do
+     * Portugol a partir da simulação e que recebe uma instância de um erro do
+     * simulador
+     *
+     * @param erro
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException
+     */
     @NaoExportar
-    public void adicionar_erro(ErroExecucaoSimulador erro) throws ErroExecucaoBiblioteca{
+    public void adicionar_erro(ErroExecucaoSimulador erro) throws ErroExecucaoBiblioteca, InterruptedException {
         throw new ErroExecucaoBiblioteca(erro.getMensagem());
+    }
+
+    /**
+     * Método não publicado na biblioteca para disparar erros no console do
+     * Portugol a partir da simulação e que recebe uma string com o erro do
+     * simulador 
+     * 
+     * @param mensagem
+     * @throws ErroExecucaoBiblioteca
+     * @throws InterruptedException 
+     */
+    @NaoExportar
+    public void adicionar_erro(String mensagem) throws ErroExecucaoBiblioteca, InterruptedException {
+        throw new ErroExecucaoBiblioteca(mensagem);
     }
 }

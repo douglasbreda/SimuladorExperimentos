@@ -54,34 +54,22 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.append("}");
 
             saida.println();
-            
+
             //Método de configurar que chama o início
             saida.append("@Override");
             saida.println();
             saida.append("public void configurar() throws ErroExecucao, InterruptedException{");
             saida.println();
-            saida.append("System.out.println(\"Vai chamar o método de simular\");");
             saida.append("Experimentos.simular();");
             saida.println();
-            saida.append("System.out.println(\"Vai definir o programa atual\");");
             saida.append("Experimentos.definir_programa_atual(this);");
             saida.println();
-            saida.append("System.out.println(\"Vai definir a lista de agentes\");");
             saida.append("setListaAgentes(Experimentos.retornar_lista_agentes());");
-            saida.append("if(listaAgentes == null)");
             saida.println();
-            saida.append("System.out.println(\"A lista de agentes está nula\");");
-            saida.println();
-            saida.append("else");
-            saida.println();
-            saida.append("System.out.println(\"Número de agentes\" + listaAgentes.size());");
-            saida.println();
-            saida.append("System.out.println(\"Vai iniciar\");");
             saida.append("inicio();");
             saida.append("Experimentos.atualizar_tela();");
             saida.println();
             saida.append("}");
-                    
 
             saida.append(identacao)
                     .append("@Override");
@@ -108,7 +96,6 @@ public class GeradorDeclaracaoMetodoSimulador {
 
         if (metodoPrincipal) {
             saida.append(identacao)
-                    .append("System.out.println(\"Executando método simular.\");")
                     .append("Experimentos.definir_programa_execucao(true);")
                     .append(identacao)
                     .append(identacao)
@@ -123,15 +110,11 @@ public class GeradorDeclaracaoMetodoSimulador {
                     .append("{").append(identacao);
 
             saida.println();
-            saida.append("System.out.println(\"Vai iniciar o laço.\");");
             saida.append("int contador = 0;");
             saida.append("setListaAgentes(Experimentos.retornar_lista_agentes());");
             saida.append("for(Object agente : listaAgentes) {");
             saida.println();
             saida.append(identacao);
-            saida.append("System.out.println(\"Repetição: \" + ++contador);");
-            saida.append("System.out.println(\"Está dentro do laço.\");");
-            saida.append("System.out.println(\"Total de agentes: .\" + listaAgentes.size());");
             saida.append("this.agenteAtual = agente;");
             saida.append("Experimentos.definir_agente_atual(agente);");
         }
@@ -149,12 +132,12 @@ public class GeradorDeclaracaoMetodoSimulador {
             saida.println();
 
             saida.append("} catch (ErroExecucaoBiblioteca ex) {\n")
-                 .append("throw new ErroExecucaoSimulador(ex.getMensagem());")
-                 .append("} catch (InterruptedException ex) {\n")
-                 .append("throw new ErroExecucaoSimulador(ex.getMensagem());")   
-                 .append("} catch (ErroExecucao ex) {")
-                 .append("throw new ErroExecucaoSimulador(ex.getMensagem());")
-                 .append("}\n");
+                    .append("Experimentos.adicionar_erro( new ErroExecucaoSimulador(ex.getMensagem()));")
+                    .append("} catch (InterruptedException ex) {\n")
+                    .append("Experimentos.adicionar_erro(new ErroExecucaoSimulador(ex.getMessage()));")
+                    .append("} catch (ErroExecucao ex) {")
+                    .append("Experimentos.adicionar_erro(new ErroExecucaoSimulador(ex.getMensagem()));")
+                    .append("}\n");
 
         }
         saida.append(identacao).append("}").println(); // finaliza o escopo do método
