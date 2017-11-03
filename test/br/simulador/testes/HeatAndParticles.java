@@ -5,6 +5,7 @@
 package br.simulador.testes;
 
 import br.simulador.plugin.biblioteca.Experimentos;
+import br.univali.portugol.nucleo.bibliotecas.Graficos;
 import br.univali.portugol.nucleo.bibliotecas.Tipos;
 import br.univali.portugol.nucleo.bibliotecas.base.ErroExecucaoBiblioteca;
 import br.univali.portugol.nucleo.mensagens.ErroExecucao;
@@ -82,14 +83,12 @@ public class HeatAndParticles {
         exp.definir_programa_execucao(true);
         try {
             int ticks = 0;
-            temperatura = exp.retornar_valor_atual_slider("temperatura");
             do {
                 setListaAgentes(exp.retornar_lista_agentes());
                 for (Object agente : listaAgentes) {
                     this.agenteAtual = agente;
                     exp.definir_agente_atual(agente);
-
-                    recolorir_agentes(exp.retornar_id());
+                    recolorir_agentes(0);
                     atualizar_variaveis();
                     pular();
                     mover();
@@ -116,6 +115,7 @@ public class HeatAndParticles {
         boolean colidindoY = exp.colidiu_com_parede_Y();
         boolean colidindoEsquerda = exp.colidiu_com_parede_esquerda();
         int idAgenteColidindo = exp.retornar_agente_aqui();
+        temperatura = exp.retornar_valor_atual_slider("temperatura");
 
         if (idAgenteColidindo > 0) {
             int orientacaoOutroAgente = exp.retornar_orientacao_por_agente(idAgenteColidindo);
@@ -139,7 +139,10 @@ public class HeatAndParticles {
                 exp.atualizar_valor_atributo("energia", String.valueOf(energia_atual));
                 exp.atualizar_valor_atributo("velocidade", String.valueOf(velocidade_atual));
 
-                recolorir_agentes(exp.retornar_id());
+                System.out.println("Valor de velocidade atualizado: " + exp.retornar_atributo_real("velocidade"));
+                System.out.println("Temperatura atual: " + temperatura);
+                
+                recolorir_agentes(velocidade_atual);
 
                 int orientacao = exp.retornar_orientacao();
                 int novaOrientacao = orientacao * (-1);
@@ -163,18 +166,18 @@ public class HeatAndParticles {
 
     private void recolorir_agentes(double velocidade) throws ErroExecucaoBiblioteca, InterruptedException {
         if (velocidade < 5) {
-            exp.definir_cor_agente(-16776961);
-        } else if (velocidade > 8) {
-            exp.definir_cor_agente(-65536);
+            exp.definir_cor_agente(Graficos.COR_AZUL);
+        } else if (velocidade > 10) {
+            exp.definir_cor_agente(Graficos.COR_VERMELHO);
         } else {
-            exp.definir_cor_agente(-16711936);
+            exp.definir_cor_agente(Graficos.COR_VERDE);
         }
     }
 
     private void mover() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
         int velocidade = tipo.real_para_inteiro(exp.retornar_atributo_real("velocidade"));
 //        System.out.println(velocidade);
-        exp.mover(3);
+        exp.mover(velocidade);
 //        exp.definir_cor_retalho(-256);
     }
 

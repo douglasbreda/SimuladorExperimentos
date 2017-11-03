@@ -268,15 +268,17 @@ public class GerenciadorDesenho {
     private void executar_acao(int botaoClicado) throws ErroExecucao, InterruptedException {
         boolean pausar = false;
 
-        if (!pausar && botaoClicado == referencias[indiceImagemBotaoIniciar]) {
-            GerenciadorExecucao.getInstance().iniciarSimulacao();
+        if (!pausar && (botaoClicado == referencias[indiceImagemBotaoIniciar]
+                || botaoClicado == referencias[indiceImagemBotaoIniciarHover])) {
             status = 1;
+            GerenciadorExecucao.getInstance().iniciarSimulacao();
             pausar = true;
         }
 
-        if (!pausar && botaoClicado == referencias[indiceImagemBotaParar]) {
-            GerenciadorExecucao.getInstance().setExecutando(false);
+        if (!pausar && (botaoClicado == referencias[indiceImagemBotaParar]
+                || botaoClicado == referencias[indiceImagemBotaoPararHover])) {
             status = 0;
+            GerenciadorExecucao.getInstance().setExecutando(false);
             pausar = true;
         }
     }
@@ -324,7 +326,7 @@ public class GerenciadorDesenho {
     private void desenhar() throws ErroExecucaoBiblioteca, InterruptedException, ErroExecucao {
 
         desenharTituloSimulacao(tituloSimulacao);
-        
+
         g.desenhar_imagem(0, 0, imagemFundo);
 
         desenharRetalhos();
@@ -344,10 +346,10 @@ public class GerenciadorDesenho {
 
     /**
      * Desenha o título do experimento
-     * 
+     *
      * @param titulo
      * @throws ErroExecucaoBiblioteca
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     private void desenharTituloSimulacao(String titulo) throws ErroExecucaoBiblioteca, InterruptedException {
         tituloSimulacao = titulo;
@@ -1199,8 +1201,8 @@ public class GerenciadorDesenho {
 
     /**
      * Define qual será o título do experimento da simulação
-     * 
-     * @param tituloSimulacao 
+     *
+     * @param tituloSimulacao
      */
     public void setTituloSimulacao(String tituloSimulacao) {
         this.tituloSimulacao = tituloSimulacao;
